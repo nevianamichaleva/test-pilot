@@ -5,6 +5,10 @@ import HomeFilters from "./HomeFilters";
 import styles from "./HomePage.module.css";
 import { getAllTests } from "@/data/tests";
 
+export const metadata = {
+  alternates: { canonical: "/" },
+};
+
 function pickPopular(tests, count = 3) {
   return [...tests]
     .sort((a, b) => (b.questionCount ?? 0) - (a.questionCount ?? 0))

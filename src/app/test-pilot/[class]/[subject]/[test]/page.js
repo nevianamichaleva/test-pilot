@@ -1,23 +1,53 @@
-import Footer from '@/components/Footer';
-import Quiz from '@/components/Quiz';
-import { getTest } from '@/data/tests';
-import Link from 'next/link';
+import Footer from "@/components/Footer";
+import Quiz from "@/components/Quiz";
+import { getTest } from "@/data/tests";
+import { SUBJECT_LABELS } from "@/lib/subjectLabels";
+import Link from "next/link";
 
-const SUBJECT_LABELS = {
-  english: 'Английски език',
-  geografia: 'География',
-  istoriya: 'История',
-  literatura: 'Литература',
-  matematika: 'Математика',
-  bg: 'Български език',
-  priroda: 'Човек и природа',
-};
+export async function generateMetadata({ params }) {
+  const resolved = await params;
+  const classNum = decodeURIComponent(resolved.class ?? "");
+  const subject = decodeURIComponent(resolved.subject ?? "");
+  const testSlug = decodeURIComponent(resolved.test ?? "");
+  const testData = getTest(classNum, subject, testSlug);
+  const subjectLabel = SUBJECT_LABELS[subject] ?? subject;
+
+  if (!testData) {
+    return {
+      title: "Тестът не е намерен",
+      description: "Търсеният тест не съществува или е премахнат.",
+      robots: { index: false, follow: true },
+    };
+  }
+
+  const title = `${testData.title} (${classNum}. клас)`;
+  const description = `Интерактивен онлайн тест с ${testData.questionCount} въпроса по ${subjectLabel} за ${classNum}. клас: ${testData.title}.`;
+
+  const path = `/test-pilot/${encodeURIComponent(classNum)}/${encodeURIComponent(subject)}/${encodeURIComponent(testSlug)}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: path,
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
+}
 
 export default async function TestPage({ params }) {
   const resolved = await params;
-  const classNum = decodeURIComponent(resolved.class ?? '');
-  const subject = decodeURIComponent(resolved.subject ?? '');
-  const testSlug = decodeURIComponent(resolved.test ?? '');
+  const classNum = decodeURIComponent(resolved.class ?? "");
+  const subject = decodeURIComponent(resolved.subject ?? "");
+  const testSlug = decodeURIComponent(resolved.test ?? "");
 
   const testData = getTest(classNum, subject, testSlug);
   const subjectLabel = SUBJECT_LABELS[subject] ?? subject;
