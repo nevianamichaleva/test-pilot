@@ -1,12 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 import { getAllTests } from "@/data/tests";
 
 import styles from "./TestPilot.module.css";
@@ -42,6 +41,29 @@ function buildSearch({ classNum, subject }) {
   return q ? `?${q}` : "";
 }
 
+function testsForClass(tests, classNumStr) {
+  if (!classNumStr) return tests;
+  return tests.filter((t) => normalizeClassNum(t.classNum) === classNumStr);
+}
+
+function orderedSubjectsFromPool(pool) {
+  const unique = uniq(pool.map((t) => t.subject).filter(Boolean)).sort();
+  const preferred = ["bg", "matematika", "english", "geografia", "istoriya", "priroda", "literatura"];
+  return [
+    ...preferred.filter((s) => unique.includes(s)),
+    ...unique.filter((s) => !preferred.includes(s)),
+  ];
+}
+
+/** Стабилно сравнение на query string (ред на ключовете не е важен). */
+function normalizeQueryString(qs) {
+  const p = new URLSearchParams(typeof qs === "string" ? qs : "");
+  return [...p.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([k, v]) => `${k}=${v}`)
+    .join("&");
+}
+
 function pickDescription(subject) {
   switch (subject) {
     case "matematika":
@@ -66,8 +88,6 @@ function pickDescription(subject) {
 export default function TestPilotClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [selectedClass, setSelectedClass] = useState("");
-  const [selectedSubject, setSelectedSubject] = useState("");
   const [visibleCount, setVisibleCount] = useState(4);
 
   const tests = useMemo(() => getAllTests(), []);
@@ -77,16 +97,17 @@ export default function TestPilotClient() {
     return sortNumericStrings(uniq(all));
   }, [tests]);
 
-  const subjectOptions = useMemo(() => {
-    const all = tests.map((t) => t.subject).filter(Boolean);
-    const unique = uniq(all).sort();
-    // Prefer labels order when present.
-    const preferred = ["bg", "matematika", "english", "geografia", "istoriya", "priroda", "literatura"];
-    return [
-      ...preferred.filter((s) => unique.includes(s)),
-      ...unique.filter((s) => !preferred.includes(s)),
-    ];
-  }, [tests]);
+  const qpClassRaw = searchParams?.get("class") ?? "";
+  const qpSubjectRaw = searchParams?.get("subject") ?? "";
+  const normalizedClass = qpClassRaw ? normalizeClassNum(qpClassRaw) : "";
+  const selectedClass = classOptions.includes(normalizedClass) ? normalizedClass : "";
+
+  const pool = useMemo(() => testsForClass(tests, selectedClass), [tests, selectedClass]);
+
+  /** Предмети, за които има тестове за избрания клас (или за всички класове). */
+  const subjectOptions = useMemo(() => orderedSubjectsFromPool(pool), [pool]);
+
+  const selectedSubject = subjectOptions.includes(qpSubjectRaw) ? qpSubjectRaw : "";
 
   const filtered = useMemo(() => {
     return tests.filter((t) => {
@@ -98,23 +119,17 @@ export default function TestPilotClient() {
 
   const visible = useMemo(() => filtered.slice(0, visibleCount), [filtered, visibleCount]);
 
-  useEffect(() => {
-    const qpClass = searchParams?.get("class") ?? "";
-    const qpSubject = searchParams?.get("subject") ?? "";
-    const normalizedClass = qpClass ? normalizeClassNum(qpClass) : "";
+  const canonicalQuery = useMemo(
+    () => buildSearch({ classNum: selectedClass, subject: selectedSubject }).replace(/^\?/, ""),
+    [selectedClass, selectedSubject]
+  );
 
-    setSelectedClass(classOptions.includes(normalizedClass) ? normalizedClass : "");
-    setSelectedSubject(subjectOptions.includes(qpSubject) ? qpSubject : "");
-    setVisibleCount(4);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
-
+  /** Премахва невалидни комбинации от адресната лента (без React state в ефект). */
   useEffect(() => {
-    const q = buildSearch({ classNum: selectedClass, subject: selectedSubject });
-    const current = searchParams?.toString() ? `?${searchParams.toString()}` : "";
-    if (q !== current) router.replace(`/test-pilot${q}`, { scroll: false });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedClass, selectedSubject]);
+    const cur = searchParams.toString();
+    if (normalizeQueryString(cur) === normalizeQueryString(canonicalQuery)) return;
+    router.replace(`/test-pilot${canonicalQuery ? `?${canonicalQuery}` : ""}`, { scroll: false });
+  }, [canonicalQuery, searchParams, router]);
 
   const pageTitle = useMemo(() => {
     if (selectedSubject && selectedClass) {
@@ -128,74 +143,58 @@ export default function TestPilotClient() {
 
   return (
     <div className={styles.page}>
-      <Header />
-
       <main className={styles.wrap}>
-        <div className={styles.crumbs}>
-          <Link href="/">Начало</Link>
-          <span aria-hidden>/</span>
-          <Link href="/test-pilot">Тестове</Link>
-          {selectedSubject ? (
-            <>
-              <span aria-hidden>/</span>
-              <span>{SUBJECT_LABELS[selectedSubject] ?? selectedSubject}</span>
-            </>
-          ) : null}
-        </div>
+        <PageHero variant="page" title={pageTitle} subtitle={heroDesc}>
+          <div className={styles.filters}>
+            <label>
+              <span className="sr-only">Клас</span>
+              <select
+                className={styles.select}
+                value={selectedClass}
+                onChange={(e) => {
+                  const nextClass = e.target.value;
+                  const nextPool = testsForClass(tests, nextClass);
+                  const validSubjects = new Set(nextPool.map((t) => t.subject));
+                  const nextSubject =
+                    selectedSubject && validSubjects.has(selectedSubject) ? selectedSubject : "";
+                  setVisibleCount(4);
+                  router.replace(`/test-pilot${buildSearch({ classNum: nextClass, subject: nextSubject })}`, {
+                    scroll: false,
+                  });
+                }}
+              >
+                <option value="">Всички класове</option>
+                {classOptions.map((c) => (
+                  <option key={c} value={c}>
+                    {c}. клас
+                  </option>
+                ))}
+              </select>
+            </label>
 
-        <section className={styles.hero}>
-          <div className={styles.heroInner}>
-            <div>
-              <h1 className={styles.heroTitle}>{pageTitle}</h1>
-              <p className={styles.heroSub}>{heroDesc}</p>
-
-              <div className={styles.filters}>
-                <label>
-                  <span className="sr-only">Клас</span>
-                  <select
-                    className={styles.select}
-                    value={selectedClass}
-                    onChange={(e) => setSelectedClass(e.target.value)}
-                  >
-                    <option value="">Всички класове</option>
-                    {classOptions.map((c) => (
-                      <option key={c} value={c}>
-                        {c}. клас
-                      </option>
-                    ))}
-                  </select>
-                </label>
-
-                <label>
-                  <span className="sr-only">Предмет</span>
-                  <select
-                    className={styles.select}
-                    value={selectedSubject}
-                    onChange={(e) => setSelectedSubject(e.target.value)}
-                  >
-                    <option value="">Всички предмети</option>
-                    {subjectOptions.map((s) => (
-                      <option key={s} value={s}>
-                        {SUBJECT_LABELS[s] ?? s}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-            </div>
-
-            <div className={styles.heroArt}>
-              <Image
-                className={styles.heroImg}
-                src="/test-pilot.png"
-                alt="Тестове"
-                width={720}
-                height={460}
-                priority
-              />
-            </div>
+            <label>
+              <span className="sr-only">Предмет</span>
+              <select
+                className={styles.select}
+                value={selectedSubject}
+                onChange={(e) => {
+                  const nextSubject = e.target.value;
+                  setVisibleCount(4);
+                  router.replace(`/test-pilot${buildSearch({ classNum: selectedClass, subject: nextSubject })}`, {
+                    scroll: false,
+                  });
+                }}
+              >
+                <option value="">Всички предмети</option>
+                {subjectOptions.map((s) => (
+                  <option key={s} value={s}>
+                    {SUBJECT_LABELS[s] ?? s}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
-        </section>
+        </PageHero>
 
         {filtered.length === 0 ? (
           <p style={{ marginTop: 14, color: "rgba(26,58,82,0.75)" }}>

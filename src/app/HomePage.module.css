@@ -11,111 +11,7 @@
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 18px 20px 56px;
-}
-
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 10px 14px;
-  border-radius: 18px;
-  background: rgba(30, 77, 128, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 12px 40px rgba(10, 35, 70, 0.16);
-  backdrop-filter: blur(10px);
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: white;
-  text-decoration: none;
-  font-weight: 800;
-  letter-spacing: 0.2px;
-}
-
-.brandMark {
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #ffd36a, #ff7a59);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
-  display: grid;
-  place-items: center;
-  font-weight: 900;
-  color: #15304a;
-}
-
-.nav {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.nav a {
-  color: rgba(255, 255, 255, 0.92);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 14px;
-  padding: 8px 10px;
-  border-radius: 12px;
-}
-
-.nav a:hover {
-  background: rgba(255, 255, 255, 0.14);
-}
-
-.ctaSmall {
-  background: rgba(111, 220, 130, 0.95);
-  color: #0b2b1b !important;
-  font-weight: 800 !important;
-  padding: 10px 12px !important;
-}
-
-.hero {
-  margin-top: 14px;
-  border-radius: 26px;
-  overflow: hidden;
-  background:
-    radial-gradient(900px 520px at 75% 10%, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0) 55%),
-    linear-gradient(135deg, #2e7ad0 0%, #2e65c4 35%, #1b4b93 100%);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 18px 60px rgba(10, 35, 70, 0.22);
-}
-
-.heroInner {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 18px;
-  padding: 26px 24px;
-  align-items: center;
-}
-
-.hero h1 {
-  color: white;
-  font-size: 44px;
-  line-height: 1.05;
-  margin: 0;
-  letter-spacing: -0.6px;
-}
-
-.hero p {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 16px;
-  margin: 12px 0 0;
-  max-width: 42ch;
-}
-
-.heroActions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 18px;
+  padding: 8px 20px 56px;
 }
 
 .cta {
@@ -147,18 +43,11 @@
   color: rgba(255, 255, 255, 0.95);
 }
 
-.illustrationWrap {
-  display: grid;
-  place-items: center;
-}
-
-.illustration {
-  width: min(360px, 100%);
-  height: auto;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.26);
-  background: rgba(255, 255, 255, 0.06);
+.heroActionRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .section {
@@ -200,6 +89,8 @@
 }
 
 .pill {
+  cursor: pointer;
+  font: inherit;
   text-decoration: none;
   font-weight: 900;
   font-size: 14px;
@@ -208,6 +99,13 @@
   border-radius: 14px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.08);
+}
+
+.pillSelected {
+  box-shadow:
+    0 10px 18px rgba(0, 0, 0, 0.12),
+    0 0 0 3px rgba(255, 255, 255, 0.55),
+    0 0 0 5px rgba(26, 58, 82, 0.35);
 }
 
 .pillOrange {
@@ -230,6 +128,14 @@
 }
 .pillGold {
   background: linear-gradient(135deg, #ffcd3c, #ff9a1a);
+}
+
+.emptySubjects {
+  margin: 0;
+  padding: 18px 20px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.72);
 }
 
 .cards {
@@ -344,17 +250,101 @@
 }
 
 @media (max-width: 980px) {
-  .heroInner {
-    grid-template-columns: 1fr;
-  }
-  .illustrationWrap {
-    justify-content: start;
-  }
   .cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .popularGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 6px 14px 44px;
+  }
+
+  .heroActionRow {
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .heroActionRow .cta,
+  .heroActionRow .ghost {
+    width: auto;
+    flex: 0 1 auto;
+    min-width: 0;
+    min-height: 40px;
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    gap: 6px;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 14px 16px;
+  }
+
+  .sectionTitle {
+    font-size: 17px;
+  }
+
+  .sectionHint {
+    font-size: 14px;
+    line-height: 1.45;
+    max-width: none;
+  }
+
+  .pillRow {
+    padding: 12px 14px 16px;
+    gap: 10px;
+  }
+
+  .pill {
+    min-height: 44px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    padding: 12px 14px 16px;
+    gap: 12px;
+  }
+
+  .cardTop {
+    min-height: 88px;
+  }
+
+  .cardTitle {
+    font-size: 16px;
+  }
+
+  .cardMeta {
+    font-size: 13px;
+  }
+
+  .popularGrid {
+    padding: 12px 14px 16px;
+  }
+
+  .popularTitle {
+    font-size: 15px;
+  }
+
+  .popularMeta {
+    font-size: 13px;
+  }
+
+  .moreBtn {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    min-height: 48px;
   }
 }
 

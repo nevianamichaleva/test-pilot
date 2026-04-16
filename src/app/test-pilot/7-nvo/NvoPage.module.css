@@ -1,0 +1,63 @@
+.backLink {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 1000;
+  color: #1a3a52;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+.backLink:hover {
+  background: #fff;
+}
+
+.stack {
+  margin-top: 14px;
+  display: grid;
+  gap: 14px;
+}
+
+.panel {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 40px rgba(10, 35, 70, 0.1);
+  overflow: hidden;
+}
+
+.panelHead {
+  margin: 0;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 17px;
+  font-weight: 1000;
+  color: #1a3a52;
+}
+
+.panelBody {
+  padding: 16px 18px 18px;
+}
+
+.selectWrap {
+  display: block;
+}
+
+.selectFull {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: 44px;
+}
+
+.emptyHint {
+  margin: 12px 0 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.62);
+}

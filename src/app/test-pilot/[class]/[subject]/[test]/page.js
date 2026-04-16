@@ -1,5 +1,4 @@
 import Footer from '@/components/Footer';
-import Header from '@/components/Header';
 import Quiz from '@/components/Quiz';
 import { getTest } from '@/data/tests';
 import Link from 'next/link';
@@ -26,7 +25,6 @@ export default async function TestPage({ params }) {
   if (!testData) {
     return (
       <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-        <Header />
         <div style={{ flex: 1, display: "grid", placeItems: "center", padding: 24 }}>
           <div style={{ textAlign: "center", maxWidth: 520 }}>
             <h1 style={{ margin: 0, fontSize: 44, color: "#1a3a52" }}>404</h1>

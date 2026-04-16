@@ -1,32 +1,38 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import Link from 'next/link';
+import { collection, getDocs } from "firebase/firestore";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
+import { getFirebaseDb, isFirebaseConfigured } from "@/lib/firebase";
+
+import tp from "../TestPilot.module.css";
+import styles from "./Rezultati.module.css";
 
 const SUBJECT_LABELS = {
-  bg: 'Български език',
-  english: 'Английски език',
-  geografia: 'География',
-  istoriya: 'История',
-  matematika: 'Математика',
+  bg: "Български език",
+  english: "Английски език",
+  geografia: "География",
+  istoriya: "История",
+  matematika: "Математика",
+  literatura: "Литература",
+  priroda: "Човек и природа",
 };
 
-const SUBJECT_ORDER = ['bg', 'english', 'geografia', 'istoriya'];
+const SUBJECT_ORDER = ["bg", "english", "geografia", "istoriya", "matematika", "priroda", "literatura"];
 
 /** Извлича предмет от testId (напр. "5|bg|morfolojiya" -> "bg"). */
 function getSubject(testId) {
-  if (!testId || typeof testId !== 'string') return null;
-  const parts = testId.split('|');
+  if (!testId || typeof testId !== "string") return null;
+  const parts = testId.split("|");
   return parts.length >= 2 ? parts[1] : null;
 }
 
 /** Извлича числова оценка от assessment (напр. "5 (Отличен)" -> 5). */
 function getGradeFromAssessment(assessment) {
-  if (!assessment || typeof assessment !== 'string') return 0;
+  if (!assessment || typeof assessment !== "string") return 0;
   const num = parseFloat(assessment);
   return Number.isFinite(num) ? num : 0;
 }
@@ -36,7 +42,7 @@ function toJsDate(timestamp) {
   if (!timestamp) return null;
   try {
     if (timestamp.toDate) return timestamp.toDate();
-    if (typeof timestamp.seconds === 'number') return new Date(timestamp.seconds * 1000);
+    if (typeof timestamp.seconds === "number") return new Date(timestamp.seconds * 1000);
   } catch {
     // ignore
   }
@@ -46,13 +52,13 @@ function toJsDate(timestamp) {
 /** Форматира дата от Firestore Timestamp или обект. */
 function formatDate(timestamp) {
   const date = toJsDate(timestamp);
-  if (!date) return '–';
-  return date.toLocaleDateString('bg-BG', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+  if (!date) return "–";
+  return date.toLocaleDateString("bg-BG", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   });
 }
 
@@ -65,18 +71,33 @@ export default function RezultatiPage() {
     let cancelled = false;
     async function fetchResults() {
       try {
-        const snap = await getDocs(collection(db, 'results'));
+        if (!isFirebaseConfigured()) {
+          if (!cancelled) {
+            setError(
+              "Firebase не е конфигуриран. Създай `.env.local` от `.env.example` и попълни `NEXT_PUBLIC_FIREBASE_*` стойностите."
+            );
+          }
+          return;
+        }
+
+        const db = getFirebaseDb();
+        if (!db) {
+          if (!cancelled) setError("Firebase не може да се инициализира (липсва конфигурация).");
+          return;
+        }
+
+        const snap = await getDocs(collection(db, "results"));
         if (cancelled) return;
         const list = [];
         snap.forEach((doc) => {
           const data = doc.data();
           list.push({
             id: doc.id,
-            name: data.name || 'Анонимен',
-            points: data.points || '–',
-            assessment: data.assessment || '–',
-            test: data.test || '',
-            testTitle: data.testTitle || data.test || '–',
+            name: data.name || "Анонимен",
+            points: data.points || "–",
+            assessment: data.assessment || "–",
+            test: data.test || "",
+            testTitle: data.testTitle || data.test || "–",
             createdAt: data.createdAt ?? null,
             subject: getSubject(data.test),
             grade: getGradeFromAssessment(data.assessment),
@@ -93,95 +114,86 @@ export default function RezultatiPage() {
             return 0;
           }
         });
-        // Показваме само последните 15 резултата.
         setResults(list.slice(0, 15));
       } catch (err) {
-        if (!cancelled) setError(err?.message || 'Грешка при зареждане.');
+        if (!cancelled) setError(err?.message || "Грешка при зареждане.");
       } finally {
         if (!cancelled) setLoading(false);
       }
     }
     fetchResults();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const bySubject = {};
   results.forEach((r) => {
-    const sub = r.subject || 'друг';
+    const sub = r.subject || "друг";
     if (!bySubject[sub]) bySubject[sub] = [];
     bySubject[sub].push(r);
   });
   SUBJECT_ORDER.forEach((s) => {
     if (bySubject[s]) bySubject[s].sort((a, b) => b.grade - a.grade);
   });
-  const otherSubject = bySubject['друг'];
+  const otherSubject = bySubject["друг"];
   if (otherSubject) otherSubject.sort((a, b) => b.grade - a.grade);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 flex flex-col">
-      <Header />
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Резултати от тестовете</h1>
-            <p className="text-gray-600">
-              Последните 15 резултата и класация по предмет.
-            </p>
-          </div>
-          <Link
-            href="/test-pilot"
-            className="text-[#1a3a52] hover:text-[#1a3a52]/80 font-medium underline underline-offset-2"
-          >
-            Назад към тестове
-          </Link>
-        </div>
+    <div className={tp.page}>
+      <main className={tp.wrap}>
+        <PageHero
+          variant="page"
+          title="Резултати от тестовете"
+          subtitle="Последните 15 резултата и класация по предмет."
+          actions={
+            <Link href="/test-pilot" className={styles.backLink}>
+              Към тестовете <span aria-hidden>›</span>
+            </Link>
+          }
+        />
 
         {loading && (
-          <p className="text-gray-600 text-center py-12">Зареждане...</p>
+          <p className={`${styles.message} ${styles.messageCenter}`}>Зареждане...</p>
         )}
 
-        {error && !results.length && (
-          <p className="text-red-600 bg-red-50 p-4 rounded-xl">{error}</p>
-        )}
+        {error && !results.length && <p className={styles.messageError}>{error}</p>}
 
-        {!loading && results.length === 0 && (
-          <p className="text-gray-600 bg-white/70 rounded-xl p-8 text-center">
+        {!loading && results.length === 0 && !error && (
+          <p className={`${styles.message} ${styles.messageCenter}`}>
             Все още няма записани резултати. Резултатите се записват автоматично при завършване на тест.
           </p>
         )}
 
         {!loading && results.length > 0 && (
-          <div className="space-y-10">
-            {/* Всички резултати */}
-            <section className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden">
-              <h2 className="text-xl font-semibold text-[#1a3a52] px-6 py-4 border-b border-gray-200">
-                Последни 15 резултата
-              </h2>
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
+          <>
+            <section className={styles.panel}>
+              <h2 className={styles.panelHead}>Последни 15 резултата</h2>
+              <div className={styles.tableScroll}>
+                <table className={styles.table}>
                   <thead>
-                    <tr className="bg-gray-50 border-b border-gray-200">
-                      <th className="px-4 py-3 font-semibold text-gray-700">Дата</th>
-                      <th className="px-4 py-3 font-semibold text-gray-700">Име</th>
-                      <th className="px-4 py-3 font-semibold text-gray-700">Предмет</th>
-                      <th className="px-4 py-3 font-semibold text-gray-700">Тест</th>
-                      <th className="px-4 py-3 font-semibold text-gray-700">Точки</th>
-                      <th className="px-4 py-3 font-semibold text-gray-700">Оценка</th>
+                    <tr>
+                      <th>Дата</th>
+                      <th>Име</th>
+                      <th>Предмет</th>
+                      <th>Тест</th>
+                      <th>Точки</th>
+                      <th>Оценка</th>
                     </tr>
                   </thead>
                   <tbody>
                     {results.map((r) => (
-                      <tr key={r.id} className="border-b border-gray-100 hover:bg-gray-50/50">
-                        <td className="px-4 py-3 text-gray-600 text-sm">{formatDate(r.createdAt)}</td>
-                        <td className="px-4 py-3 font-medium text-gray-800">{r.name}</td>
-                        <td className="px-4 py-3 text-gray-700">
-                          {SUBJECT_LABELS[r.subject] || r.subject || '–'}
+                      <tr key={r.id}>
+                        <td className={styles.cellMuted}>{formatDate(r.createdAt)}</td>
+                        <td className={styles.cellStrong}>{r.name}</td>
+                        <td>{SUBJECT_LABELS[r.subject] || r.subject || "–"}</td>
+                        <td>
+                          <span className={styles.truncate} title={r.testTitle}>
+                            {r.testTitle}
+                          </span>
                         </td>
-                        <td className="px-4 py-3 text-gray-700 max-w-[200px] truncate" title={r.testTitle}>
-                          {r.testTitle}
-                        </td>
-                        <td className="px-4 py-3 text-gray-700">{r.points}</td>
-                        <td className="px-4 py-3 font-semibold text-[#1a3a52]">{r.assessment}</td>
+                        <td>{r.points}</td>
+                        <td className={styles.cellStrong}>{r.assessment}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -189,65 +201,54 @@ export default function RezultatiPage() {
               </div>
             </section>
 
-            {/* Класация по предмет */}
-            <section className="space-y-6">
-              <h2 className="text-2xl font-semibold text-[#1a3a52]">Класация по предмет</h2>
-              <div className="grid gap-6 sm:grid-cols-1 lg:grid-cols-2">
-                {SUBJECT_ORDER.filter((s) => bySubject[s]?.length).map((subject) => (
-                  <div
-                    key={subject}
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden"
-                  >
-                    <h3 className="text-lg font-semibold text-[#1a3a52] px-6 py-4 border-b border-gray-200">
-                      {SUBJECT_LABELS[subject]}
-                    </h3>
-                    <ol className="divide-y divide-gray-100">
-                      {bySubject[subject].slice(0, 10).map((r, i) => (
-                        <li key={r.id} className="flex items-center justify-between px-6 py-3">
-                          <span className="flex items-center gap-3">
-                            <span className="text-lg font-bold text-gray-400 w-6">
-                              {i + 1}.
-                            </span>
-                            <span className="font-medium text-gray-800">{r.name}</span>
-                          </span>
-                          <span className="text-sm text-gray-600">
-                            {r.assessment} <span className="text-gray-400">({r.points})</span>
-                          </span>
-                        </li>
-                      ))}
-                    </ol>
-                    {bySubject[subject].length > 10 && (
-                      <p className="px-6 py-2 text-sm text-gray-500">
-                        и още {bySubject[subject].length - 10} резултата
-                      </p>
-                    )}
-                  </div>
-                ))}
-                {otherSubject?.length > 0 && (
-                  <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden">
-                    <h3 className="text-lg font-semibold text-[#1a3a52] px-6 py-4 border-b border-gray-200">
-                      Други
-                    </h3>
-                    <ol className="divide-y divide-gray-100">
-                      {otherSubject.slice(0, 10).map((r, i) => (
-                        <li key={r.id} className="flex items-center justify-between px-6 py-3">
-                          <span className="flex items-center gap-3">
-                            <span className="text-lg font-bold text-gray-400 w-6">{i + 1}.</span>
-                            <span className="font-medium text-gray-800">{r.name}</span>
-                          </span>
-                          <span className="text-sm text-gray-600">
-                            {r.assessment} <span className="text-gray-400">({r.points})</span>
-                          </span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                )}
-              </div>
-            </section>
-          </div>
+            <h2 className={styles.sectionTitle}>Класация по предмет</h2>
+            <div className={styles.rankGrid}>
+              {SUBJECT_ORDER.filter((s) => bySubject[s]?.length).map((subject) => (
+                <div key={subject} className={styles.panel}>
+                  <h3 className={styles.panelHead}>{SUBJECT_LABELS[subject]}</h3>
+                  <ol className={styles.rankList}>
+                    {bySubject[subject].slice(0, 10).map((r, i) => (
+                      <li key={r.id} className={styles.rankItem}>
+                        <span className={styles.rankLeft}>
+                          <span className={styles.rankNum}>{i + 1}.</span>
+                          <span className={styles.rankName}>{r.name}</span>
+                        </span>
+                        <span className={styles.rankMeta}>
+                          {r.assessment}{" "}
+                          <span className={styles.cellMuted}>({r.points})</span>
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                  {bySubject[subject].length > 10 && (
+                    <p className={styles.rankFoot}>и още {bySubject[subject].length - 10} резултата</p>
+                  )}
+                </div>
+              ))}
+              {otherSubject?.length > 0 && (
+                <div className={styles.panel}>
+                  <h3 className={styles.panelHead}>Други</h3>
+                  <ol className={styles.rankList}>
+                    {otherSubject.slice(0, 10).map((r, i) => (
+                      <li key={r.id} className={styles.rankItem}>
+                        <span className={styles.rankLeft}>
+                          <span className={styles.rankNum}>{i + 1}.</span>
+                          <span className={styles.rankName}>{r.name}</span>
+                        </span>
+                        <span className={styles.rankMeta}>
+                          {r.assessment}{" "}
+                          <span className={styles.cellMuted}>({r.points})</span>
+                        </span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+            </div>
+          </>
         )}
       </main>
+
       <Footer />
     </div>
   );

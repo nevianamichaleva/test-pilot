@@ -1,0 +1,185 @@
+.panel {
+  margin-top: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 40px rgba(10, 35, 70, 0.1);
+  overflow: hidden;
+}
+
+.panelHead {
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 17px;
+  font-weight: 1000;
+  color: #1a3a52;
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px 14px;
+  background: rgba(234, 243, 255, 0.95);
+  color: rgba(26, 58, 82, 0.88);
+  font-weight: 1000;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  color: rgba(26, 58, 82, 0.9);
+  vertical-align: top;
+}
+
+.table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.cellMuted {
+  color: rgba(26, 58, 82, 0.65);
+  font-size: 13px;
+}
+
+.cellStrong {
+  font-weight: 1000;
+  color: #1a3a52;
+}
+
+.truncate {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.message {
+  margin-top: 14px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.85);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 12px 28px rgba(10, 35, 70, 0.08);
+}
+
+.messageError {
+  margin-top: 14px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(180, 35, 24, 0.2);
+  font-weight: 700;
+  color: #7a1e16;
+  background: rgba(254, 238, 236, 0.95);
+  box-shadow: 0 12px 28px rgba(10, 35, 70, 0.08);
+}
+
+.messageCenter {
+  text-align: center;
+}
+
+.sectionTitle {
+  margin: 22px 0 12px;
+  font-size: 22px;
+  font-weight: 1000;
+  color: #1a3a52;
+  letter-spacing: -0.3px;
+}
+
+.rankGrid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 920px) {
+  .rankGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rankList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rankItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.rankItem:first-child {
+  border-top: none;
+}
+
+.rankLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.rankNum {
+  font-weight: 1000;
+  color: rgba(26, 58, 82, 0.4);
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.rankName {
+  font-weight: 900;
+  color: #1a3a52;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rankMeta {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(26, 58, 82, 0.72);
+  text-align: right;
+}
+
+.rankFoot {
+  padding: 10px 18px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.55);
+}
+
+.backLink {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 1000;
+  color: #1a3a52;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+.backLink:hover {
+  background: #fff;
+}

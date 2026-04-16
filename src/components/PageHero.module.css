@@ -1,0 +1,136 @@
+.hero {
+  margin-top: 14px;
+  overflow: hidden;
+  background:
+    radial-gradient(900px 520px at 75% 10%, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(135deg, #2e7ad0 0%, #2e65c4 35%, #1b4b93 100%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 18px 60px rgba(10, 35, 70, 0.22);
+}
+
+/* Начална: по-изразено заобляне отдясно (горен и долен десен ъгъл). */
+.heroHome {
+  border-radius: 22px 56px 52px 26px;
+}
+
+/* Останали страници: равномерно заоблена карта. */
+.heroPage {
+  border-radius: 26px;
+}
+
+.heroInner {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 18px;
+  padding: 26px 24px;
+  align-items: center;
+}
+
+.heroTitle {
+  margin: 0;
+  color: #fff;
+  font-size: 44px;
+  line-height: 1.05;
+  letter-spacing: -0.55px;
+  font-weight: 900;
+}
+
+.heroSub {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 16px;
+  line-height: 1.45;
+  max-width: 48ch;
+  font-weight: 600;
+}
+
+.heroSubMeta {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1.45;
+  max-width: none;
+}
+
+.filtersSlot {
+  margin-top: 14px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.heroArt {
+  display: grid;
+  place-items: center;
+}
+
+.heroImg {
+  width: min(420px, 100%);
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.26);
+}
+
+@media (max-width: 980px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+  }
+
+  .heroArt {
+    order: -1;
+    justify-items: center;
+  }
+
+  .heroImg {
+    max-width: min(360px, 100%);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    margin-top: 10px;
+  }
+
+  .heroHome {
+    border-radius: 18px 36px 32px 18px;
+  }
+
+  .heroPage {
+    border-radius: 18px;
+  }
+
+  .heroInner {
+    padding: 18px 16px;
+    gap: 14px;
+  }
+
+  .heroTitle {
+    font-size: clamp(26px, 7.5vw, 34px);
+    letter-spacing: -0.35px;
+  }
+
+  .heroSub,
+  .heroSubMeta {
+    font-size: 15px;
+    max-width: none;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 16px;
+  }
+
+  .heroActions > * {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
