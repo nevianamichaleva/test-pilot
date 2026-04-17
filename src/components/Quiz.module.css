@@ -42,6 +42,22 @@
   color: #1a3a52;
 }
 
+.readingContext {
+  margin: 0 0 2px;
+  padding: 14px 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(26, 58, 82, 0.1);
+  background: rgba(248, 251, 255, 0.95);
+  color: rgba(26, 58, 82, 0.92);
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 650;
+  white-space: pre-wrap;
+  max-height: min(52vh, 420px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .divider {
   height: 1px;
   background: rgba(26, 58, 82, 0.12);
@@ -219,5 +235,105 @@
 .textInputGrow {
   flex: 1 1 240px;
   min-width: 200px;
+}
+
+.noOptions {
+  margin: 0;
+  padding: 14px 12px;
+  border-radius: 14px;
+  border: 1px dashed rgba(180, 35, 24, 0.35);
+  background: rgba(255, 240, 238, 0.65);
+  color: rgba(122, 27, 21, 0.92);
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.orderList {
+  margin: 0;
+  padding: 0 0 0 22px;
+  display: grid;
+  gap: 10px;
+}
+
+.orderRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(46, 122, 208, 0.2);
+  background: rgba(248, 251, 255, 0.9);
+}
+
+.orderText {
+  flex: 1 1 auto;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 750;
+  color: #1a3a52;
+}
+
+.orderBtns {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.orderBtn {
+  min-width: 40px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.95);
+  font-weight: 900;
+  cursor: pointer;
+  color: #1a3a52;
+}
+
+.orderBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.matchGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.matchRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(46, 122, 208, 0.2);
+  background: rgba(248, 251, 255, 0.9);
+}
+
+.matchLeft {
+  font-size: 15px;
+  font-weight: 850;
+  color: #1a3a52;
+  line-height: 1.35;
+}
+
+.matchSelect {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(46, 122, 208, 0.28);
+  padding: 8px 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a3a52;
+  background: white;
+}
+
+@media (max-width: 560px) {
+  .matchRow {
+    grid-template-columns: 1fr;
+  }
 }
 

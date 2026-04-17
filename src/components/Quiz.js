@@ -4,7 +4,7 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import Link from "next/link";
 
 import PageHero from "@/components/PageHero";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 
 import { getFirebaseDb, isFirebaseConfigured } from "@/lib/firebase";
 
@@ -21,7 +21,86 @@ function isTextQuestion(q) {
 
 function getQuestionText(q) {
   if (!q) return "—";
-  return q.question ?? q.q ?? "—";
+  const t = q.question ?? q.q;
+  if (typeof t === "string" && t.trim()) return t.trim();
+  if (isOrderingQuestion(q)) return "Подреди елементите в правилната последователност.";
+  if (isMatchingQuestion(q)) return "Съчетай всеки елемент отляво с верния отдясно.";
+  return "—";
+}
+
+function isOrderingQuestion(q) {
+  return q?.type === "ordering" && Array.isArray(q.items) && q.items.filter(Boolean).length >= 2;
+}
+
+function isMatchingQuestion(q) {
+  if (q?.type !== "matching" || !Array.isArray(q.pairs)) return false;
+  return q.pairs.every((p) => Array.isArray(p) && p.length >= 2 && typeof p[0] === "string" && typeof p[1] === "string");
+}
+
+function hashStringToSeed(str) {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < str.length; i += 1) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+function mulberry32(a) {
+  let t = a >>> 0;
+  return function next() {
+    t += 0x6d2b79f5;
+    let r = t;
+    r = Math.imul(r ^ (r >>> 15), r | 1);
+    r ^= r + Math.imul(r ^ (r >>> 7), r | 61);
+    return ((r ^ (r >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function shuffleArray(items, seed) {
+  const rng = mulberry32(seed >>> 0);
+  const a = [...items];
+  for (let i = a.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(rng() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function dedupeOptionStrings(arr) {
+  const seen = new Set();
+  const out = [];
+  for (const x of arr) {
+    const key = normalizeText(x);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    out.push(typeof x === "string" ? x : String(x));
+  }
+  return out;
+}
+
+/** Текст за четене (НВО и др.): важи за всички следващи въпроси до следващия блок с sectionIntro. */
+function getReadingContextForQuestion(qs, qIndex) {
+  if (!Array.isArray(qs) || qIndex < 0) return "";
+  for (let i = qIndex; i >= 0; i -= 1) {
+    const q = qs[i];
+    const raw = q?.sectionIntro ?? q?.passage ?? q?.readingText ?? q?.contextText;
+    if (typeof raw === "string" && raw.trim()) return raw.trim();
+  }
+  return "";
+}
+
+/** Варианти за избор (без разбъркване): `options` или correct + wrong1… */
+function getMcOptionsRaw(q) {
+  if (!q || isTextQuestion(q)) return [];
+  if (isOrderingQuestion(q) || isMatchingQuestion(q)) return [];
+  if (Array.isArray(q.options) && q.options.length) {
+    return dedupeOptionStrings(q.options.map(normalizeOption));
+  }
+  const raw = [q.correct, q.wrong1, q.wrong2, q.wrong3, q.wrong4].filter(
+    (x) => typeof x === "string" && x.trim()
+  );
+  return dedupeOptionStrings(raw);
 }
 
 function normalizeOption(opt) {
@@ -38,9 +117,12 @@ function normalizeText(s) {
 
 function isGradableQuestion(q) {
   if (!q) return false;
-  if (typeof q.correct !== "string") return false;
-  if (isTextQuestion(q)) return true;
-  return Array.isArray(q.options);
+  if (isTextQuestion(q)) return typeof q.correct === "string" && String(q.correct).trim().length > 0;
+  if (isOrderingQuestion(q)) return true;
+  if (isMatchingQuestion(q)) return true;
+  if (typeof q.correct !== "string" || !String(q.correct).trim()) return false;
+  const opts = getMcOptionsRaw(q);
+  return opts.length >= 2;
 }
 
 function isTextAnswerCorrect(q, answer) {
@@ -57,6 +139,37 @@ function isMcAnswerCorrect(q, answer) {
   return normalizeText(answer) === normalizeText(q.correct);
 }
 
+function parseJsonSafe(s) {
+  if (typeof s !== "string") return null;
+  try {
+    return JSON.parse(s);
+  } catch {
+    return null;
+  }
+}
+
+function isOrderingAnswerCorrect(q, answer) {
+  const userOrder = parseJsonSafe(answer);
+  if (!Array.isArray(userOrder) || !Array.isArray(q.items)) return false;
+  const canon = q.items.filter(Boolean).map(String);
+  if (userOrder.length !== canon.length) return false;
+  for (let i = 0; i < canon.length; i += 1) {
+    if (normalizeText(userOrder[i]) !== normalizeText(canon[i])) return false;
+  }
+  return true;
+}
+
+function isMatchingAnswerCorrect(q, answer) {
+  const obj = parseJsonSafe(answer);
+  if (!obj || typeof obj !== "object" || Array.isArray(obj)) return false;
+  for (const pair of q.pairs) {
+    const [left, right] = pair;
+    const sel = obj[left];
+    if (typeof sel !== "string" || normalizeText(sel) !== normalizeText(right)) return false;
+  }
+  return Object.keys(obj).length === q.pairs.length;
+}
+
 function gradeQuiz(qs, stepAnswers, sequence) {
   const seq = Array.isArray(sequence) && sequence.length ? sequence : buildInitialSequence(qs.length);
 
@@ -71,6 +184,14 @@ function gradeQuiz(qs, stepAnswers, sequence) {
     const firstTry = getFirstTryAnswerForQuestion(seq, stepAnswers, i);
     if (isTextQuestion(q)) {
       if (isTextAnswerCorrect(q, firstTry)) correct += 1;
+      continue;
+    }
+    if (isOrderingQuestion(q)) {
+      if (isOrderingAnswerCorrect(q, firstTry)) correct += 1;
+      continue;
+    }
+    if (isMatchingQuestion(q)) {
+      if (isMatchingAnswerCorrect(q, firstTry)) correct += 1;
       continue;
     }
     if (isMcAnswerCorrect(q, firstTry)) correct += 1;
@@ -103,6 +224,8 @@ function gradeQuiz(qs, stepAnswers, sequence) {
           const q = qs[s.qIndex];
           const a = stepAnswers.get(s.key);
           if (isTextQuestion(q)) n += isTextAnswerCorrect(q, a) ? 1 : 0;
+          else if (isOrderingQuestion(q)) n += isOrderingAnswerCorrect(q, a) ? 1 : 0;
+          else if (isMatchingQuestion(q)) n += isMatchingAnswerCorrect(q, a) ? 1 : 0;
           else n += isMcAnswerCorrect(q, a) ? 1 : 0;
         }
         return n;
@@ -148,6 +271,14 @@ function judgeAnswer(q, answer) {
     const ok = isTextAnswerCorrect(q, answer);
     return { status: ok ? "correct" : "wrong" };
   }
+  if (isOrderingQuestion(q)) {
+    const ok = isOrderingAnswerCorrect(q, answer);
+    return { status: ok ? "correct" : "wrong" };
+  }
+  if (isMatchingQuestion(q)) {
+    const ok = isMatchingAnswerCorrect(q, answer);
+    return { status: ok ? "correct" : "wrong" };
+  }
 
   const ok = isMcAnswerCorrect(q, answer);
   return { status: ok ? "correct" : "wrong" };
@@ -182,9 +313,13 @@ export default function Quiz({
   const [finishSummary, setFinishSummary] = useState(null);
   const [nameDraft, setNameDraft] = useState("");
   const [quizStarted, setQuizStarted] = useState(false);
+  const [quizSession, setQuizSession] = useState(0);
   const [participantName, setParticipantName] = useState("");
   const submittedRef = useRef(false);
   const stepRef = useRef(0);
+  const orderDraftsRef = useRef(new Map());
+  const matchDraftsRef = useRef(new Map());
+  const [, rerenderUi] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
     stepRef.current = step;
@@ -204,6 +339,8 @@ export default function Quiz({
     setQuizStarted(false);
     setParticipantName("");
     submittedRef.current = false;
+    orderDraftsRef.current = new Map();
+    matchDraftsRef.current = new Map();
   }, [testId, questions, qs.length]);
 
   const total = qs.length;
@@ -211,6 +348,19 @@ export default function Quiz({
   const currentStep = sequence[step];
   const qIndex = currentStep?.qIndex ?? 0;
   const current = qs[qIndex];
+
+  const shuffledOptionsByIndex = useMemo(() => {
+    if (!quizStarted) return new Map();
+    const m = new Map();
+    for (let i = 0; i < qs.length; i += 1) {
+      const qq = qs[i];
+      const raw = getMcOptionsRaw(qq);
+      if (raw.length >= 2) {
+        m.set(i, shuffleArray([...raw], hashStringToSeed(`${testId}|${quizSession}|${i}`)));
+      }
+    }
+    return m;
+  }, [qs, testId, quizSession, quizStarted]);
 
   const lockedCount = useMemo(() => {
     let n = 0;
@@ -251,6 +401,7 @@ export default function Quiz({
     if (!currentStep) return;
     if (locked.get(currentStep.key)) return;
     if (isTextQuestion(current)) return;
+    if (isOrderingQuestion(current) || isMatchingQuestion(current)) return;
 
     const next = new Map(stepAnswers);
     next.set(currentStep.key, value);
@@ -297,7 +448,108 @@ export default function Quiz({
     const t = nameDraft.trim();
     if (!t) return;
     setParticipantName(t);
+    setQuizSession((v) => v + 1);
     setQuizStarted(true);
+  };
+
+  const getOrderDraftRows = () => {
+    if (!current || !currentStep || !isOrderingQuestion(current)) return [];
+    const saved = currentStep ? stepAnswers.get(currentStep.key) : undefined;
+    if (isLocked && typeof saved === "string") {
+      const parsed = parseJsonSafe(saved);
+      return Array.isArray(parsed) ? parsed.map(String) : current.items.filter(Boolean).map(String);
+    }
+    const k = currentStep.key;
+    if (!orderDraftsRef.current.has(k)) {
+      const items = current.items.filter(Boolean).map(String);
+      orderDraftsRef.current.set(
+        k,
+        shuffleArray([...items], hashStringToSeed(`${testId}|${quizSession}|${k}`))
+      );
+    }
+    return orderDraftsRef.current.get(k) ?? [];
+  };
+
+  const moveOrderRow = (index, delta) => {
+    if (!currentStep || isLocked) return;
+    const k = currentStep.key;
+    const rows = [...(orderDraftsRef.current.get(k) ?? [])];
+    const j = index + delta;
+    if (j < 0 || j >= rows.length) return;
+    [rows[index], rows[j]] = [rows[j], rows[index]];
+    orderDraftsRef.current.set(k, rows);
+    rerenderUi();
+  };
+
+  const commitOrdering = () => {
+    if (!current || !currentStep || !isOrderingQuestion(current)) return;
+    if (isLocked) return;
+    const rows = orderDraftsRef.current.get(currentStep.key);
+    if (!rows?.length) return;
+
+    const lockNext = new Map(locked);
+    lockNext.set(currentStep.key, true);
+    setLocked(lockNext);
+
+    const payload = JSON.stringify(rows);
+    const next = new Map(stepAnswers);
+    next.set(currentStep.key, payload);
+    setStepAnswers(next);
+
+    const judgement = judgeAnswer(current, payload);
+    maybeScheduleRetry(qIndex, judgement.status === "wrong", currentStep.isRetry);
+  };
+
+  const getMatchDraft = () => {
+    if (!current || !currentStep || !isMatchingQuestion(current)) return null;
+    const saved = currentStep ? stepAnswers.get(currentStep.key) : undefined;
+    if (isLocked && typeof saved === "string") {
+      const parsed = parseJsonSafe(saved);
+      const rightsOrder = dedupeOptionStrings(current.pairs.map((p) => p[1]));
+      const sel = parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+      return { sel, rightsOrder };
+    }
+    const k = currentStep.key;
+    if (!matchDraftsRef.current.has(k)) {
+      const rights = dedupeOptionStrings(current.pairs.map((p) => p[1]));
+      const rightsOrder = shuffleArray(
+        [...rights],
+        hashStringToSeed(`${testId}|${quizSession}|${k}|match`)
+      );
+      const sel = {};
+      for (const pair of current.pairs) sel[pair[0]] = "";
+      matchDraftsRef.current.set(k, { rightsOrder, sel });
+    }
+    return matchDraftsRef.current.get(k);
+  };
+
+  const setMatchSelection = (left, value) => {
+    if (!currentStep || isLocked) return;
+    const d = matchDraftsRef.current.get(currentStep.key);
+    if (!d) return;
+    d.sel[left] = value;
+    matchDraftsRef.current.set(currentStep.key, d);
+    rerenderUi();
+  };
+
+  const commitMatching = () => {
+    if (!current || !currentStep || !isMatchingQuestion(current)) return;
+    if (isLocked) return;
+    const d = matchDraftsRef.current.get(currentStep.key);
+    if (!d?.sel) return;
+    if (current.pairs.some(([left]) => !String(d.sel[left] ?? "").trim())) return;
+
+    const lockNext = new Map(locked);
+    lockNext.set(currentStep.key, true);
+    setLocked(lockNext);
+
+    const payload = JSON.stringify(d.sel);
+    const next = new Map(stepAnswers);
+    next.set(currentStep.key, payload);
+    setStepAnswers(next);
+
+    const judgement = judgeAnswer(current, payload);
+    maybeScheduleRetry(qIndex, judgement.status === "wrong", currentStep.isRetry);
   };
 
   const finish = async () => {
@@ -466,7 +718,12 @@ export default function Quiz({
   }
 
   const selected = currentStep ? stepAnswers.get(currentStep.key) : undefined;
-  const options = Array.isArray(current?.options) ? current.options : [];
+  const mcOptions =
+    shuffledOptionsByIndex.get(qIndex) ?? (current ? getMcOptionsRaw(current) : []);
+  const readingContext =
+    current && typeof currentStep?.qIndex === "number"
+      ? getReadingContextForQuestion(qs, currentStep.qIndex)
+      : "";
   const crumbSubject = subjectLabel ?? subject ?? "Тестове";
   const judgement = judgeAnswer(current, selected);
   const reveal = isLocked;
@@ -497,6 +754,12 @@ export default function Quiz({
           </div>
 
           <div className={styles.cardBody}>
+            {readingContext ? (
+              <>
+                <div className={styles.readingContext}>{readingContext}</div>
+                <div className={styles.divider} />
+              </>
+            ) : null}
             <p className={styles.question}>{getQuestionText(current)}</p>
             <div className={styles.divider} />
 
@@ -521,9 +784,83 @@ export default function Quiz({
                   </div>
                 )}
               </>
-            ) : (
+            ) : isOrderingQuestion(current) ? (
+              <>
+                <ol className={styles.orderList}>
+                  {getOrderDraftRows().map((row, idx) => (
+                    <li key={`${currentStep.key}-ord-${idx}`} className={styles.orderRow}>
+                      <span className={styles.orderText}>{row}</span>
+                      {!isLocked && (
+                        <span className={styles.orderBtns}>
+                          <button
+                            type="button"
+                            className={styles.orderBtn}
+                            aria-label="Нагоре"
+                            onClick={() => moveOrderRow(idx, -1)}
+                            disabled={idx === 0}
+                          >
+                            ↑
+                          </button>
+                          <button
+                            type="button"
+                            className={styles.orderBtn}
+                            aria-label="Надолу"
+                            onClick={() => moveOrderRow(idx, 1)}
+                            disabled={idx >= getOrderDraftRows().length - 1}
+                          >
+                            ↓
+                          </button>
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+                {!isLocked && (
+                  <div className={styles.textActions}>
+                    <button type="button" className={`${styles.btn} ${styles.next}`} onClick={commitOrdering}>
+                      Провери
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : isMatchingQuestion(current) ? (
+              <>
+                <div className={styles.matchGrid}>
+                  {current.pairs.map(([left]) => {
+                    const draft = getMatchDraft();
+                    const rights = draft?.rightsOrder ?? [];
+                    const val = draft?.sel?.[left] ?? "";
+                    return (
+                      <div key={left} className={styles.matchRow}>
+                        <span className={styles.matchLeft}>{left}</span>
+                        <select
+                          className={styles.matchSelect}
+                          value={val}
+                          disabled={isLocked}
+                          onChange={(e) => setMatchSelection(left, e.target.value)}
+                        >
+                          <option value="">Избери…</option>
+                          {rights.map((r) => (
+                            <option key={r} value={r}>
+                              {r}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    );
+                  })}
+                </div>
+                {!isLocked && (
+                  <div className={styles.textActions}>
+                    <button type="button" className={`${styles.btn} ${styles.next}`} onClick={commitMatching}>
+                      Провери
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : mcOptions.length >= 2 ? (
               <div className={styles.options}>
-                {options.map((opt, i) => {
+                {mcOptions.map((opt, i) => {
                   const value = normalizeOption(opt);
                   const key = `${currentStep.key}-${i}-${value}`;
                   const isSel = selected === value;
@@ -558,6 +895,8 @@ export default function Quiz({
                   );
                 })}
               </div>
+            ) : (
+              <p className={styles.noOptions}>За този въпрос липсват възможни отговори в данните.</p>
             )}
 
             {reveal && (
@@ -573,7 +912,25 @@ export default function Quiz({
                 {judgement.status === "correct" && "Верен отговор!"}
                 {judgement.status === "wrong" && "Грешен отговор."}
                 {judgement.status === "unknown" && "Отговорът е заключен (няма ключ за автоматична проверка)."}
-                {judgement.status === "wrong" && typeof current?.correct === "string" && (
+                {judgement.status === "wrong" && isOrderingQuestion(current) && (
+                  <div className={styles.feedbackHint}>
+                    Верен ред:{" "}
+                    <span style={{ fontWeight: 1000 }}>{current.items.filter(Boolean).join(" → ")}</span>
+                  </div>
+                )}
+                {judgement.status === "wrong" && isMatchingQuestion(current) && (
+                  <div className={styles.feedbackHint}>
+                    Верни двойки:{" "}
+                    <span style={{ fontWeight: 1000 }}>
+                      {current.pairs.map(([a, b]) => `${a} — ${b}`).join(" · ")}
+                    </span>
+                  </div>
+                )}
+                {judgement.status === "wrong" &&
+                  !isTextQuestion(current) &&
+                  !isOrderingQuestion(current) &&
+                  !isMatchingQuestion(current) &&
+                  typeof current?.correct === "string" && (
                   <div className={styles.feedbackHint}>
                     Верен отговор: <span style={{ fontWeight: 1000 }}>{current.correct}</span>
                   </div>
