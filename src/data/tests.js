@@ -3,6 +3,7 @@
  *
  * Въпросите по предмет са в отделни файлове:
  * - bulgarski-tests.js (Български език)
+ * - seventh-grade-tests.js (НВО БЕЛ 7. клас — виж бележките за конвенции в началото на файла)
  * - geografia-tests.js (География)
  * - english-tests.js (Английски език)
  * - istoriya-tests.js (История)
@@ -32,6 +33,9 @@ import {
 } from './bulgarski-tests';
 
 import {
+  BULGARSKI_NVO_7_BEL_2020_V1_QUESTIONS,
+  BULGARSKI_NVO_7_BEL_2021_V1_QUESTIONS,
+  BULGARSKI_NVO_7_BEL_2022_V1_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2024_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2025_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2023_13062023_V2_QUESTIONS,
@@ -195,6 +199,21 @@ const TESTS = {
     title: 'БЕЛ-2023 (13.06.2023)',
     slug: 'bel-2023-13062023',
     questions: BULGARSKI_NVO_7_BEL_2023_13062023_V2_QUESTIONS,
+  },
+  '7|bg|bel-2022-14062022': {
+    title: 'БЕЛ-2022 (14.06.2022)',
+    slug: 'bel-2022-14062022',
+    questions: BULGARSKI_NVO_7_BEL_2022_V1_QUESTIONS,
+  },
+  '7|bg|bel-2021-16062021': {
+    title: 'БЕЛ-2021 (16.06.2021)',
+    slug: 'bel-2021-16062021',
+    questions: BULGARSKI_NVO_7_BEL_2021_V1_QUESTIONS,
+  },
+  '7|bg|bel-2020-15062020': {
+    title: 'БЕЛ-2020 (15.06.2020)',
+    slug: 'bel-2020-15062020',
+    questions: BULGARSKI_NVO_7_BEL_2020_V1_QUESTIONS,
   },
   '5|geografia|geografia-ikonomika-1': {
     title: 'География и стопанство (част 1)',
