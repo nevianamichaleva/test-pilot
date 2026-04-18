@@ -79,15 +79,30 @@ function dedupeOptionStrings(arr) {
   return out;
 }
 
-/** Текст за четене (НВО и др.): важи за всички следващи въпроси до следващия блок с sectionIntro. */
+/**
+ * Текст за четене (НВО и др.): най-близкият блок sectionIntro/passage/… от текущия въпрос назад.
+ * Ако на източника има `readingContextEndQIndex` (индекс на последния въпрос, за който важи текстът),
+ * при по-нататъшни въпроси върнете празен низ — големият текст не се показва за литература и др.
+ */
 function getReadingContextForQuestion(qs, qIndex) {
   if (!Array.isArray(qs) || qIndex < 0) return "";
+  let introSourceIndex = -1;
+  let raw = "";
   for (let i = qIndex; i >= 0; i -= 1) {
     const q = qs[i];
-    const raw = q?.sectionIntro ?? q?.passage ?? q?.readingText ?? q?.contextText;
-    if (typeof raw === "string" && raw.trim()) return raw.trim();
+    const cand = q?.sectionIntro ?? q?.passage ?? q?.readingText ?? q?.contextText;
+    if (typeof cand === "string" && cand.trim()) {
+      introSourceIndex = i;
+      raw = cand.trim();
+      break;
+    }
   }
-  return "";
+  if (!raw) return "";
+  const boundary = qs[introSourceIndex]?.readingContextEndQIndex;
+  if (typeof boundary === "number" && Number.isFinite(boundary) && qIndex > boundary) {
+    return "";
+  }
+  return raw;
 }
 
 /** Варианти за избор (без разбъркване): `options` или correct + wrong1… */
