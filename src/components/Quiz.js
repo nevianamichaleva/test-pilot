@@ -16,7 +16,7 @@ function normalizeQuestions(questions) {
 }
 
 function isTextQuestion(q) {
-  return q?.type === "text";
+  return q?.type === "text" || q?.type === "rewrite";
 }
 
 function getQuestionText(q) {
@@ -760,22 +760,43 @@ export default function Quiz({
                 <div className={styles.divider} />
               </>
             ) : null}
+            {typeof current?.sentenceContext === "string" && current.sentenceContext.trim() ? (
+              <>
+                <div className={styles.sentenceContext}>{current.sentenceContext.trim()}</div>
+                <div className={styles.divider} />
+              </>
+            ) : null}
             <p className={styles.question}>{getQuestionText(current)}</p>
             <div className={styles.divider} />
 
             {isTextQuestion(current) ? (
               <>
-                <input
-                  className={styles.textInput}
-                  value={typeof selected === "string" ? selected : ""}
-                  onChange={(e) => setText(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") commitText();
-                  }}
-                  readOnly={isLocked}
-                  autoComplete="off"
-                  spellCheck={false}
-                />
+                {typeof current.rewriteText === "string" && current.rewriteText.trim() ? (
+                  <div className={styles.rewriteSource}>{current.rewriteText}</div>
+                ) : null}
+                {current.type === "rewrite" || (typeof current.rewriteText === "string" && current.rewriteText.trim()) ? (
+                  <textarea
+                    className={`${styles.textInput} ${styles.textArea}`}
+                    value={typeof selected === "string" ? selected : ""}
+                    onChange={(e) => setText(e.target.value)}
+                    readOnly={isLocked}
+                    autoComplete="off"
+                    spellCheck={false}
+                    rows={6}
+                  />
+                ) : (
+                  <input
+                    className={styles.textInput}
+                    value={typeof selected === "string" ? selected : ""}
+                    onChange={(e) => setText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") commitText();
+                    }}
+                    readOnly={isLocked}
+                    autoComplete="off"
+                    spellCheck={false}
+                  />
+                )}
                 {!isLocked && (
                   <div className={styles.textActions}>
                     <button type="button" className={`${styles.btn} ${styles.next}`} onClick={commitText}>
@@ -912,13 +933,15 @@ export default function Quiz({
                 {judgement.status === "correct" && "Верен отговор!"}
                 {judgement.status === "wrong" && "Грешен отговор."}
                 {judgement.status === "unknown" && "Отговорът е заключен (няма ключ за автоматична проверка)."}
-                {judgement.status === "wrong" && isOrderingQuestion(current) && (
+                {(judgement.status === "wrong" || judgement.status === "correct") &&
+                  isOrderingQuestion(current) && (
                   <div className={styles.feedbackHint}>
                     Верен ред:{" "}
                     <span style={{ fontWeight: 1000 }}>{current.items.filter(Boolean).join(" → ")}</span>
                   </div>
                 )}
-                {judgement.status === "wrong" && isMatchingQuestion(current) && (
+                {(judgement.status === "wrong" || judgement.status === "correct") &&
+                  isMatchingQuestion(current) && (
                   <div className={styles.feedbackHint}>
                     Верни двойки:{" "}
                     <span style={{ fontWeight: 1000 }}>
@@ -926,15 +949,27 @@ export default function Quiz({
                     </span>
                   </div>
                 )}
-                {judgement.status === "wrong" &&
+                {reveal &&
+                  isGradableQuestion(current) &&
+                  isTextQuestion(current) &&
+                  typeof current?.correct === "string" &&
+                  current.correct.trim() && (
+                    <div className={`${styles.feedbackHint} ${styles.feedbackExemplar}`}>
+                      {judgement.status === "wrong" ? "Очакван отговор (пример): " : "Примерен верен отговор: "}
+                      <span style={{ fontWeight: 1000 }}>{current.correct}</span>
+                    </div>
+                  )}
+                {reveal &&
+                  isGradableQuestion(current) &&
                   !isTextQuestion(current) &&
                   !isOrderingQuestion(current) &&
                   !isMatchingQuestion(current) &&
-                  typeof current?.correct === "string" && (
-                  <div className={styles.feedbackHint}>
-                    Верен отговор: <span style={{ fontWeight: 1000 }}>{current.correct}</span>
-                  </div>
-                )}
+                  typeof current?.correct === "string" &&
+                  current.correct.trim() && (
+                    <div className={styles.feedbackHint}>
+                      Верен отговор: <span style={{ fontWeight: 1000 }}>{current.correct}</span>
+                    </div>
+                  )}
               </div>
             )}
 
