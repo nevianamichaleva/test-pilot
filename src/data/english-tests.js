@@ -732,3 +732,106 @@ export const ENGLISH_UNIT_8B_FILL_ONLY_QUESTIONS = [
   { type: 'text', q: "Click here to go ___ the museum and look at some things inside. (into)", correct: "into", acceptedAnswers: ["into"] },
 ];
 
+/**
+ * Unit 8c – Past Simple of regular verbs: questions and short answers.
+ * По модела от учебника: попълване с did/didn't и подреждане на въпроси.
+ */
+export const ENGLISH_UNIT_8C_PAST_SIMPLE_QUESTIONS = [
+  // did / didn't (short answers)
+  { type: 'text', q: "Did Emma finish school at 3:30 p.m.? -> No, she ___.", correct: "didn't", acceptedAnswers: ["didn't", "did not"] },
+  { type: 'text', q: "Did Emma walk home with Tanya? -> Yes, she ___.", correct: "did", acceptedAnswers: ["did"] },
+  { type: 'text', q: "Did they look at clothes? -> No, they ___.", correct: "didn't", acceptedAnswers: ["didn't", "did not"] },
+  { type: 'text', q: "Did Emma arrive home at 5 p.m.? -> Yes, she ___.", correct: "did", acceptedAnswers: ["did"] },
+  { type: 'text', q: "Did Leo email at about 8 o'clock? -> Yes, he ___.", correct: "did", acceptedAnswers: ["did"] },
+  { type: 'text', q: "Did they decide to go to the cinema the next day? -> Yes, they ___.", correct: "did", acceptedAnswers: ["did"] },
+
+  // Complete questions with did + base verb
+  { type: 'text', q: "What time ___ she ___ school? (finish)", correct: "did ... finish", acceptedAnswers: ["did finish", "did she finish"] },
+  { type: 'text', q: "Where ___ she ___ with Tanya? (walk)", correct: "did ... walk", acceptedAnswers: ["did walk", "did she walk"] },
+  { type: 'text', q: "What ___ they ___ at? (look)", correct: "did ... look", acceptedAnswers: ["did look", "did they look"] },
+  { type: 'text', q: "What time ___ she ___ home? (arrive)", correct: "did ... arrive", acceptedAnswers: ["did arrive", "did she arrive"] },
+  { type: 'text', q: "What ___ her aunt and uncle ___ her about? (ask)", correct: "did ... ask", acceptedAnswers: ["did ask", "did her aunt and uncle ask"] },
+  { type: 'text', q: "What time ___ Leo ___? (phone)", correct: "did ... phone", acceptedAnswers: ["did phone", "did leo phone"] },
+
+  // Make questions from prompts
+  { type: 'text', q: "Make a question: Emma / finish school at 3.30 p.m. ?", correct: "Did Emma finish school at 3.30 p.m.?", acceptedAnswers: ["Did Emma finish school at 3.30 p.m.?", "Did Emma finish school at 3:30 p.m.?"] },
+  { type: 'text', q: "Make a question: they / look at clothes ?", correct: "Did they look at clothes?", acceptedAnswers: ["Did they look at clothes?"] },
+  { type: 'text', q: "Make a question: her uncle and aunt / ask her about pop music ?", correct: "Did her uncle and aunt ask her about pop music?", acceptedAnswers: ["Did her uncle and aunt ask her about pop music?"] },
+  { type: 'text', q: "Make a question: Leo / email at about 8 p.m. ?", correct: "Did Leo email at about 8 p.m.?", acceptedAnswers: ["Did Leo email at about 8 p.m.?", "Did Leo email at about 8 pm?"] },
+
+  // Choose correct Past Simple question forms
+  { q: "Choose the correct question:", correct: "Did you open the door?", wrong1: "Did you opened the door?", wrong2: "You did open the door?" },
+  { q: "Choose the correct question:", correct: "Did they walk to school?", wrong1: "Did they walked to school?", wrong2: "They did walk to school?" },
+  { q: "Choose the correct question:", correct: "Did she phone Leo?", wrong1: "Did she phoned Leo?", wrong2: "Did she phones Leo?" },
+  { q: "Choose the correct question:", correct: "Where did they live?", wrong1: "Where they did live?", wrong2: "Where did they lived?" },
+
+  // Mixed quick practice
+  { type: 'text', q: "Complete: We ___ to the cinema yesterday. (walk)", correct: "walked", acceptedAnswers: ["walked"] },
+  { type: 'text', q: "Complete: They ___ dinner at home. (cook)", correct: "cooked", acceptedAnswers: ["cooked"] },
+  { type: 'text', q: "Complete: I ___ my homework last night. (finish)", correct: "finished", acceptedAnswers: ["finished"] },
+  { type: 'text', q: "Complete: She ___ to her friend on the phone. (talk)", correct: "talked", acceptedAnswers: ["talked"] },
+  { q: "Negative form is:", correct: "didn't + base verb", wrong1: "didn't + past verb", wrong2: "don't + past verb" },
+];
+
+/**
+ * Unit 8b – They noticed a large animal:
+ * попълване по текста + учене на нови думи (vocabulary & prepositions of motion).
+ */
+export const ENGLISH_UNIT_8B_TIGER_FILL_AND_VOCAB_QUESTIONS = [
+  // Read text: true story (fill in with past simple)
+  { type: 'text', q: "Alan Fox was on a walk near Marwell golf club. He ___ a strange animal in the long grass. (notice)", correct: "noticed", acceptedAnswers: ["noticed"] },
+  { type: 'text', q: "The animal ___ up a tree with its binoculars. (climb)", correct: "climbed", acceptedAnswers: ["climbed"] },
+  { type: 'text', q: "The police car ___ at the golf club in minutes. (arrive)", correct: "arrived", acceptedAnswers: ["arrived"] },
+  { type: 'text', q: "The players ___ their games and ___ into the club house. (stop / walk)", correct: "stopped", acceptedAnswers: ["stopped"] },
+  { type: 'text', q: "Then the players stopped their games and ___ into the club house. (walk)", correct: "walked", acceptedAnswers: ["walked"] },
+  { type: 'text', q: "A helicopter ___ and the police officer ___ the animal onto its back. (arrive / push)", correct: "arrived", acceptedAnswers: ["arrived"] },
+  { type: 'text', q: "A helicopter arrived and the police officer ___ the animal onto its back. (push)", correct: "pushed", acceptedAnswers: ["pushed"] },
+  { type: 'text', q: "Then they ___ that it wasn't a real tiger. (realise)", correct: "realised", acceptedAnswers: ["realised", "realized"] },
+
+  // Grammar focus: affirmative / negative
+  { q: "Choose the correct sentence:", correct: "The players didn't stop their games.", wrong1: "The players didn't stopped their games.", wrong2: "The players not stop their games." },
+  { q: "Choose the correct sentence:", correct: "We noticed a strange animal.", wrong1: "We notice a strange animal.", wrong2: "We did noticed a strange animal." },
+  { q: "Choose the correct sentence:", correct: "They didn't arrive late.", wrong1: "They didn't arrived late.", wrong2: "They don't arrived late." },
+
+  // Vocabulary from the page
+  {
+    type: 'matching',
+    q: "Match the new words with the Bulgarian meaning.",
+    pairs: [
+      ["true story", "истинска история"],
+      ["spring", "пролет"],
+      ["helicopter", "хеликоптер"],
+      ["real", "истински"],
+      ["toy", "играчка"],
+      ["club house", "клубна сграда"],
+      ["player", "играч"],
+      ["grass", "трева"],
+    ],
+  },
+  {
+    type: 'matching',
+    q: "Match years with words.",
+    pairs: [
+      ["1789", "seventeen eighty-nine"],
+      ["1908", "nineteen oh eight"],
+      ["2000", "two thousand"],
+      ["2001", "two thousand and one"],
+      ["2012", "twenty twelve"],
+    ],
+  },
+
+  // Prepositions of motion (from the box)
+  { type: 'text', q: "Complete with a preposition of motion: The boy ran ___ the road. (across/along/into)", correct: "across", acceptedAnswers: ["across"] },
+  { type: 'text', q: "Complete with a preposition of motion: He walked ___ the street for ten minutes. (along)", correct: "along", acceptedAnswers: ["along"] },
+  { type: 'text', q: "Complete with a preposition of motion: The cat jumped ___ the box. (into)", correct: "into", acceptedAnswers: ["into"] },
+  { type: 'text', q: "Complete with a preposition of motion: She went ___ the house quickly. (out of)", correct: "out of", acceptedAnswers: ["out of"] },
+  { type: 'text', q: "Complete with a preposition of motion: The climber went ___ the ladder. (up)", correct: "up", acceptedAnswers: ["up"] },
+  { type: 'text', q: "Complete with a preposition of motion: They walked ___ the old building. (past)", correct: "past", acceptedAnswers: ["past"] },
+
+  // Extra fill-in for learning new verbs
+  { type: 'text', q: "Complete with past simple: I ___ at his door at 4 p.m. (knock)", correct: "knocked", acceptedAnswers: ["knocked"] },
+  { type: 'text', q: "Complete with past simple: We ___ for ten minutes in the cold. (wait)", correct: "waited", acceptedAnswers: ["waited"] },
+  { type: 'text', q: "Complete with past simple: He ___ to my email in the evening. (answer)", correct: "answered", acceptedAnswers: ["answered"] },
+  { type: 'text', q: "Complete with past simple: They ___ their bikes home after school. (cycle)", correct: "cycled", acceptedAnswers: ["cycled"] },
+];
+

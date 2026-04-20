@@ -65,11 +65,13 @@ import {
   ENGLISH_14_04_2026_QUESTIONS,
   ENGLISH_UNIT_8B_FILL_ONLY_QUESTIONS,
   ENGLISH_UNIT_8B_REGULAR_VERBS_MOTION_QUESTIONS,
+  ENGLISH_UNIT_8B_TIGER_FILL_AND_VOCAB_QUESTIONS,
   ENGLISH_UNIT_6C_QUESTIONS,
   ENGLISH_UNIT_7C_FILL_QUESTIONS,
   ENGLISH_UNIT_7C_VOCAB_QUESTIONS,
   ENGLISH_UNIT_8A_PAST_QUESTIONS,
   ENGLISH_UNIT_8A_PAST_FILL_QUESTIONS,
+  ENGLISH_UNIT_8C_PAST_SIMPLE_QUESTIONS,
 } from './english-tests';
 
 import {
@@ -77,6 +79,7 @@ import {
   ISTORIA_OBOBSHTENIE_TRAKIYA,
   ISTORIA_ODRISKI_CARE,
   ISTORIA_PODREDBA_QUESTIONS,
+  ISTORIA_RIM_POLITICI_I_POLITIKA_QUESTIONS,
   ISTORIA_RELIGIA,
   ISTORIA_RIM_SREDIZEMNOMORIETO_QUESTIONS,
   ISTORIA_SVAURZVANE_QUESTIONS,
@@ -88,6 +91,7 @@ import {
 
 import {
   PRIRODA_CHP_TEST2_VESHTESTVA_I_TEHNI_SVOYSTVA_QUESTIONS,
+  PRIRODA_EDNOKLETACHNI_MNOGOKLETACHNI_QUESTIONS,
   PRIRODA_KLETKATA_OSNOVNA_GRADIVNA_EDINICA_QUESTIONS,
   PRIRODA_OBOBSHTENIE_VARIANT_1_QUESTIONS,
   PRIRODA_OBOBSHTENIE_VARIANT_2_QUESTIONS,
@@ -340,6 +344,11 @@ const TESTS = {
     slug: 'rim-sredizemnomorieto',
     questions: ISTORIA_RIM_SREDIZEMNOMORIETO_QUESTIONS,
   },
+  '5|istoriya|rim-politici-politika': {
+    title: 'История – Политици и политика в Древен Рим',
+    slug: 'rim-politici-politika',
+    questions: ISTORIA_RIM_POLITICI_I_POLITIKA_QUESTIONS,
+  },
   '5|priroda|vozduh': {
     title: 'Човек и природа – Въздухът',
     slug: 'vozduh',
@@ -384,6 +393,11 @@ const TESTS = {
     title: 'Човек и природа – Водата и хората',
     slug: 'vodata-i-horata',
     questions: PRIRODA_VODATA_I_HORATA_QUESTIONS,
+  },
+  '5|priroda|ednokletachni-mnogokletachni': {
+    title: 'Човек и природа – Едноклетъчни и многоклетъчни организми (урок 52)',
+    slug: 'ednokletachni-mnogokletachni',
+    questions: PRIRODA_EDNOKLETACHNI_MNOGOKLETACHNI_QUESTIONS,
   },
   '5|literatura|da-proverim-var1': {
     title: 'Да проверим – Литература (Вариант 1)',
@@ -454,6 +468,16 @@ const TESTS = {
     title: 'Unit 8b – само попълване (regular verbs & motion)',
     slug: 'unit-8b-fill',
     questions: ENGLISH_UNIT_8B_FILL_ONLY_QUESTIONS,
+  },
+  '5|english|unit-8b-tiger-fill-vocab': {
+    title: 'Unit 8b – They noticed a large animal (попълване + нови думи)',
+    slug: 'unit-8b-tiger-fill-vocab',
+    questions: ENGLISH_UNIT_8B_TIGER_FILL_AND_VOCAB_QUESTIONS,
+  },
+  '5|english|unit-8c-past-simple-questions': {
+    title: 'Unit 8c – Past Simple regular verbs: questions and short answers',
+    slug: 'unit-8c-past-simple-questions',
+    questions: ENGLISH_UNIT_8C_PAST_SIMPLE_QUESTIONS,
   },
 };
 
