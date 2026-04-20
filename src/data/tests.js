@@ -108,6 +108,49 @@ import {
   LITERATURA_FOLKLOR_KALENDAR_QUESTIONS,
 } from './literatura-tests';
 
+const NVO_7_POINTS_BY_QNUM = {
+  1: 1,
+  2: 1,
+  3: 2,
+  4: 1,
+  5: 2,
+  6: 2,
+  7: 1,
+  8: 2,
+  9: 2,
+  10: 2,
+  11: 2,
+  12: 2,
+  13: 2,
+  14: 2,
+  15: 2,
+  16: 3,
+  17: 14,
+  18: 2,
+  19: 2,
+  20: 2,
+  21: 2,
+  22: 2,
+  23: 2,
+  24: 4,
+  25: 6,
+};
+
+function addNvo7Points(questions) {
+  if (!Array.isArray(questions)) return questions;
+  return questions.map((q) => {
+    if (!q || typeof q !== 'object') return q;
+    if (typeof q.points === 'number') return q;
+    const text = typeof q.q === 'string' ? q.q : '';
+    const m = text.match(/^\s*(\d+)\./);
+    if (!m) return q;
+    const num = Number(m[1]);
+    const pts = NVO_7_POINTS_BY_QNUM[num];
+    if (typeof pts !== 'number') return q;
+    return { ...q, points: pts };
+  });
+}
+
 const TESTS = {
   '5|bg|morfolojiya': {
     title: 'Морфология – Изменяеми части на речта. Местоимение',
@@ -192,32 +235,32 @@ const TESTS = {
   '7|bg|bel-2024': {
     title: 'БЕЛ-2024',
     slug: 'bel-2024',
-    questions: BULGARSKI_NVO_7_BEL_2024_QUESTIONS,
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2024_QUESTIONS),
   },
   '7|bg|bel-2025': {
     title: 'БЕЛ-2025',
     slug: 'bel-2025',
-    questions: BULGARSKI_NVO_7_BEL_2025_QUESTIONS,
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2025_QUESTIONS),
   },
   '7|bg|bel-2023-13062023': {
     title: 'БЕЛ-2023 (13.06.2023)',
     slug: 'bel-2023-13062023',
-    questions: BULGARSKI_NVO_7_BEL_2023_13062023_V2_QUESTIONS,
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2023_13062023_V2_QUESTIONS),
   },
   '7|bg|bel-2022-14062022': {
     title: 'БЕЛ-2022 (14.06.2022)',
     slug: 'bel-2022-14062022',
-    questions: BULGARSKI_NVO_7_BEL_2022_V1_QUESTIONS,
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2022_V1_QUESTIONS),
   },
   '7|bg|bel-2021-16062021': {
     title: 'БЕЛ-2021 (16.06.2021)',
     slug: 'bel-2021-16062021',
-    questions: BULGARSKI_NVO_7_BEL_2021_V1_QUESTIONS,
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2021_V1_QUESTIONS),
   },
   '7|bg|bel-2020-15062020': {
     title: 'БЕЛ-2020 (15.06.2020)',
     slug: 'bel-2020-15062020',
-    questions: BULGARSKI_NVO_7_BEL_2020_V1_QUESTIONS,
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2020_V1_QUESTIONS),
   },
   '5|geografia|geografia-ikonomika-1': {
     title: 'География и стопанство (част 1)',

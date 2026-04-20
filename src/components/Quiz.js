@@ -185,11 +185,23 @@ function isMatchingAnswerCorrect(q, answer) {
   return Object.keys(obj).length === q.pairs.length;
 }
 
+function getQuestionPoints(q) {
+  const raw = q?.points;
+  if (typeof raw === "number" && Number.isFinite(raw) && raw >= 0) return raw;
+  if (typeof raw === "string") {
+    const n = Number(raw.replace(",", ".").trim());
+    if (Number.isFinite(n) && n >= 0) return n;
+  }
+  return null;
+}
+
 function gradeQuiz(qs, stepAnswers, sequence) {
   const seq = Array.isArray(sequence) && sequence.length ? sequence : buildInitialSequence(qs.length);
 
   let correct = 0;
   let gradable = 0;
+  let totalDefinedPoints = 0;
+  let earnedPoints = 0;
 
   for (let i = 0; i < qs.length; i += 1) {
     const q = qs[i];
@@ -197,19 +209,19 @@ function gradeQuiz(qs, stepAnswers, sequence) {
     gradable += 1;
 
     const firstTry = getFirstTryAnswerForQuestion(seq, stepAnswers, i);
-    if (isTextQuestion(q)) {
-      if (isTextAnswerCorrect(q, firstTry)) correct += 1;
-      continue;
+    let isCorrect = false;
+    if (isTextQuestion(q)) isCorrect = isTextAnswerCorrect(q, firstTry);
+    else if (isOrderingQuestion(q)) isCorrect = isOrderingAnswerCorrect(q, firstTry);
+    else if (isMatchingQuestion(q)) isCorrect = isMatchingAnswerCorrect(q, firstTry);
+    else isCorrect = isMcAnswerCorrect(q, firstTry);
+
+    if (isCorrect) correct += 1;
+
+    const qp = getQuestionPoints(q);
+    if (qp !== null) {
+      totalDefinedPoints += qp;
+      if (isCorrect) earnedPoints += qp;
     }
-    if (isOrderingQuestion(q)) {
-      if (isOrderingAnswerCorrect(q, firstTry)) correct += 1;
-      continue;
-    }
-    if (isMatchingQuestion(q)) {
-      if (isMatchingAnswerCorrect(q, firstTry)) correct += 1;
-      continue;
-    }
-    if (isMcAnswerCorrect(q, firstTry)) correct += 1;
   }
 
   const total = qs.length;
@@ -246,8 +258,10 @@ function gradeQuiz(qs, stepAnswers, sequence) {
         return n;
       })();
 
-  const pointsText =
-    firstTryGradable > 0
+  const hasDefinedPoints = totalDefinedPoints > 0;
+  const pointsText = hasDefinedPoints
+    ? `${earnedPoints}/${totalDefinedPoints} т.`
+    : firstTryGradable > 0
       ? `${firstTryCorrect}/${firstTryGradable}`
       : gradable > 0
         ? `${correct}/${gradable}`
@@ -265,7 +279,18 @@ function gradeQuiz(qs, stepAnswers, sequence) {
     else assessment = "1 (Много слаб)";
   }
 
-  return { correct, gradable, pointsText, assessment, ratio, firstTryCorrect, firstTryGradable };
+  return {
+    correct,
+    gradable,
+    pointsText,
+    assessment,
+    ratio,
+    firstTryCorrect,
+    firstTryGradable,
+    hasDefinedPoints,
+    earnedPoints,
+    totalDefinedPoints,
+  };
 }
 
 function getFirstTryAnswerForQuestion(sequence, stepAnswers, qIndex) {
