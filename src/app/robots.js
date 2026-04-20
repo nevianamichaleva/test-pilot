@@ -8,6 +8,7 @@ export default function robots() {
       allow: "/",
       disallow: ["/test-pilot/rezultati"],
     },
+    host: base,
     sitemap: `${base}/sitemap.xml`,
   };
 }

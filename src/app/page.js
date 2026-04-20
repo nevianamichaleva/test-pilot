@@ -7,6 +7,17 @@ import { getAllTests } from "@/data/tests";
 
 export const metadata = {
   alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 function pickPopular(tests, count = 3) {
