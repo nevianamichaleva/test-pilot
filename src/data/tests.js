@@ -50,6 +50,7 @@ import {
   GEOGRAFIA_MIX_QUESTIONS,
   GEOGRAFIA_OBOBSTAVASHT_QUESTIONS,
   GEOGRAFIA_POPALVANE_QUESTIONS,
+  GEOGRAFIA_PRIRODNI_ZONI_AFRIKA_QUESTIONS,
   GEOGRAFIA_VODITE_NA_AFRIKA_QUESTIONS,
 } from './geografia-tests';
 
@@ -80,6 +81,7 @@ import {
   ISTORIA_ODRISKI_CARE,
   ISTORIA_PODREDBA_QUESTIONS,
   ISTORIA_RIM_POLITICI_I_POLITIKA_QUESTIONS,
+  ISTORIA_RIMSKATA_IMPERIA_I_II_V_QUESTIONS,
   ISTORIA_RELIGIA,
   ISTORIA_RIM_SREDIZEMNOMORIETO_QUESTIONS,
   ISTORIA_SVAURZVANE_QUESTIONS,
@@ -307,6 +309,11 @@ const TESTS = {
     slug: 'vodite-na-afrika',
     questions: GEOGRAFIA_VODITE_NA_AFRIKA_QUESTIONS,
   },
+  '5|geografia|prirodni-zoni-v-afrika': {
+    title: 'География – Природни зони в Африка',
+    slug: 'prirodni-zoni-v-afrika',
+    questions: GEOGRAFIA_PRIRODNI_ZONI_AFRIKA_QUESTIONS,
+  },
   '5|english|language-revision': {
     title: 'Language Revision (English)',
     slug: 'language-revision',
@@ -391,6 +398,11 @@ const TESTS = {
     title: 'История – Политици и политика в Древен Рим',
     slug: 'rim-politici-politika',
     questions: ISTORIA_RIM_POLITICI_I_POLITIKA_QUESTIONS,
+  },
+  '5|istoriya|rimskata-imperia-1-2-vek': {
+    title: 'История – Римската империя през I–II в. (урок 33)',
+    slug: 'rimskata-imperia-1-2-vek',
+    questions: ISTORIA_RIMSKATA_IMPERIA_I_II_V_QUESTIONS,
   },
   '5|priroda|vozduh': {
     title: 'Човек и природа – Въздухът',
