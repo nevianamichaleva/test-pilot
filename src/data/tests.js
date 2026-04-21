@@ -24,9 +24,11 @@ import {
   BULGARSKI_MORFOLOGIYA_QUESTIONS,
   BULGARSKI_NARECHIE_QUESTIONS,
   BULGARSKI_OBOBSHTENIE_QUESTIONS,
+  BULGARSKI_OPREDELENIE_POPALVANE_QUESTIONS,
   BULGARSKI_PRAKTICHESKI_QUESTIONS,
   BULGARSKI_PREDLOG_QUESTIONS,
   BULGARSKI_PRICHASTIQ_QUESTIONS,
+  BULGARSKI_PROSTO_IZRECHENIE_SYNTAKSIS_QUESTIONS,
   BULGARSKI_PRITEJATELNO_MESTOIMENIE_QUESTIONS,
   BULGARSKI_TETRADKA_IZBOR_QUESTIONS,
   BULGARSKI_VAZVRATNO_MESTOIMENIE_QUESTIONS,
@@ -233,6 +235,16 @@ const TESTS = {
     title: 'Български език – граматика (избор от 4 отговора)',
     slug: 'gramatika-4',
     questions: BULGARSKI_GRAMATIKA_4_QUESTIONS,
+  },
+  '5|bg|prosto-izrechenie-sintaksis': {
+    title: 'Български език – Просто изречение и синтаксис',
+    slug: 'prosto-izrechenie-sintaksis',
+    questions: BULGARSKI_PROSTO_IZRECHENIE_SYNTAKSIS_QUESTIONS,
+  },
+  '5|bg|opredelenie-popalvane-10': {
+    title: 'Български език – Определение (попълване, 10 въпроса)',
+    slug: 'opredelenie-popalvane-10',
+    questions: BULGARSKI_OPREDELENIE_POPALVANE_QUESTIONS,
   },
   '7|bg|bel-2024': {
     title: 'БЕЛ-2024',
