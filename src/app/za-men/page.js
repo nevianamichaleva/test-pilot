@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 import Footer from "@/components/Footer";
@@ -35,7 +36,14 @@ export default function ZaMenPage() {
           </div>
 
           <div className={styles.photoSlot} aria-label="Място за снимка">
-            <span className={styles.photoLabel}>Твоята снимка тук</span>
+            <Image
+              className={styles.photoImg}
+              src="/images/TheAuthor.png"
+              alt="Невяна Михалева"
+              width={520}
+              height={520}
+              priority
+            />
           </div>
         </div>
 
