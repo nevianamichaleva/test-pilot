@@ -132,7 +132,11 @@ function normalizeText(s) {
 
 function isGradableQuestion(q) {
   if (!q) return false;
-  if (isTextQuestion(q)) return typeof q.correct === "string" && String(q.correct).trim().length > 0;
+  if (isTextQuestion(q)) {
+    const hasCorrect = typeof q.correct === "string" && String(q.correct).trim().length > 0;
+    const hasAccepted = Array.isArray(q.acceptedAnswers) && q.acceptedAnswers.some((a) => normalizeText(a));
+    return hasCorrect || hasAccepted;
+  }
   if (isOrderingQuestion(q)) return true;
   if (isMatchingQuestion(q)) return true;
   if (typeof q.correct !== "string" || !String(q.correct).trim()) return false;
@@ -145,8 +149,14 @@ function isTextAnswerCorrect(q, answer) {
   if (!user) return false;
 
   const accepted = Array.isArray(q.acceptedAnswers) ? q.acceptedAnswers : [];
-  const candidates = [q.correct, ...accepted].filter(Boolean).map(normalizeText);
-  return candidates.some((c) => c && user === c);
+  const candidates = [q.correct, ...accepted]
+    .filter((x) => typeof x === "string" && x.trim())
+    .map(normalizeText)
+    .filter(Boolean);
+
+  if (!candidates.length) return false;
+
+  return candidates.some((c) => user === c || user.includes(c));
 }
 
 function isMcAnswerCorrect(q, answer) {

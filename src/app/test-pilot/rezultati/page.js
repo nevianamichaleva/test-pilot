@@ -3,7 +3,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
@@ -23,6 +23,11 @@ const SUBJECT_LABELS = {
 };
 
 const SUBJECT_ORDER = ["bg", "english", "geografia", "istoriya", "matematika", "priroda", "literatura"];
+const DATE_FILTERS = [
+  { value: "7d", label: "Последните 7 дни" },
+  { value: "30d", label: "Последните 30 дни" },
+  { value: "all", label: "Всички" },
+];
 
 /** Извлича предмет от testId (напр. "5|bg|morfolojiya" -> "bg"). */
 function getSubject(testId) {
@@ -68,6 +73,7 @@ export default function RezultatiPage() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [dateFilter, setDateFilter] = useState("7d");
 
   useEffect(() => {
     let cancelled = false;
@@ -116,7 +122,7 @@ export default function RezultatiPage() {
             return 0;
           }
         });
-        setResults(list.slice(0, 15));
+        setResults(list);
       } catch (err) {
         if (!cancelled) setError(err?.message || "Грешка при зареждане.");
       } finally {
@@ -129,8 +135,18 @@ export default function RezultatiPage() {
     };
   }, []);
 
+  const filteredResults = useMemo(() => {
+    if (dateFilter === "all") return results;
+    const days = dateFilter === "30d" ? 30 : 7;
+    const from = Date.now() - days * 24 * 60 * 60 * 1000;
+    return results.filter((r) => {
+      const d = toJsDate(r.createdAt);
+      return d ? d.getTime() >= from : false;
+    });
+  }, [results, dateFilter]);
+
   const bySubject = {};
-  results.forEach((r) => {
+  filteredResults.forEach((r) => {
     const sub = r.subject || "друг";
     if (!bySubject[sub]) bySubject[sub] = [];
     bySubject[sub].push(r);
@@ -161,16 +177,32 @@ export default function RezultatiPage() {
 
         {error && !results.length && <p className={styles.messageError}>{error}</p>}
 
-        {!loading && results.length === 0 && !error && (
+        {!loading && filteredResults.length === 0 && !error && (
           <p className={`${styles.message} ${styles.messageCenter}`}>
             Все още няма записани резултати. Резултатите се записват автоматично при завършване на тест.
           </p>
         )}
 
-        {!loading && results.length > 0 && (
+        {!loading && filteredResults.length > 0 && (
           <>
             <section className={styles.panel}>
-              <h2 className={styles.panelHead}>Последни 15 резултата</h2>
+              <div className={styles.panelHeadRow}>
+                <h2 className={styles.panelHead}>Резултати</h2>
+                <label className={styles.filterWrap}>
+                  <span className={styles.filterLabel}>Период:</span>
+                  <select
+                    className={styles.filterSelect}
+                    value={dateFilter}
+                    onChange={(e) => setDateFilter(e.target.value)}
+                  >
+                    {DATE_FILTERS.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
               <div className={styles.tableScroll}>
                 <table className={styles.table}>
                   <thead>
@@ -184,7 +216,7 @@ export default function RezultatiPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {results.map((r) => (
+                    {filteredResults.map((r) => (
                       <tr
                         key={r.id}
                         className={styles.clickableRow}

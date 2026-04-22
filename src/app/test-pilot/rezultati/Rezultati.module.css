@@ -15,6 +15,42 @@
   color: #1a3a52;
 }
 
+.panelHeadRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 10px 12px;
+}
+
+.panelHeadRow .panelHead {
+  border: 0;
+  padding: 0;
+}
+
+.filterWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterLabel {
+  font-size: 13px;
+  color: rgba(26, 58, 82, 0.78);
+  font-weight: 800;
+}
+
+.filterSelect {
+  border: 1px solid rgba(26, 58, 82, 0.2);
+  background: #fff;
+  border-radius: 10px;
+  padding: 7px 10px;
+  color: #1a3a52;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .tableScroll {
   overflow-x: auto;
 }

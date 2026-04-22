@@ -746,12 +746,12 @@ export const ENGLISH_UNIT_8C_PAST_SIMPLE_QUESTIONS = [
   { type: 'text', q: "Did they decide to go to the cinema the next day? -> Yes, they ___.", correct: "did", acceptedAnswers: ["did"] },
 
   // Complete questions with did + base verb
-  { type: 'text', q: "What time ___ she ___ school? (finish)", correct: "did ... finish", acceptedAnswers: ["did finish", "did she finish"] },
-  { type: 'text', q: "Where ___ she ___ with Tanya? (walk)", correct: "did ... walk", acceptedAnswers: ["did walk", "did she walk"] },
-  { type: 'text', q: "What ___ they ___ at? (look)", correct: "did ... look", acceptedAnswers: ["did look", "did they look"] },
-  { type: 'text', q: "What time ___ she ___ home? (arrive)", correct: "did ... arrive", acceptedAnswers: ["did arrive", "did she arrive"] },
-  { type: 'text', q: "What ___ her aunt and uncle ___ her about? (ask)", correct: "did ... ask", acceptedAnswers: ["did ask", "did her aunt and uncle ask"] },
-  { type: 'text', q: "What time ___ Leo ___? (phone)", correct: "did ... phone", acceptedAnswers: ["did phone", "did leo phone"] },
+  { type: 'text', q: "What time ___ she ___ school? (finish)", correct: "did finish", acceptedAnswers: ["did finish", "did she finish", "did, finish"] },
+  { type: 'text', q: "Where ___ she ___ with Tanya? (walk)", correct: "did walk", acceptedAnswers: ["did walk", "did she walk", "did, walk"] },
+  { type: 'text', q: "What ___ they ___ at? (look)", correct: "did look", acceptedAnswers: ["did look", "did they look", "did, look"] },
+  { type: 'text', q: "What time ___ she ___ home? (arrive)", correct: "did arrive", acceptedAnswers: ["did arrive", "did she arrive", "did, arrive"] },
+  { type: 'text', q: "What ___ her aunt and uncle ___ her about? (ask)", correct: "did ask", acceptedAnswers: ["did ask", "did her aunt and uncle ask", "did, ask"] },
+  { type: 'text', q: "What time ___ Leo ___? (phone)", correct: "did phone", acceptedAnswers: ["did phone", "did leo phone", "did, phone"] },
 
   // Make questions from prompts
   { type: 'text', q: "Make a question: Emma / finish school at 3.30 p.m. ?", correct: "Did Emma finish school at 3.30 p.m.?", acceptedAnswers: ["Did Emma finish school at 3.30 p.m.?", "Did Emma finish school at 3:30 p.m.?"] },

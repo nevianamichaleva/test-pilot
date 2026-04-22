@@ -38,6 +38,10 @@ import {
 } from './bulgarski-tests';
 
 import {
+  BULGARSKI_NVO_7_BEL_2016_V2_QUESTIONS,
+  BULGARSKI_NVO_7_BEL_2017_V2_QUESTIONS,
+  BULGARSKI_NVO_7_BEL_2018_V2_QUESTIONS,
+  BULGARSKI_NVO_7_BEL_2019_V1_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2020_V1_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2021_V1_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2022_V1_QUESTIONS,
@@ -293,6 +297,26 @@ const TESTS = {
     title: 'БЕЛ-2020 (15.06.2020)',
     slug: 'bel-2020-15062020',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2020_V1_QUESTIONS),
+  },
+  '7|bg|bel-2019-17062019': {
+    title: 'БЕЛ-2019 (17.06.2019)',
+    slug: 'bel-2019-17062019',
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2019_V1_QUESTIONS),
+  },
+  '7|bg|bel-2018-21052018': {
+    title: 'БЕЛ-2018 (21.05.2018)',
+    slug: 'bel-2018-21052018',
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2018_V2_QUESTIONS),
+  },
+  '7|bg|bel-2017-19052017': {
+    title: 'БЕЛ-2017 (19.05.2017)',
+    slug: 'bel-2017-19052017',
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2017_V2_QUESTIONS),
+  },
+  '7|bg|bel-2016-18052016': {
+    title: 'БЕЛ-2016 (18.05.2016)',
+    slug: 'bel-2016-18052016',
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2016_V2_QUESTIONS),
   },
   '5|geografia|geografia-ikonomika-1': {
     title: 'География и стопанство (част 1)',
