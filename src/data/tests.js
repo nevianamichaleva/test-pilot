@@ -21,6 +21,8 @@ import {
   BULGARSKI_GRAMATIKA_4_QUESTIONS,
   BULGARSKI_GRAMATIKA_IZBOR_QUESTIONS,
   BULGARSKI_GRAMATIKA_ZADACHI_QUESTIONS,
+  BULGARSKI_HAYDUTI_5_KLAS_TEST_QUESTIONS,
+  BULGARSKI_HAYDUTI_5_KLAS_LITERATURA_2_QUESTIONS,
   BULGARSKI_KLASNA_RABOTA_1_QUESTIONS,
   BULGARSKI_KLASNA_RABOTA_2_VARIANT_QUESTIONS,
   BULGARSKI_KLASNA_RABOTA_3_QUESTIONS,
@@ -117,6 +119,8 @@ import {
   LITERATURA_DA_PROVERIM_VAR1_QUESTIONS,
   LITERATURA_DA_PROVERIM_VAR2_QUESTIONS,
   LITERATURA_FOLKLOR_KALENDAR_QUESTIONS,
+  LITERATURA_HAYDUTI_RABOTEN_LIST_18_03_2020_QUESTIONS,
+  LITERATURA_HAYDUTI_TESTOVI_ZADACHI_PDF_QUESTIONS,
 } from './literatura-tests';
 
 const NVO_7_POINTS_BY_QNUM = {
@@ -522,6 +526,26 @@ const TESTS = {
     title: 'Литература – фолклорен календар, празници и обичаи',
     slug: 'folklore-kalendar',
     questions: LITERATURA_FOLKLOR_KALENDAR_QUESTIONS,
+  },
+  '5|literatura|hayduti-hristo-botev': {
+    title: '„Хайдути“ – Христо Ботев (тест, 5. клас)',
+    slug: 'hayduti-hristo-botev',
+    questions: BULGARSKI_HAYDUTI_5_KLAS_TEST_QUESTIONS,
+  },
+  '5|literatura|hayduti-literatura-5-klas-2': {
+    title: '„Хайдути“ – литература, 5. клас (тест 2)',
+    slug: 'hayduti-literatura-5-klas-2',
+    questions: BULGARSKI_HAYDUTI_5_KLAS_LITERATURA_2_QUESTIONS,
+  },
+  '5|literatura|hayduti-raboten-list-18-03-2020': {
+    title: '„Хайдути“ – работен лист (18.03.2020, 5. клас)',
+    slug: 'hayduti-raboten-list-18-03-2020',
+    questions: LITERATURA_HAYDUTI_RABOTEN_LIST_18_03_2020_QUESTIONS,
+  },
+  '5|literatura|hayduti-testovi-zadachi': {
+    title: '„Хайдути“ – тестови задачи с ключ (5. клас)',
+    slug: 'hayduti-testovi-zadachi',
+    questions: LITERATURA_HAYDUTI_TESTOVI_ZADACHI_PDF_QUESTIONS,
   },
   '5|english|unit-6c-once-a-week': {
     title: 'Unit 6c – Once a week (frequency & personality)',
