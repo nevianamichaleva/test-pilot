@@ -46,6 +46,15 @@
   background: rgba(255, 255, 255, 0.7);
 }
 
+.clickableRow {
+  cursor: pointer;
+}
+
+.clickableRow:focus-visible td {
+  outline: 2px solid rgba(46, 122, 208, 0.5);
+  outline-offset: -2px;
+}
+
 .cellMuted {
   color: rgba(26, 58, 82, 0.65);
   font-size: 13px;
@@ -182,4 +191,59 @@
 
 .backLink:hover {
   background: #fff;
+}
+
+.detailHead {
+  display: grid;
+  gap: 6px;
+  padding: 14px 18px 0;
+}
+
+.detailMeta {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(26, 58, 82, 0.78);
+  font-weight: 700;
+}
+
+.summaryList {
+  margin: 8px 18px 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.summaryItem {
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 12px;
+}
+
+.summaryQuestion {
+  margin: 0;
+  color: #1a3a52;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.summaryAnswer {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: rgba(26, 58, 82, 0.86);
+}
+
+.summaryCorrect {
+  color: #156f17;
+  font-weight: 1000;
+}
+
+.summaryWrong {
+  color: #b42318;
+  font-weight: 1000;
+}
+
+.summaryCorrectAnswer {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: rgba(26, 58, 82, 0.92);
 }

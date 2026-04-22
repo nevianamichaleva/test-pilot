@@ -250,6 +250,48 @@
   background: rgba(255, 255, 255, 0.85);
 }
 
+.summaryList {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.summaryItem {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(26, 58, 82, 0.16);
+  background: rgba(248, 251, 255, 0.9);
+}
+
+.summaryQuestion {
+  font-size: 15px;
+  font-weight: 900;
+  color: #1a3a52;
+  line-height: 1.4;
+}
+
+.summaryAnswer {
+  margin-top: 6px;
+  font-size: 14px;
+  color: rgba(26, 58, 82, 0.86);
+}
+
+.summaryCorrectAnswer {
+  margin-top: 4px;
+  font-size: 14px;
+  color: rgba(26, 58, 82, 0.95);
+}
+
+.summaryCorrect {
+  color: #156f17;
+  font-weight: 1000;
+}
+
+.summaryWrong {
+  color: #b42318;
+  font-weight: 1000;
+}
+
 .nameGateLead {
   margin: 0 0 14px;
   font-size: 16px;

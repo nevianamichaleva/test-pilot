@@ -195,6 +195,60 @@ function getQuestionPoints(q) {
   return null;
 }
 
+function safeDisplayAnswer(value) {
+  if (typeof value === "string") return value.trim() ? value : "—";
+  if (value == null) return "—";
+  const txt = String(value).trim();
+  return txt || "—";
+}
+
+function getCorrectAnswerText(q) {
+  if (!q) return "—";
+  if (isOrderingQuestion(q)) {
+    const rows = Array.isArray(q.items) ? q.items.filter(Boolean).map(String) : [];
+    return rows.length ? rows.join(" -> ") : "—";
+  }
+  if (isMatchingQuestion(q)) {
+    const pairs = Array.isArray(q.pairs) ? q.pairs : [];
+    const txt = pairs
+      .filter((p) => Array.isArray(p) && p.length >= 2)
+      .map(([a, b]) => `${a} — ${b}`)
+      .join(" ; ");
+    return txt || "—";
+  }
+  if (typeof q.correct === "string" && q.correct.trim()) return q.correct.trim();
+  return "—";
+}
+
+function summarizeQuestionResult(q, sequence, stepAnswers, qIndex) {
+  const firstTry = getFirstTryAnswerForQuestion(sequence, stepAnswers, qIndex);
+  const questionText = getQuestionText(q);
+  const answerText = (() => {
+    if (isOrderingQuestion(q) || isMatchingQuestion(q)) {
+      const parsed = parseJsonSafe(firstTry);
+      if (isOrderingQuestion(q) && Array.isArray(parsed)) return safeDisplayAnswer(parsed.join(" -> "));
+      if (isMatchingQuestion(q) && parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+        return safeDisplayAnswer(
+          Object.entries(parsed)
+            .map(([a, b]) => `${a} — ${b}`)
+            .join(" ; ")
+        );
+      }
+    }
+    return safeDisplayAnswer(firstTry);
+  })();
+  const judged = judgeAnswer(q, firstTry);
+  const correctAnswer = getCorrectAnswerText(q);
+  return {
+    questionNumber: qIndex + 1,
+    questionText,
+    firstAnswer: answerText,
+    status: judged.status,
+    isCorrect: judged.status === "correct",
+    correctAnswer,
+  };
+}
+
 function gradeQuiz(qs, stepAnswers, sequence) {
   const seq = Array.isArray(sequence) && sequence.length ? sequence : buildInitialSequence(qs.length);
 
@@ -608,10 +662,11 @@ export default function Quiz({
         if (isTextQuestion(q)) return typeof v === "string" ? v : "";
         return typeof v === "string" ? v : v == null ? "" : String(v);
       });
+      const questionResults = qs.map((q, i) => summarizeQuestionResult(q, sequence, stepAnswers, i));
 
       const summary = gradeQuiz(qs, stepAnswers, sequence);
       const { pointsText, assessment } = summary;
-      setFinishSummary(summary);
+      setFinishSummary({ ...summary, questionResults });
 
       let wrote = false;
       if (isFirebaseConfigured()) {
@@ -625,6 +680,7 @@ export default function Quiz({
           test: testId,
           testTitle: testTitle ?? title ?? "Тест",
           answers: summaryAnswers,
+          questionResults,
           correct: summary.firstTryCorrect ?? summary.correct,
           gradable: summary.firstTryGradable ?? summary.gradable,
           createdAt: serverTimestamp(),
@@ -675,6 +731,30 @@ export default function Quiz({
               <div style={{ marginTop: 8, fontSize: 16, fontWeight: 1000, color: "#1a3a52" }}>
                 Оценка: {finishSummary.assessment}
               </div>
+              {Array.isArray(finishSummary.questionResults) && finishSummary.questionResults.length > 0 && (
+                <div className={styles.summaryList}>
+                  {finishSummary.questionResults.map((item) => (
+                    <div key={`summary-q-${item.questionNumber}`} className={styles.summaryItem}>
+                      <div className={styles.summaryQuestion}>
+                        Въпрос {item.questionNumber}: {item.questionText}
+                      </div>
+                      <div className={styles.summaryAnswer}>
+                        Твой отговор: <strong>{item.firstAnswer}</strong> —{" "}
+                        <span
+                          className={item.isCorrect ? styles.summaryCorrect : styles.summaryWrong}
+                        >
+                          {item.isCorrect ? "верен" : "грешен"}
+                        </span>
+                      </div>
+                      {!item.isCorrect && (
+                        <div className={styles.summaryCorrectAnswer}>
+                          Верен отговор: <strong>{item.correctAnswer}</strong>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
           <div className={styles.done}>

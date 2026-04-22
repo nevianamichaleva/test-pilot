@@ -2,6 +2,7 @@
 
 import { collection, getDocs } from "firebase/firestore";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import Footer from "@/components/Footer";
@@ -63,6 +64,7 @@ function formatDate(timestamp) {
 }
 
 export default function RezultatiPage() {
+  const router = useRouter();
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -183,7 +185,20 @@ export default function RezultatiPage() {
                   </thead>
                   <tbody>
                     {results.map((r) => (
-                      <tr key={r.id}>
+                      <tr
+                        key={r.id}
+                        className={styles.clickableRow}
+                        onClick={() => router.push(`/test-pilot/rezultati/${r.id}`)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            router.push(`/test-pilot/rezultati/${r.id}`);
+                          }
+                        }}
+                        tabIndex={0}
+                        role="button"
+                        aria-label={`Детайли за резултат на ${r.name}`}
+                      >
                         <td className={styles.cellMuted}>{formatDate(r.createdAt)}</td>
                         <td className={styles.cellStrong}>{r.name}</td>
                         <td>{SUBJECT_LABELS[r.subject] || r.subject || "–"}</td>
