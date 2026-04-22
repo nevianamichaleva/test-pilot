@@ -83,6 +83,9 @@ export default function Header() {
           <Link className={styles.link} href="/test-pilot" onClick={close}>
             Тестове
           </Link>
+          <Link className={styles.link} href="/za-men" onClick={close}>
+            За мен
+          </Link>
           <Link className={styles.link} href="/test-pilot/rezultati" onClick={close}>
             Резултати
           </Link>

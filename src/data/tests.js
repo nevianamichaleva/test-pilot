@@ -21,6 +21,9 @@ import {
   BULGARSKI_GRAMATIKA_4_QUESTIONS,
   BULGARSKI_GRAMATIKA_IZBOR_QUESTIONS,
   BULGARSKI_GRAMATIKA_ZADACHI_QUESTIONS,
+  BULGARSKI_KLASNA_RABOTA_1_QUESTIONS,
+  BULGARSKI_KLASNA_RABOTA_2_VARIANT_QUESTIONS,
+  BULGARSKI_KLASNA_RABOTA_3_QUESTIONS,
   BULGARSKI_MORFOLOGIYA_QUESTIONS,
   BULGARSKI_NARECHIE_QUESTIONS,
   BULGARSKI_OBOBSHTENIE_QUESTIONS,
@@ -245,6 +248,21 @@ const TESTS = {
     title: 'Български език – Определение (попълване, 10 въпроса)',
     slug: 'opredelenie-popalvane-10',
     questions: BULGARSKI_OPREDELENIE_POPALVANE_QUESTIONS,
+  },
+  '5|bg|klasna-rabota-1': {
+    title: 'Класна работа №1 (част 1) – БЕЛ 5. клас',
+    slug: 'klasna-rabota-1',
+    questions: BULGARSKI_KLASNA_RABOTA_1_QUESTIONS,
+  },
+  '5|bg|klasna-rabota-2-variant': {
+    title: 'Класна работа №2 – БЕЛ 5. клас (вариант)',
+    slug: 'klasna-rabota-2-variant',
+    questions: BULGARSKI_KLASNA_RABOTA_2_VARIANT_QUESTIONS,
+  },
+  '5|bg|klasna-rabota-3': {
+    title: 'Класна работа №3 – БЕЛ 5. клас',
+    slug: 'klasna-rabota-3',
+    questions: BULGARSKI_KLASNA_RABOTA_3_QUESTIONS,
   },
   '7|bg|bel-2024': {
     title: 'БЕЛ-2024',
