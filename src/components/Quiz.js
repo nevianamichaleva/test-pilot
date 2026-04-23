@@ -452,6 +452,7 @@ export default function Quiz({
   const currentStep = sequence[step];
   const qIndex = currentStep?.qIndex ?? 0;
   const current = qs[qIndex];
+  const isSeventhGradeQuiz = String(classNum ?? "").trim() === "7";
 
   const shuffledOptionsByIndex = useMemo(() => {
     if (!quizStarted) return new Map();
@@ -478,6 +479,7 @@ export default function Quiz({
   const isLocked = Boolean(currentStep && locked.get(currentStep.key));
 
   const maybeScheduleRetry = (baseQIndex, wasWrong, isRetryStep) => {
+    if (isSeventhGradeQuiz) return;
     if (!wasWrong) return;
     if (isRetryStep) return;
     if (!isGradableQuestion(qs[baseQIndex])) return;
@@ -856,7 +858,8 @@ export default function Quiz({
       : "";
   const crumbSubject = subjectLabel ?? subject ?? "Тестове";
   const judgement = judgeAnswer(current, selected);
-  const reveal = isLocked;
+  /** НВО 7. клас: без верен отговор между въпросите — само резюме след „Завърши“. */
+  const revealAnswers = isLocked && !isSeventhGradeQuiz;
 
   return (
     <div className={styles.page}>
@@ -1016,17 +1019,17 @@ export default function Quiz({
                   const key = `${currentStep.key}-${i}-${value}`;
                   const isSel = selected === value;
                   const gradable = isGradableQuestion(current);
-                  const isCorr = reveal && gradable && isMcAnswerCorrect(current, value);
-                  const isWrongSel = reveal && gradable && isSel && judgement.status === "wrong";
-                  const isLockedNeutral = reveal && !gradable && isSel;
+                  const isCorr = revealAnswers && gradable && isMcAnswerCorrect(current, value);
+                  const isWrongSel = revealAnswers && gradable && isSel && judgement.status === "wrong";
+                  const isLockedNeutral = revealAnswers && !gradable && isSel;
 
                   const cls = [
                     styles.option,
-                    isSel && !reveal ? styles.optionSelected : "",
-                    reveal && isCorr ? styles.optionCorrect : "",
+                    isSel && !revealAnswers ? styles.optionSelected : "",
+                    revealAnswers && isCorr ? styles.optionCorrect : "",
                     isWrongSel ? styles.optionWrong : "",
                     isLockedNeutral ? styles.optionSelected : "",
-                    reveal ? styles.optionDisabled : "",
+                    isLocked ? styles.optionDisabled : "",
                   ]
                     .filter(Boolean)
                     .join(" ");
@@ -1038,7 +1041,7 @@ export default function Quiz({
                         name={`q-${currentStep.key}`}
                         value={value}
                         checked={isSel}
-                        disabled={reveal}
+                        disabled={isLocked}
                         onChange={() => select(value)}
                       />
                       <span>{value}</span>
@@ -1050,7 +1053,7 @@ export default function Quiz({
               <p className={styles.noOptions}>За този въпрос липсват възможни отговори в данните.</p>
             )}
 
-            {reveal && (
+            {revealAnswers && (
               <div
                 className={`${styles.feedback} ${
                   judgement.status === "correct"
@@ -1079,8 +1082,7 @@ export default function Quiz({
                     </span>
                   </div>
                 )}
-                {reveal &&
-                  isGradableQuestion(current) &&
+                {isGradableQuestion(current) &&
                   isTextQuestion(current) &&
                   typeof current?.correct === "string" &&
                   current.correct.trim() && (
@@ -1089,8 +1091,7 @@ export default function Quiz({
                       <span style={{ fontWeight: 1000 }}>{current.correct}</span>
                     </div>
                   )}
-                {reveal &&
-                  isGradableQuestion(current) &&
+                {isGradableQuestion(current) &&
                   !isTextQuestion(current) &&
                   !isOrderingQuestion(current) &&
                   !isMatchingQuestion(current) &&
