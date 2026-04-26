@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Quiz from "@/components/Quiz";
 import { getTest } from "@/data/tests";
+import { getTestListThumbnailSrc } from "@/lib/subjectImages";
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 import Link from "next/link";
 
@@ -84,6 +85,12 @@ export default async function TestPage({ params }) {
     );
   }
 
+  const subjectThumbnailSrc = getTestListThumbnailSrc({
+    classNum,
+    subject,
+    slug: testSlug,
+  });
+
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Quiz
@@ -94,6 +101,7 @@ export default async function TestPage({ params }) {
         classNum={classNum}
         subject={subject}
         subjectLabel={subjectLabel}
+        subjectThumbnailSrc={subjectThumbnailSrc}
       />
       <Footer />
     </div>

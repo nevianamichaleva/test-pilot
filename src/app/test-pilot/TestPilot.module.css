@@ -40,7 +40,7 @@
 
 .card {
   display: grid;
-  grid-template-columns: 170px 1fr auto;
+  grid-template-columns: 200px 1fr auto;
   gap: 14px;
   align-items: center;
   padding: 14px;
@@ -52,13 +52,30 @@
 }
 
 .thumb {
-  height: 110px;
+  height: 140px;
   border-radius: 14px;
   background:
     radial-gradient(240px 140px at 20% 10%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 62%),
     linear-gradient(135deg, rgba(46, 122, 208, 0.52), rgba(255, 106, 77, 0.26));
   border: 1px solid rgba(0, 0, 0, 0.06);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.thumbWithImage {
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+}
+
+.thumbImg {
+  width: 100%;
+  height: 100%;
+  max-width: 190px;
+  max-height: 128px;
+  object-fit: contain;
+  padding: 8px;
+  box-sizing: border-box;
 }
 
 .info h3 {
@@ -159,6 +176,10 @@
 @media (max-width: 920px) {
   .card {
     grid-template-columns: 1fr;
+  }
+  .thumb {
+    height: 150px;
+    max-height: 44vw;
   }
   .actions {
     justify-items: start;

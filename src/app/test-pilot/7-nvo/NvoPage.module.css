@@ -40,6 +40,19 @@
   color: #1a3a52;
 }
 
+.panelHeadWithIcon {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.panelIcon {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 .panelBody {
   padding: 16px 18px 18px;
 }

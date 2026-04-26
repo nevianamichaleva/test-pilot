@@ -8,6 +8,7 @@ import { useEffect, useMemo, useState } from "react";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { getFirebaseDb, isFirebaseConfigured } from "@/lib/firebase";
+import { getThumbnailSrcFromTestId, SUBJECT_THUMB_SRC } from "@/lib/subjectImages";
 
 import tp from "../TestPilot.module.css";
 import styles from "./Rezultati.module.css";
@@ -216,7 +217,9 @@ export default function RezultatiPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredResults.map((r) => (
+                    {filteredResults.map((r) => {
+                      const subThumb = getThumbnailSrcFromTestId(r.test);
+                      return (
                       <tr
                         key={r.id}
                         className={styles.clickableRow}
@@ -233,7 +236,21 @@ export default function RezultatiPage() {
                       >
                         <td className={styles.cellMuted}>{formatDate(r.createdAt)}</td>
                         <td className={styles.cellStrong}>{r.name}</td>
-                        <td>{SUBJECT_LABELS[r.subject] || r.subject || "–"}</td>
+                        <td>
+                          <span className={styles.subjectCell}>
+                            {subThumb ? (
+                              <img
+                                className={styles.subjectThumb}
+                                src={subThumb}
+                                alt=""
+                                width={40}
+                                height={40}
+                                decoding="async"
+                              />
+                            ) : null}
+                            <span>{SUBJECT_LABELS[r.subject] || r.subject || "–"}</span>
+                          </span>
+                        </td>
                         <td>
                           <span className={styles.truncate} title={r.testTitle}>
                             {r.testTitle}
@@ -242,7 +259,8 @@ export default function RezultatiPage() {
                         <td>{r.points}</td>
                         <td className={styles.cellStrong}>{r.assessment}</td>
                       </tr>
-                    ))}
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -252,7 +270,19 @@ export default function RezultatiPage() {
             <div className={styles.rankGrid}>
               {SUBJECT_ORDER.filter((s) => bySubject[s]?.length).map((subject) => (
                 <div key={subject} className={styles.panel}>
-                  <h3 className={styles.panelHead}>{SUBJECT_LABELS[subject]}</h3>
+                  <h3 className={`${styles.panelHead} ${styles.panelHeadIconRow}`}>
+                    {SUBJECT_THUMB_SRC[subject] ? (
+                      <img
+                        className={styles.panelSubjectIcon}
+                        src={SUBJECT_THUMB_SRC[subject]}
+                        alt=""
+                        width={44}
+                        height={44}
+                        decoding="async"
+                      />
+                    ) : null}
+                    <span>{SUBJECT_LABELS[subject]}</span>
+                  </h3>
                   <ol className={styles.rankList}>
                     {bySubject[subject].slice(0, 10).map((r, i) => (
                       <li key={r.id} className={styles.rankItem}>

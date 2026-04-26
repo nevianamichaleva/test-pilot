@@ -49,7 +49,8 @@ export default function TestPilot7NvoPage() {
 
         <div className={styles.stack}>
           <section className={styles.panel} aria-labelledby="nvo-bel-heading">
-            <h2 id="nvo-bel-heading" className={styles.panelHead}>
+            <h2 id="nvo-bel-heading" className={`${styles.panelHead} ${styles.panelHeadWithIcon}`}>
+              <img className={styles.panelIcon} src="/images/bel.png" alt="" width={52} height={52} decoding="async" />
               Български език
             </h2>
             <div className={styles.panelBody}>
@@ -79,7 +80,8 @@ export default function TestPilot7NvoPage() {
           </section>
 
           <section className={styles.panel} aria-labelledby="nvo-math-heading">
-            <h2 id="nvo-math-heading" className={styles.panelHead}>
+            <h2 id="nvo-math-heading" className={`${styles.panelHead} ${styles.panelHeadWithIcon}`}>
+              <img className={styles.panelIcon} src="/images/nvo.png" alt="" width={52} height={52} decoding="async" />
               Математика
             </h2>
             <div className={styles.panelBody}>

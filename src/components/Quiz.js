@@ -404,6 +404,7 @@ export default function Quiz({
   classNum,
   subject,
   subjectLabel,
+  subjectThumbnailSrc,
 }) {
   const qs = useMemo(() => normalizeQuestions(questions), [questions]);
   const [step, setStep] = useState(0);
@@ -802,6 +803,16 @@ export default function Quiz({
 
           <section className={styles.card}>
             <div className={styles.cardTop}>
+              {subjectThumbnailSrc ? (
+                <img
+                  className={styles.cardTopThumb}
+                  src={subjectThumbnailSrc}
+                  alt=""
+                  width={56}
+                  height={56}
+                  decoding="async"
+                />
+              ) : null}
               <span>
                 Начало <span aria-hidden>&gt;</span> {crumbSubject}
                 {classNum ? (
@@ -875,6 +886,16 @@ export default function Quiz({
 
         <section className={styles.card}>
           <div className={styles.cardTop}>
+            {subjectThumbnailSrc ? (
+              <img
+                className={styles.cardTopThumb}
+                src={subjectThumbnailSrc}
+                alt=""
+                width={56}
+                height={56}
+                decoding="async"
+              />
+            ) : null}
             <span>
               Начало <span aria-hidden>&gt;</span> {crumbSubject}
               {classNum ? (

@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { getAllTests } from "@/data/tests";
+import { getTestListThumbnailSrc } from "@/lib/subjectImages";
 
 import styles from "./TestPilot.module.css";
 
@@ -203,12 +204,21 @@ export default function TestPilotClient() {
         ) : (
           <>
             <div className={styles.list}>
-              {visible.map((t, i) => (
+              {visible.map((t, i) => {
+                const thumbSrc = getTestListThumbnailSrc(t);
+                return (
                 <article
                   key={`${t.classNum}|${t.subject}|${t.slug}`}
                   className={styles.card}
                 >
-                  <div className={styles.thumb} aria-hidden />
+                  <div
+                    className={`${styles.thumb}${thumbSrc ? ` ${styles.thumbWithImage}` : ""}`}
+                    aria-hidden
+                  >
+                    {thumbSrc ? (
+                      <img className={styles.thumbImg} src={thumbSrc} alt="" decoding="async" />
+                    ) : null}
+                  </div>
 
                   <div className={styles.info}>
                     <h3>
@@ -242,7 +252,8 @@ export default function TestPilotClient() {
                     </span>
                   </div>
                 </article>
-              ))}
+                );
+              })}
             </div>
 
             {visibleCount < filtered.length && (

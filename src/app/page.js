@@ -4,6 +4,7 @@ import PageHero from "@/components/PageHero";
 import HomeFilters from "./HomeFilters";
 import styles from "./HomePage.module.css";
 import { getAllTests } from "@/data/tests";
+import { getTestListThumbnailSrc } from "@/lib/subjectImages";
 
 export const metadata = {
   alternates: { canonical: "/" },
@@ -58,7 +59,9 @@ export default function Home() {
           </div>
 
           <div className={styles.popularGrid}>
-            {popular.map((t) => (
+            {popular.map((t) => {
+              const thumbSrc = getTestListThumbnailSrc(t);
+              return (
               <Link
                 key={`${t.classNum}|${t.subject}|${t.slug}`}
                 className={styles.popularCard}
@@ -66,7 +69,13 @@ export default function Home() {
                   t.subject
                 )}/${encodeURIComponent(t.slug)}`}
               >
-                <div className={styles.popularThumb} />
+                <div
+                  className={`${styles.popularThumb}${thumbSrc ? ` ${styles.popularThumbWithImage}` : ""}`}
+                >
+                  {thumbSrc ? (
+                    <img className={styles.popularThumbImg} src={thumbSrc} alt="" decoding="async" />
+                  ) : null}
+                </div>
                 <div className={styles.popularBody}>
                   <p className={styles.popularTitle}>{t.title}</p>
                   <p className={styles.popularMeta}>
@@ -74,7 +83,8 @@ export default function Home() {
                   </p>
                 </div>
               </Link>
-            ))}
+              );
+            })}
           </div>
 
           <div className={styles.moreWrap}>

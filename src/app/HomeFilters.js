@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { SUBJECT_THUMB_SRC } from "@/lib/subjectImages";
+
 import styles from "./HomePage.module.css";
 
 const SUBJECTS = [
@@ -107,9 +109,20 @@ export default function HomeFilters({ tests }) {
                 href={buildTestPilotHref(selectedClass, s.key)}
               >
                 <div className={styles.cardTop} style={{ backgroundColor: s.tone }}>
-                  <div className={styles.cardIcon} aria-hidden>
-                    {s.icon}
-                  </div>
+                  {SUBJECT_THUMB_SRC[s.key] ? (
+                    <img
+                      className={styles.cardSubjectImg}
+                      src={SUBJECT_THUMB_SRC[s.key]}
+                      alt=""
+                      width={96}
+                      height={96}
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className={styles.cardIcon} aria-hidden>
+                      {s.icon}
+                    </div>
+                  )}
                 </div>
                 <div className={styles.cardBody}>
                   <p className={styles.cardTitle}>{s.label}</p>

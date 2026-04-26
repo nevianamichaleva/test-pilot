@@ -3,11 +3,12 @@
 import { doc, getDoc } from "firebase/firestore";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { getFirebaseDb, isFirebaseConfigured } from "@/lib/firebase";
+import { getThumbnailSrcFromTestId } from "@/lib/subjectImages";
 
 import tp from "../../TestPilot.module.css";
 import styles from "../Rezultati.module.css";
@@ -88,6 +89,11 @@ export default function ResultDetailsPage() {
     };
   }, [resultId]);
 
+  const detailThumb = useMemo(
+    () => (result ? getThumbnailSrcFromTestId(result.test) : null),
+    [result]
+  );
+
   return (
     <div className={tp.page}>
       <main className={tp.wrap}>
@@ -110,18 +116,30 @@ export default function ResultDetailsPage() {
           <>
             <section className={styles.panel}>
               <div className={styles.detailHead}>
-                <p className={styles.detailMeta}>
-                  Тест: <strong>{result.testTitle}</strong>
-                </p>
-                <p className={styles.detailMeta}>
-                  Дете: <strong>{result.name}</strong>
-                </p>
-                <p className={styles.detailMeta}>
-                  Завършен на: <strong>{formatDateTime(result.createdAt)}</strong>
-                </p>
-                <p className={styles.detailMeta}>
-                  Резултат: <strong>{result.points}</strong> | Оценка: <strong>{result.assessment}</strong>
-                </p>
+                {detailThumb ? (
+                  <img
+                    className={styles.detailThumb}
+                    src={detailThumb}
+                    alt=""
+                    width={80}
+                    height={80}
+                    decoding="async"
+                  />
+                ) : null}
+                <div className={styles.detailMetaCol}>
+                  <p className={styles.detailMeta}>
+                    Тест: <strong>{result.testTitle}</strong>
+                  </p>
+                  <p className={styles.detailMeta}>
+                    Дете: <strong>{result.name}</strong>
+                  </p>
+                  <p className={styles.detailMeta}>
+                    Завършен на: <strong>{formatDateTime(result.createdAt)}</strong>
+                  </p>
+                  <p className={styles.detailMeta}>
+                    Резултат: <strong>{result.points}</strong> | Оценка: <strong>{result.assessment}</strong>
+                  </p>
+                </div>
               </div>
 
               {result.questionResults.length > 0 ? (
