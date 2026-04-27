@@ -835,3 +835,39 @@ export const ENGLISH_UNIT_8B_TIGER_FILL_AND_VOCAB_QUESTIONS = [
   { type: 'text', q: "Complete with past simple: They ___ their bikes home after school. (cycle)", correct: "cycled", acceptedAnswers: ["cycled"] },
 ];
 
+/**
+ * Unit 8d – Modern inventions: Calling the world!
+ * 5. клас – учене на думи, само попълване.
+ */
+export const ENGLISH_UNIT_8D_MOBILE_VOCAB_FILL_QUESTIONS = [
+  { type: 'text', q: 'Write in English: „изобретение“.', correct: 'invention', acceptedAnswers: ['invention', 'inventions'] },
+  { type: 'text', q: 'Write in English: „изобретявам“.', correct: 'invent', acceptedAnswers: ['invent'] },
+  { type: 'text', q: 'Write in English: „обаждам се“.', correct: 'call', acceptedAnswers: ['call'] },
+  { type: 'text', q: 'Write in English: „тежък“.', correct: 'heavy', acceptedAnswers: ['heavy'] },
+  { type: 'text', q: 'Write in English: „тежа“.', correct: 'weigh', acceptedAnswers: ['weigh'] },
+  { type: 'text', q: 'Write in English: „милиард“.', correct: 'billion', acceptedAnswers: ['billion'] },
+  { type: 'text', q: 'Write in English: „стационарен телефон“.', correct: 'landline', acceptedAnswers: ['landline', 'a landline'] },
+  { type: 'text', q: 'Write in English: „популярен“.', correct: 'popular', acceptedAnswers: ['popular'] },
+  { type: 'text', q: 'Complete the phrase: make a phone ______.', correct: 'call', acceptedAnswers: ['call', 'phone call'] },
+  { type: 'text', q: 'Complete the phrase: take ______.', correct: 'photos', acceptedAnswers: ['photos'] },
+  { type: 'text', q: 'Complete the phrase: alarm ______.', correct: 'clock', acceptedAnswers: ['clock', 'an alarm clock'] },
+  { type: 'text', q: 'Complete: I am ______ to my mobile phone. (пристрастен)', correct: 'addicted', acceptedAnswers: ['addicted'] },
+  { type: 'text', q: 'Complete: Martin Cooper ______ the mobile phone in 1973. (past simple)', correct: 'invented', acceptedAnswers: ['invented'] },
+  { type: 'text', q: 'Complete: The first mobile phone arrived in the shops in ______.', correct: '1983', acceptedAnswers: ['1983'] },
+  { type: 'text', q: 'Complete: The first mobile phone was big and ______.', correct: 'heavy', acceptedAnswers: ['heavy'] },
+  { type: 'text', q: 'Complete: Today, about three ______ people in the world have got a mobile phone.', correct: 'billion', acceptedAnswers: ['billion'] },
+  { type: 'text', q: 'Complete: In the UK, 60 million people use ______ phones.', correct: 'mobile', acceptedAnswers: ['mobile', 'mobile phones'] },
+  { type: 'text', q: 'Complete: In Africa, around 350 million people use a mobile phone but many have got no ______.', correct: 'landlines', acceptedAnswers: ['landlines', 'landline', 'a landline'] },
+  { type: 'text', q: 'Complete: Tanyа says: I ______ to my friends, I chat online, and I look at photos.', correct: 'talk', acceptedAnswers: ['talk', 'talk to'] },
+  { type: 'text', q: 'Complete: Dan says: It has my alarm ______ and my dictionary.', correct: 'clock', acceptedAnswers: ['clock', 'alarm clock'] },
+  // Extra practice from theory/reading parts
+  { type: 'text', q: 'Complete: In the USA, around ______ million people use mobile phones.', correct: '300', acceptedAnswers: ['300', '300 million'] },
+  { type: 'text', q: 'Complete: In India, over ______ billion people use mobile phones.', correct: '1', acceptedAnswers: ['1', 'one'] },
+  { type: 'text', q: 'Complete: In China, over ______ billion people use mobile phones.', correct: '1.25', acceptedAnswers: ['1.25', '1,25', '1.25 billion', '1,25 billion'] },
+  { type: 'text', q: 'Complete the sentence: Mobile phones are very popular in India and China because many people have got no ______.', correct: 'landlines', acceptedAnswers: ['landlines', 'landline', 'a landline'] },
+  { type: 'text', q: 'Complete: The inventors of the first aeroplane were Orville and Wilbur ______.', correct: 'Wright', acceptedAnswers: ['Wright', 'wright'] },
+  { type: 'text', q: 'Complete: The first aeroplane flight was in North Carolina, in the ______.', correct: 'USA', acceptedAnswers: ['USA', 'the USA', 'us', 'the us'] },
+  { type: 'text', q: 'Complete: On the first flight, the plane travelled ______ metres.', correct: '36', acceptedAnswers: ['36', 'thirty-six', 'thirty six'] },
+  { type: 'text', q: 'Complete: On the first flight, the flight lasted ______ seconds.', correct: '12', acceptedAnswers: ['12', 'twelve'] },
+];
+
