@@ -14,6 +14,7 @@
  */
 
 import {
+  BULGARSKI_DUMITE_KATO_CHASTI_NA_IZRECHENIETO_OBOBSHTENIE_QUESTIONS,
   BULGARSKI_EZIK_LITERATURA_V_KLAS_2008_QUESTIONS,
   BULGARSKI_EZIK_LITERATURA_V_KLAS_2009_QUESTIONS,
   BULGARSKI_EZIK_LITERATURA_V_KLAS_QUESTIONS,
@@ -91,6 +92,7 @@ import {
   ISTORIA_CARSTVO_ODRISI,
   ISTORIA_OBOBSHTENIE_TRAKIYA,
   ISTORIA_ODRISKI_CARE,
+  ISTORIA_OBSHTESTVO_I_RELIGIA_DREVEN_RIM_QUESTIONS,
   ISTORIA_PODREDBA_QUESTIONS,
   ISTORIA_RELIGIA,
   ISTORIA_RIM_POLITICI_I_POLITIKA_QUESTIONS,
@@ -106,6 +108,7 @@ import {
 import {
   PRIRODA_CHP_TEST2_VESHTESTVA_I_TEHNI_SVOYSTVA_QUESTIONS,
   PRIRODA_EDNOKLETACHNI_MNOGOKLETACHNI_QUESTIONS,
+  PRIRODA_FOTOSINTEZA_10_PLUS_3_QUESTIONS,
   PRIRODA_KLETKATA_OSNOVNA_GRADIVNA_EDINICA_QUESTIONS,
   PRIRODA_OBOBSHTENIE_VARIANT_1_QUESTIONS,
   PRIRODA_OBOBSHTENIE_VARIANT_2_QUESTIONS,
@@ -272,6 +275,11 @@ const TESTS = {
     title: 'Класна работа №3 – БЕЛ 5. клас',
     slug: 'klasna-rabota-3',
     questions: BULGARSKI_KLASNA_RABOTA_3_QUESTIONS,
+  },
+  '5|bg|dumite-kato-chasti-na-izrechenieto-obobshtenie': {
+    title: 'Български език – Думите като части на изречението (обобщение, смесен тест)',
+    slug: 'dumite-kato-chasti-na-izrechenieto-obobshtenie',
+    questions: BULGARSKI_DUMITE_KATO_CHASTI_NA_IZRECHENIETO_OBOBSHTENIE_QUESTIONS,
   },
   '7|bg|bel-2024': {
     title: 'БЕЛ-2024',
@@ -468,6 +476,11 @@ const TESTS = {
     slug: 'rimskata-imperia-1-2-vek',
     questions: ISTORIA_RIMSKATA_IMPERIA_I_II_V_QUESTIONS,
   },
+  '5|istoriya|obshtestvo-i-religia-dreven-rim': {
+    title: 'История – Общество и религия на Древен Рим (урок 34)',
+    slug: 'obshtestvo-i-religia-dreven-rim',
+    questions: ISTORIA_OBSHTESTVO_I_RELIGIA_DREVEN_RIM_QUESTIONS,
+  },
   '5|priroda|vozduh': {
     title: 'Човек и природа – Въздухът',
     slug: 'vozduh',
@@ -517,6 +530,11 @@ const TESTS = {
     title: 'Човек и природа – Едноклетъчни и многоклетъчни организми (урок 52)',
     slug: 'ednokletachni-mnogokletachni',
     questions: PRIRODA_EDNOKLETACHNI_MNOGOKLETACHNI_QUESTIONS,
+  },
+  '5|priroda|fotosinteza-10-plus-3': {
+    title: 'Човек и природа – Фотосинтеза (10 избираеми + 3 попълване)',
+    slug: 'fotosinteza-10-plus-3',
+    questions: PRIRODA_FOTOSINTEZA_10_PLUS_3_QUESTIONS,
   },
   '5|literatura|da-proverim-var1': {
     title: 'Да проверим – Литература (Вариант 1)',
