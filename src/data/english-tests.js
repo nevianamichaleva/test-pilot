@@ -860,15 +860,6 @@ export const ENGLISH_UNIT_8D_MOBILE_VOCAB_FILL_QUESTIONS = [
   { type: 'text', q: 'Complete: In Africa, around 350 million people use a mobile phone but many have got no ______.', correct: 'landlines', acceptedAnswers: ['landlines', 'landline', 'a landline'] },
   { type: 'text', q: 'Complete: Tanyа says: I ______ to my friends, I chat online, and I look at photos.', correct: 'talk', acceptedAnswers: ['talk', 'talk to'] },
   { type: 'text', q: 'Complete: Dan says: It has my alarm ______ and my dictionary.', correct: 'clock', acceptedAnswers: ['clock', 'alarm clock'] },
-  // Extra practice from theory/reading parts
-  { type: 'text', q: 'Complete: In the USA, around ______ million people use mobile phones.', correct: '300', acceptedAnswers: ['300', '300 million'] },
-  { type: 'text', q: 'Complete: In India, over ______ billion people use mobile phones.', correct: '1', acceptedAnswers: ['1', 'one'] },
-  { type: 'text', q: 'Complete: In China, over ______ billion people use mobile phones.', correct: '1.25', acceptedAnswers: ['1.25', '1,25', '1.25 billion', '1,25 billion'] },
-  { type: 'text', q: 'Complete the sentence: Mobile phones are very popular in India and China because many people have got no ______.', correct: 'landlines', acceptedAnswers: ['landlines', 'landline', 'a landline'] },
-  { type: 'text', q: 'Complete: The inventors of the first aeroplane were Orville and Wilbur ______.', correct: 'Wright', acceptedAnswers: ['Wright', 'wright'] },
-  { type: 'text', q: 'Complete: The first aeroplane flight was in North Carolina, in the ______.', correct: 'USA', acceptedAnswers: ['USA', 'the USA', 'us', 'the us'] },
-  { type: 'text', q: 'Complete: On the first flight, the plane travelled ______ metres.', correct: '36', acceptedAnswers: ['36', 'thirty-six', 'thirty six'] },
-  { type: 'text', q: 'Complete: On the first flight, the flight lasted ______ seconds.', correct: '12', acceptedAnswers: ['12', 'twelve'] },
 ];
 
 /**
