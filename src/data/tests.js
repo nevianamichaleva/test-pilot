@@ -85,6 +85,7 @@ import {
   ENGLISH_UNIT_8B_FILL_ONLY_QUESTIONS,
   ENGLISH_UNIT_8B_REGULAR_VERBS_MOTION_QUESTIONS,
   ENGLISH_UNIT_8B_TIGER_FILL_AND_VOCAB_QUESTIONS,
+  ENGLISH_UNIT_8_REVISION_TEST_QUESTIONS,
   ENGLISH_UNIT_8D_MOBILE_VOCAB_FILL_QUESTIONS,
   ENGLISH_UNIT_8C_PAST_SIMPLE_QUESTIONS,
 } from './english-tests';
@@ -641,6 +642,11 @@ const TESTS = {
     title: 'Unit 8d – Modern inventions (vocabulary fill)',
     slug: 'unit-8d-mobile-vocab-fill',
     questions: ENGLISH_UNIT_8D_MOBILE_VOCAB_FILL_QUESTIONS,
+  },
+  '5|english|unit-8-revision-prep-test': {
+    title: 'Unit 8 – Preparation test (skills revision)',
+    slug: 'unit-8-revision-prep-test',
+    questions: ENGLISH_UNIT_8_REVISION_TEST_QUESTIONS,
   },
 };
 

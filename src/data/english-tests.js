@@ -871,3 +871,53 @@ export const ENGLISH_UNIT_8D_MOBILE_VOCAB_FILL_QUESTIONS = [
   { type: 'text', q: 'Complete: On the first flight, the flight lasted ______ seconds.', correct: '12', acceptedAnswers: ['12', 'twelve'] },
 ];
 
+/**
+ * Unit 8 – Skills/Language Revision:
+ * 5. клас – подготовка за контролно (grammar, vocabulary, phrases, reading).
+ */
+export const ENGLISH_UNIT_8_REVISION_TEST_QUESTIONS = [
+  // Grammar – was / were
+  { type: 'text', q: "Complete: A: ___ Carinna's party last night? (be)", correct: 'Was', acceptedAnswers: ['Was', 'was'] },
+  { type: 'text', q: "Complete: A: Was it good? B: No, it ___ . (negative short form)", correct: "wasn't", acceptedAnswers: ["wasn't", 'was not'] },
+  { type: 'text', q: "Complete: There ___ any nice people. (negative, plural)", correct: "weren't", acceptedAnswers: ["weren't", 'were not'] },
+  { type: 'text', q: "Complete: There ___ any good music. (negative, uncountable)", correct: "wasn't", acceptedAnswers: ["wasn't", 'was not'] },
+  { type: 'text', q: "Complete the question: ___ Sasha and Will there?", correct: 'Were', acceptedAnswers: ['Were', 'were'] },
+  { type: 'text', q: "Complete the short answer: No, they ___ .", correct: "weren't", acceptedAnswers: ["weren't", 'were not'] },
+
+  // Grammar – prepositions of motion
+  { q: "Complete: Walk ___ the cafe and the cinema is on your right.", correct: 'past', wrong1: 'along', wrong2: 'into' },
+  { q: "Complete: I ran ___ then I climbed ___ the stairs.", correct: 'up, up', wrong1: 'out of, down', wrong2: 'along, into' },
+  { q: "Complete: He was very hot so he jumped ___ the lake.", correct: 'into', wrong1: 'past', wrong2: 'out of' },
+  { q: "Complete: She cycled ___ the river for ten minutes.", correct: 'along', wrong1: 'into', wrong2: 'up' },
+  { q: "Complete: He got ___ the bath and answered the phone.", correct: 'out of', wrong1: 'into', wrong2: 'across' },
+
+  // Grammar – past simple regular verbs
+  { type: 'text', q: 'Complete: Last summer, Michel ___ in Paris. (visit)', correct: 'visited', acceptedAnswers: ['visited'] },
+  { type: 'text', q: 'Complete: After that, he ___ his trip to France. (plan)', correct: 'planned', acceptedAnswers: ['planned'] },
+  { type: 'text', q: 'Complete: He and Michel ___ bicycles. (cycle)', correct: 'cycled', acceptedAnswers: ['cycled'] },
+  { type: 'text', q: 'Complete: He ___ his French there. (practise)', correct: 'practised', acceptedAnswers: ['practised', 'practiced'] },
+  { type: 'text', q: "Complete (negative): He ___ English once. (not talk)", correct: "didn't talk", acceptedAnswers: ["didn't talk", 'did not talk'] },
+  { type: 'text', q: 'Complete: They ___ French TV and DVDs. (watch)', correct: 'watched', acceptedAnswers: ['watched'] },
+
+  // Vocabulary – adjectives of feeling
+  { q: "Luke is ___ . His mobile phone is broken again.", correct: 'fed up', wrong1: 'frightened', wrong2: 'excited' },
+  { q: "Jo's really ___ . She's got £100 from her uncle for her birthday.", correct: 'happy', wrong1: 'worried', wrong2: 'bored' },
+  { q: "Fran's ___ . Her grandfather is in hospital.", correct: 'sad', wrong1: 'glad', wrong2: 'surprised' },
+  { q: "I'm ___ . There's a big concert in our park next week.", correct: 'excited', wrong1: 'frightened', wrong2: 'fed up' },
+  { q: "Vicki watched a film about vampires and now she's ___ of the dark.", correct: 'frightened', wrong1: 'proud', wrong2: 'interested' },
+  { q: "Lizzie's ___ . She stayed up very late last night.", correct: 'tired', wrong1: 'angry', wrong2: 'hungry' },
+
+  // Phrases / use your English
+  { q: "A: Let's go to the cinema. B: There's a cool film... A: Can I eat one of your sandwiches? B: ___", correct: "No way!", wrong1: 'Good idea!', wrong2: 'So' },
+  { q: "A: I'm sorry I'm late. B: ___", correct: "It's all right.", wrong1: 'No way!', wrong2: 'Good idea!' },
+  { q: "A: My phone's broken. B: ___", correct: 'Bad luck!', wrong1: "It's all right.", wrong2: 'No way!' },
+  { q: "A: How did it happen? B: My laptop's from that shop... A: ___", correct: 'How much was it?', wrong1: "What's the matter?", wrong2: 'Never mind.' },
+
+  // Reading – Matthew's diary (True/False)
+  { q: 'Stonehenge is about 1,000 years old.', correct: 'False', wrong1: 'True', wrong2: 'Not given' },
+  { q: "They arrived at their camp at one o'clock.", correct: 'True', wrong1: 'False', wrong2: 'Not given' },
+  { q: 'Matthew is in a tent with three other people.', correct: 'True', wrong1: 'False', wrong2: 'Not given' },
+  { q: "Matthew doesn't like visiting old buildings.", correct: 'False', wrong1: 'True', wrong2: 'Not given' },
+  { q: "Matthew can't swim.", correct: 'False', wrong1: 'True', wrong2: 'Not given' },
+];
+
