@@ -331,24 +331,10 @@ function gradeQuiz(qs, stepAnswers, sequence) {
         ? `${correct}/${gradable}`
         : `${answered}/${total}`;
 
-  const ratio = firstTryGradable > 0 ? firstTryCorrect / firstTryGradable : gradable > 0 ? correct / gradable : null;
-  let assessment = "–";
-  if (ratio !== null) {
-    const percent = ratio * 100;
-    if (percent >= 90) assessment = "6 (Отличен)";
-    else if (percent >= 75) assessment = "5 (Много добър)";
-    else if (percent >= 60) assessment = "4 (Добър)";
-    else if (percent >= 50) assessment = "3 (Среден)";
-    else if (percent >= 30) assessment = "2 (Слаб)";
-    else assessment = "1 (Много слаб)";
-  }
-
   return {
     correct,
     gradable,
     pointsText,
-    assessment,
-    ratio,
     firstTryCorrect,
     firstTryGradable,
     hasDefinedPoints,
@@ -396,6 +382,13 @@ function buildInitialSequence(total) {
   }));
 }
 
+function makeAttemptId() {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return `attempt-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+}
+
 export default function Quiz({
   title,
   questions,
@@ -420,6 +413,8 @@ export default function Quiz({
   const [quizStarted, setQuizStarted] = useState(false);
   const [quizSession, setQuizSession] = useState(0);
   const [participantName, setParticipantName] = useState("");
+  const [attemptId, setAttemptId] = useState("");
+  const [startedAtIso, setStartedAtIso] = useState("");
   const submittedRef = useRef(false);
   const stepRef = useRef(0);
   const orderDraftsRef = useRef(new Map());
@@ -443,6 +438,8 @@ export default function Quiz({
     setNameDraft("");
     setQuizStarted(false);
     setParticipantName("");
+    setAttemptId("");
+    setStartedAtIso("");
     submittedRef.current = false;
     orderDraftsRef.current = new Map();
     matchDraftsRef.current = new Map();
@@ -503,6 +500,68 @@ export default function Quiz({
     });
   };
 
+  const logQuizStartEvent = async (nameValue, sessionValue, localStartedAt, localAttemptId) => {
+    if (!isFirebaseConfigured()) return;
+    const db = getFirebaseDb();
+    if (!db) return;
+    try {
+      await addDoc(collection(db, "quizStartEvents"), {
+        test: testId,
+        testTitle: testTitle ?? title ?? "Тест",
+        classNum: classNum ?? "",
+        subject: subject ?? "",
+        subjectLabel: subjectLabel ?? "",
+        participantName: String(nameValue ?? "").trim() || "Анонимен",
+        quizSession: sessionValue,
+        attemptId: localAttemptId,
+        startedAtIso: localStartedAt,
+        createdAt: serverTimestamp(),
+      });
+    } catch {
+      // Не прекъсваме теста при грешка в логването.
+    }
+  };
+
+  const logAnswerEvent = async ({
+    stepKey,
+    questionIndex,
+    questionText,
+    answerValue,
+    judgedStatus,
+    isRetryStep,
+    isLockedStep,
+  }) => {
+    if (!isFirebaseConfigured()) return;
+    const db = getFirebaseDb();
+    if (!db) return;
+    try {
+      await addDoc(collection(db, "quizAnswerEvents"), {
+        test: testId,
+        testTitle: testTitle ?? title ?? "Тест",
+        classNum: classNum ?? "",
+        subject: subject ?? "",
+        subjectLabel: subjectLabel ?? "",
+        participantName: participantName.trim() || nameDraft.trim() || "Анонимен",
+        quizSession,
+        attemptId,
+        startedAtIso,
+        stepKey,
+        stepNumber: step + 1,
+        questionIndex,
+        questionNumber: Number.isInteger(questionIndex) ? questionIndex + 1 : null,
+        questionText: safeDisplayAnswer(questionText),
+        answer: safeDisplayAnswer(answerValue),
+        status: judgedStatus ?? "unknown",
+        isRetryStep: Boolean(isRetryStep),
+        isLockedStep: Boolean(isLockedStep),
+        answeredAtIso: new Date().toISOString(),
+        createdAt: serverTimestamp(),
+      });
+    } catch {
+      // Не прекъсваме теста при грешка в логването.
+    }
+  };
+
   const select = (value) => {
     if (!current) return;
     if (!currentStep) return;
@@ -520,6 +579,15 @@ export default function Quiz({
 
     const judgement = judgeAnswer(current, value);
     maybeScheduleRetry(qIndex, judgement.status === "wrong", currentStep.isRetry);
+    void logAnswerEvent({
+      stepKey: currentStep.key,
+      questionIndex: qIndex,
+      questionText: getQuestionText(current),
+      answerValue: value,
+      judgedStatus: judgement.status,
+      isRetryStep: currentStep.isRetry,
+      isLockedStep: true,
+    });
   };
 
   const setText = (value) => {
@@ -546,6 +614,15 @@ export default function Quiz({
 
     const judgement = judgeAnswer(current, v);
     maybeScheduleRetry(qIndex, judgement.status === "wrong", currentStep.isRetry);
+    void logAnswerEvent({
+      stepKey: currentStep.key,
+      questionIndex: qIndex,
+      questionText: getQuestionText(current),
+      answerValue: v,
+      judgedStatus: judgement.status,
+      isRetryStep: currentStep.isRetry,
+      isLockedStep: true,
+    });
   };
 
   const next = () => setStep((v) => Math.min(v + 1, Math.max(seqLen - 1, 0)));
@@ -555,7 +632,30 @@ export default function Quiz({
     const t = nameDraft.trim();
     if (!t) return;
     setParticipantName(t);
-    setQuizSession((v) => v + 1);
+    const localAttemptId = makeAttemptId();
+    const localStartedAt = new Date().toISOString();
+    setAttemptId(localAttemptId);
+    setStartedAtIso(localStartedAt);
+    setQuizSession((v) => {
+      const nextSession = v + 1;
+      if (isSeventhGradeQuiz) {
+        setSequence(buildInitialSequence(qs.length));
+      } else {
+        const order = shuffleArray(
+          Array.from({ length: qs.length }, (_, i) => i),
+          hashStringToSeed(`${testId}|${Date.now()}|${nextSession}|question-order`)
+        );
+        setSequence(
+          order.map((qIndex, idx) => ({
+            key: `o-${idx}`,
+            qIndex,
+            isRetry: false,
+          }))
+        );
+      }
+      void logQuizStartEvent(t, nextSession, localStartedAt, localAttemptId);
+      return nextSession;
+    });
     setQuizStarted(true);
   };
 
@@ -605,6 +705,15 @@ export default function Quiz({
 
     const judgement = judgeAnswer(current, payload);
     maybeScheduleRetry(qIndex, judgement.status === "wrong", currentStep.isRetry);
+    void logAnswerEvent({
+      stepKey: currentStep.key,
+      questionIndex: qIndex,
+      questionText: getQuestionText(current),
+      answerValue: payload,
+      judgedStatus: judgement.status,
+      isRetryStep: currentStep.isRetry,
+      isLockedStep: true,
+    });
   };
 
   const getMatchDraft = () => {
@@ -657,6 +766,15 @@ export default function Quiz({
 
     const judgement = judgeAnswer(current, payload);
     maybeScheduleRetry(qIndex, judgement.status === "wrong", currentStep.isRetry);
+    void logAnswerEvent({
+      stepKey: currentStep.key,
+      questionIndex: qIndex,
+      questionText: getQuestionText(current),
+      answerValue: payload,
+      judgedStatus: judgement.status,
+      isRetryStep: currentStep.isRetry,
+      isLockedStep: true,
+    });
   };
 
   const finish = async () => {
@@ -678,7 +796,7 @@ export default function Quiz({
       const questionResults = qs.map((q, i) => summarizeQuestionResult(q, sequence, stepAnswers, i));
 
       const summary = gradeQuiz(qs, stepAnswers, sequence);
-      const { pointsText, assessment } = summary;
+      const { pointsText } = summary;
       setFinishSummary({ ...summary, questionResults });
 
       let wrote = false;
@@ -689,9 +807,10 @@ export default function Quiz({
         await addDoc(collection(db, "results"), {
           name: participantName.trim() || "Анонимен",
           points: pointsText,
-          assessment,
           test: testId,
           testTitle: testTitle ?? title ?? "Тест",
+          attemptId: attemptId || null,
+          startedAtIso: startedAtIso || null,
           answers: summaryAnswers,
           questionResults,
           correct: summary.firstTryCorrect ?? summary.correct,
@@ -739,10 +858,17 @@ export default function Quiz({
           {finishSummary && (
             <div className={styles.done} style={{ marginTop: 12 }}>
               <div style={{ fontSize: 18, fontWeight: 1000, color: "#1a3a52" }}>
-                Резултат: {finishSummary.pointsText}
-              </div>
-              <div style={{ marginTop: 8, fontSize: 16, fontWeight: 1000, color: "#1a3a52" }}>
-                Оценка: {finishSummary.assessment}
+                {isSeventhGradeQuiz
+                  ? `Точки: ${finishSummary.pointsText}`
+                  : `Верни: ${
+                      typeof finishSummary.firstTryCorrect === "number"
+                        ? finishSummary.firstTryCorrect
+                        : finishSummary.correct
+                    } от ${
+                      typeof finishSummary.firstTryGradable === "number" && finishSummary.firstTryGradable > 0
+                        ? finishSummary.firstTryGradable
+                        : finishSummary.gradable
+                    }`}
               </div>
               {Array.isArray(finishSummary.questionResults) && finishSummary.questionResults.length > 0 && (
                 <div className={styles.summaryList}>
