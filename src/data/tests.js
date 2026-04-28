@@ -56,6 +56,7 @@ import {
 } from './seventh-grade-tests';
 
 import {
+  GEOGRAFIA_AFRIKA_NASELENIE_POLITICHESKA_KARTA_10_PLUS_2_QUESTIONS,
   GEOGRAFIA_DOPALNITELNI_QUESTIONS,
   GEOGRAFIA_IKONOMIKA_PART1,
   GEOGRAFIA_IKONOMIKA_PART2,
@@ -81,21 +82,21 @@ import {
   ENGLISH_UNIT_6C_QUESTIONS,
   ENGLISH_UNIT_7C_FILL_QUESTIONS,
   ENGLISH_UNIT_7C_VOCAB_QUESTIONS,
+  ENGLISH_UNIT_8_REVISION_TEST_QUESTIONS,
   ENGLISH_UNIT_8A_PAST_FILL_QUESTIONS,
   ENGLISH_UNIT_8A_PAST_QUESTIONS,
   ENGLISH_UNIT_8B_FILL_ONLY_QUESTIONS,
   ENGLISH_UNIT_8B_REGULAR_VERBS_MOTION_QUESTIONS,
   ENGLISH_UNIT_8B_TIGER_FILL_AND_VOCAB_QUESTIONS,
-  ENGLISH_UNIT_8_REVISION_TEST_QUESTIONS,
-  ENGLISH_UNIT_8D_MOBILE_VOCAB_FILL_QUESTIONS,
   ENGLISH_UNIT_8C_PAST_SIMPLE_QUESTIONS,
+  ENGLISH_UNIT_8D_MOBILE_VOCAB_FILL_QUESTIONS,
 } from './english-tests';
 
 import {
   ISTORIA_CARSTVO_ODRISI,
   ISTORIA_OBOBSHTENIE_TRAKIYA,
-  ISTORIA_ODRISKI_CARE,
   ISTORIA_OBSHTESTVO_I_RELIGIA_DREVEN_RIM_QUESTIONS,
+  ISTORIA_ODRISKI_CARE,
   ISTORIA_PODREDBA_QUESTIONS,
   ISTORIA_RELIGIA,
   ISTORIA_RIM_POLITICI_I_POLITIKA_QUESTIONS,
@@ -103,6 +104,7 @@ import {
   ISTORIA_RIMSKATA_IMPERIA_I_II_V_QUESTIONS,
   ISTORIA_SVAURZVANE_QUESTIONS,
   ISTORIA_UPRAJNENIE,
+  ISTORIA_VSEKIDNEVIETO_NA_RIMLYANITE_10_PLUS_2_QUESTIONS,
   ISTORIYA_DREVNA_TRAKIYA_QUESTIONS,
   ISTORIYA_TRAKIYA_OBSHTESTVO_QUESTIONS,
   KULTURA_TRAKIYA,
@@ -394,6 +396,11 @@ const TESTS = {
     slug: 'prirodni-zoni-v-afrika',
     questions: GEOGRAFIA_PRIRODNI_ZONI_AFRIKA_QUESTIONS,
   },
+  '5|geografia|afrika-naselenie-politicheska-karta-10-plus-2': {
+    title: 'География – Африка: население и политическа карта',
+    slug: 'afrika-naselenie-politicheska-karta-10-plus-2',
+    questions: GEOGRAFIA_AFRIKA_NASELENIE_POLITICHESKA_KARTA_10_PLUS_2_QUESTIONS,
+  },
   '5|english|language-revision': {
     title: 'Language Revision (English)',
     slug: 'language-revision',
@@ -488,6 +495,11 @@ const TESTS = {
     title: 'История – Общество и религия на Древен Рим (урок 34)',
     slug: 'obshtestvo-i-religia-dreven-rim',
     questions: ISTORIA_OBSHTESTVO_I_RELIGIA_DREVEN_RIM_QUESTIONS,
+  },
+  '5|istoriya|vsekidnevieto-na-rimlyanite-10-plus-2': {
+    title: 'История – Всекидневието на римляните',
+    slug: 'vsekidnevieto-na-rimlyanite-10-plus-2',
+    questions: ISTORIA_VSEKIDNEVIETO_NA_RIMLYANITE_10_PLUS_2_QUESTIONS,
   },
   '5|priroda|vozduh': {
     title: 'Човек и природа – Въздухът',
