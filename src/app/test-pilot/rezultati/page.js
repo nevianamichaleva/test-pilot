@@ -259,7 +259,7 @@ export default function RezultatiPage() {
                       <th>Име</th>
                       <th>Предмет</th>
                       <th>Тест</th>
-                      <th>Резултат / прогрес</th>
+                      <th>Резултат</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -284,7 +284,7 @@ export default function RezultatiPage() {
                           {formatDate(getStartDateFromResult(r))}
                         </td>
                         <td className={styles.cellStrong}>
-                          {r.completed ? "Завършен" : "Незавършен"}
+                          {r.completed ? "✓" : "x"}
                         </td>
                         <td className={styles.cellStrong}>{r.name}</td>
                         <td>
