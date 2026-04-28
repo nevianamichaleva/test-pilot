@@ -65,6 +65,14 @@ function getStartDateFromResult(r) {
   return parseIsoDate(r.startedAtIso) || toJsDate(r.createdAt) || null;
 }
 
+function isResultCompleted(data) {
+  if (!data || typeof data !== "object") return false;
+  if (data.completed === true) return true;
+  if (typeof data.status === "string" && data.status.toLowerCase() === "completed") return true;
+  if (data.completedAt) return true;
+  return false;
+}
+
 /** Форматира дата от Firestore Timestamp или обект. */
 function formatDate(timestamp) {
   const date = toJsDate(timestamp);
@@ -121,7 +129,7 @@ export default function RezultatiPage() {
             updatedAt: data.updatedAt ?? null,
             startedAtIso: data.startedAtIso || null,
             status: data.status || "completed",
-            completed: Boolean(data.completed),
+            completed: isResultCompleted(data),
             progressText: data.progressText || "",
             subject: getSubject(data.test),
           });

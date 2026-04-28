@@ -43,6 +43,14 @@ function parseIsoDate(isoValue) {
   return Number.isNaN(d.getTime()) ? null : d;
 }
 
+function isResultCompleted(data) {
+  if (!data || typeof data !== "object") return false;
+  if (data.completed === true) return true;
+  if (typeof data.status === "string" && data.status.toLowerCase() === "completed") return true;
+  if (data.completedAt) return true;
+  return false;
+}
+
 export default function ResultDetailsPage() {
   const params = useParams();
   const resultId = typeof params?.id === "string" ? params.id : "";
@@ -84,7 +92,7 @@ export default function ResultDetailsPage() {
           updatedAt: data.updatedAt ?? null,
           startedAtIso: data.startedAtIso || null,
           status: data.status || "completed",
-          completed: Boolean(data.completed),
+          completed: isResultCompleted(data),
           progressText: data.progressText || "",
           questionResults: Array.isArray(data.questionResults) ? data.questionResults : [],
         });
