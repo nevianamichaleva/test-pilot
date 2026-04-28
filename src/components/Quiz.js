@@ -1,6 +1,6 @@
 "use client";
 
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import Link from "next/link";
 
 import PageHero from "@/components/PageHero";
@@ -415,6 +415,7 @@ export default function Quiz({
   const [participantName, setParticipantName] = useState("");
   const [attemptId, setAttemptId] = useState("");
   const [startedAtIso, setStartedAtIso] = useState("");
+  const [resultDocId, setResultDocId] = useState("");
   const submittedRef = useRef(false);
   const stepRef = useRef(0);
   const orderDraftsRef = useRef(new Map());
@@ -440,6 +441,7 @@ export default function Quiz({
     setParticipantName("");
     setAttemptId("");
     setStartedAtIso("");
+    setResultDocId("");
     submittedRef.current = false;
     orderDraftsRef.current = new Map();
     matchDraftsRef.current = new Map();
@@ -562,6 +564,83 @@ export default function Quiz({
     }
   };
 
+  const computeDisplayResult = (summaryLike) => {
+    if (isSeventhGradeQuiz) return `Точки: ${summaryLike.pointsText ?? "–"}`;
+    const c = typeof summaryLike.firstTryCorrect === "number" ? summaryLike.firstTryCorrect : summaryLike.correct;
+    const t =
+      typeof summaryLike.firstTryGradable === "number" && summaryLike.firstTryGradable > 0
+        ? summaryLike.firstTryGradable
+        : summaryLike.gradable;
+    return `Верни: ${c ?? 0} от ${t ?? 0}`;
+  };
+
+  const buildAnsweredQuestionResults = (answersMap, seq) => {
+    const seen = new Set();
+    const out = [];
+    for (const s of seq) {
+      if (!s || s.isRetry) continue;
+      if (seen.has(s.qIndex)) continue;
+      seen.add(s.qIndex);
+      const ans = answersMap.get(s.key);
+      if (typeof ans !== "string" || !ans.trim()) continue;
+      out.push(summarizeQuestionResult(qs[s.qIndex], seq, answersMap, s.qIndex));
+    }
+    return out;
+  };
+
+  const upsertResultRecord = async ({
+    localResultDocId,
+    localAttemptId,
+    localStartedAtIso,
+    localName,
+    stepAnswersMap,
+    seq,
+    completed,
+    pointsLabel,
+  }) => {
+    if (!isFirebaseConfigured()) return;
+    const db = getFirebaseDb();
+    if (!db) return;
+    const rid = localResultDocId || localAttemptId || resultDocId || attemptId;
+    if (!rid) return;
+
+    const safeAnswers = stepAnswersMap ?? stepAnswers;
+    const safeSeq = seq ?? sequence;
+    const summary = gradeQuiz(qs, safeAnswers, safeSeq);
+    const progressQuestionResults = buildAnsweredQuestionResults(safeAnswers, safeSeq);
+    const answeredCount = safeSeq.filter((s) => {
+      const v = safeAnswers.get(s.key);
+      return typeof v === "string" && v.trim().length > 0;
+    }).length;
+
+    await setDoc(
+      doc(db, "results", rid),
+      {
+        name: String(localName ?? participantName ?? "").trim() || "Анонимен",
+        test: testId,
+        testTitle: testTitle ?? title ?? "Тест",
+        classNum: classNum ?? "",
+        subject: subject ?? "",
+        subjectLabel: subjectLabel ?? "",
+        attemptId: localAttemptId || attemptId || null,
+        startedAtIso: localStartedAtIso || startedAtIso || null,
+        points: pointsLabel ?? computeDisplayResult(summary),
+        status: completed ? "completed" : "in_progress",
+        completed: Boolean(completed),
+        lockedCount: answeredCount,
+        totalSteps: safeSeq.length,
+        progressText: `Отговорени: ${answeredCount} от ${safeSeq.length}`,
+        questionResults: completed
+          ? qs.map((q, i) => summarizeQuestionResult(q, safeSeq, safeAnswers, i))
+          : progressQuestionResults,
+        correct: summary.firstTryCorrect ?? summary.correct,
+        gradable: summary.firstTryGradable ?? summary.gradable,
+        updatedAt: serverTimestamp(),
+      },
+      { merge: true }
+    );
+  };
+
   const select = (value) => {
     if (!current) return;
     if (!currentStep) return;
@@ -579,6 +658,11 @@ export default function Quiz({
 
     const judgement = judgeAnswer(current, value);
     maybeScheduleRetry(qIndex, judgement.status === "wrong", currentStep.isRetry);
+    void upsertResultRecord({
+      stepAnswersMap: next,
+      seq: sequence,
+      completed: false,
+    });
     void logAnswerEvent({
       stepKey: currentStep.key,
       questionIndex: qIndex,
@@ -614,6 +698,11 @@ export default function Quiz({
 
     const judgement = judgeAnswer(current, v);
     maybeScheduleRetry(qIndex, judgement.status === "wrong", currentStep.isRetry);
+    void upsertResultRecord({
+      stepAnswersMap: new Map(stepAnswers),
+      seq: sequence,
+      completed: false,
+    });
     void logAnswerEvent({
       stepKey: currentStep.key,
       questionIndex: qIndex,
@@ -634,26 +723,50 @@ export default function Quiz({
     setParticipantName(t);
     const localAttemptId = makeAttemptId();
     const localStartedAt = new Date().toISOString();
+    const localResultDocId = localAttemptId;
     setAttemptId(localAttemptId);
     setStartedAtIso(localStartedAt);
+    setResultDocId(localResultDocId);
     setQuizSession((v) => {
       const nextSession = v + 1;
+      let baseSequence = buildInitialSequence(qs.length);
       if (isSeventhGradeQuiz) {
-        setSequence(buildInitialSequence(qs.length));
+        setSequence(baseSequence);
       } else {
         const order = shuffleArray(
           Array.from({ length: qs.length }, (_, i) => i),
           hashStringToSeed(`${testId}|${Date.now()}|${nextSession}|question-order`)
         );
-        setSequence(
-          order.map((qIndex, idx) => ({
-            key: `o-${idx}`,
-            qIndex,
-            isRetry: false,
-          }))
-        );
+        baseSequence = order.map((qIndex, idx) => ({
+          key: `o-${idx}`,
+          qIndex,
+          isRetry: false,
+        }));
+        setSequence(baseSequence);
       }
       void logQuizStartEvent(t, nextSession, localStartedAt, localAttemptId);
+      void upsertResultRecord({
+        localResultDocId,
+        localAttemptId,
+        localStartedAtIso: localStartedAt,
+        localName: t,
+        stepAnswersMap: new Map(),
+        seq: baseSequence,
+        completed: false,
+        pointsLabel: isSeventhGradeQuiz ? "Точки: 0" : "Верни: 0 от 0",
+      });
+      if (isFirebaseConfigured()) {
+        const db = getFirebaseDb();
+        if (db) {
+          void setDoc(
+            doc(db, "results", localResultDocId),
+            {
+              createdAt: serverTimestamp(),
+            },
+            { merge: true }
+          );
+        }
+      }
       return nextSession;
     });
     setQuizStarted(true);
@@ -705,6 +818,11 @@ export default function Quiz({
 
     const judgement = judgeAnswer(current, payload);
     maybeScheduleRetry(qIndex, judgement.status === "wrong", currentStep.isRetry);
+    void upsertResultRecord({
+      stepAnswersMap: next,
+      seq: sequence,
+      completed: false,
+    });
     void logAnswerEvent({
       stepKey: currentStep.key,
       questionIndex: qIndex,
@@ -766,6 +884,11 @@ export default function Quiz({
 
     const judgement = judgeAnswer(current, payload);
     maybeScheduleRetry(qIndex, judgement.status === "wrong", currentStep.isRetry);
+    void upsertResultRecord({
+      stepAnswersMap: next,
+      seq: sequence,
+      completed: false,
+    });
     void logAnswerEvent({
       stepKey: currentStep.key,
       questionIndex: qIndex,
@@ -796,27 +919,51 @@ export default function Quiz({
       const questionResults = qs.map((q, i) => summarizeQuestionResult(q, sequence, stepAnswers, i));
 
       const summary = gradeQuiz(qs, stepAnswers, sequence);
-      const { pointsText } = summary;
       setFinishSummary({ ...summary, questionResults });
+      const finalPointsLabel = computeDisplayResult(summary);
 
       let wrote = false;
       if (isFirebaseConfigured()) {
         const db = getFirebaseDb();
         if (!db) throw new Error("Firebase не е инициализиран (липсва конфигурация).");
-
-        await addDoc(collection(db, "results"), {
-          name: participantName.trim() || "Анонимен",
-          points: pointsText,
-          test: testId,
-          testTitle: testTitle ?? title ?? "Тест",
-          attemptId: attemptId || null,
-          startedAtIso: startedAtIso || null,
-          answers: summaryAnswers,
-          questionResults,
-          correct: summary.firstTryCorrect ?? summary.correct,
-          gradable: summary.firstTryGradable ?? summary.gradable,
-          createdAt: serverTimestamp(),
-        });
+        if (resultDocId) {
+          await upsertResultRecord({
+            localResultDocId: resultDocId,
+            localAttemptId: attemptId,
+            localStartedAtIso: startedAtIso,
+            localName: participantName,
+            stepAnswersMap: stepAnswers,
+            seq: sequence,
+            completed: true,
+            pointsLabel: finalPointsLabel,
+          });
+          await setDoc(
+            doc(db, "results", resultDocId),
+            {
+              answers: summaryAnswers,
+              questionResults,
+              createdAt: serverTimestamp(),
+            },
+            { merge: true }
+          );
+        } else {
+          await addDoc(collection(db, "results"), {
+            name: participantName.trim() || "Анонимен",
+            points: finalPointsLabel,
+            test: testId,
+            testTitle: testTitle ?? title ?? "Тест",
+            attemptId: attemptId || null,
+            startedAtIso: startedAtIso || null,
+            answers: summaryAnswers,
+            questionResults,
+            correct: summary.firstTryCorrect ?? summary.correct,
+            gradable: summary.firstTryGradable ?? summary.gradable,
+            status: "completed",
+            completed: true,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp(),
+          });
+        }
         wrote = true;
       }
 

@@ -29,6 +29,11 @@ const DATE_FILTERS = [
   { value: "30d", label: "Последните 30 дни" },
   { value: "all", label: "Всички" },
 ];
+const STATUS_FILTERS = [
+  { value: "all", label: "Всички" },
+  { value: "in_progress", label: "Само незавършени" },
+  { value: "completed", label: "Само завършени" },
+];
 
 /** Извлича предмет от testId (напр. "5|bg|morfolojiya" -> "bg"). */
 function getSubject(testId) {
@@ -37,16 +42,10 @@ function getSubject(testId) {
   return parts.length >= 2 ? parts[1] : null;
 }
 
-/** Извлича числова оценка от assessment (напр. "5 (Отличен)" -> 5). */
-function getGradeFromAssessment(assessment) {
-  if (!assessment || typeof assessment !== "string") return 0;
-  const num = parseFloat(assessment);
-  return Number.isFinite(num) ? num : 0;
-}
-
 /** Преобразува Firestore Timestamp / обект във native Date. */
 function toJsDate(timestamp) {
   if (!timestamp) return null;
+  if (timestamp instanceof Date) return timestamp;
   try {
     if (timestamp.toDate) return timestamp.toDate();
     if (typeof timestamp.seconds === "number") return new Date(timestamp.seconds * 1000);
@@ -54,6 +53,16 @@ function toJsDate(timestamp) {
     // ignore
   }
   return null;
+}
+
+function parseIsoDate(isoValue) {
+  if (typeof isoValue !== "string" || !isoValue.trim()) return null;
+  const d = new Date(isoValue);
+  return Number.isNaN(d.getTime()) ? null : d;
+}
+
+function getStartDateFromResult(r) {
+  return parseIsoDate(r.startedAtIso) || toJsDate(r.createdAt) || null;
 }
 
 /** Форматира дата от Firestore Timestamp или обект. */
@@ -75,6 +84,7 @@ export default function RezultatiPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dateFilter, setDateFilter] = useState("7d");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   useEffect(() => {
     let cancelled = false;
@@ -108,20 +118,18 @@ export default function RezultatiPage() {
             test: data.test || "",
             testTitle: data.testTitle || data.test || "–",
             createdAt: data.createdAt ?? null,
+            updatedAt: data.updatedAt ?? null,
+            startedAtIso: data.startedAtIso || null,
+            status: data.status || "completed",
+            completed: Boolean(data.completed),
+            progressText: data.progressText || "",
             subject: getSubject(data.test),
-            grade: getGradeFromAssessment(data.assessment),
           });
         });
         list.sort((a, b) => {
-          if (!a.createdAt) return 1;
-          if (!b.createdAt) return -1;
-          try {
-            const tA = a.createdAt.toDate ? a.createdAt.toDate() : new Date(0);
-            const tB = b.createdAt.toDate ? b.createdAt.toDate() : new Date(0);
-            return tB.getTime() - tA.getTime();
-          } catch {
-            return 0;
-          }
+          const tA = getStartDateFromResult(a)?.getTime() ?? 0;
+          const tB = getStartDateFromResult(b)?.getTime() ?? 0;
+          return tB - tA;
         });
         setResults(list);
       } catch (err) {
@@ -137,14 +145,20 @@ export default function RezultatiPage() {
   }, []);
 
   const filteredResults = useMemo(() => {
-    if (dateFilter === "all") return results;
+    const byStatus = results.filter((r) => {
+      if (statusFilter === "all") return true;
+      if (statusFilter === "completed") return r.completed === true;
+      if (statusFilter === "in_progress") return r.completed !== true;
+      return true;
+    });
+    if (dateFilter === "all") return byStatus;
     const days = dateFilter === "30d" ? 30 : 7;
     const from = Date.now() - days * 24 * 60 * 60 * 1000;
-    return results.filter((r) => {
-      const d = toJsDate(r.createdAt);
+    return byStatus.filter((r) => {
+      const d = getStartDateFromResult(r);
       return d ? d.getTime() >= from : false;
     });
-  }, [results, dateFilter]);
+  }, [results, dateFilter, statusFilter]);
 
   const bySubject = {};
   filteredResults.forEach((r) => {
@@ -153,10 +167,20 @@ export default function RezultatiPage() {
     bySubject[sub].push(r);
   });
   SUBJECT_ORDER.forEach((s) => {
-    if (bySubject[s]) bySubject[s].sort((a, b) => b.grade - a.grade);
+    if (bySubject[s]) bySubject[s].sort((a, b) => {
+      const tA = getStartDateFromResult(a)?.getTime() ?? 0;
+      const tB = getStartDateFromResult(b)?.getTime() ?? 0;
+      return tB - tA;
+    });
   });
   const otherSubject = bySubject["друг"];
-  if (otherSubject) otherSubject.sort((a, b) => b.grade - a.grade);
+  if (otherSubject) {
+    otherSubject.sort((a, b) => {
+      const tA = getStartDateFromResult(a)?.getTime() ?? 0;
+      const tB = getStartDateFromResult(b)?.getTime() ?? 0;
+      return tB - tA;
+    });
+  }
 
   return (
     <div className={tp.page}>
@@ -180,7 +204,7 @@ export default function RezultatiPage() {
 
         {!loading && filteredResults.length === 0 && !error && (
           <p className={`${styles.message} ${styles.messageCenter}`}>
-            Все още няма записани резултати. Резултатите се записват автоматично при завършване на тест.
+            Все още няма записани резултати. Резултатите се записват още при започване на тест.
           </p>
         )}
 
@@ -203,17 +227,31 @@ export default function RezultatiPage() {
                     ))}
                   </select>
                 </label>
+                <label className={styles.filterWrap}>
+                  <span className={styles.filterLabel}>Статус:</span>
+                  <select
+                    className={styles.filterSelect}
+                    value={statusFilter}
+                    onChange={(e) => setStatusFilter(e.target.value)}
+                  >
+                    {STATUS_FILTERS.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
               </div>
               <div className={styles.tableScroll}>
                 <table className={styles.table}>
                   <thead>
                     <tr>
                       <th>Дата</th>
+                      <th>Статус</th>
                       <th>Име</th>
                       <th>Предмет</th>
                       <th>Тест</th>
-                      <th>Точки</th>
-                      <th>Оценка</th>
+                      <th>Резултат / прогрес</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -234,7 +272,12 @@ export default function RezultatiPage() {
                         role="button"
                         aria-label={`Детайли за резултат на ${r.name}`}
                       >
-                        <td className={styles.cellMuted}>{formatDate(r.createdAt)}</td>
+                        <td className={styles.cellMuted}>
+                          {formatDate(getStartDateFromResult(r))}
+                        </td>
+                        <td className={styles.cellStrong}>
+                          {r.completed ? "Завършен" : "Незавършен"}
+                        </td>
                         <td className={styles.cellStrong}>{r.name}</td>
                         <td>
                           <span className={styles.subjectCell}>
@@ -256,8 +299,7 @@ export default function RezultatiPage() {
                             {r.testTitle}
                           </span>
                         </td>
-                        <td>{r.points}</td>
-                        <td className={styles.cellStrong}>{r.assessment}</td>
+                        <td>{r.completed ? r.points : r.progressText || r.points || "–"}</td>
                       </tr>
                       );
                     })}
@@ -291,8 +333,7 @@ export default function RezultatiPage() {
                           <span className={styles.rankName}>{r.name}</span>
                         </span>
                         <span className={styles.rankMeta}>
-                          {r.assessment}{" "}
-                          <span className={styles.cellMuted}>({r.points})</span>
+                          {r.completed ? r.points : r.progressText || "Незавършен"}
                         </span>
                       </li>
                     ))}
@@ -313,8 +354,7 @@ export default function RezultatiPage() {
                           <span className={styles.rankName}>{r.name}</span>
                         </span>
                         <span className={styles.rankMeta}>
-                          {r.assessment}{" "}
-                          <span className={styles.cellMuted}>({r.points})</span>
+                          {r.completed ? r.points : r.progressText || "Незавършен"}
                         </span>
                       </li>
                     ))}

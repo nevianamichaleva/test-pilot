@@ -15,6 +15,7 @@ import styles from "../Rezultati.module.css";
 
 function toJsDate(timestamp) {
   if (!timestamp) return null;
+  if (timestamp instanceof Date) return timestamp;
   try {
     if (timestamp.toDate) return timestamp.toDate();
     if (typeof timestamp.seconds === "number") return new Date(timestamp.seconds * 1000);
@@ -34,6 +35,12 @@ function formatDateTime(timestamp) {
     hour: "2-digit",
     minute: "2-digit",
   });
+}
+
+function parseIsoDate(isoValue) {
+  if (typeof isoValue !== "string" || !isoValue.trim()) return null;
+  const d = new Date(isoValue);
+  return Number.isNaN(d.getTime()) ? null : d;
 }
 
 export default function ResultDetailsPage() {
@@ -71,10 +78,14 @@ export default function ResultDetailsPage() {
           id: snap.id,
           name: data.name || "Анонимен",
           points: data.points || "–",
-          assessment: data.assessment || "–",
           testTitle: data.testTitle || data.test || "Тест",
           test: data.test || "",
           createdAt: data.createdAt ?? null,
+          updatedAt: data.updatedAt ?? null,
+          startedAtIso: data.startedAtIso || null,
+          status: data.status || "completed",
+          completed: Boolean(data.completed),
+          progressText: data.progressText || "",
           questionResults: Array.isArray(data.questionResults) ? data.questionResults : [],
         });
       } catch (e) {
@@ -134,10 +145,15 @@ export default function ResultDetailsPage() {
                     Дете: <strong>{result.name}</strong>
                   </p>
                   <p className={styles.detailMeta}>
-                    Завършен на: <strong>{formatDateTime(result.createdAt)}</strong>
+                    Начало: <strong>{formatDateTime(parseIsoDate(result.startedAtIso) || result.createdAt)}</strong>
                   </p>
                   <p className={styles.detailMeta}>
-                    Резултат: <strong>{result.points}</strong> | Оценка: <strong>{result.assessment}</strong>
+                    Статус: <strong>{result.completed ? "Завършен" : "Незавършен"}</strong>
+                  </p>
+                  <p className={styles.detailMeta}>
+                    {result.completed
+                      ? <>Резултат: <strong>{result.points}</strong></>
+                      : <>Прогрес: <strong>{result.progressText || result.points || "–"}</strong></>}
                   </p>
                 </div>
               </div>
