@@ -52,6 +52,7 @@ import {
   BULGARSKI_NVO_7_BEL_2024_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2025_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2026_MODEL_QUESTIONS,
+  BULGARSKI_NVO_7_BEL_NOV_APRIL_2026_QUESTIONS,
 } from './seventh-grade-tests';
 
 import {
@@ -292,6 +293,11 @@ const TESTS = {
     title: 'БЕЛ-2025',
     slug: 'bel-2025',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2025_QUESTIONS),
+  },
+  '7|bg|bel-nov-april-2026': {
+    title: 'БЕЛ - нов април 2026',
+    slug: 'bel-nov-april-2026',
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_NOV_APRIL_2026_QUESTIONS),
   },
   '7|bg|bel-2023-13062023': {
     title: 'БЕЛ-2023 (13.06.2023)',
