@@ -14,6 +14,7 @@
  */
 
 import {
+  BULGARSKI_CHASTI_NA_IZRECHENIETO_I_CHASTI_NA_RECHTA_QUESTIONS,
   BULGARSKI_DUMITE_KATO_CHASTI_NA_IZRECHENIETO_OBOBSHTENIE_QUESTIONS,
   BULGARSKI_EZIK_LITERATURA_V_KLAS_2008_QUESTIONS,
   BULGARSKI_EZIK_LITERATURA_V_KLAS_2009_QUESTIONS,
@@ -285,6 +286,11 @@ const TESTS = {
     title: 'Български език – Думите като части на изречението (обобщение, смесен тест)',
     slug: 'dumite-kato-chasti-na-izrechenieto-obobshtenie',
     questions: BULGARSKI_DUMITE_KATO_CHASTI_NA_IZRECHENIETO_OBOBSHTENIE_QUESTIONS,
+  },
+  '5|bg|chasti-na-izrechenieto-i-chasti-na-rechta': {
+    title: 'Български език – Части на изречението и части на речта',
+    slug: 'chasti-na-izrechenieto-i-chasti-na-rechta',
+    questions: BULGARSKI_CHASTI_NA_IZRECHENIETO_I_CHASTI_NA_RECHTA_QUESTIONS,
   },
   '7|bg|bel-2024': {
     title: 'БЕЛ-2024',
