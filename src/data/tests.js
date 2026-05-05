@@ -409,7 +409,7 @@ const TESTS = {
     questions: GEOGRAFIA_AFRIKA_NASELENIE_POLITICHESKA_KARTA_10_PLUS_2_QUESTIONS,
   },
   '5|geografia|afrika-izhodyashto-nivo': {
-    title: 'Изходящо ниво – География на Африка (ВО)',
+    title: 'География на Африка - обобщение(ВО)',
     slug: 'afrika-izhodyashto-nivo',
     questions: GEOGRAFIA_AFRIKA_IZHODYASHTO_NIVO_QUESTIONS,
   },

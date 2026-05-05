@@ -172,9 +172,20 @@ export default function ResultDetailsPage() {
                     const isCorrect = item?.isCorrect === true || item?.status === "correct";
                     return (
                       <div key={`detail-q-${item?.questionNumber ?? idx + 1}`} className={styles.summaryItem}>
-                        <p className={styles.summaryQuestion}>
-                          Въпрос {item?.questionNumber ?? idx + 1}: {item?.questionText || "—"}
-                        </p>
+                        <div className={styles.summaryQuestion}>
+                          <p className={styles.summaryQuestionText}>
+                            Въпрос {item?.questionNumber ?? idx + 1}: {item?.questionText || "—"}
+                          </p>
+                          {typeof item?.imageSrc === "string" && item.imageSrc.trim() ? (
+                            <img
+                              className={styles.summaryQuestionImage}
+                              src={item.imageSrc.trim()}
+                              alt={typeof item?.imageAlt === "string" ? item.imageAlt : ""}
+                              decoding="async"
+                              loading="lazy"
+                            />
+                          ) : null}
+                        </div>
                         <p className={styles.summaryAnswer}>
                           Отговор: <strong>{item?.firstAnswer || "—"}</strong> —{" "}
                           <span className={isCorrect ? styles.summaryCorrect : styles.summaryWrong}>

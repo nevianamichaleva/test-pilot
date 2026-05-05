@@ -52,6 +52,21 @@
   color: #1a3a52;
 }
 
+.questionFigure {
+  margin: 12px 0 0;
+}
+
+.questionImage {
+  display: block;
+  max-width: 100%;
+  width: auto;
+  max-height: min(52vh, 440px);
+  object-fit: contain;
+  border-radius: 14px;
+  border: 1px solid rgba(26, 58, 82, 0.12);
+  background: rgba(248, 251, 255, 0.5);
+}
+
 .readingContext {
   margin: 0 0 2px;
   padding: 14px 14px 16px;
@@ -274,10 +289,25 @@
 }
 
 .summaryQuestion {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
   font-size: 15px;
   font-weight: 900;
   color: #1a3a52;
   line-height: 1.4;
+}
+
+.summaryQuestionImage {
+  display: block;
+  margin-top: 8px;
+  max-width: 100%;
+  max-height: min(36vh, 260px);
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid rgba(26, 58, 82, 0.12);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .summaryAnswer {

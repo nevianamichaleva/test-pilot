@@ -28,6 +28,19 @@ function getQuestionText(q) {
   return "—";
 }
 
+/** Път към илюстрация към въпроса (напр. карта, климатограма) — от `public/`. */
+function getQuestionImageSrc(q) {
+  const raw = q?.imageSrc;
+  if (typeof raw !== "string") return "";
+  return raw.trim();
+}
+
+function getQuestionImageAlt(q) {
+  const raw = q?.imageAlt;
+  if (typeof raw === "string" && raw.trim()) return raw.trim();
+  return "";
+}
+
 function isOrderingQuestion(q) {
   return q?.type === "ordering" && Array.isArray(q.items) && q.items.filter(Boolean).length >= 2;
 }
@@ -249,9 +262,12 @@ function summarizeQuestionResult(q, sequence, stepAnswers, qIndex) {
   })();
   const judged = judgeAnswer(q, firstTry);
   const correctAnswer = getCorrectAnswerText(q);
+  const imageSrc = getQuestionImageSrc(q);
+  const imageAlt = getQuestionImageAlt(q);
   return {
     questionNumber: qIndex + 1,
     questionText,
+    ...(imageSrc ? { imageSrc, ...(imageAlt ? { imageAlt } : {}) } : {}),
     firstAnswer: answerText,
     status: judged.status,
     isCorrect: judged.status === "correct",
@@ -1136,6 +1152,15 @@ export default function Quiz({
                     <div key={`summary-q-${item.questionNumber}`} className={styles.summaryItem}>
                       <div className={styles.summaryQuestion}>
                         Въпрос {item.questionNumber}: {item.questionText}
+                        {typeof item.imageSrc === "string" && item.imageSrc.trim() ? (
+                          <img
+                            className={styles.summaryQuestionImage}
+                            src={item.imageSrc.trim()}
+                            alt={typeof item.imageAlt === "string" ? item.imageAlt : ""}
+                            decoding="async"
+                            loading="lazy"
+                          />
+                        ) : null}
                       </div>
                       <div className={styles.summaryAnswer}>
                         Твой отговор: <strong>{item.firstAnswer}</strong> —{" "}
@@ -1307,6 +1332,17 @@ export default function Quiz({
               </>
             ) : null}
             <p className={styles.question}>{getQuestionText(current)}</p>
+            {getQuestionImageSrc(current) ? (
+              <figure className={styles.questionFigure}>
+                <img
+                  className={styles.questionImage}
+                  src={getQuestionImageSrc(current)}
+                  alt={getQuestionImageAlt(current)}
+                  decoding="async"
+                  loading="lazy"
+                />
+              </figure>
+            ) : null}
             <div className={styles.divider} />
 
             {isTextQuestion(current) ? (
