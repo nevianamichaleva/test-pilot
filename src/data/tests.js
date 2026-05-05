@@ -57,6 +57,7 @@ import {
 } from './seventh-grade-tests';
 
 import {
+  GEOGRAFIA_AFRIKA_IZHODYASHTO_NIVO_QUESTIONS,
   GEOGRAFIA_AFRIKA_NASELENIE_POLITICHESKA_KARTA_10_PLUS_2_QUESTIONS,
   GEOGRAFIA_DOPALNITELNI_QUESTIONS,
   GEOGRAFIA_IKONOMIKA_PART1,
@@ -406,6 +407,11 @@ const TESTS = {
     title: 'География – Африка: население и политическа карта',
     slug: 'afrika-naselenie-politicheska-karta-10-plus-2',
     questions: GEOGRAFIA_AFRIKA_NASELENIE_POLITICHESKA_KARTA_10_PLUS_2_QUESTIONS,
+  },
+  '5|geografia|afrika-izhodyashto-nivo': {
+    title: 'Изходящо ниво – География на Африка (ВО)',
+    slug: 'afrika-izhodyashto-nivo',
+    questions: GEOGRAFIA_AFRIKA_IZHODYASHTO_NIVO_QUESTIONS,
   },
   '5|english|language-revision': {
     title: 'Language Revision (English)',
