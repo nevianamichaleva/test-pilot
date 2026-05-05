@@ -96,6 +96,7 @@ import {
 
 import {
   ISTORIA_CARSTVO_ODRISI,
+  ISTORIA_DREVEN_RIM_TEST3_PDF_QUESTIONS,
   ISTORIA_OBOBSHTENIE_TRAKIYA,
   ISTORIA_OBSHTESTVO_I_RELIGIA_DREVEN_RIM_QUESTIONS,
   ISTORIA_ODRISKI_CARE,
@@ -512,6 +513,11 @@ const TESTS = {
     title: 'История – Всекидневието на римляните',
     slug: 'vsekidnevieto-na-rimlyanite-10-plus-2',
     questions: ISTORIA_VSEKIDNEVIETO_NA_RIMLYANITE_10_PLUS_2_QUESTIONS,
+  },
+  '5|istoriya|dreven-rim-test-3-pdf': {
+    title: 'Древен Рим – обобщение (тест 3)',
+    slug: 'dreven-rim-test-3-pdf',
+    questions: ISTORIA_DREVEN_RIM_TEST3_PDF_QUESTIONS,
   },
   '5|priroda|vozduh': {
     title: 'Човек и природа – Въздухът',
