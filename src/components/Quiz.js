@@ -421,6 +421,7 @@ export default function Quiz({
   subject,
   subjectLabel,
   subjectThumbnailSrc,
+  preserveQuestionOrder = false,
 }) {
   const qs = useMemo(() => normalizeQuestions(questions), [questions]);
   const [step, setStep] = useState(0);
@@ -476,6 +477,7 @@ export default function Quiz({
   const qIndex = currentStep?.qIndex ?? 0;
   const current = qs[qIndex];
   const isSeventhGradeQuiz = String(classNum ?? "").trim() === "7";
+  const keepFixedOrder = preserveQuestionOrder || isSeventhGradeQuiz;
 
   const shuffledOptionsByIndex = useMemo(() => {
     if (!quizStarted) return new Map();
@@ -484,11 +486,16 @@ export default function Quiz({
       const qq = qs[i];
       const raw = getMcOptionsRaw(qq);
       if (raw.length >= 2) {
-        m.set(i, shuffleArray([...raw], hashStringToSeed(`${testId}|${quizSession}|${i}`)));
+        m.set(
+          i,
+          keepFixedOrder
+            ? raw
+            : shuffleArray([...raw], hashStringToSeed(`${testId}|${quizSession}|${i}`))
+        );
       }
     }
     return m;
-  }, [qs, testId, quizSession, quizStarted]);
+  }, [qs, testId, quizSession, quizStarted, keepFixedOrder]);
 
   const lockedCount = useMemo(() => {
     let n = 0;
@@ -848,7 +855,7 @@ export default function Quiz({
     setResultDocId(localResultDocId);
     const nextSession = quizSession + 1;
     let baseSequence = buildInitialSequence(qs.length);
-    if (!isSeventhGradeQuiz) {
+    if (!keepFixedOrder) {
       const order = shuffleArray(
         Array.from({ length: qs.length }, (_, i) => i),
         hashStringToSeed(`${testId}|${Date.now()}|${nextSession}|question-order`)
@@ -1284,16 +1291,17 @@ export default function Quiz({
   const revealAnswers = isLocked && !isSeventhGradeQuiz;
 
   return (
-    <div className={styles.page}>
+    <div className={`${styles.page} ${styles.pageActiveQuiz}`}>
       <div className={styles.wrap}>
-        <PageHero
-          variant="page"
-          title={testTitle ?? title ?? "Тест"}
-          subtitle={`Стъпка ${step + 1} от ${seqLen} (оригинални въпроси: ${total})${
-            currentStep?.isRetry ? " • Повторение" : ""
-          } • Заключени: ${lockedCount}/${seqLen}`}
-          subtitleVariant="meta"
-        />
+        <div className={styles.quizToolbar} aria-label="Напредък в теста">
+          <p className={styles.quizToolbarTitle}>{testTitle ?? title ?? "Тест"}</p>
+          <p className={styles.quizToolbarMeta}>
+            Въпрос {step + 1} от {seqLen}
+            {currentStep?.isRetry ? " · повторение" : ""}
+            {" · "}
+            Отговорени: {lockedCount}/{seqLen}
+          </p>
+        </div>
 
         <section className={styles.card}>
           <div className={styles.cardTop}>
