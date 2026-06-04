@@ -118,7 +118,7 @@ function getReadingContextForQuestion(qs, qIndex) {
   return raw;
 }
 
-/** Варианти за избор (без разбъркване): `options` или correct + wrong1… */
+/** Варианти за избор (ред в данните; показването се разбърква в Quiz): `options` или correct + wrong1… */
 function getMcOptionsRaw(q) {
   if (!q || isTextQuestion(q)) return [];
   if (isOrderingQuestion(q) || isMatchingQuestion(q)) return [];
@@ -477,7 +477,8 @@ export default function Quiz({
   const qIndex = currentStep?.qIndex ?? 0;
   const current = qs[qIndex];
   const isSeventhGradeQuiz = String(classNum ?? "").trim() === "7";
-  const keepFixedOrder = preserveQuestionOrder || isSeventhGradeQuiz;
+  /** Само ред на въпросите; отговорите А/Б/В/Г винаги се разбъркват. */
+  const keepFixedQuestionOrder = preserveQuestionOrder || isSeventhGradeQuiz;
 
   const shuffledOptionsByIndex = useMemo(() => {
     if (!quizStarted) return new Map();
@@ -488,14 +489,12 @@ export default function Quiz({
       if (raw.length >= 2) {
         m.set(
           i,
-          keepFixedOrder
-            ? raw
-            : shuffleArray([...raw], hashStringToSeed(`${testId}|${quizSession}|${i}`))
+          shuffleArray([...raw], hashStringToSeed(`${testId}|${quizSession}|${i}|options`))
         );
       }
     }
     return m;
-  }, [qs, testId, quizSession, quizStarted, keepFixedOrder]);
+  }, [qs, testId, quizSession, quizStarted]);
 
   const lockedCount = useMemo(() => {
     let n = 0;
@@ -855,7 +854,7 @@ export default function Quiz({
     setResultDocId(localResultDocId);
     const nextSession = quizSession + 1;
     let baseSequence = buildInitialSequence(qs.length);
-    if (!keepFixedOrder) {
+    if (!keepFixedQuestionOrder) {
       const order = shuffleArray(
         Array.from({ length: qs.length }, (_, i) => i),
         hashStringToSeed(`${testId}|${Date.now()}|${nextSession}|question-order`)
