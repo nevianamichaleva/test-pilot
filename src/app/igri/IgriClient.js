@@ -57,20 +57,21 @@ function gamesForClass(games, classNumStr) {
 function pickDescription(subject, classNum) {
   if (subject === "geografia") {
     return classNum
-      ? `Образователни игри по география за ${classNum}. клас.`
-      : "Образователни игри по география: понятия, обекти и континенти.";
+      ? `Игри по география за ${classNum}. клас.`
+      : "Игри по география: понятия, обекти и континенти.";
   }
   if (subject === "bg") {
     return classNum
-      ? `Образователни игри по български език за ${classNum}. клас.`
-      : "Образователни игри по български език: части на речта и още.";
+      ? `Игри по български език за ${classNum}. клас.`
+      : "Игри по български език: части на речта и още.";
   }
-  if (classNum) return `Образователни игри за ${classNum}. клас.`;
+  if (classNum) return `Игри за ${classNum}. клас.`;
   return "Избери клас и предмет, за да намериш подходяща игра.";
 }
 
 function gameMetaLabel(g) {
   if (g.kind === "geo-mode") return "Мини-игра";
+  if (g.kind === "did-you-know") return "Факти + кръстословица";
   return `${g.questionCount} въпроса`;
 }
 
@@ -119,7 +120,7 @@ export default function IgriClient() {
     }
     if (selectedSubject) return `Игри по ${SUBJECT_LABELS[selectedSubject] ?? selectedSubject}`;
     if (selectedClass) return `Игри за ${selectedClass}. клас`;
-    return "Образователни игри";
+    return "Хайде да поиграем";
   }, [selectedClass, selectedSubject]);
 
   const heroDesc = useMemo(

@@ -44,6 +44,7 @@ function buildHref(basePath, classNum, subjectKey) {
 
 function gameMetaLabel(g) {
   if (g.kind === "geo-mode") return "Мини-игра";
+  if (g.kind === "did-you-know") return "Факти + кръстословица";
   return `${g.questionCount} въпроса`;
 }
 
@@ -160,7 +161,7 @@ export default function HomeFilters({ tests, games = [] }) {
 
       <section className={styles.section}>
         <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>Образователни игри</h2>
+          <h2 className={styles.sectionTitle}>Хайде да поиграем</h2>
           <p className={styles.sectionHint}>
             {selectedClass
               ? `Игри за ${selectedClass}. клас.`

@@ -84,7 +84,7 @@ export default function Header() {
             Тестове
           </Link>
           <Link className={styles.link} href="/igri" onClick={close}>
-            Игри
+            Хайде да поиграем
           </Link>
           <Link className={styles.link} href="/za-men" onClick={close}>
             За мен

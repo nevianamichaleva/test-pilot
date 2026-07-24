@@ -46,7 +46,7 @@ export default function Home() {
                 Започни сега <span aria-hidden>→</span>
               </Link>
               <Link className={styles.ghost} href="/igri">
-                Образователни игри
+                Хайде да поиграем
               </Link>
             </div>
           }

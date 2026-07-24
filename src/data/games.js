@@ -1,11 +1,12 @@
 /**
- * Образователни игри.
+ * Хайде да поиграем (/igri).
  * URL: /igri/[slug]
  * Филтри: /igri?class=6&subject=geografia
  *
  * kind:
  * - "quiz": прости MC въпроси
  * - "geo-mode": една мини-игра от Географско приключение (mode: hangman|scramble|sort|odd_one|match)
+ * - "did-you-know": факти „Знаеш ли, че…“ + кръстословица
  *
  * classNums: масив от класове (напр. ["5","6","7"]).
  * image: път към картинка в /public
@@ -14,6 +15,19 @@
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 
 export const GAMES = [
+  {
+    slug: "geografia-znaesh-li-yuzhna-amerika-6",
+    title: "География – Знаеш ли, че…",
+    description:
+      "Южна Америка: прочети весели факти и после реши кръстословицата. По 5 точки за дума!",
+    subject: "geografia",
+    classNums: ["6"],
+    tone: "#bae6fd",
+    accent: "#0284c7",
+    status: "ready",
+    kind: "did-you-know",
+    image: "/images/igri/geo-znaesh-li.png",
+  },
   {
     slug: "geografia-besilka-6",
     title: "География – Бесилка",

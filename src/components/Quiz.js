@@ -422,6 +422,7 @@ export default function Quiz({
   subjectLabel,
   subjectThumbnailSrc,
   preserveQuestionOrder = false,
+  preserveOptionOrder = false,
 }) {
   const qs = useMemo(() => normalizeQuestions(questions), [questions]);
   const [step, setStep] = useState(0);
@@ -477,8 +478,9 @@ export default function Quiz({
   const qIndex = currentStep?.qIndex ?? 0;
   const current = qs[qIndex];
   const isSeventhGradeQuiz = String(classNum ?? "").trim() === "7";
-  /** Само ред на въпросите; отговорите А/Б/В/Г винаги се разбъркват. */
+  /** Само ред на въпросите; отговорите А/Б/В/Г се разбъркват, освен при preserveOptionOrder. */
   const keepFixedQuestionOrder = preserveQuestionOrder || isSeventhGradeQuiz;
+  const keepFixedOptionOrder = Boolean(preserveOptionOrder);
 
   const shuffledOptionsByIndex = useMemo(() => {
     if (!quizStarted) return new Map();
@@ -489,12 +491,14 @@ export default function Quiz({
       if (raw.length >= 2) {
         m.set(
           i,
-          shuffleArray([...raw], hashStringToSeed(`${testId}|${quizSession}|${i}|options`))
+          keepFixedOptionOrder
+            ? [...raw]
+            : shuffleArray([...raw], hashStringToSeed(`${testId}|${quizSession}|${i}|options`))
         );
       }
     }
     return m;
-  }, [qs, testId, quizSession, quizStarted]);
+  }, [qs, testId, quizSession, quizStarted, keepFixedOptionOrder]);
 
   const lockedCount = useMemo(() => {
     let n = 0;

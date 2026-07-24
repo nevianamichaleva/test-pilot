@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import DidYouKnowCrossword from "@/components/games/DidYouKnowCrossword";
 import GeoAdventure from "@/components/games/GeoAdventure";
 import { getAllGames, getGameBySlug } from "@/data/games";
 
@@ -32,6 +33,7 @@ export default async function GamePage({ params }) {
   if (!game || game.status !== "ready") notFound();
 
   const isGeoMode = game.kind === "geo-mode" && game.mode;
+  const isDidYouKnow = game.kind === "did-you-know";
   const exitHref = `/igri?class=${encodeURIComponent(game.classNums?.[0] ?? "")}&subject=${encodeURIComponent(game.subject ?? "")}`;
 
   return (
@@ -48,7 +50,9 @@ export default async function GamePage({ params }) {
             </Link>
           }
         />
-        {isGeoMode ? (
+        {isDidYouKnow ? (
+          <DidYouKnowCrossword exitHref={exitHref} />
+        ) : isGeoMode ? (
           <GeoAdventure initialMode={game.mode} exitHref={exitHref} />
         ) : (
           <GamePlay game={game} />

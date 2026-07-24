@@ -103,6 +103,7 @@ export default async function TestPage({ params }) {
         subjectLabel={subjectLabel}
         subjectThumbnailSrc={subjectThumbnailSrc}
         preserveQuestionOrder={Boolean(testData.preserveQuestionOrder)}
+        preserveOptionOrder={Boolean(testData.preserveOptionOrder)}
       />
       <Footer />
     </div>

@@ -112,6 +112,7 @@ import {
   ISTORIA_RIMSKATA_IMPERIA_I_II_V_QUESTIONS,
   ISTORIA_SVAURZVANE_QUESTIONS,
   ISTORIA_UPRAJNENIE,
+  ISTORIA_VHODEN_6_KLAS_QUESTIONS,
   ISTORIA_VSEKIDNEVIETO_NA_RIMLYANITE_10_PLUS_2_QUESTIONS,
   ISTORIYA_DREVNA_TRAKIYA_QUESTIONS,
   ISTORIYA_TRAKIYA_OBSHTESTVO_QUESTIONS,
@@ -551,6 +552,13 @@ const TESTS = {
     title: 'Древен Рим – обобщение (тест 3)',
     slug: 'dreven-rim-test-3-pdf',
     questions: ISTORIA_DREVEN_RIM_TEST3_PDF_QUESTIONS,
+  },
+  '6|istoriya|vhoden-test': {
+    title: 'Входен тест – История 6. клас',
+    slug: 'vhoden-test',
+    questions: ISTORIA_VHODEN_6_KLAS_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
   },
   '5|priroda|vozduh': {
     title: 'Човек и природа – Въздухът',
