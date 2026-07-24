@@ -53,7 +53,7 @@ export default function Header() {
               priority
             />
           </span>
-          <span>Учене и тестове</span>
+          <span className={styles.brandText}>Образователни тестове и игри</span>
         </Link>
 
         <button
@@ -82,6 +82,9 @@ export default function Header() {
           </Link>
           <Link className={styles.link} href="/test-pilot" onClick={close}>
             Тестове
+          </Link>
+          <Link className={styles.link} href="/igri" onClick={close}>
+            Игри
           </Link>
           <Link className={styles.link} href="/za-men" onClick={close}>
             За мен

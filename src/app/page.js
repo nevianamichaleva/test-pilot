@@ -3,6 +3,7 @@ import Link from "next/link";
 import PageHero from "@/components/PageHero";
 import HomeFilters from "./HomeFilters";
 import styles from "./HomePage.module.css";
+import { getAllGames } from "@/data/games";
 import { getAllTests } from "@/data/tests";
 import { getTestListThumbnailSrc } from "@/lib/subjectImages";
 
@@ -30,27 +31,28 @@ function pickPopular(tests, count = 3) {
 export default function Home() {
   const tests = getAllTests();
   const popular = pickPopular(tests, 3);
+  const games = getAllGames().filter((g) => g.status === "ready");
 
   return (
     <div className={styles.page}>
       <div className={styles.container}>
         <PageHero
           variant="home"
-          title="Тестове за ученици"
-          subtitle="Избери клас и предмет и започни да тестваш знанията си с кратки упражнения и тестове."
+          title="Образователни тестове и игри"
+          subtitle="Избери клас и предмет или опитай образователна игра — учи по-лесно с кратки упражнения."
           actions={
             <div className={styles.heroActionRow}>
               <Link className={styles.cta} href="/test-pilot">
                 Започни сега <span aria-hidden>→</span>
               </Link>
-              <Link className={styles.ghost} href="/test-pilot/7-nvo">
-                7. клас НВО
+              <Link className={styles.ghost} href="/igri">
+                Образователни игри
               </Link>
             </div>
           }
         />
 
-        <HomeFilters tests={tests} />
+        <HomeFilters tests={tests} games={games} />
 
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
@@ -62,27 +64,27 @@ export default function Home() {
             {popular.map((t) => {
               const thumbSrc = getTestListThumbnailSrc(t);
               return (
-              <Link
-                key={`${t.classNum}|${t.subject}|${t.slug}`}
-                className={styles.popularCard}
-                href={`/test-pilot/${encodeURIComponent(t.classNum)}/${encodeURIComponent(
-                  t.subject
-                )}/${encodeURIComponent(t.slug)}`}
-              >
-                <div
-                  className={`${styles.popularThumb}${thumbSrc ? ` ${styles.popularThumbWithImage}` : ""}`}
+                <Link
+                  key={`${t.classNum}|${t.subject}|${t.slug}`}
+                  className={styles.popularCard}
+                  href={`/test-pilot/${encodeURIComponent(t.classNum)}/${encodeURIComponent(
+                    t.subject
+                  )}/${encodeURIComponent(t.slug)}`}
                 >
-                  {thumbSrc ? (
-                    <img className={styles.popularThumbImg} src={thumbSrc} alt="" decoding="async" />
-                  ) : null}
-                </div>
-                <div className={styles.popularBody}>
-                  <p className={styles.popularTitle}>{t.title}</p>
-                  <p className={styles.popularMeta}>
-                    {t.questionCount} въпроса • {t.classNum}. клас
-                  </p>
-                </div>
-              </Link>
+                  <div
+                    className={`${styles.popularThumb}${thumbSrc ? ` ${styles.popularThumbWithImage}` : ""}`}
+                  >
+                    {thumbSrc ? (
+                      <img className={styles.popularThumbImg} src={thumbSrc} alt="" decoding="async" />
+                    ) : null}
+                  </div>
+                  <div className={styles.popularBody}>
+                    <p className={styles.popularTitle}>{t.title}</p>
+                    <p className={styles.popularMeta}>
+                      {t.questionCount} въпроса • {t.classNum}. клас
+                    </p>
+                  </div>
+                </Link>
               );
             })}
           </div>
@@ -97,4 +99,3 @@ export default function Home() {
     </div>
   );
 }
-

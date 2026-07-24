@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { gameMatchesClass } from "@/data/games";
 import { SUBJECT_THUMB_SRC } from "@/lib/subjectImages";
 
 import styles from "./HomePage.module.css";
+import igriStyles from "./igri/Igri.module.css";
 
 const SUBJECTS = [
   { key: "bg", label: "Български език", icon: "📚", tone: "#ffe1d5" },
@@ -32,25 +34,35 @@ function normalizeClassNum(classNum) {
   return Number.isFinite(n) ? String(n) : String(classNum ?? "");
 }
 
-function buildTestPilotHref(classNum, subjectKey) {
+function buildHref(basePath, classNum, subjectKey) {
   const p = new URLSearchParams();
   if (classNum) p.set("class", classNum);
   if (subjectKey) p.set("subject", subjectKey);
   const q = p.toString();
-  return q ? `/test-pilot?${q}` : "/test-pilot";
+  return q ? `${basePath}?${q}` : basePath;
 }
 
-export default function HomeFilters({ tests }) {
+function gameMetaLabel(g) {
+  if (g.kind === "geo-mode") return "Мини-игра";
+  return `${g.questionCount} въпроса`;
+}
+
+export default function HomeFilters({ tests, games = [] }) {
   const [selectedClass, setSelectedClass] = useState("");
 
-  const classesWithTests = useMemo(() => {
-    const set = new Set(tests.map((t) => normalizeClassNum(t.classNum)));
-    return new Set([...set].filter(Boolean));
-  }, [tests]);
+  const classesWithContent = useMemo(() => {
+    const set = new Set(tests.map((t) => normalizeClassNum(t.classNum)).filter(Boolean));
+    for (const g of games) {
+      for (const c of g.classNums ?? []) {
+        if (c) set.add(normalizeClassNum(c));
+      }
+    }
+    return set;
+  }, [tests, games]);
 
   const visibleClassPills = useMemo(
-    () => CLASS_PILLS.filter((c) => classesWithTests.has(c.classNum)),
-    [classesWithTests]
+    () => CLASS_PILLS.filter((c) => classesWithContent.has(c.classNum)),
+    [classesWithContent]
   );
 
   const subjectsShown = useMemo(() => {
@@ -60,6 +72,16 @@ export default function HomeFilters({ tests }) {
     const keys = new Set(pool.map((t) => t.subject).filter(Boolean));
     return SUBJECTS.filter((s) => keys.has(s.key));
   }, [tests, selectedClass]);
+
+  const filteredGames = useMemo(() => {
+    const ready = games.filter((g) => g.status === "ready");
+    const pool = selectedClass
+      ? ready.filter((g) => gameMatchesClass(g, selectedClass))
+      : ready;
+    return pool.slice(0, 6);
+  }, [games, selectedClass]);
+
+  const gamesHref = buildHref("/igri", selectedClass, "");
 
   const toggleClass = (classNum) => {
     setSelectedClass((prev) => (prev === classNum ? "" : classNum));
@@ -71,7 +93,7 @@ export default function HomeFilters({ tests }) {
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Избери клас</h2>
           <p className={styles.sectionHint}>
-            Изборът филтрира предметите по-долу. Повторно кликване маха филтъра.
+            Изборът филтрира предметите и игрите по-долу. Повторно кликване маха филтъра.
           </p>
         </div>
         <div className={styles.pillRow}>
@@ -106,7 +128,7 @@ export default function HomeFilters({ tests }) {
               <Link
                 key={s.key}
                 className={styles.card}
-                href={buildTestPilotHref(selectedClass, s.key)}
+                href={buildHref("/test-pilot", selectedClass, s.key)}
               >
                 <div className={styles.cardTop} style={{ backgroundColor: s.tone }}>
                   {SUBJECT_THUMB_SRC[s.key] ? (
@@ -134,6 +156,54 @@ export default function HomeFilters({ tests }) {
             ))}
           </div>
         )}
+      </section>
+
+      <section className={styles.section}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>Образователни игри</h2>
+          <p className={styles.sectionHint}>
+            {selectedClass
+              ? `Игри за ${selectedClass}. клас.`
+              : "Кратки игри за упражнение с моментален резултат."}
+          </p>
+        </div>
+
+        {filteredGames.length === 0 ? (
+          <p className={styles.emptySubjects}>
+            {selectedClass ? `Няма игри за ${selectedClass}. клас.` : "Скоро ще има нови игри."}
+          </p>
+        ) : (
+          <div className={styles.popularGrid}>
+            {filteredGames.map((g) => (
+              <Link
+                key={g.slug}
+                className={igriStyles.homeCard}
+                href={`/igri/${encodeURIComponent(g.slug)}`}
+                style={{ borderColor: g.accent ? `${g.accent}55` : undefined }}
+              >
+                <div className={igriStyles.homeThumb} style={{ "--tone": g.tone }} aria-hidden>
+                  {g.image ? (
+                    <img className={igriStyles.homeThumbImg} src={g.image} alt="" decoding="async" />
+                  ) : (
+                    <span className={igriStyles.homeThumbMark}>▶</span>
+                  )}
+                </div>
+                <div className={igriStyles.homeBody}>
+                  <p className={igriStyles.homeTitle}>{g.title}</p>
+                  <p className={igriStyles.homeMeta}>
+                    {g.subjectLabel} · {gameMetaLabel(g)}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+
+        <div className={styles.moreWrap}>
+          <Link className={styles.moreBtn} href={gamesHref}>
+            Виж всички игри <span aria-hidden>›</span>
+          </Link>
+        </div>
       </section>
     </>
   );

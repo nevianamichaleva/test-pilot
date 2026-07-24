@@ -35,6 +35,10 @@
   min-width: 0;
 }
 
+.brandText {
+  line-height: 1.2;
+}
+
 .brand:hover {
   color: #fff;
 }
@@ -153,6 +157,11 @@
     padding: 10px 14px 12px;
     flex-wrap: nowrap;
     justify-content: space-between;
+  }
+
+  .brandText {
+    font-size: 12px;
+    letter-spacing: 0;
   }
 
   .menuToggle {

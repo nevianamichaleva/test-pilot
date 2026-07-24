@@ -9,7 +9,7 @@ export default function Footer() {
     >
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         <small style={{ color: "rgba(255,255,255,0.75)" }}>
-          © {new Date().getFullYear()} Учене и тестове. Всички права запазени.
+          © {new Date().getFullYear()} Образователни тестове и игри. Всички права запазени.
         </small>
       </div>
     </footer>
