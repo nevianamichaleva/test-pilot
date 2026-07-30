@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import DidYouKnowCrossword from "@/components/games/DidYouKnowCrossword";
+import GamePlayTracker from "@/components/games/GamePlayTracker";
 import GeoAdventure from "@/components/games/GeoAdventure";
 import { getAllGames, getGameBySlug } from "@/data/games";
 
@@ -44,12 +45,15 @@ export default async function GamePage({ params }) {
           title={game.title}
           subtitle={`${game.subjectLabel} · ${game.classHint}`}
           subtitleVariant="meta"
+          imageSrc={game.image || "/test-pilot.png"}
+          imageAlt={game.title}
           actions={
             <Link href="/igri" className={pageStyles.start}>
               ← Всички игри
             </Link>
           }
         />
+        <GamePlayTracker game={game} />
         {isDidYouKnow ? (
           <DidYouKnowCrossword exitHref={exitHref} />
         ) : isGeoMode ? (

@@ -89,6 +89,7 @@ function formatDate(timestamp) {
 export default function RezultatiPage() {
   const router = useRouter();
   const [results, setResults] = useState([]);
+  const [gamePlays, setGamePlays] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dateFilter, setDateFilter] = useState("7d");
@@ -113,13 +114,17 @@ export default function RezultatiPage() {
           return;
         }
 
-        const snap = await getDocs(collection(db, "results"));
+        const [resultsSnap, gamesSnap] = await Promise.all([
+          getDocs(collection(db, "results")),
+          getDocs(collection(db, "gamePlayEvents")),
+        ]);
         if (cancelled) return;
+
         const list = [];
-        snap.forEach((doc) => {
-          const data = doc.data();
+        resultsSnap.forEach((docSnap) => {
+          const data = docSnap.data();
           list.push({
-            id: doc.id,
+            id: docSnap.id,
             name: data.name || "Анонимен",
             points: data.points || "–",
             assessment: data.assessment || "–",
@@ -140,6 +145,28 @@ export default function RezultatiPage() {
           return tB - tA;
         });
         setResults(list);
+
+        const plays = [];
+        gamesSnap.forEach((docSnap) => {
+          const data = docSnap.data();
+          plays.push({
+            id: docSnap.id,
+            slug: data.slug || "",
+            title: data.title || data.slug || "Игра",
+            subject: data.subject || "",
+            subjectLabel: data.subjectLabel || SUBJECT_LABELS[data.subject] || data.subject || "–",
+            classHint: data.classHint || "",
+            kind: data.kind || "",
+            startedAtIso: data.startedAtIso || null,
+            createdAt: data.createdAt ?? null,
+          });
+        });
+        plays.sort((a, b) => {
+          const tA = getStartDateFromResult(a)?.getTime() ?? 0;
+          const tB = getStartDateFromResult(b)?.getTime() ?? 0;
+          return tB - tA;
+        });
+        setGamePlays(plays);
       } catch (err) {
         if (!cancelled) setError(err?.message || "Грешка при зареждане.");
       } finally {
@@ -168,6 +195,42 @@ export default function RezultatiPage() {
     });
   }, [results, dateFilter, statusFilter]);
 
+  const filteredGamePlays = useMemo(() => {
+    if (dateFilter === "all") return gamePlays;
+    const days = dateFilter === "30d" ? 30 : 7;
+    const from = Date.now() - days * 24 * 60 * 60 * 1000;
+    return gamePlays.filter((p) => {
+      const d = getStartDateFromResult(p);
+      return d ? d.getTime() >= from : false;
+    });
+  }, [gamePlays, dateFilter]);
+
+  const gameInterest = useMemo(() => {
+    const bySlug = new Map();
+    for (const play of filteredGamePlays) {
+      const key = play.slug || play.title;
+      const prev = bySlug.get(key);
+      if (!prev) {
+        bySlug.set(key, {
+          slug: play.slug,
+          title: play.title,
+          subject: play.subject,
+          subjectLabel: play.subjectLabel,
+          classHint: play.classHint,
+          count: 1,
+          lastPlayedAt: getStartDateFromResult(play),
+        });
+      } else {
+        prev.count += 1;
+        const d = getStartDateFromResult(play);
+        if (d && (!prev.lastPlayedAt || d.getTime() > prev.lastPlayedAt.getTime())) {
+          prev.lastPlayedAt = d;
+        }
+      }
+    }
+    return [...bySlug.values()].sort((a, b) => b.count - a.count || a.title.localeCompare(b.title, "bg"));
+  }, [filteredGamePlays]);
+
   const bySubject = {};
   filteredResults.forEach((r) => {
     const sub = r.subject || "друг";
@@ -190,13 +253,15 @@ export default function RezultatiPage() {
     });
   }
 
+  const hasAnyData = filteredResults.length > 0 || filteredGamePlays.length > 0;
+
   return (
     <div className={tp.page}>
       <main className={tp.wrap}>
         <PageHero
           variant="page"
           title="Резултати от тестовете"
-          subtitle="Последните 15 резултата и класация по предмет."
+          subtitle="Резултати от тестове и интерес към игрите."
           actions={
             <Link href="/test-pilot" className={styles.backLink}>
               Към тестовете <span aria-hidden>›</span>
@@ -208,47 +273,107 @@ export default function RezultatiPage() {
           <p className={`${styles.message} ${styles.messageCenter}`}>Зареждане...</p>
         )}
 
-        {error && !results.length && <p className={styles.messageError}>{error}</p>}
+        {error && !results.length && !gamePlays.length && <p className={styles.messageError}>{error}</p>}
 
-        {!loading && filteredResults.length === 0 && !error && (
+        {!loading && !hasAnyData && !error && (
           <p className={`${styles.message} ${styles.messageCenter}`}>
-            Все още няма записани резултати. Резултатите се записват още при започване на тест.
+            Все още няма записани резултати. Резултатите от тестове се записват при започване; отварянията на игри — при старт на игра.
           </p>
+        )}
+
+        {!loading && (results.length > 0 || gamePlays.length > 0) && (
+          <section className={styles.panel}>
+            <div className={styles.panelHeadRow}>
+              <h2 className={styles.panelHead}>Филтри</h2>
+              <label className={styles.filterWrap}>
+                <span className={styles.filterLabel}>Период:</span>
+                <select
+                  className={styles.filterSelect}
+                  value={dateFilter}
+                  onChange={(e) => setDateFilter(e.target.value)}
+                >
+                  {DATE_FILTERS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className={styles.filterWrap}>
+                <span className={styles.filterLabel}>Статус (тестове):</span>
+                <select
+                  className={styles.filterSelect}
+                  value={statusFilter}
+                  onChange={(e) => setStatusFilter(e.target.value)}
+                >
+                  {STATUS_FILTERS.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          </section>
+        )}
+
+        {!loading && filteredGamePlays.length > 0 && (
+          <section className={styles.panel}>
+            <div className={styles.panelHeadRow}>
+              <h2 className={styles.panelHead}>Интерес към игрите</h2>
+              <span className={styles.filterLabel}>
+                {filteredGamePlays.length}{" "}
+                {filteredGamePlays.length === 1 ? "отваряне" : "отваряния"}
+              </span>
+            </div>
+            <div className={styles.tableScroll}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Игра</th>
+                    <th>Предмет</th>
+                    <th>Клас</th>
+                    <th>Отваряния</th>
+                    <th>Последно</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {gameInterest.map((g, i) => (
+                    <tr key={g.slug || g.title}>
+                      <td className={styles.cellMuted}>{i + 1}</td>
+                      <td className={styles.cellStrong}>{g.title}</td>
+                      <td>
+                        <span className={styles.subjectCell}>
+                          {SUBJECT_THUMB_SRC[g.subject] ? (
+                            <img
+                              className={styles.subjectThumb}
+                              src={SUBJECT_THUMB_SRC[g.subject]}
+                              alt=""
+                              width={40}
+                              height={40}
+                              decoding="async"
+                            />
+                          ) : null}
+                          <span>{g.subjectLabel}</span>
+                        </span>
+                      </td>
+                      <td>{g.classHint || "–"}</td>
+                      <td className={styles.cellStrong}>{g.count}</td>
+                      <td className={styles.cellMuted}>{formatDate(g.lastPlayedAt)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
         )}
 
         {!loading && filteredResults.length > 0 && (
           <>
             <section className={styles.panel}>
               <div className={styles.panelHeadRow}>
-                <h2 className={styles.panelHead}>Резултати</h2>
-                <label className={styles.filterWrap}>
-                  <span className={styles.filterLabel}>Период:</span>
-                  <select
-                    className={styles.filterSelect}
-                    value={dateFilter}
-                    onChange={(e) => setDateFilter(e.target.value)}
-                  >
-                    {DATE_FILTERS.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className={styles.filterWrap}>
-                  <span className={styles.filterLabel}>Статус:</span>
-                  <select
-                    className={styles.filterSelect}
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                  >
-                    {STATUS_FILTERS.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
+                <h2 className={styles.panelHead}>Резултати от тестове</h2>
               </div>
               <div className={styles.tableScroll}>
                 <table className={styles.table}>

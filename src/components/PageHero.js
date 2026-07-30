@@ -6,7 +6,16 @@ import styles from "./PageHero.module.css";
  * Обща синя hero секция с изображение (като началната страница).
  * @param {"home" | "page"} variant — `home`: по-силно заобляне вдясно; `page`: стандартно.
  */
-export default function PageHero({ variant = "page", title, subtitle, subtitleVariant = "body", children, actions }) {
+export default function PageHero({
+  variant = "page",
+  title,
+  subtitle,
+  subtitleVariant = "body",
+  children,
+  actions,
+  imageSrc = "/test-pilot.png",
+  imageAlt = "",
+}) {
   const shellClass =
     variant === "home" ? `${styles.hero} ${styles.heroHome}` : `${styles.hero} ${styles.heroPage}`;
   const subClass = subtitleVariant === "meta" ? styles.heroSubMeta : styles.heroSub;
@@ -24,8 +33,8 @@ export default function PageHero({ variant = "page", title, subtitle, subtitleVa
         <div className={styles.heroArt}>
           <Image
             className={styles.heroImg}
-            src="/test-pilot.png"
-            alt=""
+            src={imageSrc || "/test-pilot.png"}
+            alt={imageAlt}
             width={720}
             height={460}
             priority
