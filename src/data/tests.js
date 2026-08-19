@@ -62,6 +62,7 @@ import {
 } from './seventh-grade-tests';
 
 import {
+  GEOGRAFIA_6_VHODNO_NIVO_QUESTIONS,
   GEOGRAFIA_AFRIKA_IZHODYASHTO_NIVO_QUESTIONS,
   GEOGRAFIA_AFRIKA_NASELENIE_POLITICHESKA_KARTA_10_PLUS_2_QUESTIONS,
   GEOGRAFIA_DOPALNITELNI_QUESTIONS,
@@ -120,6 +121,7 @@ import {
 } from './istoriya-tests';
 
 import {
+  PRIRODA_6_VHODNO_RAVNISHTE_QUESTIONS,
   PRIRODA_CHP_TEST2_VESHTESTVA_I_TEHNI_SVOYSTVA_QUESTIONS,
   PRIRODA_EDNOKLETACHNI_MNOGOKLETACHNI_QUESTIONS,
   PRIRODA_FOTOSINTEZA_10_PLUS_3_QUESTIONS,
@@ -448,6 +450,13 @@ const TESTS = {
     slug: 'afrika-izhodyashto-nivo',
     questions: GEOGRAFIA_AFRIKA_IZHODYASHTO_NIVO_QUESTIONS,
   },
+  '6|geografia|vhodno-nivo': {
+    title: 'География – Входно ниво (6. клас)',
+    slug: 'vhodno-nivo',
+    questions: GEOGRAFIA_6_VHODNO_NIVO_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
   '5|english|language-revision': {
     title: 'Language Revision (English)',
     slug: 'language-revision',
@@ -614,6 +623,13 @@ const TESTS = {
     title: 'Човек и природа – Фотосинтеза (10 избираеми + 3 попълване)',
     slug: 'fotosinteza-10-plus-3',
     questions: PRIRODA_FOTOSINTEZA_10_PLUS_3_QUESTIONS,
+  },
+  '6|priroda|vhodno-ravnishte': {
+    title: 'Човек и природа – Входно равнище (6. клас)',
+    slug: 'vhodno-ravnishte',
+    questions: PRIRODA_6_VHODNO_RAVNISHTE_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
   },
   '5|literatura|da-proverim-var1': {
     title: 'Да проверим – Литература (Вариант 1)',
