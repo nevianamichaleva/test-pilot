@@ -1,0 +1,387 @@
+.shell {
+  margin-top: 14px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 18px 50px rgba(10, 35, 70, 0.12);
+  padding: 16px 14px 18px;
+  position: relative;
+}
+
+.intro,
+.result {
+  text-align: center;
+  padding: 8px 6px 4px;
+}
+
+.introTitle {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 1000;
+  color: #065f46;
+}
+
+.introText {
+  margin: 0 auto;
+  max-width: 42rem;
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 650;
+  color: rgba(26, 58, 82, 0.78);
+}
+
+.legend {
+  list-style: none;
+  margin: 16px 0 10px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 18px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #1a3a52;
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legPlayer,
+.legGate,
+.legClear,
+.legExit {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.legPlayer {
+  background: linear-gradient(135deg, #34d399, #059669);
+}
+
+.legGate {
+  background: #fef3c7;
+  border: 2px solid #f59e0b;
+}
+
+.legClear {
+  background: #d1fae5;
+  border: 2px solid #10b981;
+}
+
+.legExit {
+  background: #dbeafe;
+  border: 2px solid #3b82f6;
+}
+
+.hintKeys {
+  margin: 0 0 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.5);
+}
+
+.primaryBtn,
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, #34d399, #059669);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(5, 150, 105, 0.22);
+}
+
+.secondaryBtn {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.resultOk {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 1000;
+  color: #15803d;
+}
+
+.resultBad {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 1000;
+  color: #dc2626;
+}
+
+.resultMsg {
+  margin: 10px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.75);
+}
+
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.lives {
+  color: #c62828;
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+}
+
+.progress {
+  font-weight: 900;
+  font-size: 13px;
+  color: #047857;
+}
+
+.exitLink {
+  color: #2f7eea;
+  font-weight: 900;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.exitLink:hover {
+  text-decoration: underline;
+}
+
+.toast,
+.toastSpacer {
+  min-height: 1.4em;
+  margin: 4px 0 8px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #b45309;
+}
+
+.mazeWrap {
+  max-width: 420px;
+  margin: 0 auto;
+  aspect-ratio: 11 / 13;
+}
+
+.shake {
+  animation: bump 0.28s ease;
+}
+
+@keyframes bump {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+.maze {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  gap: 2px;
+  background: #064e3b;
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: inset 0 0 0 3px rgba(6, 78, 59, 0.35);
+}
+
+.cell {
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  font-size: clamp(10px, 2.8vw, 14px);
+}
+
+.wall {
+  background: linear-gradient(160deg, #065f46, #022c22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.path,
+.start {
+  background: #ecfdf5;
+}
+
+.gate {
+  background: #fef3c7;
+  border: 1.5px solid #f59e0b;
+}
+
+.gateOpen {
+  background: #d1fae5;
+  border: 1.5px solid #10b981;
+  color: #047857;
+  font-weight: 900;
+}
+
+.exit {
+  background: #dbeafe;
+  border: 1.5px solid #3b82f6;
+}
+
+.playerCell {
+  background: #a7f3d0 !important;
+  box-shadow: 0 0 0 2px #059669;
+  z-index: 1;
+}
+
+.player {
+  line-height: 1;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+.gateIcon,
+.exitIcon {
+  line-height: 1;
+  opacity: 0.95;
+}
+
+.pad {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.padMid {
+  display: flex;
+  gap: 6px;
+}
+
+.padBtn {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  border: 2px solid #6ee7b7;
+  background: #ecfdf5;
+  color: #065f46;
+  font-size: 22px;
+  font-weight: 900;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+  box-shadow: 0 4px 0 #a7f3d0;
+}
+
+.padBtn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #a7f3d0;
+}
+
+.modal {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: rgba(15, 40, 30, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 5;
+}
+
+.modalCard {
+  width: min(100%, 420px);
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px 16px 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.modalEyebrow {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #d97706;
+}
+
+.modalQ {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 900;
+  color: #1a3a52;
+  line-height: 1.35;
+}
+
+.modalOpts {
+  display: grid;
+  gap: 8px;
+}
+
+.optBtn {
+  text-align: left;
+  border-radius: 12px;
+  padding: 11px 12px;
+  border: 2px solid #a7f3d0;
+  background: #f0fdf4;
+  color: #064e3b;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+}
+
+.optBtn:disabled {
+  cursor: default;
+}
+
+.optOk {
+  background: #22c55e !important;
+  border-color: #16a34a !important;
+  color: #fff !important;
+}
+
+.optBad {
+  background: #fecaca !important;
+  border-color: #ef4444 !important;
+  color: #7f1d1d !important;
+}
+
+@media (max-width: 480px) {
+  .padBtn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .mazeWrap {
+    max-width: 100%;
+  }
+}

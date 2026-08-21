@@ -7,6 +7,7 @@ import DidYouKnowCrossword from "@/components/games/DidYouKnowCrossword";
 import GamePlayTracker from "@/components/games/GamePlayTracker";
 import GeoAdventure from "@/components/games/GeoAdventure";
 import GeoAdventure6Vhodno from "@/components/games/GeoAdventure6Vhodno";
+import NatureMaze from "@/components/games/NatureMaze";
 import { getAllGames, getGameBySlug } from "@/data/games";
 
 import pageStyles from "../Igri.module.css";
@@ -36,6 +37,7 @@ export default async function GamePage({ params }) {
 
   const isGeoMode = game.kind === "geo-mode" && game.mode;
   const isGeoVhodno = game.kind === "geo-vhodno";
+  const isNatureMaze = game.kind === "nature-maze";
   const isDidYouKnow = game.kind === "did-you-know";
   const exitHref = `/igri?class=${encodeURIComponent(game.classNums?.[0] ?? "")}&subject=${encodeURIComponent(game.subject ?? "")}`;
 
@@ -62,6 +64,8 @@ export default async function GamePage({ params }) {
           <GeoAdventure initialMode={game.mode} exitHref={exitHref} />
         ) : isGeoVhodno ? (
           <GeoAdventure6Vhodno exitHref={exitHref} />
+        ) : isNatureMaze ? (
+          <NatureMaze exitHref={exitHref} />
         ) : (
           <GamePlay game={game} />
         )}

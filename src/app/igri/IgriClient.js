@@ -72,6 +72,8 @@ function pickDescription(subject, classNum) {
 function gameMetaLabel(g) {
   if (g.kind === "geo-mode") return "Мини-игра";
   if (g.kind === "did-you-know") return "Факти + кръстословица";
+  if (g.kind === "geo-vhodno") return "5 мини-игри";
+  if (g.kind === "nature-maze") return "Лабиринт";
   return `${g.questionCount} въпроса`;
 }
 
