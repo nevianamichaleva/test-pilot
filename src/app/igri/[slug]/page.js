@@ -7,6 +7,7 @@ import DidYouKnowCrossword from "@/components/games/DidYouKnowCrossword";
 import GamePlayTracker from "@/components/games/GamePlayTracker";
 import GeoAdventure from "@/components/games/GeoAdventure";
 import GeoAdventure6Vhodno from "@/components/games/GeoAdventure6Vhodno";
+import HistoryReviewAdventure from "@/components/games/HistoryReviewAdventure";
 import NatureMaze from "@/components/games/NatureMaze";
 import PartsOfSpeechPuzzle from "@/components/games/PartsOfSpeechPuzzle";
 import { getAllGames, getGameBySlug } from "@/data/games";
@@ -41,6 +42,7 @@ export default async function GamePage({ params }) {
   const isNatureMaze = game.kind === "nature-maze";
   const isPosPuzzle = game.kind === "pos-puzzle";
   const isDidYouKnow = game.kind === "did-you-know";
+  const isHistoryReview = game.kind === "history-review";
   const exitHref = `/igri?class=${encodeURIComponent(game.classNums?.[0] ?? "")}&subject=${encodeURIComponent(game.subject ?? "")}`;
 
   return (
@@ -70,6 +72,8 @@ export default async function GamePage({ params }) {
           <NatureMaze exitHref={exitHref} />
         ) : isPosPuzzle ? (
           <PartsOfSpeechPuzzle exitHref={exitHref} />
+        ) : isHistoryReview ? (
+          <HistoryReviewAdventure exitHref={exitHref} />
         ) : (
           <GamePlay game={game} />
         )}

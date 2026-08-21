@@ -7,6 +7,7 @@
  * - "quiz": прости MC въпроси
  * - "geo-mode": една мини-игра от Географско приключение (mode: hangman|scramble|sort|odd_one|match)
  * - "did-you-know": факти „Знаеш ли, че…“ + кръстословица
+ * - "history-review": начален преговор по история (линия, картинки, свързване)
  *
  * classNums: масив от класове (напр. ["5","6","7"]).
  * image: път към картинка в /public
@@ -15,6 +16,19 @@
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 
 export const GAMES = [
+  {
+    slug: "istoriya-6-nachalen-pregled",
+    title: "История – Начален преговор",
+    description:
+      "6. клас: линия на времето, цивилизации с картинки, понятия и християнството. Подреждане и свързване.",
+    subject: "istoriya",
+    classNums: ["6"],
+    tone: "#f3ebe0",
+    accent: "#0f766e",
+    status: "ready",
+    kind: "history-review",
+    image: "/images/igri/istoriya-6/cover.jpg",
+  },
   {
     slug: "geografia-znaesh-li-yuzhna-amerika-6",
     title: "География – Знаеш ли, че…",

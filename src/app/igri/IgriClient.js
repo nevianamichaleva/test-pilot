@@ -65,6 +65,11 @@ function pickDescription(subject, classNum) {
       ? `Игри по български език за ${classNum}. клас.`
       : "Игри по български език: части на речта и още.";
   }
+  if (subject === "istoriya") {
+    return classNum
+      ? `Игри по история за ${classNum}. клас.`
+      : "Игри по история: линия на времето, цивилизации и понятия.";
+  }
   if (classNum) return `Игри за ${classNum}. клас.`;
   return "Избери клас и предмет, за да намериш подходяща игра.";
 }
@@ -75,6 +80,7 @@ function gameMetaLabel(g) {
   if (g.kind === "geo-vhodno") return "5 мини-игри";
   if (g.kind === "nature-maze") return "Лабиринт";
   if (g.kind === "pos-puzzle") return "Пъзел";
+  if (g.kind === "history-review") return "5 мини-игри";
   return `${g.questionCount} въпроса`;
 }
 

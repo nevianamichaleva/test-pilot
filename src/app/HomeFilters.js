@@ -45,6 +45,7 @@ function buildHref(basePath, classNum, subjectKey) {
 function gameMetaLabel(g) {
   if (g.kind === "geo-mode") return "Мини-игра";
   if (g.kind === "did-you-know") return "Факти + кръстословица";
+  if (g.kind === "history-review") return "5 мини-игри";
   return `${g.questionCount} въпроса`;
 }
 
