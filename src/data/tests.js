@@ -11,6 +11,9 @@
  * - literatura-tests.js (Литература)
  *
  * URL на тест: /test-pilot/клас/предмет/slug
+ *
+ * Опционално поле `addedAt` (ISO дата YYYY-MM-DD): тестовете с дата се показват
+ * първи в списъците, най-новите отгоре.
  */
 
 import {
@@ -55,6 +58,7 @@ import {
   BULGARSKI_NVO_7_BEL_2023_13062023_V2_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2024_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2025_QUESTIONS,
+  BULGARSKI_NVO_7_BEL_2026_QUESTIONS,
   BULGARSKI_NVO_7_BEL_2026_MODEL_QUESTIONS,
   BULGARSKI_NVO_7_BEL_IZHODNO_TEST_5_QUESTIONS,
   BULGARSKI_NVO_7_BEL_IZHODNO_VARIANT_1_QUESTIONS,
@@ -323,66 +327,85 @@ const TESTS = {
   '7|bg|bel-2024': {
     title: 'БЕЛ-2024',
     slug: 'bel-2024',
+    addedAt: '2024-06-19',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2024_QUESTIONS),
   },
   '7|bg|bel-2025': {
     title: 'БЕЛ-2025',
     slug: 'bel-2025',
+    addedAt: '2025-06-17',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2025_QUESTIONS),
+  },
+  '7|bg|bel-2026': {
+    title: 'БЕЛ-2026',
+    slug: 'bel-2026',
+    addedAt: '2026-08-21',
+    questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2026_QUESTIONS),
   },
   '7|bg|bel-nov-april-2026': {
     title: 'БЕЛ - нов април 2026',
     slug: 'bel-nov-april-2026',
+    addedAt: '2026-04-01',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_NOV_APRIL_2026_QUESTIONS),
   },
   '7|bg|bel-izhodno-ravnishte-test-5': {
     title: 'БЕЛ – изходно равнище, тест №5',
     slug: 'bel-izhodno-ravnishte-test-5',
+    addedAt: '2025-05-01',
     questions: BULGARSKI_NVO_7_BEL_IZHODNO_TEST_5_QUESTIONS,
   },
   '7|bg|bel-izhodno-nivo-variant-1': {
     title: 'БЕЛ – изходно ниво, вариант 1',
     slug: 'bel-izhodno-nivo-variant-1',
+    addedAt: '2025-04-01',
     questions: BULGARSKI_NVO_7_BEL_IZHODNO_VARIANT_1_QUESTIONS,
   },
   '7|bg|bel-2023-13062023': {
     title: 'БЕЛ-2023 (13.06.2023)',
     slug: 'bel-2023-13062023',
+    addedAt: '2023-06-13',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2023_13062023_V2_QUESTIONS),
   },
   '7|bg|bel-2022-14062022': {
     title: 'БЕЛ-2022 (14.06.2022)',
     slug: 'bel-2022-14062022',
+    addedAt: '2022-06-14',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2022_V1_QUESTIONS),
   },
   '7|bg|bel-2021-16062021': {
     title: 'БЕЛ-2021 (16.06.2021)',
     slug: 'bel-2021-16062021',
+    addedAt: '2021-06-16',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2021_V1_QUESTIONS),
   },
   '7|bg|bel-2020-15062020': {
     title: 'БЕЛ-2020 (15.06.2020)',
     slug: 'bel-2020-15062020',
+    addedAt: '2020-06-15',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2020_V1_QUESTIONS),
   },
   '7|bg|bel-2019-17062019': {
     title: 'БЕЛ-2019 (17.06.2019)',
     slug: 'bel-2019-17062019',
+    addedAt: '2019-06-17',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2019_V1_QUESTIONS),
   },
   '7|bg|bel-2018-21052018': {
     title: 'БЕЛ-2018 (21.05.2018)',
     slug: 'bel-2018-21052018',
+    addedAt: '2018-05-21',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2018_V2_QUESTIONS),
   },
   '7|bg|bel-2017-19052017': {
     title: 'БЕЛ-2017 (19.05.2017)',
     slug: 'bel-2017-19052017',
+    addedAt: '2017-05-19',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2017_V2_QUESTIONS),
   },
   '7|bg|bel-2016-18052016': {
     title: 'БЕЛ-2016 (18.05.2016)',
     slug: 'bel-2016-18052016',
+    addedAt: '2016-05-18',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2016_V2_QUESTIONS),
   },
   '5|geografia|geografia-ikonomika-1': {
@@ -393,6 +416,7 @@ const TESTS = {
   '7|bg|bel-2026-model': {
     title: 'БЕЛ – модел 2025/2026',
     slug: 'bel-2026-model',
+    addedAt: '2025-09-01',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2026_MODEL_QUESTIONS),
   },
   '5|geografia|geografia-ikonomika-2': {
@@ -753,10 +777,12 @@ export function getTest(classNum, subject, testSlug) {
 
 /**
  * Връща списък с всички тестове за обобщената страница.
- * Всеки елемент: { classNum, subject, slug, title, questionCount }
+ * Всеки елемент: { classNum, subject, slug, title, questionCount, addedAt? }
+ * Подредба: с `addedAt` – най-новите първи; без дата – по ред на дефиниция (последните в TESTS първи).
  */
 export function getAllTests() {
-  const list = Object.entries(TESTS).map(([key, data]) => {
+  const entries = Object.entries(TESTS);
+  const list = entries.map(([key, data], index) => {
     const [classNum, subject, slug] = key.split('|');
     return {
       classNum,
@@ -764,8 +790,20 @@ export function getAllTests() {
       slug,
       title: data.title,
       questionCount: data.questions.length,
+      addedAt: data.addedAt ?? null,
+      _index: index,
     };
   });
-  // Последно добавените тестове в TESTS да се показват първи в списъците.
-  return list.reverse();
+
+  list.sort((a, b) => {
+    const ta = a.addedAt ? Date.parse(a.addedAt) : NaN;
+    const tb = b.addedAt ? Date.parse(b.addedAt) : NaN;
+    const hasA = Number.isFinite(ta);
+    const hasB = Number.isFinite(tb);
+    if (hasA && hasB && ta !== tb) return tb - ta;
+    if (hasA !== hasB) return hasA ? -1 : 1;
+    return b._index - a._index;
+  });
+
+  return list.map(({ _index, ...rest }) => rest);
 }
