@@ -74,6 +74,7 @@ function gameMetaLabel(g) {
   if (g.kind === "did-you-know") return "Факти + кръстословица";
   if (g.kind === "geo-vhodno") return "5 мини-игри";
   if (g.kind === "nature-maze") return "Лабиринт";
+  if (g.kind === "pos-puzzle") return "Пъзел";
   return `${g.questionCount} въпроса`;
 }
 
