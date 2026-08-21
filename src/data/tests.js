@@ -45,6 +45,8 @@ import {
   BULGARSKI_PROSTO_IZRECHENIE_SYNTAKSIS_QUESTIONS,
   BULGARSKI_TETRADKA_IZBOR_QUESTIONS,
   BULGARSKI_VAZVRATNO_MESTOIMENIE_QUESTIONS,
+  BULGARSKI_6_VHODNO_RAVNISHTE_VAR1_QUESTIONS,
+  BULGARSKI_6_VHODNO_RAVNISHTE_VAR2_QUESTIONS,
 } from './bulgarski-tests';
 
 import {
@@ -609,6 +611,22 @@ const TESTS = {
     slug: 'vhodno-nivo-grupa-2',
     addedAt: '2026-08-21',
     questions: ISTORIA_VHODNO_6_GRUPA2_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '6|bg|vhodno-ravnishte-var1': {
+    title: 'БЕЛ – Входно равнище, вариант 1 (6. клас)',
+    slug: 'vhodno-ravnishte-var1',
+    addedAt: '2026-08-21',
+    questions: BULGARSKI_6_VHODNO_RAVNISHTE_VAR1_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '6|bg|vhodno-ravnishte-var2': {
+    title: 'БЕЛ – Входно равнище, вариант 2 (6. клас)',
+    slug: 'vhodno-ravnishte-var2',
+    addedAt: '2026-08-21',
+    questions: BULGARSKI_6_VHODNO_RAVNISHTE_VAR2_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },

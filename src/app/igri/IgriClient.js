@@ -81,6 +81,7 @@ function gameMetaLabel(g) {
   if (g.kind === "nature-maze") return "Лабиринт";
   if (g.kind === "pos-puzzle") return "Пъзел";
   if (g.kind === "history-review") return "5 мини-игри";
+  if (g.kind === "bel-6") return "7 мини-игри";
   return `${g.questionCount} въпроса`;
 }
 

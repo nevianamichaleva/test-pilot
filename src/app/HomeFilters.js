@@ -46,6 +46,7 @@ function gameMetaLabel(g) {
   if (g.kind === "geo-mode") return "Мини-игра";
   if (g.kind === "did-you-know") return "Факти + кръстословица";
   if (g.kind === "history-review") return "5 мини-игри";
+  if (g.kind === "bel-6") return "7 мини-игри";
   return `${g.questionCount} въпроса`;
 }
 

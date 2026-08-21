@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import Bel6Adventure from "@/components/games/Bel6Adventure";
 import DidYouKnowCrossword from "@/components/games/DidYouKnowCrossword";
 import GamePlayTracker from "@/components/games/GamePlayTracker";
 import GeoAdventure from "@/components/games/GeoAdventure";
@@ -43,6 +44,7 @@ export default async function GamePage({ params }) {
   const isPosPuzzle = game.kind === "pos-puzzle";
   const isDidYouKnow = game.kind === "did-you-know";
   const isHistoryReview = game.kind === "history-review";
+  const isBel6 = game.kind === "bel-6";
   const exitHref = `/igri?class=${encodeURIComponent(game.classNums?.[0] ?? "")}&subject=${encodeURIComponent(game.subject ?? "")}`;
 
   return (
@@ -74,6 +76,8 @@ export default async function GamePage({ params }) {
           <PartsOfSpeechPuzzle exitHref={exitHref} />
         ) : isHistoryReview ? (
           <HistoryReviewAdventure exitHref={exitHref} />
+        ) : isBel6 ? (
+          <Bel6Adventure exitHref={exitHref} />
         ) : (
           <GamePlay game={game} />
         )}

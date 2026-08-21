@@ -8,6 +8,7 @@
  * - "geo-mode": една мини-игра от Географско приключение (mode: hangman|scramble|sort|odd_one|match)
  * - "did-you-know": факти „Знаеш ли, че…“ + кръстословица
  * - "history-review": начален преговор по история (линия, картинки, свързване)
+ * - "bel-6": езикова работилница 6. клас (правопис, времена, причастия…)
  *
  * classNums: масив от класове (напр. ["5","6","7"]).
  * image: път към картинка в /public
@@ -16,6 +17,19 @@
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 
 export const GAMES = [
+  {
+    slug: "bel-6-ezikova-rabotilnica",
+    title: "БЕЛ – Езикова работилница 6. клас",
+    description:
+      "Синоними и омоними, правопис, глаголни времена, причастия, части на изречението и бърз тест.",
+    subject: "bg",
+    classNums: ["6"],
+    tone: "#ffedd5",
+    accent: "#c2410c",
+    status: "ready",
+    kind: "bel-6",
+    image: "/images/igri/bg-chasti-rech.png",
+  },
   {
     slug: "istoriya-6-nachalen-pregled",
     title: "История – Начален преговор",
