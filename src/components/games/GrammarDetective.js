@@ -88,7 +88,7 @@ export default function GrammarDetective({ exitHref = "/igri" }) {
     }
 
     // вярна дума – без наказание
-    flashMiss("Тази дума е ОКНА. Търси счупената! 🔍");
+    flashMiss("Тази дума е ОК. Търси счупената! 🔍");
   };
 
   const displayText = (bi, ti, tok) => {
