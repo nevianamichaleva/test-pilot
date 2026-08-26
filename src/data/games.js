@@ -10,6 +10,8 @@
  * - "history-review": начален преговор по история (линия, картинки, свързване)
  * - "bel-6": езикова работилница 6. клас (правопис, времена, причастия…)
  * - "sentence-builder": английски конструктор на изречения (Live Beat 5)
+ * - "grammar-detective": хващане на граматически грешки в чат/писмо (Live Beat 5)
+ * - "bridge-of-rules": сравнителна и превъзходна степен (Live Beat 5)
  *
  * classNums: масив от класове (напр. ["5","6","7"]).
  * image: път към картинка в /public
@@ -29,6 +31,32 @@ export const GAMES = [
     accent: "#0d9488",
     status: "ready",
     kind: "sentence-builder",
+    image: "/images/english.png",
+  },
+  {
+    slug: "english-grammar-detective-5",
+    title: "Английски – Grammar Detective",
+    description:
+      "Spot the Thief: хвани счупените думи в чата и писмата на извънземното Zorp. Преговор Live Beat 5. клас.",
+    subject: "english",
+    classNums: ["5"],
+    tone: "#e0f2fe",
+    accent: "#0284c7",
+    status: "ready",
+    kind: "grammar-detective",
+    image: "/images/english.png",
+  },
+  {
+    slug: "english-bridge-of-rules-5",
+    title: "Английски – The Bridge of Rules",
+    description:
+      "Мостът на сравненията: -er / more за две неща, -est / the most за три+. Преговор Live Beat 5. клас.",
+    subject: "english",
+    classNums: ["5"],
+    tone: "#ffedd5",
+    accent: "#d97706",
+    status: "ready",
+    kind: "bridge-of-rules",
     image: "/images/english.png",
   },
   {

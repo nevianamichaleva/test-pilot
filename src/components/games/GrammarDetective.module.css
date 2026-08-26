@@ -1,0 +1,365 @@
+.shell {
+  --gd-ink: #1a3a52;
+  --gd-accent: #0369a1;
+  --gd-deep: #0c4a6e;
+  --gd-catch: #15803d;
+  --gd-suspect: #b45309;
+  margin-top: 14px;
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse 70% 45% at 85% 0%, rgba(56, 189, 248, 0.2), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 5% 15%, rgba(251, 191, 36, 0.15), transparent 50%),
+    linear-gradient(180deg, #e0f2fe 0%, #fff 40%, #fefce8 100%);
+  border: 1px solid rgba(3, 105, 161, 0.2);
+  box-shadow: 0 18px 50px rgba(10, 35, 70, 0.12);
+  padding: 16px 14px 18px;
+}
+
+.intro,
+.result {
+  text-align: center;
+  padding: 8px 6px 4px;
+}
+
+.badge {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #0ea5e9, #0369a1);
+}
+
+.introTitle {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 1000;
+  color: var(--gd-deep);
+}
+
+.introSub {
+  margin: 4px 0 12px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #a16207;
+}
+
+.introText {
+  margin: 0 auto;
+  max-width: 40rem;
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 650;
+  color: rgba(26, 58, 82, 0.8);
+}
+
+.bullets {
+  margin: 14px auto 18px;
+  max-width: 28rem;
+  text-align: left;
+  padding-left: 1.2rem;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.78);
+  line-height: 1.55;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font: inherit;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, #38bdf8, #0284c7);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(2, 132, 199, 0.28);
+}
+
+.secondaryBtn {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.resultOk {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 1000;
+  color: var(--gd-catch);
+}
+
+.resultMsg {
+  margin: 10px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.75);
+}
+
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.progress {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--gd-deep);
+}
+
+.topic {
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(26, 58, 82, 0.65);
+}
+
+.exitLink {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--gd-accent);
+  text-decoration: none;
+}
+
+.caseTitle {
+  margin: 12px 0 4px;
+  font-size: 18px;
+  font-weight: 1000;
+  color: var(--gd-ink);
+}
+
+.caseIntro {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  color: rgba(26, 58, 82, 0.72);
+  line-height: 1.45;
+}
+
+.missToast,
+.catchToast,
+.toastSpacer {
+  min-height: 2.6rem;
+  margin: 10px 0 0;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.missToast {
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  color: #9a3412;
+}
+
+.catchToast {
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+}
+
+.chatFrame,
+.letterFrame {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.letterFrame {
+  padding: 14px 14px 16px;
+  border-radius: 16px;
+  background: #fffef7;
+  border: 1px solid rgba(120, 113, 108, 0.25);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 8px 24px rgba(10, 35, 70, 0.06);
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(14, 165, 233, 0.08) 28px
+  );
+}
+
+.letterMeta {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(26, 58, 82, 0.55);
+  font-style: italic;
+}
+
+.bubble {
+  max-width: 100%;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 16px rgba(10, 35, 70, 0.06);
+}
+
+.bubbleAlien {
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+  background: linear-gradient(180deg, #f0f9ff, #fff);
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
+.bubbleHuman {
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  background: #f8fafc;
+  max-width: 92%;
+}
+
+.bubbleLetter {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.bubbleHead {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.avatar {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.who {
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--gd-accent);
+}
+
+.bubbleText {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.7;
+  color: var(--gd-ink);
+}
+
+.plainTok {
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.7);
+}
+
+.tok {
+  display: inline;
+  margin: 0 1px;
+  padding: 1px 3px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  font: inherit;
+  font-size: inherit;
+  font-weight: 800;
+  color: inherit;
+  cursor: pointer;
+  line-height: inherit;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.tok:hover {
+  background: rgba(14, 165, 233, 0.12);
+}
+
+.tokSuspect {
+  /* Без явна подсказка – детективът търси сам */
+}
+
+.tokSuspect:hover {
+  background: rgba(14, 165, 233, 0.12);
+}
+
+.tokFixed {
+  background: rgba(34, 197, 94, 0.18);
+  color: #166534;
+  text-decoration: none;
+  cursor: default;
+  box-shadow: none;
+}
+
+.tokFixing {
+  animation: fixPop 0.7s ease;
+}
+
+@keyframes fixPop {
+  0% {
+    transform: scale(1);
+    background: rgba(251, 191, 36, 0.4);
+  }
+  35% {
+    transform: scale(1.25) rotate(-3deg);
+    background: rgba(74, 222, 128, 0.55);
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.25);
+  }
+  70% {
+    transform: scale(1.05) rotate(2deg);
+  }
+  100% {
+    transform: scale(1);
+    background: rgba(34, 197, 94, 0.18);
+  }
+}
+
+.hintBar,
+.caseDoneBanner {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.hintBar {
+  color: rgba(26, 58, 82, 0.6);
+}
+
+.caseDoneBanner {
+  color: var(--gd-catch);
+  padding: 8px;
+  border-radius: 12px;
+  background: #ecfdf5;
+}
+
+@media (max-width: 640px) {
+  .introTitle {
+    font-size: 22px;
+  }
+
+  .bubbleText {
+    font-size: 15px;
+  }
+}

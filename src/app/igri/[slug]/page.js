@@ -11,6 +11,8 @@ import GeoAdventure6Vhodno from "@/components/games/GeoAdventure6Vhodno";
 import HistoryReviewAdventure from "@/components/games/HistoryReviewAdventure";
 import NatureMaze from "@/components/games/NatureMaze";
 import PartsOfSpeechPuzzle from "@/components/games/PartsOfSpeechPuzzle";
+import BridgeOfRules from "@/components/games/BridgeOfRules";
+import GrammarDetective from "@/components/games/GrammarDetective";
 import SentenceBuilder from "@/components/games/SentenceBuilder";
 import { getAllGames, getGameBySlug } from "@/data/games";
 
@@ -47,6 +49,8 @@ export default async function GamePage({ params }) {
   const isHistoryReview = game.kind === "history-review";
   const isBel6 = game.kind === "bel-6";
   const isSentenceBuilder = game.kind === "sentence-builder";
+  const isGrammarDetective = game.kind === "grammar-detective";
+  const isBridgeOfRules = game.kind === "bridge-of-rules";
   const exitHref = `/igri?class=${encodeURIComponent(game.classNums?.[0] ?? "")}&subject=${encodeURIComponent(game.subject ?? "")}`;
 
   return (
@@ -82,6 +86,10 @@ export default async function GamePage({ params }) {
           <Bel6Adventure exitHref={exitHref} />
         ) : isSentenceBuilder ? (
           <SentenceBuilder exitHref={exitHref} />
+        ) : isGrammarDetective ? (
+          <GrammarDetective exitHref={exitHref} />
+        ) : isBridgeOfRules ? (
+          <BridgeOfRules exitHref={exitHref} />
         ) : (
           <GamePlay game={game} />
         )}
