@@ -912,3 +912,147 @@ export const ENGLISH_UNIT_8_REVISION_TEST_QUESTIONS = [
   { q: "Matthew can't swim.", correct: 'False', wrong1: 'True', wrong2: 'Not given' },
 ];
 
+/**
+ * Diagnostic English Test – Grade 6 (Preparation)
+ * PART A Grammar (20 pts) + PART B Vocabulary (10 pts) + PART C Reading (10 pts) = 40 pts
+ * По 2 точки за верен отговор. Скала: 36–40 Отличен; 28–35 Мн. добър; 18–27 Добър; 10–17 Среден; <10 преговор.
+ */
+export const ENGLISH_6_DIAGNOSTIC_PREP_QUESTIONS = [
+  // —— PART A: GRAMMAR ——
+  {
+    q: '1. My family and I usually go to the mountains in summer, but this month we __________ at a seaside resort.',
+    points: 2,
+    options: ['A) stay', 'B) are staying', 'C) stays', 'D) staying'],
+    correct: 'B) are staying',
+  },
+  {
+    q: '2. “Where is Alex?” – “He is in his room. He __________ for his English test.”',
+    points: 2,
+    options: ['A) studies', 'B) study', 'C) is studying', 'D) studying'],
+    correct: 'C) is studying',
+  },
+  {
+    q: '3. Sarah is very athletic. She __________ gymnastics three times a week.',
+    points: 2,
+    options: ['A) does', 'B) is doing', 'C) makes', 'D) do'],
+    correct: 'A) does',
+  },
+  {
+    q: '4. Listen! Someone __________ the piano upstairs. Who could it be?',
+    points: 2,
+    options: ['A) plays', 'B) is playing', 'C) play', 'D) are playing'],
+    correct: 'B) is playing',
+  },
+  {
+    q: '5. How __________ water do you usually drink during a football match?',
+    points: 2,
+    options: ['A) many', 'B) standard', 'C) much', 'D) any'],
+    correct: 'C) much',
+  },
+  {
+    q: '6. My parents don’t like horror movies. They __________ watch them.',
+    points: 2,
+    options: ['A) always', 'B) often', 'C) usually', 'D) hardly ever'],
+    correct: 'D) hardly ever',
+  },
+  {
+    q: '7. Look at those boys! Do you know __________? They are in our brother’s class.',
+    points: 2,
+    options: ['A) they', 'B) them', 'C) their', 'D) theirs'],
+    correct: 'B) them',
+  },
+  {
+    q: '8. That new smartphone belongs to me. It is __________!',
+    points: 2,
+    options: ['A) mine', 'B) my', 'C) me', 'D) myself'],
+    correct: 'A) mine',
+  },
+  {
+    q: '9. This lesson is too difficult. I __________ understand this grammar rule at all.',
+    points: 2,
+    options: ["A) doesn't", 'B) am not', "C) don't", 'D) not'],
+    correct: "C) don't",
+  },
+  {
+    q: '10. What time __________ your father arrive home from work on Fridays?',
+    points: 2,
+    options: ['A) is', 'B) do', 'C) does', 'D) are'],
+    correct: 'C) does',
+  },
+
+  // —— PART B: VOCABULARY ——
+  {
+    type: 'text',
+    q: '11. My sister loves playing the guitar. Her favourite free-time a_ _ _ _ _ _ _ is music.',
+    points: 2,
+    correct: 'activity',
+    acceptedAnswers: ['activity'],
+  },
+  {
+    type: 'text',
+    q: '12. I always help my parents around the house and do my h_ _ _ _ _ _ _ _ every Saturday morning.',
+    points: 2,
+    correct: 'housework',
+    acceptedAnswers: ['housework'],
+  },
+  {
+    type: 'text',
+    q: '13. Football and basketball are team sports, but tennis and swimming are i_ _ _ _ _ _ _ _ _ _ sports.',
+    points: 2,
+    correct: 'individual',
+    acceptedAnswers: ['individual'],
+  },
+  {
+    type: 'text',
+    q: '14. Mark never tells the truth. He is not a very h_ _ _ _ _ person.',
+    points: 2,
+    correct: 'honest',
+    acceptedAnswers: ['honest'],
+  },
+  {
+    type: 'text',
+    q: '15. Before I go to bed, I always brush my teeth and put on my p_ _ _ _ _ _ .',
+    points: 2,
+    correct: 'pyjamas',
+    acceptedAnswers: ['pyjamas', 'pajamas'],
+  },
+
+  // —— PART C: READING COMPREHENSION ——
+  {
+    readingContextEndQIndex: 19,
+    sectionIntro: `An Unusual Hobby
+
+Most teenagers in my class love playing video games or going out with friends, but my friend Kevin has a very different hobby. He is twelve years old and he loves birdwatching. Every weekend, he wakes up at 5:00 AM, takes his camera and binoculars, and goes to the forest near Varna.
+
+Right now, Kevin is sitting quietly behind a big tree. He is waiting to see a rare black stork. He usually spends four or five hours waiting. Kevin says his hobby is great because it helps him relax after a long week at school and teaches him a lot about nature.`,
+    q: '16. Kevin’s classmates share the same hobby as him.',
+    points: 2,
+    options: ['True (T)', 'False (F)'],
+    correct: 'False (F)',
+  },
+  {
+    q: '17. Kevin goes to the forest on Saturdays and Sundays.',
+    points: 2,
+    options: ['True (T)', 'False (F)'],
+    correct: 'True (T)',
+  },
+  {
+    q: '18. Kevin is looking for a regular white stork at the moment.',
+    points: 2,
+    options: ['True (T)', 'False (F)'],
+    correct: 'False (F)',
+  },
+  {
+    q: '19. Kevin doesn’t spend more than two hours in the forest.',
+    points: 2,
+    options: ['True (T)', 'False (F)'],
+    correct: 'False (F)',
+  },
+  {
+    q: '20. Birdwatching helps Kevin feel less stressed about school.',
+    points: 2,
+    options: ['True (T)', 'False (F)'],
+    correct: 'True (T)',
+  },
+];
+

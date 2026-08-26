@@ -85,6 +85,7 @@ import {
 
 import {
   ENGLISH_14_04_2026_QUESTIONS,
+  ENGLISH_6_DIAGNOSTIC_PREP_QUESTIONS,
   ENGLISH_6A_FIXED_TIMES_QUESTIONS,
   ENGLISH_ADVERBS_TRANSPORT_QUESTIONS,
   ENGLISH_GRAMMAR_6ABC_QUESTIONS,
@@ -801,6 +802,14 @@ const TESTS = {
     title: 'Unit 8 – Preparation test (skills revision)',
     slug: 'unit-8-revision-prep-test',
     questions: ENGLISH_UNIT_8_REVISION_TEST_QUESTIONS,
+  },
+  '6|english|diagnostic-prep': {
+    title: 'Diagnostic English Test – Grade 6 (Preparation)',
+    slug: 'diagnostic-prep',
+    addedAt: '2026-08-26',
+    questions: ENGLISH_6_DIAGNOSTIC_PREP_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
   },
 };
 
