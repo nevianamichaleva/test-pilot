@@ -1,0 +1,454 @@
+.shell {
+  --sb-ink: #1a3a52;
+  --sb-accent: #0d9488;
+  --sb-accent-deep: #0f766e;
+  --sb-warn: #dc2626;
+  --sb-gold: #f59e0b;
+  margin-top: 14px;
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%, rgba(251, 191, 36, 0.18), transparent 55%),
+    radial-gradient(ellipse 70% 45% at 90% 10%, rgba(13, 148, 136, 0.16), transparent 50%),
+    linear-gradient(180deg, #f0fdfa 0%, #fff 42%, #fffbeb 100%);
+  border: 1px solid rgba(15, 118, 110, 0.18);
+  box-shadow: 0 18px 50px rgba(10, 35, 70, 0.12);
+  padding: 16px 14px 18px;
+}
+
+.intro,
+.result {
+  text-align: center;
+  padding: 8px 6px 4px;
+}
+
+.badge {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #0d9488, #0f766e);
+}
+
+.introTitle {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 1000;
+  color: var(--sb-accent-deep);
+}
+
+.introSub {
+  margin: 4px 0 12px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #b45309;
+}
+
+.introText {
+  margin: 0 auto;
+  max-width: 40rem;
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 650;
+  color: rgba(26, 58, 82, 0.8);
+}
+
+.bullets {
+  margin: 14px auto 18px;
+  max-width: 28rem;
+  text-align: left;
+  padding-left: 1.2rem;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.78);
+  line-height: 1.55;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font: inherit;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, #2dd4bf, #0d9488);
+  color: #fff;
+  box-shadow: 0 10px 20px rgba(13, 148, 136, 0.28);
+}
+
+.primaryBtn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.secondaryBtn {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.resultOk {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 1000;
+  color: #15803d;
+}
+
+.resultBad {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 1000;
+  color: var(--sb-warn);
+}
+
+.resultMsg {
+  margin: 10px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.75);
+}
+
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lives {
+  color: #c62828;
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+}
+
+.roundLabel {
+  font-size: 13px;
+  font-weight: 850;
+  color: rgba(26, 58, 82, 0.72);
+  text-align: center;
+  flex: 1;
+}
+
+.exitLink {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--sb-accent-deep);
+  text-decoration: none;
+}
+
+.hintBg {
+  margin: 12px 0 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px dashed rgba(15, 118, 110, 0.35);
+  font-size: 15px;
+  font-weight: 750;
+  color: var(--sb-ink);
+  line-height: 1.4;
+}
+
+.hintLabel {
+  color: var(--sb-accent-deep);
+  font-weight: 900;
+}
+
+.toast,
+.toastSpacer {
+  min-height: 3.2rem;
+  margin: 10px 0 0;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.toast {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--sb-ink);
+}
+
+.toastMonster {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+  animation: pulseWarn 0.45s ease;
+}
+
+.toastOk {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+
+.toastBad {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #9a3412;
+}
+
+@keyframes pulseWarn {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.02);
+  }
+}
+
+.track {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+  margin-top: 14px;
+  padding: 12px 8px 14px;
+  border-radius: 16px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 14px,
+      rgba(120, 113, 108, 0.12) 14px,
+      rgba(120, 113, 108, 0.12) 16px
+    ),
+    linear-gradient(180deg, #e7e5e4 0%, #d6d3d1 100%);
+  border: 1px solid rgba(68, 64, 60, 0.15);
+  overflow-x: auto;
+}
+
+.engine {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  padding: 0 4px;
+  align-self: center;
+}
+
+.cars {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  min-width: min-content;
+}
+
+.car {
+  position: relative;
+  flex: 1 1 72px;
+  min-width: 72px;
+  min-height: 64px;
+  border-radius: 12px 12px 10px 10px;
+  border: 2px solid rgba(15, 118, 110, 0.35);
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  padding: 18px 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 0 rgba(15, 118, 110, 0.2);
+  transition: transform 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.car::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -7px;
+  height: 8px;
+  border-radius: 999px;
+  background: #57534e;
+  opacity: 0.35;
+}
+
+.carEmpty {
+  background: rgba(255, 255, 255, 0.55);
+  border-style: dashed;
+}
+
+.carFilled {
+  background: linear-gradient(180deg, #ccfbf1, #fff);
+  border-color: var(--sb-accent);
+}
+
+.carTarget {
+  border-color: var(--sb-gold);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.35);
+}
+
+.carOk {
+  border-color: #16a34a;
+  background: #dcfce7;
+}
+
+.carBad {
+  border-color: var(--sb-warn);
+  background: #fee2e2;
+}
+
+.carShake {
+  animation: carReject 0.55s ease;
+  border-color: var(--sb-warn) !important;
+  background: #fecaca !important;
+}
+
+@keyframes carReject {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px) rotate(-2deg);
+  }
+  40% {
+    transform: translateX(6px) rotate(2deg);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(4px);
+  }
+}
+
+.carNum {
+  position: absolute;
+  top: 4px;
+  left: 6px;
+  font-size: 10px;
+  font-weight: 900;
+  color: rgba(15, 118, 110, 0.55);
+}
+
+.carWord {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--sb-ink);
+  word-break: break-word;
+  line-height: 1.15;
+}
+
+.carEmpty .carWord {
+  color: rgba(26, 58, 82, 0.28);
+  font-weight: 700;
+}
+
+.poolLabel {
+  margin: 14px 0 8px;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(26, 58, 82, 0.7);
+  text-align: center;
+}
+
+.pool {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+}
+
+.poolEmpty {
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.45);
+  align-self: center;
+}
+
+.brick {
+  border-radius: 10px;
+  border: 2px solid #b45309;
+  background: linear-gradient(180deg, #fde68a, #fbbf24);
+  color: #78350f;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 900;
+  padding: 10px 12px;
+  cursor: grab;
+  box-shadow: 0 3px 0 #92400e;
+  user-select: none;
+  transition: transform 0.1s ease;
+}
+
+.brick:active {
+  cursor: grabbing;
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #92400e;
+}
+
+.brickSelected {
+  outline: 3px solid var(--sb-accent);
+  outline-offset: 2px;
+  transform: translateY(-2px);
+}
+
+.brickReject {
+  animation: brickBounce 0.65s ease;
+  border-color: var(--sb-warn);
+  background: linear-gradient(180deg, #fecaca, #f87171);
+  color: #7f1d1d;
+  box-shadow: 0 3px 0 #991b1b;
+}
+
+@keyframes brickBounce {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  30% {
+    transform: translateY(-10px) scale(1.08);
+  }
+  55% {
+    transform: translateY(0) scale(0.96);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .introTitle {
+    font-size: 22px;
+  }
+
+  .car {
+    min-width: 64px;
+    min-height: 58px;
+    padding-top: 16px;
+  }
+
+  .carWord {
+    font-size: 13px;
+  }
+
+  .engine {
+    font-size: 24px;
+  }
+}

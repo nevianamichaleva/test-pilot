@@ -9,6 +9,7 @@
  * - "did-you-know": факти „Знаеш ли, че…“ + кръстословица
  * - "history-review": начален преговор по история (линия, картинки, свързване)
  * - "bel-6": езикова работилница 6. клас (правопис, времена, причастия…)
+ * - "sentence-builder": английски конструктор на изречения (Live Beat 5)
  *
  * classNums: масив от класове (напр. ["5","6","7"]).
  * image: път към картинка в /public
@@ -17,6 +18,19 @@
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 
 export const GAMES = [
+  {
+    slug: "english-sentence-builder-5",
+    title: "Английски – The Sentence Builder",
+    description:
+      "Гръмотевичен конструктор: нареди думите във влакчето. Didn't е лакомо чудовище – изяжда миналото време! Преговор Live Beat 5. клас.",
+    subject: "english",
+    classNums: ["5"],
+    tone: "#ccfbf1",
+    accent: "#0d9488",
+    status: "ready",
+    kind: "sentence-builder",
+    image: "/images/english.png",
+  },
   {
     slug: "bel-6-ezikova-rabotilnica",
     title: "БЕЛ – Езикова работилница 6. клас",
