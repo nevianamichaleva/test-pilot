@@ -61,7 +61,7 @@ export default async function GamePage({ params }) {
           title={game.title}
           subtitle={`${game.subjectLabel} · ${game.classHint}`}
           subtitleVariant="meta"
-          imageSrc={game.image || "/test-pilot.png"}
+          imageSrc={game.image || "/images/hero-pilot.png"}
           imageAlt={game.title}
           actions={
             <Link href="/igri" className={pageStyles.start}>

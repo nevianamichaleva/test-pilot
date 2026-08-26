@@ -28,6 +28,12 @@ function pickPopular(tests, count = 3) {
     .slice(0, count);
 }
 
+const HERO_FEATURES = [
+  { icon: "🧠", label: "Затвърди знанията си" },
+  { icon: "🎮", label: "Учи чрез игра" },
+  { icon: "📊", label: "Проследявай своя напредък" },
+];
+
 export default function Home() {
   const tests = getAllTests();
   const popular = pickPopular(tests, 3);
@@ -39,14 +45,22 @@ export default function Home() {
         <PageHero
           variant="home"
           title="Образователни тестове и игри"
-          subtitle="Избери клас и предмет или опитай образователна игра — учи по-лесно с кратки упражнения."
+          subtitle="Учи по-лесно. Провери и надгради знанията си!"
+          features={HERO_FEATURES}
+          imageAlt="Пилотче в самолет – TestPilot"
           actions={
             <div className={styles.heroActionRow}>
               <Link className={styles.cta} href="/test-pilot">
-                Започни сега <span aria-hidden>→</span>
+                <span className={styles.ctaPlay} aria-hidden>
+                  ▶
+                </span>
+                Започни тест
+                <span aria-hidden>→</span>
               </Link>
-              <Link className={styles.ghost} href="/igri">
+              <Link className={styles.ctaGames} href="/igri">
+                <span aria-hidden>🎮</span>
                 Хайде да поиграем
+                <span aria-hidden>→</span>
               </Link>
             </div>
           }
@@ -56,7 +70,12 @@ export default function Home() {
 
         <section className={styles.section}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Популярни тестове</h2>
+            <h2 className={styles.sectionTitle}>
+              <span className={styles.sectionIcon} aria-hidden>
+                🔥
+              </span>
+              Популярни тестове
+            </h2>
             <p className={styles.sectionHint}>Подбрани по най-много въпроси.</p>
           </div>
 

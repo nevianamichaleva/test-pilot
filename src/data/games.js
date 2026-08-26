@@ -31,7 +31,7 @@ export const GAMES = [
     accent: "#0d9488",
     status: "ready",
     kind: "sentence-builder",
-    image: "/images/english.png",
+    image: "/images/igri/english-sentence-builder.png",
   },
   {
     slug: "english-grammar-detective-5",
@@ -44,7 +44,7 @@ export const GAMES = [
     accent: "#0284c7",
     status: "ready",
     kind: "grammar-detective",
-    image: "/images/english.png",
+    image: "/images/igri/english-grammar-detective.png",
   },
   {
     slug: "english-bridge-of-rules-5",
@@ -57,7 +57,7 @@ export const GAMES = [
     accent: "#d97706",
     status: "ready",
     kind: "bridge-of-rules",
-    image: "/images/english.png",
+    image: "/images/igri/english-bridge-of-rules.png",
   },
   {
     slug: "bel-6-ezikova-rabotilnica",

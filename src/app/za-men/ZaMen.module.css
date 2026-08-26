@@ -1,12 +1,15 @@
 .page {
   min-height: calc(100dvh - 72px);
-  background: linear-gradient(180deg, #f6f9ff 0%, #eef4ff 100%);
+  background:
+    radial-gradient(1100px 520px at 12% 0%, rgba(62, 140, 255, 0.1), transparent 55%),
+    radial-gradient(900px 480px at 92% 8%, rgba(255, 184, 34, 0.12), transparent 52%),
+    linear-gradient(180deg, #f5f8fd 0%, #eef4fb 40%, #ffffff 100%);
 }
 
 .wrap {
-  max-width: 1100px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 22px 16px 38px;
+  padding: 8px 20px 38px;
 }
 
 .heroAction {
@@ -14,27 +17,49 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-weight: 800;
-  color: #0b2214;
-  background: linear-gradient(180deg, #9ef0a8 0%, #6fdc82 35%, #4bc96a 100%);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  color: #1a2b4b;
+  background: linear-gradient(180deg, #ffd04a 0%, #ffb822 55%, #f5a623 100%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 22px rgba(245, 166, 35, 0.3);
 }
 
 .heroAction:hover {
-  filter: brightness(1.04);
-  color: #0b2214;
+  filter: brightness(1.03);
+  color: #1a2b4b;
+}
+
+.heroActionGhost {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 900;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 10px 22px rgba(20, 60, 120, 0.16);
+}
+
+.heroActionGhost:hover {
+  background: rgba(255, 255, 255, 0.28);
+  color: #fff;
 }
 
 .card {
-  max-width: 900px;
-  margin: 16px auto 0;
-  padding: 26px 22px;
-  border-radius: 18px;
-  border: 1px solid rgba(26, 58, 82, 0.14);
+  width: 100%;
+  max-width: none;
+  margin: 16px 0 0;
+  padding: 28px 26px;
+  border-radius: 24px;
+  border: 1px solid rgba(26, 58, 82, 0.1);
   background: #fff;
-  box-shadow: 0 14px 34px rgba(15, 36, 63, 0.09);
+  box-shadow: 0 14px 36px rgba(26, 43, 75, 0.1);
+  box-sizing: border-box;
 }
 
 .hero {
@@ -57,10 +82,14 @@
 }
 
 .lead {
-  margin: 0;
+  margin: 0 0 12px;
   font-size: 18px;
   line-height: 1.62;
   color: rgba(26, 58, 82, 0.94);
+}
+
+.lead:last-child {
+  margin-bottom: 0;
 }
 
 .photoSlot {

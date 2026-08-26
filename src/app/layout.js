@@ -1,8 +1,17 @@
+import { Nunito } from "next/font/google";
+
 import "./globals.css";
 
 import Header from "@/components/Header";
 import SiteJsonLd from "@/components/SiteJsonLd";
 import { getSiteUrl } from "@/lib/site";
+
+const nunito = Nunito({
+  subsets: ["latin", "cyrillic"],
+  weight: ["500", "600", "700", "800", "900"],
+  variable: "--font-nunito",
+  display: "swap",
+});
 
 const siteUrl = getSiteUrl();
 
@@ -72,7 +81,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="bg">
+    <html lang="bg" className={nunito.variable}>
       <body>
         <SiteJsonLd />
         <Header />
@@ -81,4 +90,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-

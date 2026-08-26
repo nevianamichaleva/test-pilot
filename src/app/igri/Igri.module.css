@@ -1,17 +1,15 @@
 .page {
   min-height: 100vh;
   background:
-    radial-gradient(900px 520px at 8% 8%, rgba(255, 177, 61, 0.28), transparent 55%),
-    radial-gradient(800px 480px at 92% 12%, rgba(255, 90, 163, 0.22), transparent 55%),
-    radial-gradient(700px 420px at 70% 80%, rgba(59, 142, 234, 0.2), transparent 55%),
-    radial-gradient(600px 380px at 20% 75%, rgba(52, 211, 153, 0.18), transparent 55%),
-    linear-gradient(180deg, #fff7ed 0%, #eff6ff 42%, #f0fdf4 100%);
+    radial-gradient(1100px 520px at 12% 0%, rgba(62, 140, 255, 0.1), transparent 55%),
+    radial-gradient(900px 480px at 92% 8%, rgba(255, 184, 34, 0.12), transparent 52%),
+    linear-gradient(180deg, #f5f8fd 0%, #eef4fb 40%, #ffffff 100%);
 }
 
 .wrap {
-  max-width: 1100px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 18px 20px 56px;
+  padding: 8px 20px 56px;
 }
 
 .filters {
@@ -23,14 +21,14 @@
 
 .select {
   appearance: none;
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 10px 36px 10px 14px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  padding: 11px 40px 11px 16px;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
-  color: #15304a;
-  font-weight: 900;
-  box-shadow: 0 12px 26px rgba(10, 35, 70, 0.12);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.88));
+  color: #1a2b4b;
+  font-weight: 800;
+  box-shadow: 0 10px 22px rgba(20, 60, 120, 0.14);
 }
 
 .empty {
@@ -157,14 +155,14 @@
   justify-content: center;
   gap: 8px;
   border-radius: 999px;
-  padding: 10px 14px;
+  padding: 12px 18px;
   font-weight: 900;
   font-size: 14px;
   text-decoration: none;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: linear-gradient(135deg, #ffb13d, #ff6a4d);
-  color: #15304a;
-  box-shadow: 0 12px 22px rgba(255, 106, 77, 0.28);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, #ffd04a 0%, #ffb822 55%, #f5a623 100%);
+  color: #1a2b4b;
+  box-shadow: 0 12px 22px rgba(245, 166, 35, 0.3);
   white-space: nowrap;
 }
 

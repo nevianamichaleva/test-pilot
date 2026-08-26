@@ -243,17 +243,18 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border-radius: 12px;
-  padding: 10px 14px;
-  font-weight: 1000;
-  color: #1a3a52;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 900;
+  color: #1a2b4b;
+  background: linear-gradient(180deg, #ffd04a 0%, #ffb822 55%, #f5a623 100%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 22px rgba(245, 166, 35, 0.3);
 }
 
 .backLink:hover {
-  background: #fff;
+  filter: brightness(1.03);
+  color: #1a2b4b;
 }
 
 .detailHead {

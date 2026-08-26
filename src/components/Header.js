@@ -2,11 +2,21 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import styles from "./Header.module.css";
 
+const NAV = [
+  { href: "/", label: "Начало", match: (p) => p === "/" },
+  { href: "/test-pilot", label: "Тестове", match: (p) => p.startsWith("/test-pilot") && !p.includes("/rezultati") },
+  { href: "/igri", label: "Хайде да поиграем", match: (p) => p.startsWith("/igri") },
+  { href: "/za-men", label: "За мен", match: (p) => p.startsWith("/za-men") },
+  { href: "/test-pilot/rezultati", label: "Резултати", match: (p) => p.includes("/rezultati") },
+];
+
 export default function Header() {
+  const pathname = usePathname() || "/";
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -53,7 +63,13 @@ export default function Header() {
               priority
             />
           </span>
-          <span className={styles.brandText}>Образователни тестове и игри</span>
+          <span className={styles.brandCopy}>
+            <span className={styles.brandName}>
+              <span className={styles.brandTest}>Test</span>
+              <span className={styles.brandPilot}>Pilot</span>
+            </span>
+            <span className={styles.brandTag}>Образователни тестове и игри</span>
+          </span>
         </Link>
 
         <button
@@ -77,22 +93,35 @@ export default function Header() {
           className={`${styles.nav} ${menuOpen ? styles.navOpen : ""}`}
           aria-label="Основна навигация"
         >
-          <Link className={styles.link} href="/" onClick={close}>
-            Начало
-          </Link>
-          <Link className={styles.link} href="/test-pilot" onClick={close}>
-            Тестове
-          </Link>
-          <Link className={styles.link} href="/igri" onClick={close}>
-            Хайде да поиграем
-          </Link>
-          <Link className={styles.link} href="/za-men" onClick={close}>
-            За мен
-          </Link>
-          <Link className={styles.link} href="/test-pilot/rezultati" onClick={close}>
-            Резултати
-          </Link>
+          {NAV.map((item) => {
+            const active = item.match(pathname);
+            return (
+              <Link
+                key={item.href}
+                className={`${styles.link}${active ? ` ${styles.linkActive}` : ""}`}
+                href={item.href}
+                onClick={close}
+                aria-current={active ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
           <Link className={styles.cta} href="/test-pilot" onClick={close}>
+            <span className={styles.ctaIcon} aria-hidden>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M4.5 20.25a7.5 7.5 0 0 1 15 0"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
             Вход / Регистрация
           </Link>
         </nav>

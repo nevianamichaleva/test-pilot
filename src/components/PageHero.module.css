@@ -1,47 +1,152 @@
 .hero {
-  margin-top: 14px;
+  position: relative;
+  margin-top: 18px;
   overflow: hidden;
+  /* Right side matched to illustration sky (~#6dbbf8) */
   background:
-    radial-gradient(900px 520px at 75% 10%, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0) 55%),
-    linear-gradient(135deg, #2e7ad0 0%, #2e65c4 35%, #1b4b93 100%);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 18px 60px rgba(10, 35, 70, 0.22);
+    radial-gradient(640px 420px at 88% 40%, #92cff8 0%, rgba(146, 207, 248, 0) 58%),
+    linear-gradient(
+      105deg,
+      #2f7fe8 0%,
+      #3f93f0 32%,
+      #5aabf6 55%,
+      #6dbbf8 72%,
+      #6dbbf8 100%
+    );
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 22px 56px rgba(40, 110, 180, 0.22);
 }
 
-/* Начална: по-изразено заобляне отдясно (горен и долен десен ъгъл). */
-.heroHome {
-  border-radius: 22px 56px 52px 26px;
-}
-
-/* Останали страници: равномерно заоблена карта. */
+.heroHome,
 .heroPage {
-  border-radius: 26px;
+  border-radius: 32px;
+}
+
+.clouds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  filter: blur(0.5px);
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  border-radius: 999px;
+}
+
+.cloud1 {
+  width: 120px;
+  height: 36px;
+  top: 18%;
+  left: 42%;
+  animation: drift 14s ease-in-out infinite;
+}
+
+.cloud1::before {
+  width: 54px;
+  height: 54px;
+  top: -28px;
+  left: 18px;
+}
+
+.cloud1::after {
+  width: 40px;
+  height: 40px;
+  top: -18px;
+  left: 58px;
+}
+
+.cloud2 {
+  width: 90px;
+  height: 28px;
+  top: 58%;
+  left: 8%;
+  opacity: 0.7;
+  animation: drift 18s ease-in-out infinite reverse;
+}
+
+.cloud2::before {
+  width: 42px;
+  height: 42px;
+  top: -22px;
+  left: 12px;
+}
+
+.cloud2::after {
+  width: 30px;
+  height: 30px;
+  top: -14px;
+  left: 42px;
+}
+
+.cloud3 {
+  width: 70px;
+  height: 22px;
+  top: 12%;
+  right: 8%;
+  opacity: 0.55;
+  animation: drift 16s ease-in-out infinite;
+}
+
+.cloud3::before {
+  width: 34px;
+  height: 34px;
+  top: -18px;
+  left: 10px;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(18px);
+  }
 }
 
 .heroInner {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 18px;
-  padding: 26px 24px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 0;
+  padding: 34px 0 34px 32px;
   align-items: center;
+}
+
+.heroCopy {
+  min-width: 0;
+  padding-right: 12px;
 }
 
 .heroTitle {
   margin: 0;
   color: #fff;
-  font-size: 44px;
-  line-height: 1.05;
-  letter-spacing: -0.55px;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.45px;
   font-weight: 900;
+  text-shadow: 0 2px 18px rgba(0, 30, 80, 0.18);
 }
 
 .heroSub {
-  margin: 12px 0 0;
-  color: rgba(255, 255, 255, 0.92);
-  font-size: 16px;
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 17px;
   line-height: 1.45;
-  max-width: 48ch;
-  font-weight: 600;
+  max-width: 42ch;
+  font-weight: 700;
 }
 
 .heroSubMeta {
@@ -53,6 +158,41 @@
   max-width: none;
 }
 
+.features {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 22px;
+}
+
+.feature {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.featureIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  font-size: 18px;
+}
+
+.featureLabel {
+  max-width: 14ch;
+  line-height: 1.25;
+}
+
 .filtersSlot {
   margin-top: 14px;
 }
@@ -61,54 +201,152 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-top: 18px;
+  margin-top: 24px;
 }
 
 .heroArt {
-  display: grid;
-  place-items: center;
+  position: relative;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 280px;
+  margin: -34px 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  overflow: hidden;
+}
+
+.heroArtCover {
+  margin: 18px 22px 18px 0;
+  min-height: 0;
+  overflow: visible;
+  justify-content: center;
 }
 
 .heroImg {
-  width: min(420px, 100%);
+  width: 100%;
+  height: 100%;
+  min-height: 320px;
+  max-width: none;
+  object-fit: cover;
+  object-position: left center;
+  border-radius: 0;
+  background: transparent;
+  filter: none;
+  /* Extra soft left fade in case of cache/old asset */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 100%);
+  animation: none;
+}
+
+.heroImgCover {
+  width: min(340px, 92%);
   height: auto;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.26);
+  min-height: 0;
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 22px;
+  border: 3px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 16px 36px rgba(20, 60, 120, 0.28);
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 @media (max-width: 980px) {
   .heroInner {
     grid-template-columns: 1fr;
+    padding: 0 0 28px;
+    gap: 8px;
+  }
+
+  .heroCopy {
+    padding: 0 22px;
   }
 
   .heroArt {
     order: -1;
-    justify-items: center;
+    justify-content: center;
+    margin: 0;
+    min-height: 220px;
+  }
+
+  .heroArtCover {
+    margin: 16px 16px 0;
+    min-height: 0;
   }
 
   .heroImg {
-    max-width: min(360px, 100%);
+    width: 100%;
+    min-height: 220px;
+    max-width: none;
+    object-fit: contain;
+    object-position: center;
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      #000 12%,
+      #000 88%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      #000 12%,
+      #000 88%,
+      transparent 100%
+    );
+  }
+
+  .heroImgCover {
+    width: min(260px, 70%);
+    min-height: 0;
+    aspect-ratio: 1;
+    object-fit: cover;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .features {
+    gap: 14px 18px;
   }
 }
 
 @media (max-width: 640px) {
   .hero {
-    margin-top: 10px;
+    margin-top: 12px;
   }
 
-  .heroHome {
-    border-radius: 18px 36px 32px 18px;
-  }
-
+  .heroHome,
   .heroPage {
-    border-radius: 18px;
+    border-radius: 22px;
   }
 
   .heroInner {
-    padding: 18px 16px;
-    gap: 14px;
+    padding: 0 0 22px;
+  }
+
+  .heroCopy {
+    padding: 0 16px;
+  }
+
+  .heroArt {
+    min-height: 190px;
+  }
+
+  .heroArtCover {
+    min-height: 0;
+  }
+
+  .heroImg {
+    min-height: 190px;
+  }
+
+  .heroImgCover {
+    min-height: 0;
+    width: min(220px, 68%);
   }
 
   .heroTitle {
@@ -122,10 +360,19 @@
     max-width: none;
   }
 
+  .features {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .featureLabel {
+    max-width: none;
+  }
+
   .heroActions {
     flex-direction: column;
     align-items: stretch;
-    margin-top: 16px;
+    margin-top: 18px;
   }
 
   .heroActions > * {
