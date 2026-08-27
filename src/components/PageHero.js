@@ -62,14 +62,20 @@ export default function PageHero({
         </div>
 
         <div className={artClass}>
-          <Image
-            className={imgClass}
-            src={src}
-            alt={imageAlt}
-            width={720}
-            height={460}
-            priority
-          />
+          {/\.svg($|\?)/i.test(src) ? (
+            // next/image не обработва локални SVG надеждно
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className={imgClass} src={src} alt={imageAlt} width={720} height={460} />
+          ) : (
+            <Image
+              className={imgClass}
+              src={src}
+              alt={imageAlt}
+              width={720}
+              height={460}
+              priority
+            />
+          )}
         </div>
       </div>
     </section>

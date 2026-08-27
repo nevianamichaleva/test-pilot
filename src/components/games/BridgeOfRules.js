@@ -95,7 +95,7 @@ export default function BridgeOfRules({ exitHref = "/igri" }) {
     return (
       <div className={styles.shell}>
         <div className={styles.intro}>
-          <p className={styles.badge}>Live Beat · 5.–6. клас</p>
+          <p className={styles.badge}>5.–6. клас</p>
           <h2 className={styles.introTitle}>The Bridge of Rules</h2>
           <p className={styles.introSub}>Мостът на сравненията</p>
           <p className={styles.introText}>

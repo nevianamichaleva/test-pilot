@@ -14,6 +14,10 @@ import PartsOfSpeechPuzzle from "@/components/games/PartsOfSpeechPuzzle";
 import BridgeOfRules from "@/components/games/BridgeOfRules";
 import GrammarDetective from "@/components/games/GrammarDetective";
 import SentenceBuilder from "@/components/games/SentenceBuilder";
+import SignalLight from "@/components/games/SignalLight";
+import VerbMagnet from "@/components/games/VerbMagnet";
+import HintHangman from "@/components/games/HintHangman";
+import TextDetective from "@/components/games/TextDetective";
 import { getAllGames, getGameBySlug } from "@/data/games";
 
 import pageStyles from "../Igri.module.css";
@@ -51,6 +55,10 @@ export default async function GamePage({ params }) {
   const isSentenceBuilder = game.kind === "sentence-builder";
   const isGrammarDetective = game.kind === "grammar-detective";
   const isBridgeOfRules = game.kind === "bridge-of-rules";
+  const isSignalLight = game.kind === "signal-light";
+  const isVerbMagnet = game.kind === "verb-magnet";
+  const isHintHangman = game.kind === "hint-hangman";
+  const isTextDetective = game.kind === "text-detective";
   const exitHref = `/igri?class=${encodeURIComponent(game.classNums?.[0] ?? "")}&subject=${encodeURIComponent(game.subject ?? "")}`;
 
   return (
@@ -90,6 +98,14 @@ export default async function GamePage({ params }) {
           <GrammarDetective exitHref={exitHref} />
         ) : isBridgeOfRules ? (
           <BridgeOfRules exitHref={exitHref} />
+        ) : isSignalLight ? (
+          <SignalLight exitHref={exitHref} />
+        ) : isVerbMagnet ? (
+          <VerbMagnet exitHref={exitHref} />
+        ) : isHintHangman ? (
+          <HintHangman exitHref={exitHref} />
+        ) : isTextDetective ? (
+          <TextDetective exitHref={exitHref} />
         ) : (
           <GamePlay game={game} />
         )}

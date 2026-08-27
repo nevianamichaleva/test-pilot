@@ -82,6 +82,13 @@ function gameMetaLabel(g) {
   if (g.kind === "pos-puzzle") return "Пъзел";
   if (g.kind === "history-review") return "5 мини-игри";
   if (g.kind === "bel-6") return "7 мини-игри";
+  if (g.kind === "sentence-builder") return "Конструктор";
+  if (g.kind === "grammar-detective") return "Детектив";
+  if (g.kind === "bridge-of-rules") return "Сравнения";
+  if (g.kind === "signal-light") return "Сигнална лампа";
+  if (g.kind === "verb-magnet") return "Магнит за глаголи";
+  if (g.kind === "hint-hangman") return "Бесеница с подсказка";
+  if (g.kind === "text-detective") return "Текст детектив";
   return `${g.questionCount} въпроса`;
 }
 

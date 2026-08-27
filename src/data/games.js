@@ -9,9 +9,13 @@
  * - "did-you-know": факти „Знаеш ли, че…“ + кръстословица
  * - "history-review": начален преговор по история (линия, картинки, свързване)
  * - "bel-6": езикова работилница 6. клас (правопис, времена, причастия…)
- * - "sentence-builder": английски конструктор на изречения (Live Beat 5)
- * - "grammar-detective": хващане на граматически грешки в чат/писмо (Live Beat 5)
- * - "bridge-of-rules": сравнителна и превъзходна степен (Live Beat 5)
+ * - "sentence-builder": английски конструктор на изречения (5. клас)
+ * - "grammar-detective": хващане на граматически грешки в чат/писмо (5. клас)
+ * - "bridge-of-rules": сравнителна и превъзходна степен (5. клас)
+ * - "signal-light": Present Simple vs Continuous – сигнална лампа (Grade 6 Diagnostic)
+ * - "verb-magnet": do / play / make – магнит за глаголи (Grade 6 Diagnostic)
+ * - "hint-hangman": бесеница с контекст, гласни и иконки (Grade 6 Diagnostic 11–15)
+ * - "text-detective": True/False + маркирай доказателството в текста (Diagnostic 16–20)
  *
  * classNums: масив от класове (напр. ["5","6","7"]).
  * image: път към картинка в /public
@@ -21,10 +25,62 @@ import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 
 export const GAMES = [
   {
+    slug: "english-text-detective-6",
+    title: "Английски – Text Detective",
+    description:
+      "Текст детектив: True/False, после маркирай изречението-доказателство. weekend = Saturdays and Sundays. Diagnostic 16–20.",
+    subject: "english",
+    classNums: ["5", "6"],
+    tone: "#dbeafe",
+    accent: "#1d4ed8",
+    status: "ready",
+    kind: "text-detective",
+    image: "/images/igri/english-text-detective.png",
+  },
+  {
+    slug: "english-hint-hangman-6",
+    title: "Английски – Hint Hangman",
+    description:
+      "Бесеница с подсказка: изречение-контекст, първа буква, купуване на гласни и иконки (Пинокио за honest). Diagnostic 11–15.",
+    subject: "english",
+    classNums: ["5", "6"],
+    tone: "#ffedd5",
+    accent: "#c2410c",
+    status: "ready",
+    kind: "hint-hangman",
+    image: "/images/igri/english-hint-hangman.png",
+  },
+  {
+    slug: "english-verb-magnet-6",
+    title: "Английски – The Verb Magnet",
+    description:
+      "Магнит за глаголи: завлечи gymnastics, football, a cake към DO, PLAY или MAKE. Без буквален превод на „правя“. Diagnostic Grade 6.",
+    subject: "english",
+    classNums: ["5", "6"],
+    tone: "#fef3c7",
+    accent: "#b45309",
+    status: "ready",
+    kind: "verb-magnet",
+    image: "/images/igri/english-verb-magnet.png",
+  },
+  {
+    slug: "english-signal-light-6",
+    title: "Английски – The Signal Light",
+    description:
+      "Сигнална лампа: търси жокерите за „сега“ или навик, после светни синьо (Continuous) или зелено (Simple). Diagnostic Grade 6.",
+    subject: "english",
+    classNums: ["5", "6"],
+    tone: "#e0f2fe",
+    accent: "#0284c7",
+    status: "ready",
+    kind: "signal-light",
+    image: "/images/igri/english-signal-light.png",
+  },
+  {
     slug: "english-sentence-builder-5",
     title: "Английски – The Sentence Builder",
     description:
-      "Гръмотевичен конструктор: нареди думите във влакчето. Didn't е лакомо чудовище – изяжда миналото време! Преговор Live Beat (5.–6. клас).",
+      "Гръмотевичен конструктор: нареди думите във влакчето. Didn't е лакомо чудовище – изяжда миналото време! Преговор (5.–6. клас).",
     subject: "english",
     classNums: ["5", "6"],
     tone: "#ccfbf1",
@@ -50,7 +106,7 @@ export const GAMES = [
     slug: "english-bridge-of-rules-5",
     title: "Английски – The Bridge of Rules",
     description:
-      "Мостът на сравненията: -er / more за две неща, -est / the most за три+. Преговор Live Beat (5.–6. клас).",
+      "Мостът на сравненията: -er / more за две неща, -est / the most за три+. Преговор (5.–6. клас).",
     subject: "english",
     classNums: ["5", "6"],
     tone: "#ffedd5",

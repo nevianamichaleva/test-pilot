@@ -1,5 +1,5 @@
 /**
- * The Sentence Builder – Live Beat 5. клас
+ * The Sentence Builder – 5. клас
  * Drag & drop изречения + „лакоми чудовища“ (didn't/don't/doesn't/did),
  * които изяждат грешната глаголна форма.
  */

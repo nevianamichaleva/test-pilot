@@ -1,5 +1,5 @@
 /**
- * Grammar Detective: Spot the Thief – Live Beat 5. клас
+ * Grammar Detective: Spot the Thief – 5. клас
  * Кликни върху грешните думи; верните се поправят с анимация.
  * Грешен клик върху вярна дума → без наказание, само насърчение.
  */

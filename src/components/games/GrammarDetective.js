@@ -102,7 +102,7 @@ export default function GrammarDetective({ exitHref = "/igri" }) {
     return (
       <div className={styles.shell}>
         <div className={styles.intro}>
-          <p className={styles.badge}>Live Beat · 5.–6. клас</p>
+          <p className={styles.badge}>5.–6. клас</p>
           <h2 className={styles.introTitle}>Grammar Detective</h2>
           <p className={styles.introSub}>Spot the Thief · Хвани крадеца</p>
           <p className={styles.introText}>

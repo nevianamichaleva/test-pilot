@@ -193,7 +193,7 @@ export default function SentenceBuilder({ exitHref = "/igri" }) {
     return (
       <div className={styles.shell}>
         <div className={styles.intro}>
-          <p className={styles.badge}>Live Beat · 5.–6. клас</p>
+          <p className={styles.badge}>5.–6. клас</p>
           <h2 className={styles.introTitle}>The Sentence Builder</h2>
           <p className={styles.introSub}>Гръмотевичен конструктор</p>
           <p className={styles.introText}>
@@ -204,7 +204,7 @@ export default function SentenceBuilder({ exitHref = "/igri" }) {
           </p>
           <ul className={styles.bullets}>
             <li>Влачи тухличките или кликни дума → после празна кутийка</li>
-            <li>{total} изречения от учебника Live Beat</li>
+            <li>{total} изречения</li>
             <li>{SENTENCE_BUILDER_LIVES} живота при грешна проверка</li>
           </ul>
           <button type="button" className={styles.primaryBtn} onClick={startGame}>
