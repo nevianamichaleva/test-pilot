@@ -11,6 +11,7 @@
  * - "bel-6": езикова работилница 6. клас (правопис, времена, причастия…)
  * - "bel-train-driver": подлог и сказуемо – „Кой кара влака?“ (6. клас)
  * - "bel-gift-boxes": допълнение – „Подаръци в кутии“ (6. клас)
+ * - "bel-color-painter": определение – „Цветният художник“ (6. клас)
  * - "sentence-builder": английски конструктор на изречения (5. клас)
  * - "grammar-detective": хващане на граматически грешки в чат/писмо (5. клас)
  * - "bridge-of-rules": сравнителна и превъзходна степен (5. клас)
@@ -154,6 +155,19 @@ export const GAMES = [
     accent: "#7c3aed",
     status: "ready",
     kind: "bel-gift-boxes",
+    image: "/images/igri/bg-chasti-rech.png",
+  },
+  {
+    slug: "bel-6-tsvetniyat-hudozhnik",
+    title: "БЕЛ – Цветният художник",
+    description:
+      "Определение: оцвети с четката думите, които описват предметите — Какъв? Чий? Вълнообразно подчертаване. Задача 16.",
+    subject: "bg",
+    classNums: ["6"],
+    tone: "#fdf4ff",
+    accent: "#a855f7",
+    status: "ready",
+    kind: "bel-color-painter",
     image: "/images/igri/bg-chasti-rech.png",
   },
   {

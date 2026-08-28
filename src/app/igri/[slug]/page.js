@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import Bel6ColorPainter from "@/components/games/Bel6ColorPainter";
 import Bel6GiftBoxes from "@/components/games/Bel6GiftBoxes";
 import Bel6TrainDriver from "@/components/games/Bel6TrainDriver";
 import Bel6Adventure from "@/components/games/Bel6Adventure";
@@ -56,6 +57,7 @@ export default async function GamePage({ params }) {
   const isBel6 = game.kind === "bel-6";
   const isBelTrainDriver = game.kind === "bel-train-driver";
   const isBelGiftBoxes = game.kind === "bel-gift-boxes";
+  const isBelColorPainter = game.kind === "bel-color-painter";
   const isSentenceBuilder = game.kind === "sentence-builder";
   const isGrammarDetective = game.kind === "grammar-detective";
   const isBridgeOfRules = game.kind === "bridge-of-rules";
@@ -100,6 +102,8 @@ export default async function GamePage({ params }) {
           <Bel6TrainDriver exitHref={exitHref} game={game} />
         ) : isBelGiftBoxes ? (
           <Bel6GiftBoxes exitHref={exitHref} game={game} />
+        ) : isBelColorPainter ? (
+          <Bel6ColorPainter exitHref={exitHref} game={game} />
         ) : isSentenceBuilder ? (
           <SentenceBuilder exitHref={exitHref} game={game} />
         ) : isGrammarDetective ? (

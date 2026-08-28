@@ -1,0 +1,349 @@
+.shell {
+  --cp-ink: #1e293b;
+  --cp-accent: #7c3aed;
+  --cp-ok: #059669;
+  --cp-bad: #dc2626;
+  margin-top: 14px;
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse 70% 45% at 15% 0%, rgba(244, 114, 182, 0.2), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 85% 5%, rgba(129, 140, 248, 0.22), transparent 50%),
+    linear-gradient(180deg, #fdf4ff 0%, #fff 50%, #f8fafc 100%);
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  box-shadow: 0 18px 50px rgba(30, 41, 59, 0.1);
+  padding: 16px 14px 18px;
+}
+
+.intro,
+.result {
+  text-align: center;
+  padding: 8px 6px 4px;
+}
+
+.badge {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #c084fc, #7c3aed);
+}
+
+.introTitle {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 1000;
+  color: var(--cp-ink);
+}
+
+.introSub {
+  margin: 4px 0 12px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #6d28d9;
+}
+
+.introText {
+  margin: 0 auto;
+  max-width: 40rem;
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 650;
+  color: rgba(30, 41, 59, 0.82);
+}
+
+.bullets {
+  margin: 14px auto 18px;
+  max-width: 30rem;
+  text-align: left;
+  padding-left: 1.2rem;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(30, 41, 59, 0.78);
+  line-height: 1.55;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font: inherit;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+}
+
+.primaryBtn {
+  color: #fff;
+  background: linear-gradient(135deg, #a855f7, #7c3aed);
+}
+
+.secondaryBtn {
+  color: var(--cp-ink);
+  background: #f1f5f9;
+  border: 1px solid rgba(30, 41, 59, 0.12);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.resultOk {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 1000;
+  color: var(--cp-ok);
+}
+
+.resultBad {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 1000;
+  color: var(--cp-bad);
+}
+
+.resultMsg {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 650;
+  color: rgba(30, 41, 59, 0.78);
+}
+
+.playHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-bottom: 12px;
+}
+
+.meta {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(30, 41, 59, 0.65);
+}
+
+.lives {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+}
+
+.paletteBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(124, 58, 237, 0.14);
+}
+
+.brushTool {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--cp-ink);
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border: 2px solid rgba(234, 88, 12, 0.35);
+  box-shadow: 0 2px 0 rgba(234, 88, 12, 0.15);
+}
+
+.brushToolDry {
+  opacity: 0.45;
+  filter: grayscale(0.85);
+  animation: brushShake 0.45s ease;
+}
+
+.brushIcon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.paletteSwatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+}
+
+.toolHint {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 750;
+  color: rgba(30, 41, 59, 0.62);
+  text-align: center;
+}
+
+.sentenceBox {
+  padding: 14px 12px;
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.sentenceLabel {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(30, 41, 59, 0.45);
+}
+
+.words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.wordBtn {
+  margin: 0;
+  padding: 4px 6px;
+  border: none;
+  background: transparent;
+  font: inherit;
+  font-size: clamp(18px, 4vw, 24px);
+  font-weight: 700;
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.12s, color 0.15s, transform 0.12s;
+}
+
+.wordBtn:hover:not(:disabled) {
+  background: rgba(124, 58, 237, 0.08);
+  color: #64748b;
+}
+
+.wordBtn:disabled {
+  cursor: default;
+}
+
+.painted {
+  font-weight: 1000;
+  text-decoration: underline wavy 2.5px;
+  text-underline-offset: 5px;
+  animation: colorPop 0.35s ease;
+}
+
+@keyframes colorPop {
+  0% {
+    transform: scale(0.92);
+  }
+  60% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes brushShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px) rotate(-4deg);
+  }
+  75% {
+    transform: translateX(4px) rotate(4deg);
+  }
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(30, 41, 59, 0.55);
+}
+
+.legendSample {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legendSample span {
+  color: #e11d48;
+  font-weight: 1000;
+  text-decoration: underline wavy 2px #e11d48;
+  text-underline-offset: 3px;
+}
+
+.feedback {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 750;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.feedbackOk {
+  background: rgba(5, 150, 105, 0.1);
+  color: #047857;
+  border: 1px solid rgba(5, 150, 105, 0.2);
+}
+
+.feedbackBad {
+  background: rgba(220, 38, 38, 0.08);
+  color: #b91c1c;
+  border: 1px solid rgba(220, 38, 38, 0.18);
+}
+
+.feedbackInfo {
+  background: rgba(124, 58, 237, 0.08);
+  color: #6d28d9;
+  border: 1px solid rgba(124, 58, 237, 0.15);
+}
+
+@media (max-width: 480px) {
+  .paletteBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .brushTool {
+    justify-content: center;
+  }
+
+  .paletteSwatches {
+    justify-content: center;
+  }
+}
