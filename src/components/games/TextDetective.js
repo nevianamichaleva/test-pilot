@@ -3,19 +3,28 @@
 import Link from "next/link";
 import { useState } from "react";
 
+import GameNameGate from "@/components/games/GameNameGate";
+import GameResultSummary from "@/components/games/GameResultSummary";
 import {
   TEXT_DETECTIVE_CASES,
   TEXT_DETECTIVE_LIVES,
   TEXT_DETECTIVE_PASSAGE,
 } from "@/data/english-text-detective";
+import useSaveGameResultOnEnd from "@/hooks/useSaveGameResultOnEnd";
+import { buildGamePointsLabel } from "@/lib/saveGameResult";
 
 import styles from "./TextDetective.module.css";
 
+function tfLabel(value) {
+  return value ? "True" : "False";
+}
+
 /**
- * @param {{ exitHref?: string }} props
+ * @param {{ exitHref?: string, game?: object }} props
  */
-export default function TextDetective({ exitHref = "/igri" }) {
+export default function TextDetective({ exitHref = "/igri", game = null }) {
   const [phase, setPhase] = useState("intro"); // intro | play | won | lost
+  const [participantName, setParticipantName] = useState("");
   const [caseIndex, setCaseIndex] = useState(0);
   const [step, setStep] = useState("answer"); // answer | prove
   const [picked, setPicked] = useState(null); // true | false
@@ -27,9 +36,22 @@ export default function TextDetective({ exitHref = "/igri" }) {
   const [flashSentence, setFlashSentence] = useState(null); // { id, ok }
   const [firstTryScore, setFirstTryScore] = useState(0);
   const [answerFirstTry, setAnswerFirstTry] = useState(true);
+  const [questionResults, setQuestionResults] = useState([]);
+  const [firstTfByCase, setFirstTfByCase] = useState({});
 
   const caseData = TEXT_DETECTIVE_CASES[caseIndex];
   const total = TEXT_DETECTIVE_CASES.length;
+  const finished = phase === "won" || phase === "lost";
+
+  useSaveGameResultOnEnd(finished, () => ({
+    game,
+    name: participantName,
+    questionResults,
+    correct: questionResults.filter((q) => q.isCorrect).length,
+    total: questionResults.length || total,
+    completed: true,
+    won: phase === "won",
+  }));
 
   const startCase = (idx, nextLives = lives, score = firstTryScore) => {
     setCaseIndex(idx);
@@ -47,7 +69,27 @@ export default function TextDetective({ exitHref = "/igri" }) {
   };
 
   const startGame = () => {
+    setQuestionResults([]);
+    setFirstTfByCase({});
     startCase(0, TEXT_DETECTIVE_LIVES, 0);
+  };
+
+  const recordCaseResult = (idx, firstAnswer, isCorrect) => {
+    const c = TEXT_DETECTIVE_CASES[idx];
+    setQuestionResults((prev) => {
+      if (prev.some((item) => item.questionNumber === idx + 1)) return prev;
+      return [
+        ...prev,
+        {
+          questionNumber: idx + 1,
+          questionText: c?.question || `Дело ${idx + 1}`,
+          firstAnswer,
+          correctAnswer: tfLabel(c?.answer),
+          isCorrect,
+          status: isCorrect ? "correct" : "wrong",
+        },
+      ];
+    });
   };
 
   const showToast = (msg, kind = "info") => {
@@ -55,9 +97,18 @@ export default function TextDetective({ exitHref = "/igri" }) {
     setToastKind(kind);
   };
 
-  const loseLife = (nextLives) => {
+  const loseLife = (nextLives, idx = caseIndex, answerValue = null) => {
     setLives(nextLives);
     if (nextLives <= 0) {
+      const firstAnswer =
+        answerValue != null
+          ? tfLabel(answerValue)
+          : firstTfByCase[idx] != null
+            ? tfLabel(firstTfByCase[idx])
+            : picked != null
+              ? tfLabel(picked)
+              : "—";
+      recordCaseResult(idx, firstAnswer, false);
       setTimeout(() => setPhase("lost"), 900);
       return true;
     }
@@ -66,6 +117,9 @@ export default function TextDetective({ exitHref = "/igri" }) {
 
   const pickAnswer = (value) => {
     if (phase !== "play" || step !== "answer" || picked !== null) return;
+    if (firstTfByCase[caseIndex] == null) {
+      setFirstTfByCase((prev) => ({ ...prev, [caseIndex]: value }));
+    }
     setPicked(value);
 
     if (value !== caseData.answer) {
@@ -73,7 +127,7 @@ export default function TextDetective({ exitHref = "/igri" }) {
       const nextLives = lives - 1;
       showToast("Не точно. Прочети текста пак и опитай!", "bad");
       setFlashSentence(null);
-      if (loseLife(nextLives)) return;
+      if (loseLife(nextLives, caseIndex, value)) return;
       setTimeout(() => {
         setPicked(null);
         setToast("");
@@ -93,6 +147,9 @@ export default function TextDetective({ exitHref = "/igri" }) {
       setFlashSentence({ id: sentenceId, ok: true });
       setPulsePara(null);
       const nextScore = firstTryScore + (answerFirstTry ? 1 : 0);
+      const firstAnswer =
+        firstTfByCase[caseIndex] != null ? tfLabel(firstTfByCase[caseIndex]) : tfLabel(picked);
+      recordCaseResult(caseIndex, firstAnswer, answerFirstTry);
       showToast(`✅ ${caseData.tip}`, "ok");
       setTimeout(() => {
         if (caseIndex + 1 >= total) {
@@ -135,26 +192,38 @@ export default function TextDetective({ exitHref = "/igri" }) {
             <li>{TEXT_DETECTIVE_LIVES} живота</li>
             <li>Грешно изречение → „Хмм, виж пак този абзац!“</li>
           </ul>
-          <button type="button" className={styles.primaryBtn} onClick={startGame}>
-            Започни разследването
-          </button>
+          <GameNameGate
+            inputId="text-detective-name"
+            buttonLabel="Започни разследването"
+            onStart={(name) => {
+              setParticipantName(name);
+              startGame();
+            }}
+          />
         </div>
       </div>
     );
   }
 
   if (phase === "won" || phase === "lost") {
+    const correctCount = questionResults.filter((q) => q.isCorrect).length;
     return (
       <div className={styles.shell}>
         <div className={styles.result}>
           <h2 className={phase === "won" ? styles.resultOk : styles.resultBad}>
             {phase === "won" ? "Делото е разкрито!" : "Доказателството избяга…"}
           </h2>
+          {participantName ? (
+            <p className={styles.resultMsg}>
+              Участник: <strong>{participantName}</strong>
+            </p>
+          ) : null}
           <p className={styles.resultMsg}>
             {phase === "won"
-              ? `Верни от първи опит: ${firstTryScore} от ${total}. Weekend = събота и неделя – запомнено!`
-              : "Прочети изречението бавно и търси ключовата дума. Опитай пак!"}
+              ? `${buildGamePointsLabel(firstTryScore, total)} от първи опит. Weekend = събота и неделя – запомнено!`
+              : `${buildGamePointsLabel(correctCount, questionResults.length || total)}. Прочети изречението бавно и търси ключовата дума. Опитай пак!`}
           </p>
+          <GameResultSummary items={questionResults} />
           <div className={styles.actionRow}>
             <button type="button" className={styles.primaryBtn} onClick={startGame}>
               Ново разследване

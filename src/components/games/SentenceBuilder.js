@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import GameNameGate from "@/components/games/GameNameGate";
+import GameResultSummary from "@/components/games/GameResultSummary";
 import {
   SENTENCE_BUILDER_LIVES,
   SENTENCE_BUILDER_ROUNDS,
@@ -10,14 +12,17 @@ import {
   getMonsterTrapHint,
   slotsMatchCorrect,
 } from "@/data/english-sentence-builder";
+import useSaveGameResultOnEnd from "@/hooks/useSaveGameResultOnEnd";
+import { buildGamePointsLabel } from "@/lib/saveGameResult";
 
 import styles from "./SentenceBuilder.module.css";
 
 /**
- * @param {{ exitHref?: string }} props
+ * @param {{ exitHref?: string, game?: object }} props
  */
-export default function SentenceBuilder({ exitHref = "/igri" }) {
+export default function SentenceBuilder({ exitHref = "/igri", game = null }) {
   const [phase, setPhase] = useState("intro"); // intro | play | won | lost
+  const [participantName, setParticipantName] = useState("");
   const [roundIndex, setRoundIndex] = useState(0);
   const [lives, setLives] = useState(SENTENCE_BUILDER_LIVES);
   const [pool, setPool] = useState([]);
@@ -28,10 +33,23 @@ export default function SentenceBuilder({ exitHref = "/igri" }) {
   const [shakeSlot, setShakeSlot] = useState(null);
   const [flashPoolId, setFlashPoolId] = useState(null);
   const [slotStatus, setSlotStatus] = useState([]); // '' | 'ok' | 'bad'
+  const [questionResults, setQuestionResults] = useState([]);
+  const [firstTryByRound, setFirstTryByRound] = useState({});
   const toastTimer = useRef(null);
 
   const round = SENTENCE_BUILDER_ROUNDS[roundIndex];
   const total = SENTENCE_BUILDER_ROUNDS.length;
+  const finished = phase === "won" || phase === "lost";
+
+  useSaveGameResultOnEnd(finished, () => ({
+    game,
+    name: participantName,
+    questionResults,
+    correct: questionResults.filter((q) => q.isCorrect).length,
+    total: questionResults.length || total,
+    completed: true,
+    won: phase === "won",
+  }));
 
   const tileById = useMemo(() => {
     const map = new Map();
@@ -68,6 +86,8 @@ export default function SentenceBuilder({ exitHref = "/igri" }) {
 
   const startGame = () => {
     setLives(SENTENCE_BUILDER_LIVES);
+    setQuestionResults([]);
+    setFirstTryByRound({});
     startRound(0);
   };
 
@@ -157,12 +177,41 @@ export default function SentenceBuilder({ exitHref = "/igri" }) {
     if (tileId) placeTileInSlot(tileId, slotIndex);
   };
 
+  const recordRoundResult = (idx, firstAnswer, isCorrect) => {
+    const r = SENTENCE_BUILDER_ROUNDS[idx];
+    setQuestionResults((prev) => {
+      if (prev.some((item) => item.questionNumber === idx + 1)) return prev;
+      return [
+        ...prev,
+        {
+          questionNumber: idx + 1,
+          questionText: r?.hintBg || r?.topic || `Изречение ${idx + 1}`,
+          firstAnswer,
+          correctAnswer: Array.isArray(r?.correct) ? r.correct.join(" ") : "—",
+          isCorrect,
+          status: isCorrect ? "correct" : "wrong",
+        },
+      ];
+    });
+  };
+
   const checkSentence = () => {
     if (!allFilled || phase !== "play") return;
     const texts = slots.map((id) => tileById.get(id)?.text ?? "");
+    const answerText = texts.join(" ");
+    const isFirstTry = firstTryByRound[roundIndex] == null;
+    if (isFirstTry) {
+      setFirstTryByRound((prev) => ({ ...prev, [roundIndex]: answerText }));
+    }
+
     if (slotsMatchCorrect(texts, round.correct)) {
       setSlotStatus(slots.map(() => "ok"));
       showToast("Супер! Изречението е правилно!", "ok", 1800);
+      recordRoundResult(
+        roundIndex,
+        isFirstTry ? answerText : firstTryByRound[roundIndex] || answerText,
+        isFirstTry
+      );
       setTimeout(() => {
         if (roundIndex + 1 >= total) {
           setPhase("won");
@@ -181,6 +230,7 @@ export default function SentenceBuilder({ exitHref = "/igri" }) {
     setLives(nextLives);
     showToast("Още не е точно – премести думите и пробвай пак!", "bad", 2800);
     if (nextLives <= 0) {
+      recordRoundResult(roundIndex, answerText, false);
       setTimeout(() => setPhase("lost"), 700);
     }
   };
@@ -207,26 +257,38 @@ export default function SentenceBuilder({ exitHref = "/igri" }) {
             <li>{total} изречения</li>
             <li>{SENTENCE_BUILDER_LIVES} живота при грешна проверка</li>
           </ul>
-          <button type="button" className={styles.primaryBtn} onClick={startGame}>
-            Започни конструктора
-          </button>
+          <GameNameGate
+            inputId="sentence-builder-name"
+            buttonLabel="Започни конструктора"
+            onStart={(name) => {
+              setParticipantName(name);
+              startGame();
+            }}
+          />
         </div>
       </div>
     );
   }
 
   if (phase === "won" || phase === "lost") {
+    const correctCount = questionResults.filter((q) => q.isCorrect).length;
     return (
       <div className={styles.shell}>
         <div className={styles.result}>
           <h2 className={phase === "won" ? styles.resultOk : styles.resultBad}>
             {phase === "won" ? "Влакчето стигна до гарата!" : "Гръмотевицата спря играта…"}
           </h2>
+          {participantName ? (
+            <p className={styles.resultMsg}>
+              Участник: <strong>{participantName}</strong>
+            </p>
+          ) : null}
           <p className={styles.resultMsg}>
             {phase === "won"
-              ? `Построи ${total} правилни изречения. Didn't вече няма какво да хапне!`
-              : "Животите свършиха. Опитай пак – помни чудовището didn't!"}
+              ? `${buildGamePointsLabel(correctCount, total)}. Didn't вече няма какво да хапне!`
+              : `${buildGamePointsLabel(correctCount, questionResults.length || total)}. Животите свършиха – опитай пак!`}
           </p>
+          <GameResultSummary items={questionResults} />
           <div className={styles.actionRow}>
             <button type="button" className={styles.primaryBtn} onClick={startGame}>
               Играй отново

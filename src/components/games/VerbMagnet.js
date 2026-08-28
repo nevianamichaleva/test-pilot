@@ -3,14 +3,26 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
+import GameNameGate from "@/components/games/GameNameGate";
+import GameResultSummary from "@/components/games/GameResultSummary";
 import {
   MAGNET_LIVES,
   MAGNET_ROUNDS,
   MAGNET_VERBS,
   verbById,
 } from "@/data/english-verb-magnet";
+import useSaveGameResultOnEnd from "@/hooks/useSaveGameResultOnEnd";
+import { buildGamePointsLabel } from "@/lib/saveGameResult";
 
 import styles from "./VerbMagnet.module.css";
+
+const ALL_MAGNET_WORDS = MAGNET_ROUNDS.flatMap((r) => r.words);
+const MAGNET_WORD_TOTAL = ALL_MAGNET_WORDS.length;
+
+function wordQuestionNumber(wordId) {
+  const idx = ALL_MAGNET_WORDS.findIndex((w) => w.id === wordId);
+  return idx >= 0 ? idx + 1 : MAGNET_WORD_TOTAL;
+}
 
 function shuffle(items) {
   const a = [...items];
@@ -35,10 +47,11 @@ function MagnetGlyph({ tone }) {
 }
 
 /**
- * @param {{ exitHref?: string }} props
+ * @param {{ exitHref?: string, game?: object }} props
  */
-export default function VerbMagnet({ exitHref = "/igri" }) {
+export default function VerbMagnet({ exitHref = "/igri", game = null }) {
   const [phase, setPhase] = useState("intro"); // intro | play | won | lost
+  const [participantName, setParticipantName] = useState("");
   const [roundIndex, setRoundIndex] = useState(0);
   const [order, setOrder] = useState([]);
   const [placed, setPlaced] = useState({}); // wordId -> verbId
@@ -48,9 +61,22 @@ export default function VerbMagnet({ exitHref = "/igri" }) {
   const [flash, setFlash] = useState(null); // { wordId, verb, ok }
   const [toast, setToast] = useState("");
   const [dragOver, setDragOver] = useState(null);
+  const [questionResults, setQuestionResults] = useState([]);
+  const [firstAttemptByWordId, setFirstAttemptByWordId] = useState({});
 
   const round = MAGNET_ROUNDS[roundIndex];
-  const total = MAGNET_ROUNDS.length;
+  const total = MAGNET_WORD_TOTAL;
+  const finished = phase === "won" || phase === "lost";
+
+  useSaveGameResultOnEnd(finished, () => ({
+    game,
+    name: participantName,
+    questionResults,
+    correct: questionResults.filter((q) => q.isCorrect).length,
+    total: questionResults.length || total,
+    completed: true,
+    won: phase === "won",
+  }));
   const wordById = useMemo(() => {
     const map = new Map();
     for (const w of round?.words ?? []) map.set(w.id, w);
@@ -81,7 +107,29 @@ export default function VerbMagnet({ exitHref = "/igri" }) {
 
   const startGame = () => {
     setLives(MAGNET_LIVES);
+    setQuestionResults([]);
+    setFirstAttemptByWordId({});
     startRound(0);
+  };
+
+  const recordWordResult = (wordId, firstVerbId, isCorrect) => {
+    const word = ALL_MAGNET_WORDS.find((w) => w.id === wordId);
+    if (!word) return;
+    const qNum = wordQuestionNumber(wordId);
+    setQuestionResults((prev) => {
+      if (prev.some((item) => item.questionNumber === qNum)) return prev;
+      return [
+        ...prev,
+        {
+          questionNumber: qNum,
+          questionText: word.text,
+          firstAnswer: verbById(firstVerbId)?.label || firstVerbId,
+          correctAnswer: verbById(word.verb)?.label || word.verb,
+          isCorrect,
+          status: isCorrect ? "correct" : "wrong",
+        },
+      ];
+    });
   };
 
   const remaining = order.filter((id, i) => !placed[id] && i < visible);
@@ -98,6 +146,12 @@ export default function VerbMagnet({ exitHref = "/igri" }) {
     const word = wordById.get(wordId);
     if (!word) return;
 
+    const isFirstAttempt = firstAttemptByWordId[wordId] == null;
+    if (isFirstAttempt) {
+      setFirstAttemptByWordId((prev) => ({ ...prev, [wordId]: verbId }));
+    }
+    const firstVerbId = isFirstAttempt ? verbId : firstAttemptByWordId[wordId];
+
     const ok = word.verb === verbId;
     setFlash({ wordId, verb: verbId, ok });
     setSelected(null);
@@ -105,12 +159,13 @@ export default function VerbMagnet({ exitHref = "/igri" }) {
     if (ok) {
       const next = { ...placed, [wordId]: verbId };
       setPlaced(next);
+      recordWordResult(wordId, firstVerbId, firstVerbId === word.verb);
       showToast(`${verbById(verbId)?.label} ${word.text}`);
 
       const left = order.filter((id) => !next[id]);
       if (left.length === 0) {
         setTimeout(() => {
-          if (roundIndex + 1 >= total) {
+          if (roundIndex + 1 >= MAGNET_ROUNDS.length) {
             setPhase("won");
           } else {
             startRound(roundIndex + 1);
@@ -125,6 +180,7 @@ export default function VerbMagnet({ exitHref = "/igri" }) {
         `Гледай правилото: ${verbById(word.verb)?.rule}. → ${verbById(word.verb)?.label.toLowerCase()} ${word.text}`;
       showToast(tip);
       if (nextLives <= 0) {
+        recordWordResult(wordId, firstVerbId, false);
         setTimeout(() => setPhase("lost"), 900);
       }
     }
@@ -175,26 +231,38 @@ export default function VerbMagnet({ exitHref = "/igri" }) {
             <li>{MAGNET_LIVES} живота</li>
             <li>На телефон: докосни дума, после магнит</li>
           </ul>
-          <button type="button" className={styles.primaryBtn} onClick={startGame}>
-            Пусни магнитите
-          </button>
+          <GameNameGate
+            inputId="verb-magnet-name"
+            buttonLabel="Пусни магнитите"
+            onStart={(name) => {
+              setParticipantName(name);
+              startGame();
+            }}
+          />
         </div>
       </div>
     );
   }
 
   if (phase === "won" || phase === "lost") {
+    const correctCount = questionResults.filter((q) => q.isCorrect).length;
     return (
       <div className={styles.shell}>
         <div className={styles.result}>
           <h2 className={phase === "won" ? styles.resultOk : styles.resultBad}>
             {phase === "won" ? "Магнитите са пълни!" : "Думата избяга…"}
           </h2>
+          {participantName ? (
+            <p className={styles.resultMsg}>
+              Участник: <strong>{participantName}</strong>
+            </p>
+          ) : null}
           <p className={styles.resultMsg}>
             {phase === "won"
-              ? "do gymnastics, play football, make a cake — вече без буквален превод!"
-              : "Помни: PLAY = топка, DO = без топка, MAKE = създаваш нещо. Опитай пак!"}
+              ? `${buildGamePointsLabel(correctCount, total)}. do gymnastics, play football, make a cake — вече без буквален превод!`
+              : `${buildGamePointsLabel(correctCount, questionResults.length || total)}. Помни: PLAY = топка, DO = без топка, MAKE = създаваш нещо. Опитай пак!`}
           </p>
+          <GameResultSummary items={questionResults} />
           <div className={styles.actionRow}>
             <button type="button" className={styles.primaryBtn} onClick={startGame}>
               Играй отново

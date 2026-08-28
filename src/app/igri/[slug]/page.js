@@ -93,19 +93,19 @@ export default async function GamePage({ params }) {
         ) : isBel6 ? (
           <Bel6Adventure exitHref={exitHref} />
         ) : isSentenceBuilder ? (
-          <SentenceBuilder exitHref={exitHref} />
+          <SentenceBuilder exitHref={exitHref} game={game} />
         ) : isGrammarDetective ? (
-          <GrammarDetective exitHref={exitHref} />
+          <GrammarDetective exitHref={exitHref} game={game} />
         ) : isBridgeOfRules ? (
-          <BridgeOfRules exitHref={exitHref} />
+          <BridgeOfRules exitHref={exitHref} game={game} />
         ) : isSignalLight ? (
-          <SignalLight exitHref={exitHref} />
+          <SignalLight exitHref={exitHref} game={game} />
         ) : isVerbMagnet ? (
-          <VerbMagnet exitHref={exitHref} />
+          <VerbMagnet exitHref={exitHref} game={game} />
         ) : isHintHangman ? (
-          <HintHangman exitHref={exitHref} />
+          <HintHangman exitHref={exitHref} game={game} />
         ) : isTextDetective ? (
-          <TextDetective exitHref={exitHref} />
+          <TextDetective exitHref={exitHref} game={game} />
         ) : (
           <GamePlay game={game} />
         )}

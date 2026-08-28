@@ -123,20 +123,23 @@ export default function RezultatiPage() {
         const list = [];
         resultsSnap.forEach((docSnap) => {
           const data = docSnap.data();
+          const testId = data.test || "";
           list.push({
             id: docSnap.id,
             name: data.name || "Анонимен",
             points: data.points || "–",
             assessment: data.assessment || "–",
-            test: data.test || "",
-            testTitle: data.testTitle || data.test || "–",
+            test: testId,
+            testTitle: data.testTitle || testId || "–",
             createdAt: data.createdAt ?? null,
             updatedAt: data.updatedAt ?? null,
             startedAtIso: data.startedAtIso || null,
             status: data.status || "completed",
             completed: isResultCompleted(data),
             progressText: data.progressText || "",
-            subject: getSubject(data.test),
+            subject: data.subject || getSubject(testId),
+            source:
+              data.source === "game" || String(testId).startsWith("game|") ? "game" : "test",
           });
         });
         list.sort((a, b) => {
@@ -260,8 +263,8 @@ export default function RezultatiPage() {
       <main className={tp.wrap}>
         <PageHero
           variant="page"
-          title="Резултати от тестовете"
-          subtitle="Резултати от тестове и интерес към игрите."
+          title="Резултати"
+          subtitle="Резултати от тестове и игри (грешно/вярно), плюс интерес към игрите."
           actions={
             <Link href="/test-pilot" className={styles.backLink}>
               Към тестовете <span aria-hidden>›</span>
@@ -277,7 +280,7 @@ export default function RezultatiPage() {
 
         {!loading && !hasAnyData && !error && (
           <p className={`${styles.message} ${styles.messageCenter}`}>
-            Все още няма записани резултати. Резултатите от тестове се записват при започване; отварянията на игри — при старт на игра.
+            Все още няма записани резултати. Тестовете и игрите записват грешно/вярно при завършване; отварянията на игри — при старт.
           </p>
         )}
 
@@ -373,7 +376,7 @@ export default function RezultatiPage() {
           <>
             <section className={styles.panel}>
               <div className={styles.panelHeadRow}>
-                <h2 className={styles.panelHead}>Резултати от тестове</h2>
+                <h2 className={styles.panelHead}>Резултати от тестове и игри</h2>
               </div>
               <div className={styles.tableScroll}>
                 <table className={styles.table}>
@@ -383,7 +386,7 @@ export default function RezultatiPage() {
                       <th>Статус</th>
                       <th>Име</th>
                       <th>Предмет</th>
-                      <th>Тест</th>
+                      <th>Тест / игра</th>
                       <th>Резултат</th>
                     </tr>
                   </thead>
@@ -429,7 +432,7 @@ export default function RezultatiPage() {
                         </td>
                         <td>
                           <span className={styles.truncate} title={r.testTitle}>
-                            {r.testTitle}
+                            {r.source === "game" ? `Игра · ${r.testTitle}` : r.testTitle}
                           </span>
                         </td>
                         <td>{r.completed ? r.points : r.progressText || r.points || "–"}</td>

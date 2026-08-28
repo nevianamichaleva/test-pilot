@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import GameNameGate from "@/components/games/GameNameGate";
+import GameResultSummary from "@/components/games/GameResultSummary";
 import {
   ALPHABET,
   HINT_HANGMAN_LIVES,
@@ -12,14 +14,25 @@ import {
   VOWELS,
   isVowel,
 } from "@/data/english-hint-hangman";
+import useSaveGameResultOnEnd from "@/hooks/useSaveGameResultOnEnd";
+import { buildGamePointsLabel } from "@/lib/saveGameResult";
 
 import styles from "./HintHangman.module.css";
 
+function guessedDisplay(word, guessedSet) {
+  const shown = word
+    .split("")
+    .map((ch) => (guessedSet.has(ch) ? ch : "_"))
+    .join("");
+  return shown.includes("_") ? shown : word;
+}
+
 /**
- * @param {{ exitHref?: string }} props
+ * @param {{ exitHref?: string, game?: object }} props
  */
-export default function HintHangman({ exitHref = "/igri" }) {
+export default function HintHangman({ exitHref = "/igri", game = null }) {
   const [phase, setPhase] = useState("intro"); // intro | play | won | lost
+  const [participantName, setParticipantName] = useState("");
   const [roundIndex, setRoundIndex] = useState(0);
   const [guessed, setGuessed] = useState(() => new Set());
   const [lives, setLives] = useState(HINT_HANGMAN_LIVES);
@@ -28,10 +41,22 @@ export default function HintHangman({ exitHref = "/igri" }) {
   const [showIcon, setShowIcon] = useState(false);
   const [toast, setToast] = useState("");
   const [solvedCount, setSolvedCount] = useState(0);
+  const [questionResults, setQuestionResults] = useState([]);
 
   const round = HINT_HANGMAN_ROUNDS[roundIndex];
   const total = HINT_HANGMAN_ROUNDS.length;
   const word = round?.word?.toLowerCase() ?? "";
+  const finished = phase === "won" || phase === "lost";
+
+  useSaveGameResultOnEnd(finished, () => ({
+    game,
+    name: participantName,
+    questionResults,
+    correct: questionResults.filter((q) => q.isCorrect).length,
+    total: questionResults.length || total,
+    completed: true,
+    won: phase === "won",
+  }));
 
   const startRound = (idx, nextLives, nextCoins, solved) => {
     const r = HINT_HANGMAN_ROUNDS[idx];
@@ -48,7 +73,26 @@ export default function HintHangman({ exitHref = "/igri" }) {
   };
 
   const startGame = () => {
+    setQuestionResults([]);
     startRound(0, HINT_HANGMAN_LIVES, HINT_HANGMAN_START_COINS, 0);
+  };
+
+  const recordWordResult = (idx, firstAnswer, isCorrect) => {
+    const r = HINT_HANGMAN_ROUNDS[idx];
+    setQuestionResults((prev) => {
+      if (prev.some((item) => item.questionNumber === idx + 1)) return prev;
+      return [
+        ...prev,
+        {
+          questionNumber: idx + 1,
+          questionText: r?.sentence || r?.tip || `Дума ${idx + 1}`,
+          firstAnswer,
+          correctAnswer: r?.word || "—",
+          isCorrect,
+          status: isCorrect ? "correct" : "wrong",
+        },
+      ];
+    });
   };
 
   const displayLetters = useMemo(() => {
@@ -65,6 +109,7 @@ export default function HintHangman({ exitHref = "/igri" }) {
   const finishIfSolved = (nextGuessed, nextLives, nextCoins) => {
     const done = word.split("").every((ch) => nextGuessed.has(ch));
     if (!done) return false;
+    recordWordResult(roundIndex, round.word, true);
     const rewarded = nextCoins + 1;
     const nextSolved = solvedCount + 1;
     flashToast(`Браво! ${round.word}  (+1⭐)`);
@@ -124,6 +169,8 @@ export default function HintHangman({ exitHref = "/igri" }) {
     setLives(nextLives);
     flashToast(`Няма „${letter}“. Остават ${nextLives} опита.`);
     if (nextLives <= 0) {
+      const display = guessedDisplay(word, next);
+      recordWordResult(roundIndex, display.includes("_") ? display : "(неотгадната)", false);
       setTimeout(() => setPhase("lost"), 900);
     }
   };
@@ -150,26 +197,38 @@ export default function HintHangman({ exitHref = "/igri" }) {
             </li>
             <li>Всеки решен рунд дава +1⭐</li>
           </ul>
-          <button type="button" className={styles.primaryBtn} onClick={startGame}>
-            Завърти колелото
-          </button>
+          <GameNameGate
+            inputId="hint-hangman-name"
+            buttonLabel="Завърти колелото"
+            onStart={(name) => {
+              setParticipantName(name);
+              startGame();
+            }}
+          />
         </div>
       </div>
     );
   }
 
   if (phase === "won" || phase === "lost") {
+    const correctCount = questionResults.filter((q) => q.isCorrect).length;
     return (
       <div className={styles.shell}>
         <div className={styles.result}>
           <h2 className={phase === "won" ? styles.resultOk : styles.resultBad}>
             {phase === "won" ? "Всички думи са разкрити!" : "Думата остана скрита…"}
           </h2>
+          {participantName ? (
+            <p className={styles.resultMsg}>
+              Участник: <strong>{participantName}</strong>
+            </p>
+          ) : null}
           <p className={styles.resultMsg}>
             {phase === "won"
-              ? `Решени ${Math.max(solvedCount, total)} от ${total}. housework ≠ homework – вече го знаеш!`
-              : `Думата беше „${round.word}“. ${round.tip} Опитай пак с гласни и иконка!`}
+              ? `${buildGamePointsLabel(correctCount, total)}. housework ≠ homework – вече го знаеш!`
+              : `${buildGamePointsLabel(correctCount, questionResults.length || total)}. Думата беше „${round.word}“. ${round.tip} Опитай пак с гласни и иконка!`}
           </p>
+          <GameResultSummary items={questionResults} />
           <div className={styles.actionRow}>
             <button type="button" className={styles.primaryBtn} onClick={startGame}>
               Играй отново

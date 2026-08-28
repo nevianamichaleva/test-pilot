@@ -3,25 +3,31 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import GameNameGate from "@/components/games/GameNameGate";
+import GameResultSummary from "@/components/games/GameResultSummary";
 import {
   DETECTIVE_CASES,
   countErrors,
   listErrors,
 } from "@/data/english-grammar-detective";
+import useSaveGameResultOnEnd from "@/hooks/useSaveGameResultOnEnd";
+import { buildGamePointsLabel } from "@/lib/saveGameResult";
 
 import styles from "./GrammarDetective.module.css";
 
 /**
- * @param {{ exitHref?: string }} props
+ * @param {{ exitHref?: string, game?: object }} props
  */
-export default function GrammarDetective({ exitHref = "/igri" }) {
+export default function GrammarDetective({ exitHref = "/igri", game = null }) {
   const [phase, setPhase] = useState("intro"); // intro | play | won
+  const [participantName, setParticipantName] = useState("");
   const [caseIndex, setCaseIndex] = useState(0);
   const [fixed, setFixed] = useState(() => new Set()); // keys "bi-ti"
   const [fixingKey, setFixingKey] = useState(null);
   const [missToast, setMissToast] = useState("");
   const [catchTip, setCatchTip] = useState("");
   const [totalCaught, setTotalCaught] = useState(0);
+  const [questionResults, setQuestionResults] = useState([]);
   const toastTimer = useRef(null);
 
   const caseData = DETECTIVE_CASES[caseIndex];
@@ -30,6 +36,17 @@ export default function GrammarDetective({ exitHref = "/igri" }) {
   const errorCount = errors.length;
   const caughtHere = errors.filter((e) => fixed.has(`${e.bi}-${e.ti}`)).length;
   const caseDone = errorCount > 0 && caughtHere >= errorCount;
+  const finished = phase === "won";
+
+  useSaveGameResultOnEnd(finished, () => ({
+    game,
+    name: participantName,
+    questionResults,
+    correct: questionResults.filter((q) => q.isCorrect).length,
+    total: questionResults.length || totalCases,
+    completed: true,
+    won: phase === "won",
+  }));
 
   const clearTimers = () => {
     if (toastTimer.current) clearTimeout(toastTimer.current);
@@ -54,7 +71,27 @@ export default function GrammarDetective({ exitHref = "/igri" }) {
 
   const startGame = () => {
     setTotalCaught(0);
+    setQuestionResults([]);
     startCase(0);
+  };
+
+  const recordCaseResult = (idx) => {
+    const c = DETECTIVE_CASES[idx];
+    const nErrors = countErrors(c);
+    setQuestionResults((prev) => {
+      if (prev.some((item) => item.questionNumber === idx + 1)) return prev;
+      return [
+        ...prev,
+        {
+          questionNumber: idx + 1,
+          questionText: c?.title || `Дело ${idx + 1}`,
+          firstAnswer: "хванати всички",
+          correctAnswer: `${nErrors} грешки`,
+          isCorrect: true,
+          status: "correct",
+        },
+      ];
+    });
   };
 
   const tokenKey = (bi, ti) => `${bi}-${ti}`;
@@ -75,6 +112,7 @@ export default function GrammarDetective({ exitHref = "/igri" }) {
       setTimeout(() => setFixingKey(null), 700);
 
       if (next.size >= errorCount) {
+        recordCaseResult(caseIndex);
         // всички в този случай
         setTimeout(() => {
           if (caseIndex + 1 >= totalCases) {
@@ -116,23 +154,34 @@ export default function GrammarDetective({ exitHref = "/igri" }) {
             <li>{allErrors} „кражби“ за хващане</li>
             <li>Без наказание при грешен клик – само насърчение</li>
           </ul>
-          <button type="button" className={styles.primaryBtn} onClick={startGame}>
-            Започни разследването
-          </button>
+          <GameNameGate
+            inputId="grammar-detective-name"
+            buttonLabel="Започни разследването"
+            onStart={(name) => {
+              setParticipantName(name);
+              startGame();
+            }}
+          />
         </div>
       </div>
     );
   }
 
   if (phase === "won") {
+    const correctCount = questionResults.filter((q) => q.isCorrect).length;
     return (
       <div className={styles.shell}>
         <div className={styles.result}>
           <h2 className={styles.resultOk}>Делото е разкрито! 🕵️</h2>
+          {participantName ? (
+            <p className={styles.resultMsg}>
+              Участник: <strong>{participantName}</strong>
+            </p>
+          ) : null}
           <p className={styles.resultMsg}>
-            Хвана {totalCaught} граматически кражби. Zorp вече говори по-добре –
-            благодарение на теб!
+            {`${buildGamePointsLabel(correctCount, totalCases)}. Хвана ${totalCaught} граматически кражби. Zorp вече говори по-добре – благодарение на теб!`}
           </p>
+          <GameResultSummary items={questionResults} />
           <div className={styles.actionRow}>
             <button type="button" className={styles.primaryBtn} onClick={startGame}>
               Ново разследване

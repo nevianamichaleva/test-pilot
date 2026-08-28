@@ -47,6 +47,7 @@ import {
   BULGARSKI_VAZVRATNO_MESTOIMENIE_QUESTIONS,
   BULGARSKI_6_VHODNO_RAVNISHTE_VAR1_QUESTIONS,
   BULGARSKI_6_VHODNO_RAVNISHTE_VAR2_QUESTIONS,
+  BULGARSKI_6_VHODEN_TEST_QUESTIONS,
 } from './bulgarski-tests';
 
 import {
@@ -628,6 +629,14 @@ const TESTS = {
     slug: 'vhodno-ravnishte-var2',
     addedAt: '2026-08-21',
     questions: BULGARSKI_6_VHODNO_RAVNISHTE_VAR2_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '6|bg|vhoden-test': {
+    title: 'БЕЛ – Входящ тест (6. клас)',
+    slug: 'vhoden-test',
+    addedAt: '2026-08-27',
+    questions: BULGARSKI_6_VHODEN_TEST_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },

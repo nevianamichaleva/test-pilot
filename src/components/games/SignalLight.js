@@ -3,15 +3,25 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import GameNameGate from "@/components/games/GameNameGate";
+import GameResultSummary from "@/components/games/GameResultSummary";
 import { SIGNAL_LIVES, SIGNAL_ROUNDS } from "@/data/english-signal-light";
+import useSaveGameResultOnEnd from "@/hooks/useSaveGameResultOnEnd";
+import { buildGamePointsLabel } from "@/lib/saveGameResult";
 
 import styles from "./SignalLight.module.css";
 
+const CHOICE_LABEL = {
+  continuous: "Синя · Continuous",
+  simple: "Зелена · Simple",
+};
+
 /**
- * @param {{ exitHref?: string }} props
+ * @param {{ exitHref?: string, game?: object }} props
  */
-export default function SignalLight({ exitHref = "/igri" }) {
+export default function SignalLight({ exitHref = "/igri", game = null }) {
   const [phase, setPhase] = useState("intro"); // intro | play | won | lost
+  const [participantName, setParticipantName] = useState("");
   const [roundIndex, setRoundIndex] = useState(0);
   const [lives, setLives] = useState(SIGNAL_LIVES);
   const [picked, setPicked] = useState(null); // 'continuous' | 'simple'
@@ -19,6 +29,8 @@ export default function SignalLight({ exitHref = "/igri" }) {
   const [lit, setLit] = useState(null); // glowing colour after pick
   const [firstTryScore, setFirstTryScore] = useState(0);
   const [attempted, setAttempted] = useState(false);
+  const [questionResults, setQuestionResults] = useState([]);
+  const [firstTryByRound, setFirstTryByRound] = useState({});
 
   const round = SIGNAL_ROUNDS[roundIndex];
   const total = SIGNAL_ROUNDS.length;
@@ -38,6 +50,18 @@ export default function SignalLight({ exitHref = "/igri" }) {
     ].filter((p) => p.text);
   }, [round]);
 
+  const finished = phase === "won" || phase === "lost";
+
+  useSaveGameResultOnEnd(finished, () => ({
+    game,
+    name: participantName,
+    questionResults,
+    correct: questionResults.filter((q) => q.isCorrect).length,
+    total: questionResults.length || total,
+    completed: true,
+    won: phase === "won",
+  }));
+
   const startRound = (idx) => {
     setRoundIndex(idx);
     setPicked(null);
@@ -50,7 +74,27 @@ export default function SignalLight({ exitHref = "/igri" }) {
   const startGame = () => {
     setLives(SIGNAL_LIVES);
     setFirstTryScore(0);
+    setQuestionResults([]);
+    setFirstTryByRound({});
     startRound(0);
+  };
+
+  const recordRoundResult = (idx, firstChoice, isCorrect) => {
+    const r = SIGNAL_ROUNDS[idx];
+    setQuestionResults((prev) => {
+      if (prev.some((item) => item.questionNumber === idx + 1)) return prev;
+      return [
+        ...prev,
+        {
+          questionNumber: idx + 1,
+          questionText: r?.sentence || `Сигнал ${idx + 1}`,
+          firstAnswer: CHOICE_LABEL[firstChoice] || firstChoice,
+          correctAnswer: CHOICE_LABEL[r?.answer] || r?.answer || "—",
+          isCorrect,
+          status: isCorrect ? "correct" : "wrong",
+        },
+      ];
+    });
   };
 
   const select = (choice) => {
@@ -60,8 +104,14 @@ export default function SignalLight({ exitHref = "/igri" }) {
     setAttempted(true);
     setLit(choice);
 
+    if (isFirstTry) {
+      setFirstTryByRound((prev) => ({ ...prev, [roundIndex]: choice }));
+    }
+
     if (choice === round.answer) {
       if (isFirstTry) setFirstTryScore((s) => s + 1);
+      const firstChoice = isFirstTry ? choice : firstTryByRound[roundIndex] || choice;
+      recordRoundResult(roundIndex, firstChoice, isFirstTry);
       setFeedback({ ok: true, tip: round.tip });
       setTimeout(() => {
         if (roundIndex + 1 >= total) {
@@ -84,6 +134,7 @@ export default function SignalLight({ exitHref = "/igri" }) {
     setLives(nextLives);
 
     if (nextLives <= 0) {
+      recordRoundResult(roundIndex, choice, false);
       setTimeout(() => setPhase("lost"), 1200);
       return;
     }
@@ -114,26 +165,38 @@ export default function SignalLight({ exitHref = "/igri" }) {
             <li>{SIGNAL_LIVES} живота</li>
             <li>Жокерните думи светват след отговор</li>
           </ul>
-          <button type="button" className={styles.primaryBtn} onClick={startGame}>
-            Светни лампата
-          </button>
+          <GameNameGate
+            inputId="signal-light-name"
+            buttonLabel="Светни лампата"
+            onStart={(name) => {
+              setParticipantName(name);
+              startGame();
+            }}
+          />
         </div>
       </div>
     );
   }
 
   if (phase === "won" || phase === "lost") {
+    const correctCount = questionResults.filter((q) => q.isCorrect).length;
     return (
       <div className={styles.shell}>
         <div className={styles.result}>
           <h2 className={phase === "won" ? styles.resultOk : styles.resultBad}>
             {phase === "won" ? "Сигналите са ясни!" : "Лампата угасна…"}
           </h2>
+          {participantName ? (
+            <p className={styles.resultMsg}>
+              Участник: <strong>{participantName}</strong>
+            </p>
+          ) : null}
           <p className={styles.resultMsg}>
             {phase === "won"
-              ? `Верни от първи опит: ${firstTryScore} от ${total}. Вече търсиш контекста преди глагола!`
-              : "Помни: сега → синя (Continuous); навик → зелена (Simple). Опитай пак!"}
+              ? `${buildGamePointsLabel(firstTryScore, total)} от първи опит. Вече търсиш контекста преди глагола!`
+              : `${buildGamePointsLabel(correctCount, questionResults.length || total)}. Помни: сега → синя (Continuous); навик → зелена (Simple).`}
           </p>
+          <GameResultSummary items={questionResults} />
           <div className={styles.actionRow}>
             <button type="button" className={styles.primaryBtn} onClick={startGame}>
               Играй отново

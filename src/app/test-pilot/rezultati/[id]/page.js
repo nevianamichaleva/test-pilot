@@ -95,6 +95,10 @@ export default function ResultDetailsPage() {
           completed: isResultCompleted(data),
           progressText: data.progressText || "",
           questionResults: Array.isArray(data.questionResults) ? data.questionResults : [],
+          source:
+            data.source === "game" || String(data.test || "").startsWith("game|")
+              ? "game"
+              : "test",
         });
       } catch (e) {
         if (!cancelled) setError(e?.message || "Грешка при зареждане на резултата.");
@@ -119,7 +123,11 @@ export default function ResultDetailsPage() {
         <PageHero
           variant="page"
           title={result?.testTitle || "Детайли за резултат"}
-          subtitle="Подробен преглед на отговори."
+          subtitle={
+            result?.source === "game"
+              ? "Подробен преглед на отговорите в играта."
+              : "Подробен преглед на отговори."
+          }
           actions={
             <Link href="/test-pilot/rezultati" className={styles.backLink}>
               Към резултатите <span aria-hidden>›</span>
@@ -147,7 +155,8 @@ export default function ResultDetailsPage() {
                 ) : null}
                 <div className={styles.detailMetaCol}>
                   <p className={styles.detailMeta}>
-                    Тест: <strong>{result.testTitle}</strong>
+                    {result.source === "game" ? "Игра" : "Тест"}:{" "}
+                    <strong>{result.testTitle}</strong>
                   </p>
                   <p className={styles.detailMeta}>
                     Дете: <strong>{result.name}</strong>

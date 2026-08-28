@@ -27,11 +27,14 @@ export function getTestListThumbnailSrc(test) {
   return SUBJECT_THUMB_SRC[subject] ?? null;
 }
 
-/** Миниатюра от testId (`клас|предмет|slug`). */
+/** Миниатюра от testId (`клас|предмет|slug` или `game|предмет|slug`). */
 export function getThumbnailSrcFromTestId(testId) {
   if (!testId || typeof testId !== "string") return null;
   const parts = testId.split("|");
   if (parts.length >= 3) {
+    if (parts[0] === "game") {
+      return SUBJECT_THUMB_SRC[parts[1]] ?? null;
+    }
     return getTestListThumbnailSrc({
       classNum: parts[0],
       subject: parts[1],

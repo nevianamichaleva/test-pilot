@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import GameNameGate from "@/components/games/GameNameGate";
+import GameResultSummary from "@/components/games/GameResultSummary";
 import { BRIDGE_LIVES, BRIDGE_ROUNDS } from "@/data/english-bridge-of-rules";
+import useSaveGameResultOnEnd from "@/hooks/useSaveGameResultOnEnd";
+import { buildGamePointsLabel } from "@/lib/saveGameResult";
 
 import styles from "./BridgeOfRules.module.css";
 
@@ -13,11 +17,16 @@ function sizeClass(size) {
   return styles.figMd;
 }
 
+function correctOptionText(round) {
+  return round?.options?.find((o) => o.correct)?.text || "—";
+}
+
 /**
- * @param {{ exitHref?: string }} props
+ * @param {{ exitHref?: string, game?: object }} props
  */
-export default function BridgeOfRules({ exitHref = "/igri" }) {
+export default function BridgeOfRules({ exitHref = "/igri", game = null }) {
   const [phase, setPhase] = useState("intro"); // intro | play | won | lost
+  const [participantName, setParticipantName] = useState("");
   const [roundIndex, setRoundIndex] = useState(0);
   const [lives, setLives] = useState(BRIDGE_LIVES);
   const [picked, setPicked] = useState(null); // option text
@@ -26,6 +35,8 @@ export default function BridgeOfRules({ exitHref = "/igri" }) {
   const [crossing, setCrossing] = useState(false);
   const [firstTryScore, setFirstTryScore] = useState(0);
   const [attempted, setAttempted] = useState(false);
+  const [questionResults, setQuestionResults] = useState([]);
+  const [firstTryByRound, setFirstTryByRound] = useState({});
 
   const round = BRIDGE_ROUNDS[roundIndex];
   const total = BRIDGE_ROUNDS.length;
@@ -34,6 +45,18 @@ export default function BridgeOfRules({ exitHref = "/igri" }) {
     // keep pedagogical order: base / comparative / superlative as authored
     return round?.options ?? [];
   }, [round]);
+
+  const finished = phase === "won" || phase === "lost";
+
+  useSaveGameResultOnEnd(finished, () => ({
+    game,
+    name: participantName,
+    questionResults,
+    correct: questionResults.filter((q) => q.isCorrect).length,
+    total: questionResults.length || total,
+    completed: true,
+    won: phase === "won",
+  }));
 
   const startRound = (idx) => {
     setRoundIndex(idx);
@@ -48,7 +71,27 @@ export default function BridgeOfRules({ exitHref = "/igri" }) {
   const startGame = () => {
     setLives(BRIDGE_LIVES);
     setFirstTryScore(0);
+    setQuestionResults([]);
+    setFirstTryByRound({});
     startRound(0);
+  };
+
+  const recordRoundResult = (idx, firstAnswer, isCorrect) => {
+    const r = BRIDGE_ROUNDS[idx];
+    setQuestionResults((prev) => {
+      if (prev.some((item) => item.questionNumber === idx + 1)) return prev;
+      return [
+        ...prev,
+        {
+          questionNumber: idx + 1,
+          questionText: r?.sentence || `Мост ${idx + 1}`,
+          firstAnswer,
+          correctAnswer: correctOptionText(r),
+          isCorrect,
+          status: isCorrect ? "correct" : "wrong",
+        },
+      ];
+    });
   };
 
   const select = (opt) => {
@@ -57,8 +100,14 @@ export default function BridgeOfRules({ exitHref = "/igri" }) {
     setPicked(opt.text);
     setAttempted(true);
 
+    if (isFirstTry) {
+      setFirstTryByRound((prev) => ({ ...prev, [roundIndex]: opt.text }));
+    }
+
     if (opt.correct) {
       if (isFirstTry) setFirstTryScore((s) => s + 1);
+      const firstAnswer = isFirstTry ? opt.text : firstTryByRound[roundIndex] || opt.text;
+      recordRoundResult(roundIndex, firstAnswer, isFirstTry);
       setFeedback({ ok: true, tip: "Мостът е стабилен – преминаваш!", stomp: false });
       setCrossing(true);
       setTimeout(() => {
@@ -82,6 +131,7 @@ export default function BridgeOfRules({ exitHref = "/igri" }) {
     setTimeout(() => setShake(false), 700);
 
     if (nextLives <= 0) {
+      recordRoundResult(roundIndex, opt.text, false);
       setTimeout(() => setPhase("lost"), 900);
       return;
     }
@@ -108,26 +158,38 @@ export default function BridgeOfRules({ exitHref = "/igri" }) {
             <li>{BRIDGE_LIVES} живота (мостът не издържа безкрайни грешки)</li>
             <li>Всеки грешен отговор идва с ясно обяснение</li>
           </ul>
-          <button type="button" className={styles.primaryBtn} onClick={startGame}>
-            Към моста
-          </button>
+          <GameNameGate
+            inputId="bridge-of-rules-name"
+            buttonLabel="Към моста"
+            onStart={(name) => {
+              setParticipantName(name);
+              startGame();
+            }}
+          />
         </div>
       </div>
     );
   }
 
   if (phase === "won" || phase === "lost") {
+    const correctCount = questionResults.filter((q) => q.isCorrect).length;
     return (
       <div className={styles.shell}>
         <div className={styles.result}>
           <h2 className={phase === "won" ? styles.resultOk : styles.resultBad}>
             {phase === "won" ? "Премина всички мостове!" : "Мостът се срина…"}
           </h2>
+          {participantName ? (
+            <p className={styles.resultMsg}>
+              Участник: <strong>{participantName}</strong>
+            </p>
+          ) : null}
           <p className={styles.resultMsg}>
             {phase === "won"
-              ? `Верни от първи опит: ${firstTryScore} от ${total}. Сравненията вече са твои приятели!`
-              : "Помни: две неща → -er / more; три+ → -est / the most. Опитай пак!"}
+              ? `${buildGamePointsLabel(firstTryScore, total)} от първи опит. Сравненията вече са твои приятели!`
+              : `${buildGamePointsLabel(correctCount, questionResults.length || total)}. Помни: две неща → -er / more; три+ → -est / the most.`}
           </p>
+          <GameResultSummary items={questionResults} />
           <div className={styles.actionRow}>
             <button type="button" className={styles.primaryBtn} onClick={startGame}>
               Играй отново

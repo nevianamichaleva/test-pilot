@@ -1,0 +1,43 @@
+.summaryList {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+  text-align: left;
+}
+
+.summaryItem {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(26, 58, 82, 0.16);
+  background: rgba(248, 251, 255, 0.9);
+}
+
+.summaryQuestion {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 900;
+  color: #1a3a52;
+  line-height: 1.4;
+}
+
+.summaryAnswer {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: rgba(26, 58, 82, 0.86);
+}
+
+.summaryCorrectAnswer {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: rgba(26, 58, 82, 0.95);
+}
+
+.summaryCorrect {
+  color: #156f17;
+  font-weight: 1000;
+}
+
+.summaryWrong {
+  color: #b42318;
+  font-weight: 1000;
+}
