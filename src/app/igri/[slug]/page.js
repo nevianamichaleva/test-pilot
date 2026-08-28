@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import Bel6GiftBoxes from "@/components/games/Bel6GiftBoxes";
+import Bel6TrainDriver from "@/components/games/Bel6TrainDriver";
 import Bel6Adventure from "@/components/games/Bel6Adventure";
 import DidYouKnowCrossword from "@/components/games/DidYouKnowCrossword";
 import GamePlayTracker from "@/components/games/GamePlayTracker";
@@ -52,6 +54,8 @@ export default async function GamePage({ params }) {
   const isDidYouKnow = game.kind === "did-you-know";
   const isHistoryReview = game.kind === "history-review";
   const isBel6 = game.kind === "bel-6";
+  const isBelTrainDriver = game.kind === "bel-train-driver";
+  const isBelGiftBoxes = game.kind === "bel-gift-boxes";
   const isSentenceBuilder = game.kind === "sentence-builder";
   const isGrammarDetective = game.kind === "grammar-detective";
   const isBridgeOfRules = game.kind === "bridge-of-rules";
@@ -92,6 +96,10 @@ export default async function GamePage({ params }) {
           <HistoryReviewAdventure exitHref={exitHref} />
         ) : isBel6 ? (
           <Bel6Adventure exitHref={exitHref} />
+        ) : isBelTrainDriver ? (
+          <Bel6TrainDriver exitHref={exitHref} game={game} />
+        ) : isBelGiftBoxes ? (
+          <Bel6GiftBoxes exitHref={exitHref} game={game} />
         ) : isSentenceBuilder ? (
           <SentenceBuilder exitHref={exitHref} game={game} />
         ) : isGrammarDetective ? (

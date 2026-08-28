@@ -72,7 +72,9 @@ export const HINT_HANGMAN_ROUNDS = [
 ];
 
 export const HINT_HANGMAN_LIVES = 6;
-export const HINT_HANGMAN_START_COINS = 4;
+export const HINT_HANGMAN_START_COINS = 6;
+/** Звезди за решена дума (прехвърлят се за следващите рундове). */
+export const HINT_HANGMAN_ROUND_REWARD = 2;
 export const VOWEL_COST = 1;
 
 export const VOWELS = ["a", "e", "i", "o", "u"];

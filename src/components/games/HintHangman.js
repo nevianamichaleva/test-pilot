@@ -9,6 +9,7 @@ import {
   ALPHABET,
   HINT_HANGMAN_LIVES,
   HINT_HANGMAN_ROUNDS,
+  HINT_HANGMAN_ROUND_REWARD,
   HINT_HANGMAN_START_COINS,
   VOWEL_COST,
   VOWELS,
@@ -110,9 +111,9 @@ export default function HintHangman({ exitHref = "/igri", game = null }) {
     const done = word.split("").every((ch) => nextGuessed.has(ch));
     if (!done) return false;
     recordWordResult(roundIndex, round.word, true);
-    const rewarded = nextCoins + 1;
+    const rewarded = nextCoins + HINT_HANGMAN_ROUND_REWARD;
     const nextSolved = solvedCount + 1;
-    flashToast(`Браво! ${round.word}  (+1⭐)`);
+    flashToast(`Браво! ${round.word}  (+${HINT_HANGMAN_ROUND_REWARD}⭐)`);
     setTimeout(() => {
       if (roundIndex + 1 >= total) {
         setSolvedCount(nextSolved);
@@ -193,9 +194,9 @@ export default function HintHangman({ exitHref = "/igri", game = null }) {
           <ul className={styles.bullets}>
             <li>{total} думи от диагностичния тест</li>
             <li>
-              {HINT_HANGMAN_LIVES} живота · {HINT_HANGMAN_START_COINS}⭐ за гласни
+              {HINT_HANGMAN_LIVES} живота · {HINT_HANGMAN_START_COINS}⭐ старт
             </li>
-            <li>Всеки решен рунд дава +1⭐</li>
+            <li>Всяка решена дума дава +{HINT_HANGMAN_ROUND_REWARD}⭐ за гласни</li>
           </ul>
           <GameNameGate
             inputId="hint-hangman-name"

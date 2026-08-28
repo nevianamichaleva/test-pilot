@@ -96,6 +96,8 @@ function gameMetaLabel(g) {
   if (g.kind === "did-you-know") return "Факти + кръстословица";
   if (g.kind === "history-review") return "5 мини-игри";
   if (g.kind === "bel-6") return "7 мини-игри";
+  if (g.kind === "bel-train-driver") return "Подлог и сказуемо";
+  if (g.kind === "bel-gift-boxes") return "Допълнение";
   if (g.kind === "sentence-builder") return "Конструктор";
   if (g.kind === "grammar-detective") return "Детектив";
   if (g.kind === "bridge-of-rules") return "Сравнения";

@@ -9,6 +9,8 @@
  * - "did-you-know": факти „Знаеш ли, че…“ + кръстословица
  * - "history-review": начален преговор по история (линия, картинки, свързване)
  * - "bel-6": езикова работилница 6. клас (правопис, времена, причастия…)
+ * - "bel-train-driver": подлог и сказуемо – „Кой кара влака?“ (6. клас)
+ * - "bel-gift-boxes": допълнение – „Подаръци в кутии“ (6. клас)
  * - "sentence-builder": английски конструктор на изречения (5. клас)
  * - "grammar-detective": хващане на граматически грешки в чат/писмо (5. клас)
  * - "bridge-of-rules": сравнителна и превъзходна степен (5. клас)
@@ -126,6 +128,32 @@ export const GAMES = [
     accent: "#c2410c",
     status: "ready",
     kind: "bel-6",
+    image: "/images/igri/bg-chasti-rech.png",
+  },
+  {
+    slug: "bel-6-koi-kara-vlaka",
+    title: "БЕЛ – Кой кара влака?",
+    description:
+      "Подлог и сказуемо: машинистът управлява, локомотивът движи изречението. Маркирай думите с две линии — както в училище!",
+    subject: "bg",
+    classNums: ["6"],
+    tone: "#ffedd5",
+    accent: "#ea580c",
+    status: "ready",
+    kind: "bel-train-driver",
+    image: "/images/igri/bg-chasti-rech.png",
+  },
+  {
+    slug: "bel-6-podaraci-v-kutii",
+    title: "БЕЛ – Подаръци в кутии",
+    description:
+      "Допълнение: думата е в кутия — избери ключа КАКВО?, КОГО?, КОГА? или КАК?, за да я отвориш. Задачи 12–13.",
+    subject: "bg",
+    classNums: ["6"],
+    tone: "#faf5ff",
+    accent: "#7c3aed",
+    status: "ready",
+    kind: "bel-gift-boxes",
     image: "/images/igri/bg-chasti-rech.png",
   },
   {
