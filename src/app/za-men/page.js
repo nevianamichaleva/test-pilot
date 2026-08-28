@@ -46,11 +46,11 @@ export default function ZaMenPage() {
               </p>
             </div>
 
-            <div className={styles.photoSlot} aria-label="Място за снимка">
+            <div className={styles.photoSlot} aria-label="Илюстрация на учебни материали">
               <Image
                 className={styles.photoImg}
-                src="/images/TheAuthor.png"
-                alt="Невяна Михалева"
+                src="/images/za-men-learning.png"
+                alt="Книги, тетрадка и учебни материали — символ на ученето у дома"
                 width={520}
                 height={520}
                 priority
