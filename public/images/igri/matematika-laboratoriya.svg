@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" aria-label="01>@0B>@8O 70 ?8F0">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" aria-label="Laboratoriya pitza">
   <defs>
     <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
       <stop offset="0%" stop-color="#fff7ed"/>
@@ -10,17 +11,16 @@
     </linearGradient>
   </defs>
   <rect width="1024" height="1024" fill="url(#bg)"/>
-  <rect x="140" y="180" width="744" height="420" rx="32" fill="#fff" stroke="#fcd34d" stroke-width="10"/>
+  <rect x="140" y="180" width="744" height="420" rx="32" fill="#ffffff" stroke="#fcd34d" stroke-width="10"/>
   <rect x="180" y="220" width="160" height="160" rx="16" fill="url(#choc)"/>
   <rect x="360" y="220" width="160" height="160" rx="16" fill="url(#choc)"/>
   <rect x="540" y="220" width="160" height="160" rx="16" fill="url(#choc)"/>
   <rect x="720" y="220" width="120" height="160" rx="16" fill="#fde68a" stroke="#d97706" stroke-width="4" stroke-dasharray="8 6"/>
   <rect x="180" y="400" width="660" height="160" rx="16" fill="#fde68a" stroke="#d97706" stroke-width="4" stroke-dasharray="8 6"/>
-  <circle cx="512" cy="780" r="200" fill="#fff" stroke="#fb923c" stroke-width="10"/>
+  <circle cx="512" cy="780" r="200" fill="#ffffff" stroke="#fb923c" stroke-width="10"/>
   <path d="M512 580 L512 780 L692 780 A200 200 0 0 0 512 580 Z" fill="#ea580c"/>
   <path d="M512 580 L512 780 L332 780 A200 200 0 0 1 512 580 Z" fill="#fdba74"/>
-  <path d="M512 580 L692 780 L512 980 A200 200 0 0 0 512 580 Z" fill="#fdba74" opacity=".45"/>
   <circle cx="512" cy="780" r="32" fill="#fef3c7" stroke="#fb923c" stroke-width="4"/>
-  <text x="512" y="120" text-anchor="middle" fill="#92400e" font-family="Arial,sans-serif" font-size="56" font-weight="800">F25B8 75%</text>
+  <text x="512" y="130" text-anchor="middle" fill="#92400e" font-family="Arial,sans-serif" font-size="56" font-weight="800">75%</text>
   <text x="512" y="960" text-anchor="middle" fill="#c2410c" font-family="Arial,sans-serif" font-size="40" font-weight="700">= 3/4 = 0,75</text>
 </svg>

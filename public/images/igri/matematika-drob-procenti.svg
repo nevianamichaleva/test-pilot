@@ -1,8 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" aria-label="@>18 8 ?@>F5=B8">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" aria-label="Drobi i procenti">
   <defs>
     <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0%" stop-color="#fef3c7"/>
-      <stop offset="50%" stop-color="#fff"/>
+      <stop offset="50%" stop-color="#ffffff"/>
       <stop offset="100%" stop-color="#dbeafe"/>
     </linearGradient>
     <linearGradient id="choc" x1="0" x2="0" y1="0" y2="1">
@@ -11,19 +12,17 @@
     </linearGradient>
   </defs>
   <rect width="1024" height="1024" fill="url(#bg)"/>
-  <rect x="120" y="280" width="320" height="320" rx="24" fill="#fff" stroke="#fcd34d" stroke-width="8"/>
+  <rect x="120" y="280" width="320" height="320" rx="24" fill="#ffffff" stroke="#fcd34d" stroke-width="8"/>
   <rect x="140" y="300" width="140" height="140" rx="12" fill="url(#choc)"/>
   <rect x="300" y="300" width="120" height="140" rx="12" fill="url(#choc)"/>
-  <rect x="140" y="460" width="280" height="120" rx="12" fill="url(#choc)" opacity=".35"/>
-  <text x="280" y="240" text-anchor="middle" fill="#92400e" font-family="Arial,sans-serif" font-size="48" font-weight="700">3/4</text>
+  <rect x="140" y="460" width="280" height="120" rx="12" fill="url(#choc)" opacity="0.35"/>
+  <text x="280" y="250" text-anchor="middle" fill="#92400e" font-family="Arial,sans-serif" font-size="48" font-weight="700">3/4</text>
   <circle cx="720" cy="440" r="180" fill="#fff7ed" stroke="#fb923c" stroke-width="8"/>
   <path d="M720 260 L720 440 L900 440 A180 180 0 0 0 720 260 Z" fill="#ea580c"/>
-  <path d="M720 260 L720 440 L540 440 A180 180 0 0 1 720 260 Z" fill="#fdba74" opacity=".5"/>
+  <path d="M720 260 L720 440 L540 440 A180 180 0 0 1 720 260 Z" fill="#fdba74" opacity="0.5"/>
   <circle cx="720" cy="440" r="28" fill="#fef3c7"/>
   <text x="720" y="700" text-anchor="middle" fill="#c2410c" font-family="Arial,sans-serif" font-size="44" font-weight="700">75%</text>
   <rect x="180" y="720" width="664" height="20" rx="10" fill="#e2e8f0"/>
   <rect x="180" y="720" width="498" height="20" rx="10" fill="#93c5fd"/>
   <polygon points="678,700 678,760 720,730" fill="#2563eb"/>
-  <line x1="180" y1="730" x2="844" y2="730" stroke="#64748b" stroke-width="4"/>
-  <text x="512" y="860" text-anchor="middle" fill="#1e40af" font-family="Arial,sans-serif" font-size="52" font-weight="800">@>18 · % · '8A;>20 >A</text>
 </svg>
