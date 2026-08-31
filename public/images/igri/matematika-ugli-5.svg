@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" aria-label="$83C@=0 A>@B8@>2:0">
+  <rect width="1024" height="1024" fill="#f5f3ff"/>
+  <rect x="80" y="140" width="220" height="280" rx="20" fill="#fff" stroke="#c4b5fd" stroke-width="6"/>
+  <text x="190" y="200" text-anchor="middle" fill="#5b21b6" font-family="Arial,sans-serif" font-size="28" font-weight="800">³</text>
+  <polygon points="190,260 250,380 130,380" fill="#fcd34d" stroke="#d97706" stroke-width="4"/>
+  <rect x="380" y="140" width="220" height="280" rx="20" fill="#fff" stroke="#93c5fd" stroke-width="6"/>
+  <rect x="430" y="260" width="120" height="100" fill="#c4b5fd" stroke="#7c3aed" stroke-width="4"/>
+  <rect x="680" y="140" width="220" height="280" rx="20" fill="#fff" stroke="#86efac" stroke-width="6"/>
+  <circle cx="790" cy="320" r="70" fill="#93c5fd" stroke="#2563eb" stroke-width="4"/>
+  <text x="512" y="880" text-anchor="middle" fill="#5b21b6" font-family="Arial,sans-serif" font-size="48" font-weight="800">$83C@=0 A>@B8@>2:0</text>
+</svg>
