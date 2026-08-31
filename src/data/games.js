@@ -19,6 +19,8 @@
  * - "verb-magnet": do / play / make – магнит за глаголи (Grade 6 Diagnostic)
  * - "hint-hangman": бесеница с контекст, гласни и иконки (Grade 6 Diagnostic 11–15)
  * - "text-detective": True/False + маркирай доказателството в текста (Diagnostic 16–20)
+ * - "fraction-mode": една мини-игра за дроби и проценти (mode: lab|cards|numberline)
+ * - "fraction-adventure": три мини-игри за дроби и проценти (меню)
  *
  * classNums: масив от класове (напр. ["5","6","7"]).
  * image: път към картинка в /public
@@ -285,6 +287,61 @@ export const GAMES = [
     status: "ready",
     kind: "nature-maze",
     image: "/images/igri/geo-kontinenti.png",
+  },
+  {
+    slug: "matematika-drob-procenti",
+    title: "Математика – Дроби и проценти",
+    description:
+      "Три спокойни игри: оцвети част от пицата, подреди математически карти и постави флага на числовата ос.",
+    subject: "matematika",
+    classNums: ["5", "6"],
+    tone: "#fef3c7",
+    accent: "#d97706",
+    status: "ready",
+    kind: "fraction-adventure",
+    image: "/images/igri/matematika-drob-procenti.svg",
+  },
+  {
+    slug: "matematika-laboratoriya-pitza",
+    title: "Математика – Лаборатория за пица",
+    description:
+      "Оцвети точната част от шоколада или пицата — 75% = 3/4 = 0,75. Визуална връзка между дроб, десетична дроб и процент.",
+    subject: "matematika",
+    classNums: ["5", "6"],
+    tone: "#fef3c7",
+    accent: "#d97706",
+    status: "ready",
+    kind: "fraction-mode",
+    mode: "lab",
+    image: "/images/igri/matematika-laboratoriya.svg",
+  },
+  {
+    slug: "matematika-matematicheski-karti",
+    title: "Математика – Математически карти",
+    description:
+      "Подреди стойностите в кутии: по-малко от 50%, точно 50% или повече от 50%. Дроби, проценти и десетични числа.",
+    subject: "matematika",
+    classNums: ["5", "6"],
+    tone: "#dbeafe",
+    accent: "#2563eb",
+    status: "ready",
+    kind: "fraction-mode",
+    mode: "cards",
+    image: "/images/igri/matematika-karti.svg",
+  },
+  {
+    slug: "matematika-chislova-os",
+    title: "Математика – Постави флага",
+    description:
+      "Числова ос от 0% до 100%: забий флага на точното място за 2/5, 40% или 0,6. Без таймер, с визуални подсказки.",
+    subject: "matematika",
+    classNums: ["5", "6"],
+    tone: "#d1fae5",
+    accent: "#059669",
+    status: "ready",
+    kind: "fraction-mode",
+    mode: "numberline",
+    image: "/images/igri/matematika-chislova-os.svg",
   },
   {
     slug: "chasti-na-rechta",
