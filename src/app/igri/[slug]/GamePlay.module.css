@@ -22,6 +22,30 @@
   color: #1a3a52;
 }
 
+.hint {
+  margin: 10px 0 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.72);
+  line-height: 1.45;
+}
+
+.reason {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e40af;
+  line-height: 1.5;
+}
+
 .options {
   margin-top: 16px;
   display: grid;

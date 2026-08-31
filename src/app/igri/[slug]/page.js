@@ -22,6 +22,8 @@ import VerbMagnet from "@/components/games/VerbMagnet";
 import HintHangman from "@/components/games/HintHangman";
 import TextDetective from "@/components/games/TextDetective";
 import FractionAdventure from "@/components/games/FractionAdventure";
+import GeometryAdventure from "@/components/games/GeometryAdventure";
+import Geometry6Adventure from "@/components/games/Geometry6Adventure";
 import { getAllGames, getGameBySlug } from "@/data/games";
 
 import pageStyles from "../Igri.module.css";
@@ -68,6 +70,10 @@ export default async function GamePage({ params }) {
   const isTextDetective = game.kind === "text-detective";
   const isFractionMode = game.kind === "fraction-mode" && game.mode;
   const isFractionAdventure = game.kind === "fraction-adventure";
+  const isGeometryMode = game.kind === "geometry-mode" && game.mode;
+  const isGeometryAdventure = game.kind === "geometry-adventure";
+  const isGeometry6Mode = game.kind === "geometry6-mode" && game.mode;
+  const isGeometry6Adventure = game.kind === "geometry6-adventure";
   const exitHref = `/igri?class=${encodeURIComponent(game.classNums?.[0] ?? "")}&subject=${encodeURIComponent(game.subject ?? "")}`;
 
   return (
@@ -125,6 +131,14 @@ export default async function GamePage({ params }) {
           <FractionAdventure initialMode={game.mode} exitHref={exitHref} game={game} />
         ) : isFractionAdventure ? (
           <FractionAdventure exitHref={exitHref} game={game} />
+        ) : isGeometryMode ? (
+          <GeometryAdventure initialMode={game.mode} exitHref={exitHref} game={game} />
+        ) : isGeometryAdventure ? (
+          <GeometryAdventure exitHref={exitHref} game={game} />
+        ) : isGeometry6Mode ? (
+          <Geometry6Adventure initialMode={game.mode} exitHref={exitHref} game={game} />
+        ) : isGeometry6Adventure ? (
+          <Geometry6Adventure exitHref={exitHref} game={game} />
         ) : (
           <GamePlay game={game} />
         )}

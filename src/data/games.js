@@ -20,13 +20,17 @@
  * - "hint-hangman": бесеница с контекст, гласни и иконки (Grade 6 Diagnostic 11–15)
  * - "text-detective": True/False + маркирай доказателството в текста (Diagnostic 16–20)
  * - "fraction-mode": една мини-игра за дроби и проценти (mode: lab|cards|numberline)
- * - "fraction-adventure": три мини-игри за дроби и проценти (меню)
+ * - "geometry-adventure": визуални игри по геометрия 5. клас (меню)
+ * - "geometry-mode": една геометрична мини-игра (mode: shapes|angles|symmetry|perimeter)
+ * - "geometry6-adventure": визуални игри по геометрия 6. клас (меню)
+ * - "geometry6-mode": една геометрична мини-игра 6. клас (mode: nets|area|detector)
  *
  * classNums: масив от класове (напр. ["5","6","7"]).
  * image: път към картинка в /public
  */
 
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
+import { GEOMETRY6_QUIZ } from "@/data/matematika-geometria-6";
 
 export const GAMES = [
   {
@@ -342,6 +346,144 @@ export const GAMES = [
     kind: "fraction-mode",
     mode: "numberline",
     image: "/images/igri/matematika-chislova-os.svg",
+  },
+  {
+    slug: "matematika-geometria-5",
+    title: "Математика – Геометрия 5. клас",
+    description:
+      "Четири визуални игри: фигури, ъгли, огледална симетрия и обиколка на решетка. Без таймер.",
+    subject: "matematika",
+    classNums: ["5"],
+    tone: "#ede9fe",
+    accent: "#7c3aed",
+    status: "ready",
+    kind: "geometry-adventure",
+    image: "/images/igri/matematika-geometria-5.svg",
+  },
+  {
+    slug: "matematika-figuri-5",
+    title: "Математика – Фигурна сортировка",
+    description:
+      "Подреди триъгълници, четириъгълници, кръгове и многоъгълници в правилните кутии.",
+    subject: "matematika",
+    classNums: ["5"],
+    tone: "#ede9fe",
+    accent: "#7c3aed",
+    status: "ready",
+    kind: "geometry-mode",
+    mode: "shapes",
+    image: "/images/igri/matematika-geometria-5.svg",
+  },
+  {
+    slug: "matematika-ugli-5",
+    title: "Математика – Ъглови карти",
+    description:
+      "Класифицирай ъглите: остър (< 90°), прав (90°) или тъп (> 90°). С визуална диаграма.",
+    subject: "matematika",
+    classNums: ["5"],
+    tone: "#fef3c7",
+    accent: "#d97706",
+    status: "ready",
+    kind: "geometry-mode",
+    mode: "angles",
+    image: "/images/igri/matematika-ugli-5.svg",
+  },
+  {
+    slug: "matematika-simetria-5",
+    title: "Математика – Огледална симетрия",
+    description:
+      "Довърши фигурата като огледален образ спрямо пунктираната ос.",
+    subject: "matematika",
+    classNums: ["5"],
+    tone: "#ecfeff",
+    accent: "#0891b2",
+    status: "ready",
+    kind: "geometry-mode",
+    mode: "symmetry",
+    image: "/images/igri/matematika-simetria-5.svg",
+  },
+  {
+    slug: "matematika-obikolka-5",
+    title: "Математика – Обиколка на решетка",
+    description:
+      "Преброй външните страни на фигура върху единична решетка — периметър на 5. клас.",
+    subject: "matematika",
+    classNums: ["5"],
+    tone: "#dcfce7",
+    accent: "#059669",
+    status: "ready",
+    kind: "geometry-mode",
+    mode: "perimeter",
+    image: "/images/igri/matematika-obikolka-5.svg",
+  },
+  {
+    slug: "matematika-geometria-6",
+    title: "Математика – Геометрия 6. клас",
+    description:
+      "Магически мрежи, лице чрез пренареждане и геометричен детектор. a — синьо, h — червено, мрежа като тетрадка.",
+    subject: "matematika",
+    classNums: ["6"],
+    tone: "#ede9fe",
+    accent: "#7c3aed",
+    status: "ready",
+    kind: "geometry6-adventure",
+    image: "/images/igri/matematika-geometria-6.svg",
+  },
+  {
+    slug: "matematika-magicheski-mreji-6",
+    title: "Математика – Магически мрежи",
+    description:
+      "Избери разгъвката на куб, паралелепипед или цилиндър. 3D модел + мрежа.",
+    subject: "matematika",
+    classNums: ["6"],
+    tone: "#ddd6fe",
+    accent: "#7c3aed",
+    status: "ready",
+    kind: "geometry6-mode",
+    mode: "nets",
+    image: "/images/igri/matematika-geometria-6.svg",
+  },
+  {
+    slug: "matematika-lice-prenarejdane-6",
+    title: "Математика – Лице чрез пренареждане",
+    description:
+      "Премести △ от успоредника и виж защо S = a · h. Успоредник и трапец на мрежа.",
+    subject: "matematika",
+    classNums: ["6"],
+    tone: "#dbeafe",
+    accent: "#2563eb",
+    status: "ready",
+    kind: "geometry6-mode",
+    mode: "area",
+    image: "/images/igri/matematika-geometria-6.svg",
+  },
+  {
+    slug: "matematika-geometrichen-detektor-6",
+    title: "Математика – Геометричен детектор",
+    description:
+      "Сортирай фигури: успоредни страни, равни страни или тъп ъгъл.",
+    subject: "matematika",
+    classNums: ["6"],
+    tone: "#fef3c7",
+    accent: "#d97706",
+    status: "ready",
+    kind: "geometry6-mode",
+    mode: "detector",
+    image: "/images/igri/matematika-geometria-6.svg",
+  },
+  {
+    slug: "matematika-pregled-geometria-6",
+    title: "Математика – Преговор: Геометрия 6. клас",
+    description:
+      "Лице на триъгълник и трапец, обем на паралелепипед, елементи на тела. С подсказки и обяснения.",
+    subject: "matematika",
+    classNums: ["6"],
+    tone: "#e0e7ff",
+    accent: "#4338ca",
+    status: "ready",
+    kind: "quiz",
+    image: "/images/igri/matematika-geometria-6.svg",
+    questions: GEOMETRY6_QUIZ,
   },
   {
     slug: "chasti-na-rechta",

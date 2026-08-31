@@ -73,12 +73,24 @@
 }
 
 @media (max-width: 520px) {
+  .gate {
+    max-width: 300px;
+  }
+
   .row {
     flex-direction: column;
+    align-items: center;
+  }
+
+  .input {
+    flex: none;
+    width: min(100%, 260px);
+    min-height: 0;
+    height: auto;
   }
 
   .startBtn {
-    width: 100%;
+    width: min(100%, 260px);
     min-height: 46px;
   }
 }

@@ -1,0 +1,387 @@
+.shell {
+  margin-top: 14px;
+  border-radius: 22px;
+  background: #fafafa;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 12px 40px rgba(10, 35, 70, 0.08);
+  padding: 18px 16px 20px;
+}
+
+.intro,
+.result {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  margin: 0 0 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+  color: #fff;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+}
+
+.introTitle {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 1000;
+  color: #1a3a52;
+}
+
+.introSub {
+  margin: 4px 0 16px;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.65);
+}
+
+.menuTitle {
+  margin: 0 0 14px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.modeGrid {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 560px) {
+  .modeGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.modeCard {
+  --mode-tone: #ddd6fe;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  border: 2px solid color-mix(in srgb, var(--mode-tone) 50%, #e5e7eb);
+  border-radius: 16px;
+  padding: 14px;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+}
+
+.modeTitle {
+  font-size: 15px;
+  font-weight: 900;
+  color: #1a3a52;
+}
+
+.modeDesc {
+  font-size: 12px;
+  font-weight: 650;
+  color: rgba(26, 58, 82, 0.65);
+}
+
+.legend {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.colorA {
+  color: #2563eb;
+  font-weight: 900;
+}
+
+.colorH {
+  color: #dc2626;
+  font-weight: 900;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.backLink {
+  border: none;
+  background: none;
+  color: #2563eb;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.progress {
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(26, 58, 82, 0.55);
+}
+
+.prompt {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 900;
+  color: #1a3a52;
+}
+
+.feedback {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e40af;
+}
+
+.feedbackSpacer {
+  margin: 0 0 12px;
+}
+
+.bodyPreview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+}
+
+.bodyEmoji {
+  font-size: 36px;
+}
+
+.bodyLabel {
+  font-size: 16px;
+  font-weight: 900;
+  color: #1a3a52;
+}
+
+.netGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+@media (min-width: 560px) {
+  .netGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.netOption {
+  padding: 10px;
+  border-radius: 14px;
+  border: 2px solid #e2e8f0;
+  background: #fff;
+  cursor: pointer;
+}
+
+.netOption:hover {
+  border-color: #93c5fd;
+}
+
+.netHint {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.35);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.55);
+  }
+}
+
+.netSvg {
+  width: 100%;
+  height: 80px;
+}
+
+.gridBg {
+  background-color: #fff;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.35) 1px, transparent 1px);
+  background-size: 20px 20px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 16px;
+}
+
+.areaWrap {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.areaSvg {
+  width: 100%;
+  max-height: 220px;
+  display: block;
+  margin: 0 auto 12px;
+}
+
+.formula {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: #1a3a52;
+  margin: 0 0 12px;
+}
+
+.areaHint {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.6);
+  margin: 0 0 12px;
+}
+
+.deck {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px dashed #cbd5e1;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  background: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: grab;
+}
+
+.cardSelected {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.detectorIcon {
+  width: 56px;
+  height: 44px;
+}
+
+.buckets {
+  display: grid;
+  gap: 10px;
+}
+
+@media (min-width: 720px) {
+  .buckets {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.bucket {
+  min-height: 88px;
+  padding: 10px;
+  border-radius: 14px;
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  cursor: pointer;
+}
+
+.bucketReady {
+  border-color: #93c5fd;
+}
+
+.bucketHover {
+  background: #f0f9ff;
+  border-color: #60a5fa;
+}
+
+.bucketLabel {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 900;
+  text-align: center;
+  color: #1a3a52;
+}
+
+.bucketCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.placedChip {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.actionRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.primaryBtn,
+.menuBtn {
+  border-radius: 999px;
+  padding: 11px 20px;
+  font: inherit;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.primaryBtn {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.menuBtn {
+  background: #f1f5f9;
+  color: #1a3a52;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.resultOk {
+  margin: 0 0 8px;
+  font-size: 24px;
+  font-weight: 1000;
+  color: #059669;
+}
+
+.resultMsg {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.75);
+}

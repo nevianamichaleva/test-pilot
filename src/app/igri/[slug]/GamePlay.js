@@ -173,6 +173,7 @@ export default function GamePlay({ game }) {
         {participantName ? ` · ${participantName}` : ""}
       </div>
       <p className={styles.question}>{current.q}</p>
+      {current.hint ? <p className={styles.hint}>{current.hint}</p> : null}
       <div className={styles.options}>
         {options.map((opt) => {
           const isPicked = picked === opt;
@@ -199,11 +200,18 @@ export default function GamePlay({ game }) {
         })}
       </div>
       {picked ? (
-        <div className={styles.nextRow}>
+        <>
+          {current.reasons?.[picked] ? (
+            <p className={styles.reason} role="status">
+              {current.reasons[picked]}
+            </p>
+          ) : null}
+          <div className={styles.nextRow}>
           <button type="button" className={styles.primaryBtn} onClick={next}>
             {index + 1 >= total ? "Виж резултата" : "Следващ въпрос"}
           </button>
-        </div>
+          </div>
+        </>
       ) : null}
     </div>
   );
