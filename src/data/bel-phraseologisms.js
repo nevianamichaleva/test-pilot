@@ -171,7 +171,7 @@ export const PHRASE_QUIZ = [
     sentence: "Ирина беше на седмото небе.",
     question: "Как се чувства Ирина?",
     options: [
-      { id: "a", text: "Лети в космоса", correct: false },
+      { id: "a", text: "Ирина лети в космоса", correct: false },
       { id: "b", text: "Много е щастлива и доволна", correct: true },
     ],
   },
@@ -180,8 +180,8 @@ export const PHRASE_QUIZ = [
     sentence: "Камък ми падна от сърцето, когато видях, че брат ми е добре.",
     question: "Какво означава това?",
     options: [
-      { id: "a", text: "Има камък върху гърдите му", correct: false },
-      { id: "b", text: "Много се облекчи и успокои", correct: true },
+      { id: "a", text: "Камък е паднал от сърцето му", correct: false },
+      { id: "b", text: "Много се облекчих и успокоих", correct: true },
     ],
   },
   {
@@ -198,7 +198,7 @@ export const PHRASE_QUIZ = [
     sentence: "Опитах да го убедя, но ударих на камък.",
     question: "Какво се случи?",
     options: [
-      { id: "a", text: "Ударих се в камък", correct: false },
+      { id: "a", text: "Ударих се в камък.", correct: false },
       { id: "b", text: "Не успях — той не ми повярва", correct: true },
     ],
   },
@@ -216,8 +216,8 @@ export const PHRASE_QUIZ = [
     sentence: "Спасените пари са само капка в морето спрямо нуждите ни.",
     question: "Какво означава „капка в морето“?",
     options: [
-      { id: "a", text: "Има вода в морето", correct: false },
-      { id: "b", text: "Много малко спрямо целото", correct: true },
+      { id: "a", text: "В морето има много капки вода", correct: false },
+      { id: "b", text: "Много малко спрямо цялото.", correct: true },
     ],
   },
   {
@@ -225,16 +225,16 @@ export const PHRASE_QUIZ = [
     sentence: "В семейството той беше черната овца.",
     question: "Какво означава?",
     options: [
-      { id: "a", text: "Има черна овца като домашно животно", correct: false },
-      { id: "b", text: "Различен и нежелан в групата", correct: true },
+      { id: "a", text: "Те отглеждат черна овца като домашно животно", correct: false },
+      { id: "b", text: "Той е различен и нежелан член в семейството", correct: true },
     ],
   },
   {
     id: "muha-slon",
-    sentence: "Не прави от мухата слон — всичко е наред.",
+    sentence: "Не прави от мухата слон!",
     question: "Какво се казва на човека?",
     options: [
-      { id: "a", text: "Да превърне муха в слон", correct: false },
+      { id: "a", text: "Не се опитвай да превърнеш муха в слон", correct: false },
       { id: "b", text: "Да не преувеличава малък проблем", correct: true },
     ],
   },
@@ -243,7 +243,7 @@ export const PHRASE_QUIZ = [
     sentence: "На новото място се чувстваше като риба на сухо.",
     question: "Какво означава?",
     options: [
-      { id: "a", text: "Има риба извън водата", correct: false },
+      { id: "a", text: "Рибите не могат да плуват извън водата", correct: false },
       { id: "b", text: "Безпомощен и изгубен в непозната среда", correct: true },
     ],
   },
@@ -252,7 +252,7 @@ export const PHRASE_QUIZ = [
     sentence: "Този човек е вълк в овча кожа.",
     question: "Какво означава?",
     options: [
-      { id: "a", text: "Носи овча кожа като дреха", correct: false },
+      { id: "a", text: "Този човек има овча кожа като дреха", correct: false },
       { id: "b", text: "Изглежда добър, но има лоши намерения", correct: true },
     ],
   },
@@ -270,7 +270,7 @@ export const PHRASE_QUIZ = [
     sentence: "Никой не му правеше забележка и той си разиграваше коня.",
     question: "Какво прави той?",
     options: [
-      { id: "a", text: "Яде кон на концерт", correct: false },
+      { id: "a", text: "Той води кон на концерт", correct: false },
       { id: "b", text: "Прави каквото си иска, без да се съобразява", correct: true },
     ],
   },
@@ -279,7 +279,7 @@ export const PHRASE_QUIZ = [
     sentence: "На новата работа всичко му върви по мед и масло.",
     question: "Какво означава?",
     options: [
-      { id: "a", text: "Ходи по лепкав мед и масло", correct: false },
+      { id: "a", text: "На новата работа има вкусен мед и масло", correct: false },
       { id: "b", text: "Всичко върви лесно и без проблеми", correct: true },
     ],
   },
