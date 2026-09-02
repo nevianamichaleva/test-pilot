@@ -24,6 +24,7 @@ import TextDetective from "@/components/games/TextDetective";
 import FractionAdventure from "@/components/games/FractionAdventure";
 import GeometryAdventure from "@/components/games/GeometryAdventure";
 import Geometry6Adventure from "@/components/games/Geometry6Adventure";
+import PhraseologismCards from "@/components/games/PhraseologismCards";
 import { getAllGames, getGameBySlug } from "@/data/games";
 
 import pageStyles from "../Igri.module.css";
@@ -74,6 +75,7 @@ export default async function GamePage({ params }) {
   const isGeometryAdventure = game.kind === "geometry-adventure";
   const isGeometry6Mode = game.kind === "geometry6-mode" && game.mode;
   const isGeometry6Adventure = game.kind === "geometry6-adventure";
+  const isPhraseCards = game.kind === "phrase-cards";
   const exitHref = `/igri?class=${encodeURIComponent(game.classNums?.[0] ?? "")}&subject=${encodeURIComponent(game.subject ?? "")}`;
 
   return (
@@ -139,6 +141,8 @@ export default async function GamePage({ params }) {
           <Geometry6Adventure initialMode={game.mode} exitHref={exitHref} game={game} />
         ) : isGeometry6Adventure ? (
           <Geometry6Adventure exitHref={exitHref} game={game} />
+        ) : isPhraseCards ? (
+          <PhraseologismCards exitHref={exitHref} game={game} />
         ) : (
           <GamePlay game={game} />
         )}

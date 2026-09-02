@@ -24,6 +24,7 @@
  * - "geometry-mode": една геометрична мини-игра (mode: shapes|angles|symmetry|perimeter)
  * - "geometry6-adventure": визуални игри по геометрия 6. клас (меню)
  * - "geometry6-mode": една геометрична мини-игра 6. клас (mode: nets|area|detector)
+ * - "phrase-cards": фразеологични карти — свържи фраза и значение
  *
  * classNums: масив от класове (напр. ["5","6","7"]).
  * image: път към картинка в /public
@@ -33,6 +34,19 @@ import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 import { GEOMETRY6_QUIZ } from "@/data/matematika-geometria-6";
 
 export const GAMES = [
+  {
+    slug: "bel-frazeologichni-karti",
+    title: "БЕЛ – Фразеологични карти",
+    description:
+      "Свържи фразеологизма със значението му — с иконка, пример и подсказка. По „Златното българско слово“, Силвия Анова.",
+    subject: "bg",
+    classNums: ["5", "6", "7"],
+    tone: "#ffedd5",
+    accent: "#ea580c",
+    status: "ready",
+    kind: "phrase-cards",
+    image: "/images/igri/bel-frazeologizmi.svg",
+  },
   {
     slug: "english-text-detective-6",
     title: "Английски – Text Detective",
