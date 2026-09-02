@@ -53,6 +53,7 @@ export default function PhraseologismCards({ exitHref = "/igri", game = null }) 
 
   const [quizOrder, setQuizOrder] = useState([]);
   const [quizIndex, setQuizIndex] = useState(0);
+  const [quizOptions, setQuizOptions] = useState([]);
   const [quizPick, setQuizPick] = useState(null);
   const [quizChecked, setQuizChecked] = useState(false);
   const [quizFeedback, setQuizFeedback] = useState("");
@@ -121,8 +122,11 @@ export default function PhraseologismCards({ exitHref = "/igri", game = null }) 
       startMatchRound(0);
       return;
     } else if (nextMode === "quiz") {
-      setQuizOrder(shuffleArray(PHRASE_QUIZ.map((q) => q.id)));
+      const order = shuffleArray(PHRASE_QUIZ.map((q) => q.id));
+      const first = PHRASE_QUIZ.find((q) => q.id === order[0]);
+      setQuizOrder(order);
       setQuizIndex(0);
+      setQuizOptions(first ? shuffleArray(first.options) : []);
       setQuizPick(null);
       setQuizChecked(false);
       setQuizFeedback("");
@@ -222,8 +226,8 @@ export default function PhraseologismCards({ exitHref = "/igri", game = null }) 
 
   const checkQuiz = () => {
     if (!currentQuiz || !quizPick) return;
-    const chosen = currentQuiz.options.find((o) => o.id === quizPick);
-    const correct = currentQuiz.options.find((o) => o.correct);
+    const chosen = quizOptions.find((o) => o.id === quizPick);
+    const correct = quizOptions.find((o) => o.correct);
     const ok = Boolean(chosen?.correct);
     setQuizChecked(true);
     setQuizFeedback(ok ? "Вярно." : `Не точно. ${correct?.text ?? ""}`);
@@ -241,7 +245,10 @@ export default function PhraseologismCards({ exitHref = "/igri", game = null }) 
       finishGame();
       return;
     }
-    setQuizIndex((i) => i + 1);
+    const nextIndex = quizIndex + 1;
+    const next = PHRASE_QUIZ.find((q) => q.id === quizOrder[nextIndex]);
+    setQuizIndex(nextIndex);
+    setQuizOptions(next ? shuffleArray(next.options) : []);
     setQuizPick(null);
     setQuizChecked(false);
     setQuizFeedback("");
@@ -563,7 +570,7 @@ export default function PhraseologismCards({ exitHref = "/igri", game = null }) 
         <p className={styles.quizQuestion}>{currentQuiz.question}</p>
 
         <div className={styles.quizOptions}>
-          {currentQuiz.options.map((opt, idx) => {
+          {quizOptions.map((opt, idx) => {
             const letter = String.fromCharCode(65 + idx);
             const picked = quizPick === opt.id;
             const showResult = quizChecked;
@@ -590,7 +597,7 @@ export default function PhraseologismCards({ exitHref = "/igri", game = null }) 
         </div>
 
         {quizFeedback ? (
-          <p className={quizChecked && quizPick && currentQuiz.options.find((o) => o.id === quizPick)?.correct ? styles.feedbackOkInline : styles.feedbackHintInline} role="status">
+          <p className={quizChecked && quizPick && quizOptions.find((o) => o.id === quizPick)?.correct ? styles.feedbackOkInline : styles.feedbackHintInline} role="status">
             {quizFeedback}
           </p>
         ) : (
