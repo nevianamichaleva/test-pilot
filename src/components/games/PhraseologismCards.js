@@ -279,9 +279,7 @@ export default function PhraseologismCards({ exitHref = "/igri", game = null }) 
               </button>
             ))}
           </div>
-          <p className={styles.credit}>
-            По „Златното българско слово: Фразеологични карти“, Силвия Анова
-          </p>
+          
           <GameNameGate
             inputId="phrase-cards-name"
             buttonLabel="Започни"

@@ -1,5 +1,5 @@
 /**
- * Фразеологични карти — по „Златното българско слово“, Силвия Анова.
+ * Фразеологични карти.
  * Три режима: флаш карти, свързване (drag & drop), викторина.
  */
 
@@ -25,7 +25,8 @@ export const PHRASE_ROUNDS = [
   { ids: ["kapki-voda", "sedmo-nebe", "kamuk-sartse", "udaril-kamuk"] },
   { ids: ["trun-glog", "kapka-more", "cherna-ovca", "muha-slon"] },
   { ids: ["riba-suho", "vulk-ovca", "pchelica", "kon"] },
-  { ids: ["med-maslo"] },
+  { ids: ["med-maslo", "glutna-ezik", "vurti-prast", "pluva-vodi"] },
+  { ids: ["maslo-ogun", "migne-oko", "pogledna-krivo", "ubivam-vreme"] },
 ];
 
 const ILLU = (id) => `/images/igri/frazeologizmi/${id}.png`;
@@ -162,6 +163,76 @@ export const PHRASE_CARDS = [
     figurativeCaption: "Всичко е лесно и радостно",
     flashIllustration: ILLU("med-maslo"),
   },
+  {
+    id: "glutna-ezik",
+    phrase: "глътна си езика",
+    meaning: "Каза нещо неуместно или изпусна тайна без да иска.",
+    example: "Глътна си езика и разказа изненадата пред всички.",
+    hint: "Понякога езикът „избързва“ пред мисълта.",
+    literalCaption: "Езикът задавя",
+    figurativeCaption: "Казва нещо, което не трябва",
+    flashIllustration: ILLU("glutna-ezik"),
+  },
+  {
+    id: "vurti-prast",
+    phrase: "върти на малкия си пръст",
+    meaning: "Всички се съобразяват с него — много влияе на другите.",
+    example: "Детето въртеше всички на малкия си пръст.",
+    hint: "Малкият пръст сякаш „води“ останалите.",
+    literalCaption: "Хора на пръста",
+    figurativeCaption: "Всички му се подчиняват",
+    flashIllustration: ILLU("vurti-prast"),
+  },
+  {
+    id: "pluva-vodi",
+    phrase: "плува в свои води",
+    meaning: "Чувства се добре и способен в позната, удобна среда.",
+    example: "В училище той плуваше в свои води.",
+    hint: "Рибата плува лесно там, където я познава.",
+    literalCaption: "Плува в позната вода",
+    figurativeCaption: "В стихията си",
+    flashIllustration: ILLU("pluva-vodi"),
+  },
+  {
+    id: "maslo-ogun",
+    phrase: "наля масло в огъня",
+    meaning: "Направи лошата ситуация още по-лоша.",
+    example: "С постъпката си тя наля масло в огъня.",
+    hint: "Маслото разпалва огъня още повече.",
+    literalCaption: "Масло върху огън",
+    figurativeCaption: "Влошава спора",
+    flashIllustration: ILLU("maslo-ogun"),
+  },
+  {
+    id: "migne-oko",
+    phrase: "без да ми мигне окото",
+    meaning: "Направи нещо лошо спокойно, без смущение или угризение.",
+    example: "Излъгах го без да ми мигне окото.",
+    hint: "Окото не трепва — няма притеснение.",
+    literalCaption: "Окото не мигва",
+    figurativeCaption: "Лъже спокойно",
+    flashIllustration: ILLU("migne-oko"),
+  },
+  {
+    id: "pogledna-krivo",
+    phrase: "погледна на криво",
+    meaning: "Погледна с неодобрение, подозрение или недоверие.",
+    example: "Учителят го погледна на криво.",
+    hint: "„На криво“ означава не с добро око.",
+    literalCaption: "Кривоглед поглед",
+    figurativeCaption: "Неодобрение и подозрение",
+    flashIllustration: ILLU("pogledna-krivo"),
+  },
+  {
+    id: "ubivam-vreme",
+    phrase: "убивам си времето",
+    meaning: "Правя нещо леко, за да мине времето, без реална полза.",
+    example: "Убивам си времето с игрички.",
+    hint: "Времето „минава“, докато правиш нещо приятно.",
+    literalCaption: "Часовник и игра",
+    figurativeCaption: "Губи си времето",
+    flashIllustration: ILLU("ubivam-vreme"),
+  },
 ];
 
 /** @type {Array<{ id: string, sentence: string, question: string, options: Array<{ id: string, text: string, correct: boolean }> }>} */
@@ -281,6 +352,69 @@ export const PHRASE_QUIZ = [
     options: [
       { id: "a", text: "На новата работа има вкусен мед и масло", correct: false },
       { id: "b", text: "Всичко върви лесно и без проблеми", correct: true },
+    ],
+  },
+  {
+    id: "glutna-ezik",
+    sentence: "Глътна си езика и разказа изненадата пред всички.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Задави се с езика си", correct: false },
+      { id: "b", text: "Каза нещо, което не трябваше", correct: true },
+    ],
+  },
+  {
+    id: "vurti-prast",
+    sentence: "Детето въртеше всички на малкия си пръст.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Върти хората около пръста си", correct: false },
+      { id: "b", text: "Всички се съобразяваха с него", correct: true },
+    ],
+  },
+  {
+    id: "pluva-vodi",
+    sentence: "В училище той плуваше в свои води.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Плува в басейна на училището", correct: false },
+      { id: "b", text: "Чувства се добре и способен там", correct: true },
+    ],
+  },
+  {
+    id: "maslo-ogun",
+    sentence: "С постъпката си тя наля масло в огъня.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Готви върху огън с масло", correct: false },
+      { id: "b", text: "Направи ситуацията още по-лоша", correct: true },
+    ],
+  },
+  {
+    id: "migne-oko",
+    sentence: "Излъгах го без да ми мигне окото.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Очите му не мигат", correct: false },
+      { id: "b", text: "Излъга го спокойно, без притеснение", correct: true },
+    ],
+  },
+  {
+    id: "pogledna-krivo",
+    sentence: "Учителят го погледна на криво.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Гледа го с наклонена глава", correct: false },
+      { id: "b", text: "Гледа го с неодобрение и подозрение", correct: true },
+    ],
+  },
+  {
+    id: "ubivam-vreme",
+    sentence: "Убивам си времето с игрички.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Унищожава часовника си", correct: false },
+      { id: "b", text: "Прави нещо леко, докато мине времето", correct: true },
     ],
   },
 ];

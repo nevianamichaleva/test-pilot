@@ -30,15 +30,15 @@
  * image: път към картинка в /public
  */
 
-import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 import { GEOMETRY6_QUIZ } from "@/data/matematika-geometria-6";
+import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 
 export const GAMES = [
   {
     slug: "bel-frazeologichni-karti",
     title: "БЕЛ – Фразеологични карти",
     description:
-      "Флаш карти, свързване и викторина — с визуализация „буквално срещу преносно“. Без таймер. По Силвия Анова.",
+      "Флаш карти, свързване и викторина — с визуализация „буквално срещу преносно“",
     subject: "bg",
     classNums: ["5", "6", "7"],
     tone: "#ffedd5",
