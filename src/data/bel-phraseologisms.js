@@ -1,111 +1,287 @@
 /**
  * Фразеологични карти — по „Златното българско слово“, Силвия Анова.
- * Игра: свържи фразеологизма със значението му.
+ * Три режима: флаш карти, свързване (drag & drop), викторина.
  */
+
+export const PHRASE_MODES = [
+  {
+    id: "flash",
+    title: "Флаш карти",
+    desc: "Обърни картата — виж илюстрация, обяснение и пример.",
+  },
+  {
+    id: "match",
+    title: "Свържи двойки",
+    desc: "Завлечи фразата до правилното значение (или докосни две карти).",
+  },
+  {
+    id: "quiz",
+    title: "Викторина",
+    desc: "Разграничи смисъла на изречението.",
+  },
+];
 
 export const PHRASE_ROUNDS = [
   { ids: ["kapki-voda", "sedmo-nebe", "kamuk-sartse", "udaril-kamuk"] },
   { ids: ["trun-glog", "kapka-more", "cherna-ovca", "muha-slon"] },
   { ids: ["riba-suho", "vulk-ovca", "pchelica", "kon"] },
+  { ids: ["med-maslo"] },
 ];
 
-/** @type {Array<{ id: string, phrase: string, meaning: string, example: string, icon: string, hint: string }>} */
+const ILLU = (id) => `/images/igri/frazeologizmi/${id}.png`;
+
+/** @type {Array<{ id: string, phrase: string, meaning: string, example: string, hint: string, literalCaption: string, figurativeCaption: string, flashIllustration?: string }>} */
 export const PHRASE_CARDS = [
   {
     id: "kapki-voda",
     phrase: "като две капки вода",
     meaning: "Много еднакви или неразличими хора или неща.",
     example: "Тези две момчета са като две капки вода.",
-    icon: "💧",
     hint: "Две капки вода изглеждат почти еднакво.",
+    literalCaption: "Две капки вода",
+    figurativeCaption: "Два много сходни човека",
+    flashIllustration: ILLU("kapki-voda"),
   },
   {
     id: "kamuk-sartse",
     phrase: "камък ми падна от сърцето",
     meaning: "Огромно облекчение след като проблемът изчезне.",
     example: "Камък ми падна от сърцето, когато разбрах, че всички са добре.",
-    icon: "🪨",
     hint: "Когато тревогата отмине, сякаш тежък камък е паднал.",
+    literalCaption: "Камък пада върху сърце",
+    figurativeCaption: "Човек решава някакъв проблем",
+    flashIllustration: ILLU("kamuk-sartse"),
   },
   {
     id: "udaril-kamuk",
     phrase: "ударих на камък",
     meaning: "Неуспех, спънка или отказ — опитът не успя.",
     example: "Опитах се да го убедя, но ударих на камък.",
-    icon: "🧱",
     hint: "Камъкът е твърд — не можеш да пробиеш през него.",
+    literalCaption: "Удар по твърд камък",
+    figurativeCaption: "Опитът не успява",
+    flashIllustration: ILLU("udaril-kamuk"),
   },
   {
     id: "sedmo-nebe",
     phrase: "на седмото небе",
     meaning: "Много радостен, доволен и щастлив.",
     example: "След победата Ирина беше на седмото небе.",
-    icon: "☁️",
     hint: "Седмото небе е най-високото — там си най-щастлив.",
+    literalCaption: "Човек високо в облаците",
+    figurativeCaption: "Много щастлив човек",
+    flashIllustration: ILLU("sedmo-nebe"),
   },
   {
     id: "trun-glog",
     phrase: "от трън, та на глог",
     meaning: "От лошо по-лошо — ситуацията се влошава.",
-    example: "Отиде в нов отбор, но ситуацията стана от трън, та на глог.",
-    icon: "🌿",
+    example: "Смених стария си развален телефон с модел на друга марка, но се оказа, че пак съм от трън, та на глог",
     hint: "И трън, и глог имат бодли — става още по-неприятно.",
+    literalCaption: "Трън и глог с бодли",
+    figurativeCaption: "Нещата стават по-лоши",
+    flashIllustration: ILLU("trun-glog"),
   },
   {
     id: "kapka-more",
     phrase: "капка в морето",
     meaning: "Много малко спрямо целото — незначително.",
     example: "Това, което направихме днес, е капка в морето.",
-    icon: "🌊",
     hint: "Една капка в огромно море почти не се забелязва.",
+    literalCaption: "Една капка в море",
+    figurativeCaption: "Много малко спрямо целото",
+    flashIllustration: ILLU("kapka-more"),
   },
   {
     id: "cherna-ovca",
     phrase: "черната овца",
     meaning: "Различен от групата — нежеланият, непокорният.",
     example: "В класа го смятаха за черната овца.",
-    icon: "🐑",
     hint: "Сред белите овце черната овца се откроява.",
+    literalCaption: "Черна овца сред бели",
+    figurativeCaption: "Различен от групата",
+    flashIllustration: ILLU("cherna-ovca"),
   },
   {
     id: "muha-slon",
     phrase: "прави от мухата слон",
     meaning: "Преувеличава малък, незначителен проблем.",
     example: "Не прави от мухата слон – всичко ще се оправи.",
-    icon: "🐘",
     hint: "Мухата е дребна, слонът — огромен.",
+    literalCaption: "Муха и слон заедно",
+    figurativeCaption: "Преувеличава малък проблем",
+    flashIllustration: ILLU("muha-slon"),
   },
   {
     id: "riba-suho",
     phrase: "като риба на сухо",
     meaning: "Безпомощен в непозната или трудна ситуация.",
     example: "Без приятелите си Петър се чувстваше като риба на сухо.",
-    icon: "🐟",
     hint: "Рибата извън водата не може да се справи сама.",
+    literalCaption: "Риба извън водата",
+    figurativeCaption: "Чувства се изгубен",
+    flashIllustration: ILLU("riba-suho"),
   },
   {
     id: "vulk-ovca",
     phrase: "вълк в овча кожа",
     meaning: "Изглежда добър, но има лоши намерения.",
-    example: "Понякога човек е вълк в овча кожа.",
-    icon: "🐺",
+    example: "Всички знаеха, че Николай е вълк в овча кожа.",
     hint: "Вълкът се крие сред овцете, за да не го познаят.",
+    literalCaption: "Вълк с овча кожа",
+    figurativeCaption: "Лош човек, който се прави на добър",
+    flashIllustration: ILLU("vulk-ovca"),
   },
   {
     id: "pchelica",
     phrase: "като пчеличка",
     meaning: "Работи много усърдно — трудолюбив.",
     example: "Мая цял ден работи като пчеличка в градината.",
-    icon: "🐝",
     hint: "Пчелата не спира да трудува.",
+    literalCaption: "Пчела, която лети",
+    figurativeCaption: "Човек, който много работи",
+    flashIllustration: ILLU("pchelica"),
   },
   {
     id: "kon",
     phrase: "разиграва си коня",
     meaning: "Прави каквото си иска, без да се съобразява с другите.",
     example: "Никой не му правеше забележка и той си разиграваше коня.",
-    icon: "🐴",
     hint: "Конят скача наоколо — прави си каквото иска.",
+    literalCaption: "Кон, който скача",
+    figurativeCaption: "Прави каквото си иска",
+    flashIllustration: ILLU("kon"),
+  },
+  {
+    id: "med-maslo",
+    phrase: "върви по мед и масло",
+    meaning: "Всичко върви лесно, гладко и без проблеми.",
+    example: "На новата работа всичко му върви по мед и масло.",
+    hint: "Медът и маслото са гладки и сладки — всичко е лесно.",
+    literalCaption: "Върви по мед и масло",
+    figurativeCaption: "Всичко е лесно и радостно",
+    flashIllustration: ILLU("med-maslo"),
+  },
+];
+
+/** @type {Array<{ id: string, sentence: string, question: string, options: Array<{ id: string, text: string, correct: boolean }> }>} */
+export const PHRASE_QUIZ = [
+  {
+    id: "sedmo-nebe",
+    sentence: "Ирина беше на седмото небе.",
+    question: "Как се чувства Ирина?",
+    options: [
+      { id: "a", text: "Лети в космоса", correct: false },
+      { id: "b", text: "Много е щастлива и доволна", correct: true },
+    ],
+  },
+  {
+    id: "kamuk-sartse",
+    sentence: "Камък ми падна от сърцето, когато видях, че брат ми е добре.",
+    question: "Какво означава това?",
+    options: [
+      { id: "a", text: "Има камък върху гърдите му", correct: false },
+      { id: "b", text: "Много се облекчи и успокои", correct: true },
+    ],
+  },
+  {
+    id: "kapki-voda",
+    sentence: "Момичетата в класа са като две капки вода.",
+    question: "Какво се има предвид?",
+    options: [
+      { id: "a", text: "Мокри са от дъжд", correct: false },
+      { id: "b", text: "Много приличат едно на друго", correct: true },
+    ],
+  },
+  {
+    id: "udaril-kamuk",
+    sentence: "Опитах да го убедя, но ударих на камък.",
+    question: "Какво се случи?",
+    options: [
+      { id: "a", text: "Ударих се в камък", correct: false },
+      { id: "b", text: "Не успях — той не ми повярва", correct: true },
+    ],
+  },
+  {
+    id: "trun-glog",
+    sentence: "След като смени отбора, нещата станаха от трън, та на глог.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Събира тръни и плодове от храсти", correct: false },
+      { id: "b", text: "Ситуацията стана още по-лоша", correct: true },
+    ],
+  },
+  {
+    id: "kapka-more",
+    sentence: "Спасените пари са само капка в морето спрямо нуждите ни.",
+    question: "Какво означава „капка в морето“?",
+    options: [
+      { id: "a", text: "Има вода в морето", correct: false },
+      { id: "b", text: "Много малко спрямо целото", correct: true },
+    ],
+  },
+  {
+    id: "cherna-ovca",
+    sentence: "В семейството той беше черната овца.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Има черна овца като домашно животно", correct: false },
+      { id: "b", text: "Различен и нежелан в групата", correct: true },
+    ],
+  },
+  {
+    id: "muha-slon",
+    sentence: "Не прави от мухата слон — всичко е наред.",
+    question: "Какво се казва на човека?",
+    options: [
+      { id: "a", text: "Да превърне муха в слон", correct: false },
+      { id: "b", text: "Да не преувеличава малък проблем", correct: true },
+    ],
+  },
+  {
+    id: "riba-suho",
+    sentence: "На новото място се чувстваше като риба на сухо.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Има риба извън водата", correct: false },
+      { id: "b", text: "Безпомощен и изгубен в непозната среда", correct: true },
+    ],
+  },
+  {
+    id: "vulk-ovca",
+    sentence: "Този човек е вълк в овча кожа.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Носи овча кожа като дреха", correct: false },
+      { id: "b", text: "Изглежда добър, но има лоши намерения", correct: true },
+    ],
+  },
+  {
+    id: "pchelica",
+    sentence: "Цял ден работи като пчеличка в градината.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Превърнал се е в пчела", correct: false },
+      { id: "b", text: "Работи много усърдно и трудолюбиво", correct: true },
+    ],
+  },
+  {
+    id: "kon",
+    sentence: "Никой не му правеше забележка и той си разиграваше коня.",
+    question: "Какво прави той?",
+    options: [
+      { id: "a", text: "Яде кон на концерт", correct: false },
+      { id: "b", text: "Прави каквото си иска, без да се съобразява", correct: true },
+    ],
+  },
+  {
+    id: "med-maslo",
+    sentence: "На новата работа всичко му върви по мед и масло.",
+    question: "Какво означава?",
+    options: [
+      { id: "a", text: "Ходи по лепкав мед и масло", correct: false },
+      { id: "b", text: "Всичко върви лесно и без проблеми", correct: true },
+    ],
   },
 ];
 
@@ -123,4 +299,11 @@ export function phraseQuestionNumber(roundIndex, id) {
   for (let i = 0; i < roundIndex; i += 1) n += PHRASE_ROUNDS[i].ids.length;
   const idx = PHRASE_ROUNDS[roundIndex]?.ids.indexOf(id) ?? -1;
   return idx >= 0 ? n + idx + 1 : n + 1;
+}
+
+export function taskTotalForPhraseMode(mode) {
+  if (mode === "flash") return PHRASE_CARDS.length;
+  if (mode === "match") return totalPhrasePairs();
+  if (mode === "quiz") return PHRASE_QUIZ.length;
+  return 0;
 }

@@ -38,14 +38,14 @@ export const GAMES = [
     slug: "bel-frazeologichni-karti",
     title: "БЕЛ – Фразеологични карти",
     description:
-      "Свържи фразеологизма със значението му — с иконка, пример и подсказка. По „Златното българско слово“, Силвия Анова.",
+      "Флаш карти, свързване и викторина — с визуализация „буквално срещу преносно“. Без таймер. По Силвия Анова.",
     subject: "bg",
     classNums: ["5", "6", "7"],
     tone: "#ffedd5",
     accent: "#ea580c",
     status: "ready",
     kind: "phrase-cards",
-    image: "/images/igri/bel-frazeologizmi.svg",
+    image: "/images/igri/bel-frazeologizmi.png",
   },
   {
     slug: "english-text-detective-6",
