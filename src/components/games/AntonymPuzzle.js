@@ -256,7 +256,7 @@ export default function AntonymPuzzle({ exitHref = "/igri", game = null }) {
         </div>
       </header>
 
-      <p className={styles.prompt}>Намери противоположната дума</p>
+      <p className={styles.prompt}>Намери антонима на думата</p>
 
       {joined ? (
         <div className={styles.joinedBanner} role="status">
