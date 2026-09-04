@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" aria-label="Puzel ot protivopolozhnosti">
+  <rect width="1024" height="1024" fill="#FFF8E7"/>
+  <circle cx="160" cy="140" r="48" fill="#FFD93D" opacity="0.5"/>
+  <circle cx="880" cy="180" r="36" fill="#FF8FAB" opacity="0.45"/>
+  <!-- left puzzle -->
+  <path d="M180 280 H420 V420 H460 V520 H420 V680 H180 Z" fill="#DBEAFE" stroke="#2563EB" stroke-width="10"/>
+  <text x="300" y="500" text-anchor="middle" font-family="Arial,sans-serif" font-size="48" font-weight="800" fill="#1E40AF">prazen</text>
+  <!-- right puzzle -->
+  <path d="M560 280 H840 V680 H560 V520 H520 V420 H560 Z" fill="#DCFCE7" stroke="#16A34A" stroke-width="10"/>
+  <text x="700" y="500" text-anchor="middle" font-family="Arial,sans-serif" font-size="48" font-weight="800" fill="#166534">pulen</text>
+  <circle cx="512" cy="470" r="22" fill="#FBBF24" stroke="#D97706" stroke-width="4"/>
+  <text x="512" y="800" text-anchor="middle" font-family="Arial,sans-serif" font-size="40" font-weight="800" fill="#5B4BB4">Antonimi</text>
+  <text x="512" y="860" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" fill="#6B7280">puzel ot protivopolozhnosti</text>
+</svg>

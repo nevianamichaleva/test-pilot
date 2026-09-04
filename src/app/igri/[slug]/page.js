@@ -25,6 +25,8 @@ import FractionAdventure from "@/components/games/FractionAdventure";
 import GeometryAdventure from "@/components/games/GeometryAdventure";
 import Geometry6Adventure from "@/components/games/Geometry6Adventure";
 import PhraseologismCards from "@/components/games/PhraseologismCards";
+import AntonymPuzzle from "@/components/games/AntonymPuzzle";
+import SynonymDetective from "@/components/games/SynonymDetective";
 import { getAllGames, getGameBySlug } from "@/data/games";
 
 import pageStyles from "../Igri.module.css";
@@ -76,6 +78,8 @@ export default async function GamePage({ params }) {
   const isGeometry6Mode = game.kind === "geometry6-mode" && game.mode;
   const isGeometry6Adventure = game.kind === "geometry6-adventure";
   const isPhraseCards = game.kind === "phrase-cards";
+  const isAntonymPuzzle = game.kind === "antonym-puzzle";
+  const isSynonymDetective = game.kind === "synonym-detective";
   const exitHref = `/igri?class=${encodeURIComponent(game.classNums?.[0] ?? "")}&subject=${encodeURIComponent(game.subject ?? "")}`;
 
   return (
@@ -143,6 +147,10 @@ export default async function GamePage({ params }) {
           <Geometry6Adventure exitHref={exitHref} game={game} />
         ) : isPhraseCards ? (
           <PhraseologismCards exitHref={exitHref} game={game} />
+        ) : isAntonymPuzzle ? (
+          <AntonymPuzzle exitHref={exitHref} game={game} />
+        ) : isSynonymDetective ? (
+          <SynonymDetective exitHref={exitHref} game={game} />
         ) : (
           <GamePlay game={game} />
         )}

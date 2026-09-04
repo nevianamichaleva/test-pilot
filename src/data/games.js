@@ -25,6 +25,8 @@
  * - "geometry6-adventure": визуални игри по геометрия 6. клас (меню)
  * - "geometry6-mode": една геометрична мини-игра 6. клас (mode: nets|area|detector)
  * - "phrase-cards": фразеологични карти — свържи фраза и значение
+ * - "antonym-puzzle": пъзел от противоположности (антоними)
+ * - "synonym-detective": детектив в облака (синоними)
  *
  * classNums: масив от класове (напр. ["5","6","7"]).
  * image: път към картинка в /public
@@ -46,6 +48,32 @@ export const GAMES = [
     status: "ready",
     kind: "phrase-cards",
     image: "/images/igri/bel-frazeologizmi.png",
+  },
+  {
+    slug: "bel-antonimi-puzel",
+    title: "БЕЛ – Пъзел от противоположности",
+    description:
+      "Научи какво е антоним, после събери пъзела: празен – пълен, ден – нощ и още. Без таймер.",
+    subject: "bg",
+    classNums: ["3", "4", "5", "6"],
+    tone: "#dbeafe",
+    accent: "#2563eb",
+    status: "ready",
+    kind: "antonym-puzzle",
+    image: "/images/igri/bel-antonimi.svg",
+  },
+  {
+    slug: "bel-sinonimi-detektiv",
+    title: "БЕЛ – Детектив в облака",
+    description:
+      "Научи какво е синоним, после открий 10 думи в облака (мече, ракета, сърце…). Без таймер.",
+    subject: "bg",
+    classNums: ["3", "4", "5", "6"],
+    tone: "#e0f2fe",
+    accent: "#0284c7",
+    status: "ready",
+    kind: "synonym-detective",
+    image: "/images/igri/bel-sinonimi.svg",
   },
   {
     slug: "english-text-detective-6",
