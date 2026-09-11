@@ -114,12 +114,25 @@ export default function RezultatiPage() {
           return;
         }
 
-        const [resultsSnap, gamesSnap] = await Promise.all([
+        const [resultsOutcome, gamesOutcome] = await Promise.allSettled([
           getDocs(collection(db, "results")),
           getDocs(collection(db, "gamePlayEvents")),
         ]);
+
         if (cancelled) return;
 
+        if (resultsOutcome.status === "rejected") {
+          const err = resultsOutcome.reason;
+          const code = err?.code || "";
+          if (code === "permission-denied") {
+            throw new Error(
+              "Missing or insufficient permissions. Във Firebase Console → Firestore Database → Rules постави съдържанието от файла firestore.rules в проекта и натисни Publish."
+            );
+          }
+          throw err instanceof Error ? err : new Error(err?.message || "Грешка при зареждане на резултати.");
+        }
+
+        const resultsSnap = resultsOutcome.value;
         const list = [];
         resultsSnap.forEach((docSnap) => {
           const data = docSnap.data();
@@ -150,25 +163,27 @@ export default function RezultatiPage() {
         setResults(list);
 
         const plays = [];
-        gamesSnap.forEach((docSnap) => {
-          const data = docSnap.data();
-          plays.push({
-            id: docSnap.id,
-            slug: data.slug || "",
-            title: data.title || data.slug || "Игра",
-            subject: data.subject || "",
-            subjectLabel: data.subjectLabel || SUBJECT_LABELS[data.subject] || data.subject || "–",
-            classHint: data.classHint || "",
-            kind: data.kind || "",
-            startedAtIso: data.startedAtIso || null,
-            createdAt: data.createdAt ?? null,
+        if (gamesOutcome.status === "fulfilled") {
+          gamesOutcome.value.forEach((docSnap) => {
+            const data = docSnap.data();
+            plays.push({
+              id: docSnap.id,
+              slug: data.slug || "",
+              title: data.title || data.slug || "Игра",
+              subject: data.subject || "",
+              subjectLabel: data.subjectLabel || SUBJECT_LABELS[data.subject] || data.subject || "–",
+              classHint: data.classHint || "",
+              kind: data.kind || "",
+              startedAtIso: data.startedAtIso || null,
+              createdAt: data.createdAt ?? null,
+            });
           });
-        });
-        plays.sort((a, b) => {
-          const tA = getStartDateFromResult(a)?.getTime() ?? 0;
-          const tB = getStartDateFromResult(b)?.getTime() ?? 0;
-          return tB - tA;
-        });
+          plays.sort((a, b) => {
+            const tA = getStartDateFromResult(a)?.getTime() ?? 0;
+            const tB = getStartDateFromResult(b)?.getTime() ?? 0;
+            return tB - tA;
+          });
+        }
         setGamePlays(plays);
       } catch (err) {
         if (!cancelled) setError(err?.message || "Грешка при зареждане.");
