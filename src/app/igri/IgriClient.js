@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
 
+import { useAuth } from "@/components/AuthProvider";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { gameMatchesClass, getAllGames } from "@/data/games";
+import { buildGameTestId } from "@/lib/saveGameResult";
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 
 import styles from "./Igri.module.css";
@@ -98,6 +100,7 @@ function gameMetaLabel(g) {
 export default function IgriClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { isContentSolved } = useAuth();
 
   const games = useMemo(() => getAllGames().filter((g) => g.status === "ready"), []);
 
@@ -206,7 +209,9 @@ export default function IgriClient() {
           <p className={styles.empty}>Няма игри за избраните филтри.</p>
         ) : (
           <div className={styles.gameGrid}>
-            {filtered.map((g, i) => (
+            {filtered.map((g, i) => {
+              const solved = isContentSolved(buildGameTestId(g));
+              return (
               <Link
                 key={g.slug}
                 href={`/igri/${g.slug}`}
@@ -223,6 +228,7 @@ export default function IgriClient() {
                   ) : (
                     <span className={styles.thumbMark}>▶</span>
                   )}
+                  {solved ? <span className={styles.solvedBadge}>Вече решен</span> : null}
                 </div>
                 <div className={styles.gameBody}>
                   <h2 className={styles.gameTitle}>{g.title}</h2>
@@ -233,11 +239,12 @@ export default function IgriClient() {
                     <span>{gameMetaLabel(g)}</span>
                   </div>
                   <span className={styles.playPill}>
-                    Играй <span aria-hidden>→</span>
+                    {solved ? "Реши отново" : "Играй"} <span aria-hidden>→</span>
                   </span>
                 </div>
               </Link>
-            ))}
+              );
+            })}
           </div>
         )}
       </main>

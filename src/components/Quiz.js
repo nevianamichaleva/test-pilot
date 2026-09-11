@@ -3,10 +3,13 @@
 import { addDoc, collection, doc, getDocs, query, serverTimestamp, setDoc, where } from "firebase/firestore";
 import Link from "next/link";
 
+import { useAuth } from "@/components/AuthProvider";
 import PageHero from "@/components/PageHero";
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 
 import { getFirebaseDb, isFirebaseConfigured } from "@/lib/firebase";
+import { isPassingPercent } from "@/lib/rewards";
+import { applyUserAttemptReward } from "@/lib/userProfile";
 
 import styles from "./Quiz.module.css";
 
@@ -424,6 +427,12 @@ export default function Quiz({
   preserveQuestionOrder = false,
   preserveOptionOrder = false,
 }) {
+  const { user, displayName, loading: authLoading, getBestForContent, refreshProfile } = useAuth();
+  const authUid = user?.uid || null;
+  const bestAttempt = testId ? getBestForContent(testId) : null;
+  const alreadySolved = Boolean(bestAttempt && isPassingPercent(bestAttempt.percent));
+  const solvedPercent = alreadySolved ? Math.round(Number(bestAttempt.percent) || 0) : null;
+
   const qs = useMemo(() => normalizeQuestions(questions), [questions]);
   const [step, setStep] = useState(0);
   const [sequence, setSequence] = useState(() => buildInitialSequence(normalizeQuestions(questions).length));
@@ -547,6 +556,7 @@ export default function Quiz({
         subject: subject ?? "",
         subjectLabel: subjectLabel ?? "",
         participantName: String(nameValue ?? "").trim() || "Анонимен",
+        ...(authUid ? { uid: authUid } : {}),
         quizSession: sessionValue,
         attemptId: localAttemptId,
         startedAtIso: localStartedAt,
@@ -655,6 +665,7 @@ export default function Quiz({
       {
         name: String(localName ?? participantName ?? "").trim() || "Анонимен",
         nameKey: buildNameKey(localName ?? participantName ?? ""),
+        ...(authUid ? { uid: authUid } : {}),
         test: testId,
         testTitle: testTitle ?? title ?? "Тест",
         classNum: classNum ?? "",
@@ -776,22 +787,26 @@ export default function Quiz({
   const next = () => setStep((v) => Math.min(v + 1, Math.max(seqLen - 1, 0)));
   const prev = () => setStep((v) => Math.max(v - 1, 0));
 
-  const startQuiz = async () => {
-    const t = nameDraft.trim();
+  const startQuiz = async (forcedName) => {
+    const t =
+      typeof forcedName === "string" && forcedName.trim()
+        ? forcedName.trim()
+        : authUid
+          ? (displayName || user?.email || "Ученик").trim()
+          : nameDraft.trim();
     if (!t) return;
-    // 1) Ако има незавършен запис за същия тест и име -> продължаваме него.
+    // 1) Ако има незавършен запис за същия тест и потребител/име -> продължаваме него.
     if (isFirebaseConfigured()) {
       const db = getFirebaseDb();
       if (db) {
         try {
-          const snap = await getDocs(
-            query(
-              collection(db, "results"),
-              where("test", "==", testId),
-              where("nameKey", "==", buildNameKey(t)),
-              where("completed", "==", false)
-            )
-          );
+          const constraints = [where("test", "==", testId), where("completed", "==", false)];
+          if (authUid) {
+            constraints.push(where("uid", "==", authUid));
+          } else {
+            constraints.push(where("nameKey", "==", buildNameKey(t)));
+          }
+          const snap = await getDocs(query(collection(db, "results"), ...constraints));
           let latest = null;
           snap.forEach((d) => {
             const data = d.data() || {};
@@ -1086,6 +1101,7 @@ export default function Quiz({
           await addDoc(collection(db, "results"), {
             name: participantName.trim() || "Анонимен",
             nameKey: buildNameKey(participantName),
+            ...(authUid ? { uid: authUid } : {}),
             points: finalPointsLabel,
             test: testId,
             testTitle: testTitle ?? title ?? "Тест",
@@ -1102,6 +1118,22 @@ export default function Quiz({
             updatedAt: serverTimestamp(),
             completedAt: serverTimestamp(),
           });
+        }
+        if (authUid) {
+          try {
+            await applyUserAttemptReward({
+              uid: authUid,
+              contentKey: testId,
+              subject: subject ?? "",
+              kind: "test",
+              title: testTitle ?? title ?? "Тест",
+              correct: summary.firstTryCorrect ?? summary.correct,
+              gradable: summary.firstTryGradable ?? summary.gradable,
+            });
+            await refreshProfile();
+          } catch {
+            // Резултатът е записан.
+          }
         }
         wrote = true;
       }
@@ -1212,13 +1244,20 @@ export default function Quiz({
 
   if (!quizStarted) {
     const crumbSubject = subjectLabel ?? subject ?? "Тестове";
+    const loggedIn = Boolean(authUid);
     return (
       <div className={styles.page}>
         <div className={styles.wrap}>
           <PageHero
             variant="page"
             title={testTitle ?? title ?? "Тест"}
-            subtitle="Преди да започнеш, въведи име за резултатите."
+            subtitle={
+              loggedIn
+                ? alreadySolved
+                  ? `Вече решен (${solvedPercent}%) — можеш да опиташ отново.`
+                  : `Играеш като ${displayName || "Ученик"}.`
+                : "Преди да започнеш, въведи име за резултатите."
+            }
             subtitleVariant="meta"
           />
 
@@ -1246,34 +1285,59 @@ export default function Quiz({
             </div>
 
             <div className={styles.cardBody}>
-              <p className={styles.nameGateLead}>
-                Името се показва в класацията и се записва заедно с резултата.
-              </p>
-              <label className={styles.nameLabel} htmlFor="quiz-participant-name">
-                Име <span style={{ color: "#b42318" }}>*</span>
-              </label>
-              <div className={styles.nameRow}>
-                <input
-                  id="quiz-participant-name"
-                  className={`${styles.textInput} ${styles.textInputGrow}`}
-                  value={nameDraft}
-                  onChange={(e) => setNameDraft(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") startQuiz();
-                  }}
-                  autoComplete="name"
-                  maxLength={120}
-                  placeholder=""
-                />
-                <button
-                  type="button"
-                  className={`${styles.btn} ${styles.next}`}
-                  disabled={!nameDraft.trim()}
-                  onClick={startQuiz}
-                >
-                  Започни тест <span aria-hidden>›</span>
-                </button>
-              </div>
+              {authLoading ? (
+                <p className={styles.nameGateLead}>Зареждане…</p>
+              ) : loggedIn ? (
+                <>
+                  <p className={styles.nameGateLead}>
+                    Резултатът ще се запише в профила на{" "}
+                    <strong>{displayName || "Ученик"}</strong>.
+                  </p>
+                  {alreadySolved ? (
+                    <p className={styles.nameGateLead} style={{ color: "#0f6b32" }}>
+                      Вече решен ({solvedPercent}%). Брои се най-добрият резултат за точки и купи.
+                    </p>
+                  ) : null}
+                  <button
+                    type="button"
+                    className={`${styles.btn} ${styles.next}`}
+                    onClick={() => startQuiz(displayName || user?.email || "Ученик")}
+                  >
+                    {alreadySolved ? "Реши отново" : "Започни тест"} <span aria-hidden>›</span>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p className={styles.nameGateLead}>
+                    Името се показва в класацията и се записва заедно с резултата.
+                  </p>
+                  <label className={styles.nameLabel} htmlFor="quiz-participant-name">
+                    Име <span style={{ color: "#b42318" }}>*</span>
+                  </label>
+                  <div className={styles.nameRow}>
+                    <input
+                      id="quiz-participant-name"
+                      className={`${styles.textInput} ${styles.textInputGrow}`}
+                      value={nameDraft}
+                      onChange={(e) => setNameDraft(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") startQuiz();
+                      }}
+                      autoComplete="name"
+                      maxLength={120}
+                      placeholder=""
+                    />
+                    <button
+                      type="button"
+                      className={`${styles.btn} ${styles.next}`}
+                      disabled={!nameDraft.trim()}
+                      onClick={() => startQuiz()}
+                    >
+                      Започни тест <span aria-hidden>›</span>
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           </section>
         </div>

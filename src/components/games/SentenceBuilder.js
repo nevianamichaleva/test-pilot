@@ -258,6 +258,7 @@ export default function SentenceBuilder({ exitHref = "/igri", game = null }) {
             <li>{SENTENCE_BUILDER_LIVES} живота при грешна проверка</li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="sentence-builder-name"
             buttonLabel="Започни конструктора"
             onStart={(name) => {

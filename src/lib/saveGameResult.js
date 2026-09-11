@@ -1,6 +1,7 @@
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
-import { getFirebaseDb, isFirebaseConfigured } from "@/lib/firebase";
+import { getFirebaseAuth, getFirebaseDb, isFirebaseConfigured } from "@/lib/firebase";
+import { applyUserAttemptReward } from "@/lib/userProfile";
 
 /**
  * @typedef {{
@@ -73,6 +74,7 @@ export function normalizeGameQuestionResults(items) {
  *   completed?: boolean,
  *   won?: boolean,
  *   name?: string,
+ *   uid?: string | null,
  * }} payload
  * @returns {Promise<string | null>} document id или null
  */
@@ -98,17 +100,21 @@ export async function saveGameResult(payload) {
   const won = payload.won !== false;
   const name =
     typeof payload.name === "string" && payload.name.trim() ? payload.name.trim() : "Анонимен";
-  const nameKey = name
-    .toLowerCase()
-    .replace(/\s+/g, " ");
+  const nameKey = name.toLowerCase().replace(/\s+/g, " ");
   const startedAtIso = new Date().toISOString();
   const testId = buildGameTestId(game);
+  const auth = getFirebaseAuth();
+  const uid =
+    (typeof payload.uid === "string" && payload.uid) ||
+    auth?.currentUser?.uid ||
+    null;
 
   try {
     const ref = await addDoc(collection(db, "results"), {
       source: "game",
       name,
       nameKey,
+      ...(uid ? { uid } : {}),
       points,
       test: testId,
       testTitle: game.title || game.slug,
@@ -129,6 +135,23 @@ export async function saveGameResult(payload) {
       updatedAt: serverTimestamp(),
       completedAt: completed ? serverTimestamp() : null,
     });
+
+    if (uid && completed) {
+      try {
+        await applyUserAttemptReward({
+          uid,
+          contentKey: testId,
+          subject: game.subject || "",
+          kind: "game",
+          title: game.title || game.slug,
+          correct,
+          gradable: total,
+        });
+      } catch {
+        // Резултатът е записан; точките могат да се преизчислят при следващ опит.
+      }
+    }
+
     return ref.id;
   } catch {
     return null;

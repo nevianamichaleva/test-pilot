@@ -155,6 +155,7 @@ export default function GrammarDetective({ exitHref = "/igri", game = null }) {
             <li>Без наказание при грешен клик – само насърчение</li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="grammar-detective-name"
             buttonLabel="Започни разследването"
             onStart={(name) => {

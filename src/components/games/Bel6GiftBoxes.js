@@ -141,6 +141,7 @@ export default function Bel6GiftBoxes({ exitHref = "/igri", game = null }) {
             </li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="gift-box-name"
             buttonLabel="Отвори първата кутия"
             onStart={(name) => {

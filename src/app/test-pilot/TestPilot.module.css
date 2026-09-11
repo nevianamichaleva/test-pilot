@@ -141,6 +141,18 @@
   white-space: nowrap;
 }
 
+.solvedBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #0f6b32;
+  background: rgba(40, 167, 69, 0.14);
+  border: 1px solid rgba(40, 167, 69, 0.28);
+}
+
 .badge {
   align-self: start;
   justify-self: end;

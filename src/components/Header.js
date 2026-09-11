@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { useAuth } from "@/components/AuthProvider";
 import styles from "./Header.module.css";
 
 const NAV = [
@@ -12,12 +13,12 @@ const NAV = [
   { href: "/test-pilot", label: "Тестове", match: (p) => p.startsWith("/test-pilot") && !p.includes("/rezultati") },
   { href: "/igri", label: "Хайде да поиграем", match: (p) => p.startsWith("/igri") },
   { href: "/za-men", label: "За мен", match: (p) => p.startsWith("/za-men") },
-  { href: "/test-pilot/rezultati", label: "Резултати", match: (p) => p.includes("/rezultati") },
 ];
 
 export default function Header() {
   const pathname = usePathname() || "/";
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user, displayName, loading, logout } = useAuth();
 
   useEffect(() => {
     const onPop = () => setMenuOpen(false);
@@ -107,23 +108,47 @@ export default function Header() {
               </Link>
             );
           })}
-          <Link className={styles.cta} href="/test-pilot" onClick={close}>
-            <span className={styles.ctaIcon} aria-hidden>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"
-                  fill="currentColor"
-                />
-                <path
-                  d="M4.5 20.25a7.5 7.5 0 0 1 15 0"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
-            Вход / Регистрация
-          </Link>
+
+          {!loading && user ? (
+            <>
+              <Link
+                className={`${styles.link}${pathname.startsWith("/profil") ? ` ${styles.linkActive}` : ""}`}
+                href="/profil"
+                onClick={close}
+                aria-current={pathname.startsWith("/profil") ? "page" : undefined}
+              >
+                {displayName || "Профил"}
+              </Link>
+              <button
+                type="button"
+                className={styles.cta}
+                onClick={async () => {
+                  close();
+                  await logout();
+                }}
+              >
+                Изход
+              </button>
+            </>
+          ) : (
+            <Link className={styles.cta} href="/vhod" onClick={close}>
+              <span className={styles.ctaIcon} aria-hidden>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M4.5 20.25a7.5 7.5 0 0 1 15 0"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+              Вход / Регистрация
+            </Link>
+          )}
         </nav>
       </div>
     </header>

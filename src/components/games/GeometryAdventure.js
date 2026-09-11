@@ -574,7 +574,7 @@ export default function GeometryAdventure({
             <li>Остър, прав и тъп ъгъл</li>
             <li>Огледална симетрия и обиколка на решетка</li>
           </ul>
-          <GameNameGate inputId="geometry-5-name" onStart={enterPlay} />
+          <GameNameGate inputId="geometry-5-name" onStart={enterPlay}  game={game} />
         </div>
       </div>
     );

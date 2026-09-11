@@ -1,3 +1,5 @@
+import AdminGate from "@/components/AdminGate";
+
 export const metadata = {
   title: "Резултати",
   description:
@@ -13,5 +15,5 @@ export const metadata = {
 };
 
 export default function RezultatiLayout({ children }) {
-  return children;
+  return <AdminGate>{children}</AdminGate>;
 }

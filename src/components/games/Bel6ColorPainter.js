@@ -162,6 +162,7 @@ export default function Bel6ColorPainter({ exitHref = "/igri", game = null }) {
             </li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="color-painter-name"
             buttonLabel="Започни да рисуваш"
             onStart={(name) => {

@@ -281,6 +281,7 @@ export default function PhraseologismCards({ exitHref = "/igri", game = null }) 
           </div>
           
           <GameNameGate
+            game={game}
             inputId="phrase-cards-name"
             buttonLabel="Започни"
             onStart={(name) => {

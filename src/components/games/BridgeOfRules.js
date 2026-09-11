@@ -159,6 +159,7 @@ export default function BridgeOfRules({ exitHref = "/igri", game = null }) {
             <li>Всеки грешен отговор идва с ясно обяснение</li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="bridge-of-rules-name"
             buttonLabel="Към моста"
             onStart={(name) => {

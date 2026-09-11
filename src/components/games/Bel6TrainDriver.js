@@ -200,6 +200,7 @@ export default function Bel6TrainDriver({ exitHref = "/igri", game = null }) {
             </li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="train-driver-name"
             buttonLabel="Тръгни с влака"
             onStart={(name) => {

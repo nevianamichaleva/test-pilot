@@ -136,7 +136,7 @@ export default function GamePlay({ game }) {
           inputId={`gameplay-name-${game.slug || "quiz"}`}
           buttonLabel="Започни играта"
           onStart={beginWithName}
-        />
+         game={game} />
       </div>
     );
   }

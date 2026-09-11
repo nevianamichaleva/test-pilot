@@ -199,6 +199,7 @@ export default function HintHangman({ exitHref = "/igri", game = null }) {
             <li>Всяка решена дума дава +{HINT_HANGMAN_ROUND_REWARD}⭐ за гласни</li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="hint-hangman-name"
             buttonLabel="Завърти колелото"
             onStart={(name) => {

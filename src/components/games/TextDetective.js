@@ -193,6 +193,7 @@ export default function TextDetective({ exitHref = "/igri", game = null }) {
             <li>Грешно изречение → „Хмм, виж пак този абзац!“</li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="text-detective-name"
             buttonLabel="Започни разследването"
             onStart={(name) => {

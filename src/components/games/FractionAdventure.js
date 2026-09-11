@@ -362,7 +362,7 @@ export default function FractionAdventure({
             inputId="fraction-adventure-name"
             buttonLabel="Започни играта"
             onStart={enterPlay}
-          />
+           game={game} />
         </div>
       </div>
     );

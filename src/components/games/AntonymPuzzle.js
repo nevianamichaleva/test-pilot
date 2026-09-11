@@ -197,6 +197,7 @@ export default function AntonymPuzzle({ exitHref = "/igri", game = null }) {
             <li>При верен отговор парчетата се съединяват</li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="antonym-puzzle-name"
             buttonLabel="Започни пъзела"
             onStart={(name) => {

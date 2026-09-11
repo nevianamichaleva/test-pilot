@@ -232,6 +232,7 @@ export default function VerbMagnet({ exitHref = "/igri", game = null }) {
             <li>На телефон: докосни дума, после магнит</li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="verb-magnet-name"
             buttonLabel="Пусни магнитите"
             onStart={(name) => {

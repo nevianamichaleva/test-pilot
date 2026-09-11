@@ -72,6 +72,18 @@
   box-shadow: none;
 }
 
+.solvedNote {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.4;
+  color: #0f6b32;
+  background: rgba(40, 167, 69, 0.12);
+  border: 1px solid rgba(40, 167, 69, 0.28);
+}
+
 @media (max-width: 520px) {
   .gate {
     max-width: 300px;

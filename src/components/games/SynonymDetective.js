@@ -258,6 +258,7 @@ export default function SynonymDetective({ exitHref = "/igri", game = null }) {
             <li>Грешните се разклащат — опитай пак</li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="synonym-detective-name"
             buttonLabel="Започни"
             onStart={(name) => {

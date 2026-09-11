@@ -1,4 +1,5 @@
 import { getApp, getApps, initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -36,3 +37,12 @@ export function getFirebaseDb() {
   return getFirestore(app);
 }
 
+/**
+ * Firebase Auth instance (client-side).
+ * Returns `null` if Firebase env vars are missing.
+ */
+export function getFirebaseAuth() {
+  const app = getFirebaseApp();
+  if (!app) return null;
+  return getAuth(app);
+}

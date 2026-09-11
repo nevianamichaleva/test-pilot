@@ -508,7 +508,7 @@ export default function Geometry6Adventure({
             {modeMeta?.description ??
               "Мрежи, лице и класификация — a е синьо, h е червено, всичко върху мрежа."}
           </p>
-          <GameNameGate inputId="geometry-6-name" onStart={enterPlay} />
+          <GameNameGate inputId="geometry-6-name" onStart={enterPlay}  game={game} />
         </div>
       </div>
     );

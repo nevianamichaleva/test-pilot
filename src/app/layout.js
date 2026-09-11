@@ -3,6 +3,7 @@ import { Nunito } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/Header";
+import Providers from "@/components/Providers";
 import SiteJsonLd from "@/components/SiteJsonLd";
 import { getSiteUrl } from "@/lib/site";
 
@@ -83,9 +84,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="bg" className={nunito.variable}>
       <body>
-        <SiteJsonLd />
-        <Header />
-        {children}
+        <Providers>
+          <SiteJsonLd />
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );

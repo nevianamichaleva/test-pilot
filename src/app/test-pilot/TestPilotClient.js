@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
+import { useAuth } from "@/components/AuthProvider";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { getAllTests } from "@/data/tests";
@@ -90,6 +91,7 @@ export default function TestPilotClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [visibleCount, setVisibleCount] = useState(4);
+  const { isContentSolved } = useAuth();
 
   const tests = useMemo(() => getAllTests(), []);
 
@@ -206,9 +208,11 @@ export default function TestPilotClient() {
             <div className={styles.list}>
               {visible.map((t, i) => {
                 const thumbSrc = getTestListThumbnailSrc(t);
+                const contentKey = `${normalizeClassNum(t.classNum)}|${t.subject}|${t.slug}`;
+                const solved = isContentSolved(contentKey);
                 return (
                 <article
-                  key={`${t.classNum}|${t.subject}|${t.slug}`}
+                  key={contentKey}
                   className={styles.card}
                 >
                   <div
@@ -232,6 +236,7 @@ export default function TestPilotClient() {
                     </p>
                     <div className={styles.meta}>
                       <span>{t.questionCount} въпроса</span>
+                      {solved ? <span className={styles.solvedBadge}>Вече решен</span> : null}
                     </div>
                   </div>
 
@@ -245,7 +250,7 @@ export default function TestPilotClient() {
                         normalizeClassNum(t.classNum)
                       )}/${encodeURIComponent(t.subject)}/${encodeURIComponent(t.slug)}`}
                     >
-                      Започни тест <span aria-hidden>›</span>
+                      {solved ? "Реши отново" : "Започни тест"} <span aria-hidden>›</span>
                     </Link>
                     <span className={styles.cert}>
                       <span aria-hidden>🏆</span> сертификат

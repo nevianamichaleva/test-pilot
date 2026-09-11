@@ -166,6 +166,7 @@ export default function SignalLight({ exitHref = "/igri", game = null }) {
             <li>Жокерните думи светват след отговор</li>
           </ul>
           <GameNameGate
+            game={game}
             inputId="signal-light-name"
             buttonLabel="Светни лампата"
             onStart={(name) => {
