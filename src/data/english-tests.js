@@ -1056,3 +1056,1170 @@ Right now, Kevin is sitting quietly behind a big tree. He is waiting to see a ra
   },
 ];
 
+
+/**
+ * Diagnostic test A (Grammar + Vocabulary + Communication).
+ * /100 marks style worksheet digitized for online practice.
+ */
+export const ENGLISH_6_DIAGNOSTIC_TEST_A_QUESTIONS = [
+  // —— 1. Conversation: choose the correct option ——
+  {
+    q: '1. A: Hi, my name is Diana. What ___ your name?\nB: I am Isabel.',
+    options: ['is', 'are'],
+    correct: 'is',
+  },
+  {
+    q: '1. B: I ___ Isabel. Are you a new student?',
+    options: ['is', 'am'],
+    correct: 'am',
+  },
+  {
+    q: '1. B: Are you ___ new student?',
+    options: ['a', 'an'],
+    correct: 'a',
+  },
+  {
+    q: '1. A: Yes, I ___. Is that your tennis racket?',
+    options: ['is', 'am'],
+    correct: 'am',
+  },
+  {
+    q: '1. A: Is that ___ tennis racket?',
+    options: ['your', 'you'],
+    correct: 'your',
+  },
+  {
+    q: '1. B: Yes, ___ is. Can you play tennis?',
+    options: ['it', 'they'],
+    correct: 'it',
+  },
+  {
+    q: '1. B: Can you ___ tennis?',
+    options: ['play', 'playing'],
+    correct: 'play',
+  },
+  {
+    q: '1. A: Yes, I ___. Let’s have a game some time.',
+    options: ['can', 'do'],
+    correct: 'can',
+  },
+  {
+    q: '1. A: Let’s have ___ game some time.',
+    options: ['a', 'an'],
+    correct: 'a',
+  },
+  {
+    q: '1. A: I can borrow my ___ racket.',
+    options: ['brother', "brother's"],
+    correct: "brother's",
+  },
+
+  // —— 2. Choose the correct options ——
+  {
+    q: '2. ___ aren’t any books in my bag.',
+    options: ['There', 'They'],
+    correct: 'There',
+  },
+  {
+    q: '2. ___ there any chairs in the kitchen?',
+    options: ['Are', 'Is'],
+    correct: 'Are',
+  },
+  {
+    q: '2. ___ you got any cake?',
+    options: ['Have', 'Do'],
+    correct: 'Have',
+  },
+  {
+    q: '2. There isn’t ___ water in the fridge.',
+    options: ['some', 'any'],
+    correct: 'any',
+  },
+  {
+    q: '2. Has she got any ___?',
+    options: ['sandwich', 'sandwiches'],
+    correct: 'sandwiches',
+  },
+  {
+    q: '2. My birthday is ___ December.',
+    options: ['in', 'on'],
+    correct: 'in',
+  },
+  {
+    q: '2. The bank is next ___ the station.',
+    options: ['of', 'to'],
+    correct: 'to',
+  },
+  {
+    q: '2. Three ___ are in the café.',
+    options: ['mans', 'men'],
+    correct: 'men',
+  },
+  {
+    q: '2. We’re going to the cinema ___ Friday.',
+    options: ['on', 'in'],
+    correct: 'on',
+  },
+  {
+    q: '2. Have you got a ___?',
+    options: ['bread', 'banana'],
+    correct: 'banana',
+  },
+
+  // —— 3. Complete the conversation (Present Simple) ——
+  {
+    type: 'text',
+    q: '3. A: What does your brother ___? (job)',
+    correct: 'do',
+    acceptedAnswers: ['do'],
+  },
+  {
+    type: 'text',
+    q: '3. B: He ___ in a restaurant. He’s a chef.',
+    correct: 'works',
+    acceptedAnswers: ['works'],
+  },
+  {
+    type: 'text',
+    q: '3. A: What time ___ he finish work?',
+    correct: 'does',
+    acceptedAnswers: ['does'],
+  },
+  {
+    type: 'text',
+    q: '3. B: He ___ work at 11 p.m.',
+    correct: 'finishes',
+    acceptedAnswers: ['finishes'],
+  },
+  {
+    type: 'text',
+    q: '3. B: He finishes work ___ 11 p.m.',
+    correct: 'at',
+    acceptedAnswers: ['at'],
+  },
+  {
+    type: 'text',
+    q: '3. A: ___ your parents work there, too?',
+    correct: 'Do',
+    acceptedAnswers: ['Do', 'do'],
+  },
+  {
+    type: 'text',
+    q: '3. B: No, they ___.',
+    correct: "don't",
+    acceptedAnswers: ["don't", 'dont', 'do not'],
+  },
+  {
+    type: 'text',
+    q: '3. B: They ___ in a shop.',
+    correct: 'work',
+    acceptedAnswers: ['work'],
+  },
+  {
+    type: 'text',
+    q: '3. A: How ___ do you see your brother?',
+    correct: 'often',
+    acceptedAnswers: ['often'],
+  },
+  {
+    type: 'text',
+    q: '3. B: I see ___ once or twice a week.',
+    correct: 'him',
+    acceptedAnswers: ['him'],
+  },
+
+  // —— 4. Verb forms (letter to Amy) ——
+  {
+    type: 'text',
+    q: '4. We ___ (arrive) in Majorca two days ago.',
+    correct: 'arrived',
+    acceptedAnswers: ['arrived'],
+  },
+  {
+    type: 'text',
+    q: '4. On Saturday, we ___ (visit) a castle…',
+    correct: 'visited',
+    acceptedAnswers: ['visited'],
+  },
+  {
+    type: 'text',
+    q: '4. …and ___ (sail) on a boat.',
+    correct: 'sailed',
+    acceptedAnswers: ['sailed'],
+  },
+  {
+    type: 'text',
+    q: '4. I like ___ (sail). It’s fun!',
+    correct: 'sailing',
+    acceptedAnswers: ['sailing'],
+  },
+  {
+    type: 'text',
+    q: '4. Yesterday, the weather ___ (not be) cold…',
+    correct: "wasn't",
+    acceptedAnswers: ["wasn't", 'was not', 'wasnt'],
+  },
+  {
+    type: 'text',
+    q: '4. …it ___ (be) really sunny.',
+    correct: 'was',
+    acceptedAnswers: ['was'],
+  },
+  {
+    type: 'text',
+    q: '4. But today it ___ (rain)…',
+    correct: 'is raining',
+    acceptedAnswers: ['is raining', "it's raining", 'its raining', "'s raining"],
+  },
+  {
+    type: 'text',
+    q: '4. …and we ___ (have to) stay in our hotel.',
+    correct: 'have to',
+    acceptedAnswers: ['have to'],
+  },
+  {
+    type: 'text',
+    q: '4. We ___ (not can) swim…',
+    correct: "can't",
+    acceptedAnswers: ["can't", 'cannot', 'cant', 'can not'],
+  },
+  {
+    type: 'text',
+    q: '4. …so we ___ (watch) a film on TV.',
+    correct: 'are watching',
+    acceptedAnswers: ['are watching', "'re watching"],
+  },
+
+  // —— 5. One word in each gap ——
+  {
+    type: 'text',
+    q: '5. I finished school two hours ___.',
+    correct: 'ago',
+    acceptedAnswers: ['ago'],
+  },
+  {
+    type: 'text',
+    q: '5. The library is ___ to the bank.',
+    correct: 'next',
+    acceptedAnswers: ['next'],
+  },
+  {
+    type: 'text',
+    q: '5. Your house is bigger ___ my house.',
+    correct: 'than',
+    acceptedAnswers: ['than'],
+  },
+  {
+    type: 'text',
+    q: '5. He is ___ fastest runner in our class.',
+    correct: 'the',
+    acceptedAnswers: ['the'],
+  },
+  {
+    type: 'text',
+    q: '5. We ___ go to school yesterday.',
+    correct: "didn't",
+    acceptedAnswers: ["didn't", 'didnt', 'did not'],
+  },
+  {
+    type: 'text',
+    q: '5. We travelled to France ___ train.',
+    correct: 'by',
+    acceptedAnswers: ['by'],
+  },
+  {
+    type: 'text',
+    q: '5. Please ___ me your name.',
+    correct: 'tell',
+    acceptedAnswers: ['tell'],
+  },
+  {
+    type: 'text',
+    q: '5. They ___ visiting a museum today.',
+    correct: 'are',
+    acceptedAnswers: ['are'],
+  },
+  {
+    type: 'text',
+    q: '5. My mum bought ___ a new phone for my birthday.',
+    correct: 'me',
+    acceptedAnswers: ['me'],
+  },
+  {
+    type: 'text',
+    q: '5. Please ___ forget to phone me tomorrow.',
+    correct: "don't",
+    acceptedAnswers: ["don't", 'dont', 'do not'],
+  },
+
+  // —— 6. Next word in the list ——
+  {
+    type: 'text',
+    q: '6. twelve, thirteen, ___',
+    correct: 'fourteen',
+    acceptedAnswers: ['fourteen', '14'],
+  },
+  {
+    type: 'text',
+    q: '6. third, fourth, fifth, ___',
+    correct: 'sixth',
+    acceptedAnswers: ['sixth', '6th'],
+  },
+  {
+    type: 'text',
+    q: '6. May, June, July, ___',
+    correct: 'August',
+    acceptedAnswers: ['August', 'august'],
+  },
+  {
+    type: 'text',
+    q: '6. Monday, Tuesday, ___',
+    correct: 'Wednesday',
+    acceptedAnswers: ['Wednesday', 'wednesday'],
+  },
+
+  // —— 7. Label the pictures (described) ——
+  {
+    type: 'text',
+    q: '7. Label: a sports shoe / trainer.',
+    correct: 'shoe',
+    acceptedAnswers: ['shoe', 'shoes', 'trainer', 'trainers', 'sneaker', 'sneakers'],
+  },
+  {
+    type: 'text',
+    q: '7. Label: short trousers for sport / summer.',
+    correct: 'shorts',
+    acceptedAnswers: ['shorts'],
+  },
+  {
+    type: 'text',
+    q: '7. Label: you wear it on your wrist to see the time.',
+    correct: 'watch',
+    acceptedAnswers: ['watch', 'wristwatch', 'a watch'],
+  },
+  {
+    type: 'text',
+    q: '7. Label: a cold sweet on a cone.',
+    correct: 'ice cream',
+    acceptedAnswers: ['ice cream', 'icecream', 'ice-cream', 'an ice cream'],
+  },
+
+  // —— 8. Categories (word box) ——
+  {
+    type: 'text',
+    q: '8. Food (write one): armchair, uncle, bread, tall, cheese, desk, brother, spring, August, rice, thin — bread is example. Food word 1:',
+    correct: 'cheese',
+    acceptedAnswers: ['cheese', 'rice'],
+  },
+  {
+    type: 'text',
+    q: '8. Food word 2 (the other food word from the box):',
+    correct: 'rice',
+    acceptedAnswers: ['cheese', 'rice'],
+  },
+  {
+    type: 'text',
+    q: '8. Furniture word 1:',
+    correct: 'armchair',
+    acceptedAnswers: ['armchair', 'desk'],
+  },
+  {
+    type: 'text',
+    q: '8. Furniture word 2:',
+    correct: 'desk',
+    acceptedAnswers: ['armchair', 'desk'],
+  },
+  {
+    type: 'text',
+    q: '8. Months and seasons word 1:',
+    correct: 'spring',
+    acceptedAnswers: ['spring', 'August', 'august'],
+  },
+  {
+    type: 'text',
+    q: '8. Months and seasons word 2:',
+    correct: 'August',
+    acceptedAnswers: ['spring', 'August', 'august'],
+  },
+  {
+    type: 'text',
+    q: '8. Family word 1:',
+    correct: 'uncle',
+    acceptedAnswers: ['uncle', 'brother'],
+  },
+  {
+    type: 'text',
+    q: '8. Family word 2:',
+    correct: 'brother',
+    acceptedAnswers: ['uncle', 'brother'],
+  },
+
+  // —— 9. Match clues to words ——
+  {
+    q: '9. Match: place for sick people',
+    options: ['hospital', 'farmer', 'sand', 'minutes'],
+    correct: 'hospital',
+  },
+  {
+    q: '9. Match: this person grows food',
+    options: ['farmer', 'restaurant', 'finish', 'answer'],
+    correct: 'farmer',
+  },
+  {
+    q: '9. Match: opposite of ask',
+    options: ['answer', 'finish', 'brilliant', 'sand'],
+    correct: 'answer',
+  },
+  {
+    q: '9. Match: one hour has sixty ___',
+    options: ['minutes', 'sand', 'hospital', 'farmer'],
+    correct: 'minutes',
+  },
+  {
+    q: '9. Match: you find this on a beach',
+    options: ['sand', 'restaurant', 'finish', 'answer'],
+    correct: 'sand',
+  },
+  {
+    q: '9. Match: opposite of start',
+    options: ['finish', 'answer', 'brilliant', 'farmer'],
+    correct: 'finish',
+  },
+  {
+    q: '9. Match: fantastic',
+    options: ['brilliant', 'hospital', 'sand', 'minutes'],
+    correct: 'brilliant',
+  },
+  {
+    q: '9. Match: a place to eat',
+    options: ['restaurant', 'hospital', 'farmer', 'finish'],
+    correct: 'restaurant',
+  },
+
+  // —— 10. Cloze (Max) ——
+  {
+    type: 'text',
+    q: '10. Word box: across, excited, exciting, playing, riding, swimming, take, warm, yesterday.\nI like ___ the guitar…',
+    correct: 'playing',
+    acceptedAnswers: ['playing'],
+  },
+  {
+    type: 'text',
+    q: '10. …and ___ my bike.',
+    correct: 'riding',
+    acceptedAnswers: ['riding'],
+  },
+  {
+    type: 'text',
+    q: '10. I sometimes go ___ with my friends when it is warm.',
+    correct: 'swimming',
+    acceptedAnswers: ['swimming'],
+  },
+  {
+    type: 'text',
+    q: '10. …when it is ___.',
+    correct: 'warm',
+    acceptedAnswers: ['warm'],
+  },
+  {
+    type: 'text',
+    q: '10. I often ___ photos of animals or birds…',
+    correct: 'take',
+    acceptedAnswers: ['take'],
+  },
+  {
+    type: 'text',
+    q: '10. ___, I saw a cat hiding under a tree.',
+    correct: 'Yesterday',
+    acceptedAnswers: ['Yesterday', 'yesterday'],
+  },
+  {
+    type: 'text',
+    q: '10. Then it ran ___ the garden to catch a bird…',
+    correct: 'across',
+    acceptedAnswers: ['across'],
+  },
+  {
+    type: 'text',
+    q: '10. I was so ___!',
+    correct: 'excited',
+    acceptedAnswers: ['excited'],
+  },
+
+  // —— 11. Odd one out ——
+  {
+    q: '11. House – odd one out: bathroom / kitchen / garden / star',
+    options: ['bathroom', 'kitchen', 'garden', 'star'],
+    correct: 'star',
+  },
+  {
+    q: '11. Landscape – odd one out: coast / river / mountain / cat',
+    options: ['coast', 'river', 'mountain', 'cat'],
+    correct: 'cat',
+  },
+  {
+    q: '11. Holiday activities – odd one out: studying / swimming / skiing / sightseeing',
+    options: ['studying', 'swimming', 'skiing', 'sightseeing'],
+    correct: 'studying',
+  },
+  {
+    q: '11. Places in town – odd one out: supermarket / beach / bank / station',
+    options: ['supermarket', 'beach', 'bank', 'station'],
+    correct: 'beach',
+  },
+  {
+    q: '11. Adjectives of quality – odd one out: dangerous / attractive / beautiful / useful',
+    options: ['dangerous', 'attractive', 'beautiful', 'useful'],
+    correct: 'dangerous',
+  },
+  {
+    q: '11. Negative adjectives of feeling – odd one out: angry / bored / fed up / excited',
+    options: ['angry', 'bored', 'fed up', 'excited'],
+    correct: 'excited',
+  },
+  {
+    q: '11. Body – odd one out: arm / knee / foot / tennis',
+    options: ['arm', 'knee', 'foot', 'tennis'],
+    correct: 'tennis',
+  },
+  {
+    q: '11. Adjectives to describe a bicycle – odd one out: dirty / heavy / young / cheap',
+    options: ['dirty', 'heavy', 'young', 'cheap'],
+    correct: 'young',
+  },
+
+  // —— 12. Best response ——
+  {
+    q: '12. See you later.',
+    options: ['a) Goodbye.', 'b) Sorry.', 'c) Thank you.'],
+    correct: 'a) Goodbye.',
+  },
+  {
+    q: '12. Can I have some juice, please?',
+    options: ["a) No, there aren't.", 'b) Here you are.', 'c) Yes, we do.'],
+    correct: 'b) Here you are.',
+  },
+  {
+    q: '12. Can you lend me your key?',
+    options: ['a) Yes, of course.', 'b) Yes, it is.', "c) No, it isn't."],
+    correct: 'a) Yes, of course.',
+  },
+  {
+    q: '12. I love football.',
+    options: ["a) That's true.", 'b) I think so.', 'c) Me, too.'],
+    correct: 'c) Me, too.',
+  },
+  {
+    q: '12. I lost my phone.',
+    options: ['a) Good idea.', "b) That's a surprise.", 'c) Bad luck!'],
+    correct: 'c) Bad luck!',
+  },
+  {
+    q: '12. Do you want some carrots?',
+    options: ["a) No, it isn't.", "b) No, there aren't.", 'c) No, thanks.'],
+    correct: 'c) No, thanks.',
+  },
+  {
+    q: '12. Where is the library?',
+    options: ["a) No, it isn't.", "b) It's not here.", 'c) Next to the park.'],
+    correct: 'c) Next to the park.',
+  },
+  {
+    q: '12. Do you speak Spanish?',
+    options: ["a) No, I'm not.", 'b) Yes, a little.', 'c) Yes, OK.'],
+    correct: 'b) Yes, a little.',
+  },
+  {
+    q: '12. What is your maths teacher like?',
+    options: ['a) I like her.', 'b) She likes me.', "c) She's nice."],
+    correct: "c) She's nice.",
+  },
+  {
+    q: '12. I got a new phone for my birthday.',
+    options: ['a) Lucky you!', 'b) Thank you.', 'c) Yes, I did.'],
+    correct: 'a) Lucky you!',
+  },
+];
+
+/**
+ * Diagnostic test B (Grammar + Vocabulary + Communication).
+ */
+export const ENGLISH_6_DIAGNOSTIC_TEST_B_QUESTIONS = [
+  // —— 1. Conversation ——
+  {
+    q: '1. B: Hello! I ___ Lucia. Where are you from?',
+    options: ['is', 'am'],
+    correct: 'am',
+  },
+  {
+    q: '1. B: Where ___ you from?',
+    options: ['is', 'are'],
+    correct: 'are',
+  },
+  {
+    q: '1. A: I ___ from Scotland…',
+    options: ['is', 'am'],
+    correct: 'am',
+  },
+  {
+    q: '1. A: …but ___ dad is from Jamaica.',
+    options: ['my', 'his'],
+    correct: 'my',
+  },
+  {
+    q: '1. A: Are ___ your books?',
+    options: ['this', 'these'],
+    correct: 'these',
+  },
+  {
+    q: "1. B: No, ___ aren't.",
+    options: ['it', 'they'],
+    correct: 'they',
+  },
+  {
+    q: "1. B: They are my ___.",
+    options: ["sister's", 'sister'],
+    correct: "sister's",
+  },
+  {
+    q: '1. A: And what is ___?',
+    options: ['that', 'those'],
+    correct: 'that',
+  },
+  {
+    q: "1. B: It's ___ MP3 player.",
+    options: ['a', 'an'],
+    correct: 'an',
+  },
+  {
+    q: '1. A: Can I ___ it?',
+    options: ['borrow', 'to borrow'],
+    correct: 'borrow',
+  },
+
+  // —— 2. Choose the correct options ——
+  {
+    q: '2. ___ is a big park near my school.',
+    options: ['There', 'It'],
+    correct: 'There',
+  },
+  {
+    q: '2. ___ there a computer in the library?',
+    options: ['Is', 'Are'],
+    correct: 'Is',
+  },
+  {
+    q: "2. I haven't got ___ cake.",
+    options: ['any', 'some'],
+    correct: 'any',
+  },
+  {
+    q: "2. They ___ got a car.",
+    options: ["haven't", "hasn't"],
+    correct: "haven't",
+  },
+  {
+    q: '2. The park is in front ___ the library.',
+    options: ['of', 'to'],
+    correct: 'of',
+  },
+  {
+    q: '2. My birthday is ___ 24th June.',
+    options: ['in', 'on'],
+    correct: 'on',
+  },
+  {
+    q: '2. They have got three ___.',
+    options: ['child', 'children'],
+    correct: 'children',
+  },
+  {
+    q: '2. Have you got any ___?',
+    options: ['apple', 'cheese'],
+    correct: 'cheese',
+  },
+  {
+    q: '2. There is a concert ___ Saturday.',
+    options: ['in', 'on'],
+    correct: 'on',
+  },
+  {
+    q: "2. We ___ got a cat.",
+    options: ["haven't", "don't"],
+    correct: "haven't",
+  },
+
+  // —— 3. Complete the conversation ——
+  {
+    type: 'text',
+    q: '3. A: What does your mum ___?',
+    correct: 'do',
+    acceptedAnswers: ['do'],
+  },
+  {
+    type: 'text',
+    q: '3. B: She ___ in a hospital. She’s a nurse.',
+    correct: 'works',
+    acceptedAnswers: ['works'],
+  },
+  {
+    type: 'text',
+    q: '3. A: What time ___ she start work?',
+    correct: 'does',
+    acceptedAnswers: ['does'],
+  },
+  {
+    type: 'text',
+    q: '3. B: She ___ work at 8 a.m.',
+    correct: 'starts',
+    acceptedAnswers: ['starts'],
+  },
+  {
+    type: 'text',
+    q: '3. B: She starts work ___ 8 a.m.',
+    correct: 'at',
+    acceptedAnswers: ['at'],
+  },
+  {
+    type: 'text',
+    q: '3. A: ___ your sister work there, too?',
+    correct: 'Does',
+    acceptedAnswers: ['Does', 'does'],
+  },
+  {
+    type: 'text',
+    q: '3. B: No, she ___.',
+    correct: "doesn't",
+    acceptedAnswers: ["doesn't", 'doesnt', 'does not'],
+  },
+  {
+    type: 'text',
+    q: '3. B: She ___ in a bank.',
+    correct: 'works',
+    acceptedAnswers: ['works'],
+  },
+  {
+    type: 'text',
+    q: '3. A: How ___ do you see her?',
+    correct: 'often',
+    acceptedAnswers: ['often'],
+  },
+  {
+    type: 'text',
+    q: '3. A: How often do you see ___?',
+    correct: 'her',
+    acceptedAnswers: ['her'],
+  },
+
+  // —— 4. Verb forms ——
+  {
+    type: 'text',
+    q: '4. We ___ (arrive) in Majorca two days ago.',
+    correct: 'arrived',
+    acceptedAnswers: ['arrived'],
+  },
+  {
+    type: 'text',
+    q: '4. On Saturday, we ___ (walk) into the village…',
+    correct: 'walked',
+    acceptedAnswers: ['walked'],
+  },
+  {
+    type: 'text',
+    q: '4. …and ___ (look) at the shops.',
+    correct: 'looked',
+    acceptedAnswers: ['looked'],
+  },
+  {
+    type: 'text',
+    q: '4. I like ___ (shop). It’s fun!',
+    correct: 'shopping',
+    acceptedAnswers: ['shopping'],
+  },
+  {
+    type: 'text',
+    q: '4. Yesterday, the weather ___ (not be) warm…',
+    correct: "wasn't",
+    acceptedAnswers: ["wasn't", 'was not', 'wasnt'],
+  },
+  {
+    type: 'text',
+    q: '4. …it ___ (be) cold and rainy.',
+    correct: 'was',
+    acceptedAnswers: ['was'],
+  },
+  {
+    type: 'text',
+    q: '4. But today the sun ___ (shine)…',
+    correct: 'is shining',
+    acceptedAnswers: ['is shining', "'s shining"],
+  },
+  {
+    type: 'text',
+    q: '4. …and we ___ (sit) on the beach.',
+    correct: 'are sitting',
+    acceptedAnswers: ['are sitting', "'re sitting"],
+  },
+  {
+    type: 'text',
+    q: '4. I ___ (not can) swim very well…',
+    correct: "can't",
+    acceptedAnswers: ["can't", 'cannot', 'cant', 'can not'],
+  },
+  {
+    type: 'text',
+    q: '4. …so I ___ (read) a book.',
+    correct: 'am reading',
+    acceptedAnswers: ['am reading', "'m reading", 'm reading'],
+  },
+
+  // —— 5. One word in each gap ——
+  {
+    type: 'text',
+    q: '5. I usually go to school ___ bus.',
+    correct: 'by',
+    acceptedAnswers: ['by'],
+  },
+  {
+    type: 'text',
+    q: '5. I went to the dentist three days ___.',
+    correct: 'ago',
+    acceptedAnswers: ['ago'],
+  },
+  {
+    type: 'text',
+    q: '5. My phone is smaller ___ your phone.',
+    correct: 'than',
+    acceptedAnswers: ['than'],
+  },
+  {
+    type: 'text',
+    q: '5. This is ___ best restaurant in town.',
+    correct: 'the',
+    acceptedAnswers: ['the'],
+  },
+  {
+    type: 'text',
+    q: '5. ___ city do you like best?',
+    correct: 'Which',
+    acceptedAnswers: ['Which', 'which'],
+  },
+  {
+    type: 'text',
+    q: '5. This is the ___ expensive hotel in our town.',
+    correct: 'most',
+    acceptedAnswers: ['most'],
+  },
+  {
+    type: 'text',
+    q: '5. Please ___ talk so loudly!',
+    correct: "don't",
+    acceptedAnswers: ["don't", 'dont', 'do not'],
+  },
+  {
+    type: 'text',
+    q: '5. We ___ going to Italy this week.',
+    correct: 'are',
+    acceptedAnswers: ['are'],
+  },
+  {
+    type: 'text',
+    q: '5. I ___ watch TV last night.',
+    correct: "didn't",
+    acceptedAnswers: ["didn't", 'didnt', 'did not'],
+  },
+  {
+    type: 'text',
+    q: '5. Our teacher ___ us a lot of homework last week.',
+    correct: 'gave',
+    acceptedAnswers: ['gave'],
+  },
+
+  // —— 6. Next word ——
+  {
+    type: 'text',
+    q: '6. sixteen, seventeen, ___',
+    correct: 'eighteen',
+    acceptedAnswers: ['eighteen', '18'],
+  },
+  {
+    type: 'text',
+    q: '6. eighth, ninth, tenth, ___',
+    correct: 'eleventh',
+    acceptedAnswers: ['eleventh', '11th'],
+  },
+  {
+    type: 'text',
+    q: '6. January, February, March, ___',
+    correct: 'April',
+    acceptedAnswers: ['April', 'april'],
+  },
+  {
+    type: 'text',
+    q: '6. Thursday, Friday, ___',
+    correct: 'Saturday',
+    acceptedAnswers: ['Saturday', 'saturday'],
+  },
+
+  // —— 7. Label pictures ——
+  {
+    type: 'text',
+    q: '7. Label: a woman’s bag.',
+    correct: 'bag',
+    acceptedAnswers: ['bag', 'handbag', 'purse', 'a bag', 'a handbag'],
+  },
+  {
+    type: 'text',
+    q: '7. Label: jewellery you wear on your ears.',
+    correct: 'earrings',
+    acceptedAnswers: ['earrings', 'earring', 'ear rings'],
+  },
+  {
+    type: 'text',
+    q: '7. Label: you wear it on your wrist to see the time.',
+    correct: 'watch',
+    acceptedAnswers: ['watch', 'wristwatch', 'a watch'],
+  },
+  {
+    type: 'text',
+    q: '7. Label: bread with filling (food).',
+    correct: 'sandwich',
+    acceptedAnswers: ['sandwich', 'a sandwich', 'hamburger', 'burger'],
+  },
+
+  // —— 8. Categories ——
+  {
+    type: 'text',
+    q: '8. Box: bed, June, bread, cake, chair, wavy, crisps, sister, summer, short, aunt. Food word 1 (bread = example):',
+    correct: 'cake',
+    acceptedAnswers: ['cake', 'crisps'],
+  },
+  {
+    type: 'text',
+    q: '8. Food word 2:',
+    correct: 'crisps',
+    acceptedAnswers: ['cake', 'crisps'],
+  },
+  {
+    type: 'text',
+    q: '8. Furniture word 1:',
+    correct: 'bed',
+    acceptedAnswers: ['bed', 'chair'],
+  },
+  {
+    type: 'text',
+    q: '8. Furniture word 2:',
+    correct: 'chair',
+    acceptedAnswers: ['bed', 'chair'],
+  },
+  {
+    type: 'text',
+    q: '8. Months and seasons word 1:',
+    correct: 'June',
+    acceptedAnswers: ['June', 'june', 'summer'],
+  },
+  {
+    type: 'text',
+    q: '8. Months and seasons word 2:',
+    correct: 'summer',
+    acceptedAnswers: ['June', 'june', 'summer'],
+  },
+  {
+    type: 'text',
+    q: '8. Family word 1:',
+    correct: 'sister',
+    acceptedAnswers: ['sister', 'aunt'],
+  },
+  {
+    type: 'text',
+    q: '8. Family word 2:',
+    correct: 'aunt',
+    acceptedAnswers: ['sister', 'aunt'],
+  },
+
+  // —— 9. Match ——
+  {
+    q: '9. Match: you can ___ the net',
+    options: ['surf', 'leave', 'hate', 'vet'],
+    correct: 'surf',
+  },
+  {
+    q: '9. Match: this person makes paintings',
+    options: ['artist', 'nurse', 'vet', 'awful'],
+    correct: 'artist',
+  },
+  {
+    q: '9. Match: opposite of arrive',
+    options: ['leave', 'hate', 'surf', 'nurse'],
+    correct: 'leave',
+  },
+  {
+    q: '9. Match: this person helps sick animals',
+    options: ['vet', 'nurse', 'artist', 'surf'],
+    correct: 'vet',
+  },
+  {
+    q: '9. Match: opposite of love',
+    options: ['hate', 'leave', 'awful', 'surf'],
+    correct: 'hate',
+  },
+  {
+    q: "9. Match: we're going to ___ a party",
+    options: ['have', 'hate', 'leave', 'surf'],
+    correct: 'have',
+  },
+  {
+    q: '9. Match: terrible',
+    options: ['awful', 'artist', 'vet', 'nurse'],
+    correct: 'awful',
+  },
+  {
+    q: '9. Match: this person helps sick people',
+    options: ['nurse', 'vet', 'artist', 'surf'],
+    correct: 'nurse',
+  },
+
+  // —— 10. Cloze (Amanda) ——
+  {
+    type: 'text',
+    q: '10. Word box: bored, boring, fed, last, playing, raining, riding, skiing, up.\nI like ___ basketball…',
+    correct: 'playing',
+    acceptedAnswers: ['playing'],
+  },
+  {
+    type: 'text',
+    q: '10. …and ___ my horse.',
+    correct: 'riding',
+    acceptedAnswers: ['riding'],
+  },
+  {
+    type: 'text',
+    q: '10. I sometimes go ___ with my parents in the winter.',
+    correct: 'skiing',
+    acceptedAnswers: ['skiing'],
+  },
+  {
+    type: 'text',
+    q: '10. I often climb ___ mountains or hills at the weekend.',
+    correct: 'up',
+    acceptedAnswers: ['up'],
+  },
+  {
+    type: 'text',
+    q: '10. ___ Saturday, I wanted to go climbing…',
+    correct: 'Last',
+    acceptedAnswers: ['Last', 'last'],
+  },
+  {
+    type: 'text',
+    q: '10. …but it was ___ so I stayed at home…',
+    correct: 'raining',
+    acceptedAnswers: ['raining'],
+  },
+  {
+    type: 'text',
+    q: '10. …and I was ___ and fed up.',
+    correct: 'bored',
+    acceptedAnswers: ['bored'],
+  },
+  {
+    type: 'text',
+    q: '10. …I was bored and ___ up.',
+    correct: 'fed',
+    acceptedAnswers: ['fed'],
+  },
+
+  // —— 11. Odd one out ——
+  {
+    q: '11. House – odd one out: hall / shop / window / fridge',
+    options: ['hall', 'shop', 'window', 'fridge'],
+    correct: 'shop',
+  },
+  {
+    q: '11. Landscape – odd one out: dog / field / island / sea',
+    options: ['dog', 'field', 'island', 'sea'],
+    correct: 'dog',
+  },
+  {
+    q: '11. Holiday activities – odd one out: sailing / surfing / cleaning / swimming',
+    options: ['sailing', 'surfing', 'cleaning', 'swimming'],
+    correct: 'cleaning',
+  },
+  {
+    q: '11. Places in town – odd one out: bank / post office / pharmacy / car',
+    options: ['bank', 'post office', 'pharmacy', 'car'],
+    correct: 'car',
+  },
+  {
+    q: '11. Positive adjectives – odd one out: talented / frightening / interesting / clean',
+    options: ['talented', 'frightening', 'interesting', 'clean'],
+    correct: 'frightening',
+  },
+  {
+    q: '11. Negative adjectives – odd one out: ugly / nice / terrible / stupid',
+    options: ['ugly', 'nice', 'terrible', 'stupid'],
+    correct: 'nice',
+  },
+  {
+    q: '11. Body – odd one out: leg / rain / hand / wrist',
+    options: ['leg', 'rain', 'hand', 'wrist'],
+    correct: 'rain',
+  },
+  {
+    q: '11. Adjectives of quality – odd one out: dangerous / exiting / famous / tired',
+    options: ['dangerous', 'exiting', 'famous', 'tired'],
+    correct: 'tired',
+  },
+
+  // —— 12. Best response ——
+  {
+    q: '12. Hello!',
+    options: ['a) Nice to meet you.', 'b) See you later.', 'c) Thank you.'],
+    correct: 'a) Nice to meet you.',
+  },
+  {
+    q: '12. How much is the cake?',
+    options: ['a) Here you are.', "b) It's very big.", "c) It's £3.50."],
+    correct: "c) It's £3.50.",
+  },
+  {
+    q: '12. Is there a bank near here?',
+    options: ["a) No, it isn't.", "b) No, there isn't.", "c) No, we don't."],
+    correct: "b) No, there isn't.",
+  },
+  {
+    q: '12. Can I sit here?',
+    options: ['a) Yes, I can.', 'b) Yes, you do.', 'c) Yes, of course.'],
+    correct: 'c) Yes, of course.',
+  },
+  {
+    q: '12. This film is great!',
+    options: ['a) Good idea.', 'b) I think so.', "c) That's nice."],
+    correct: 'b) I think so.',
+  },
+  {
+    q: '12. Are you OK?',
+    options: ["a) I'm fine.", 'b) No, thanks.', 'c) No problem.'],
+    correct: "a) I'm fine.",
+  },
+  {
+    q: '12. Can you help me?',
+    options: ['a) Yes, of course.', 'b) Yes, I do.', 'c) Yes, I am.'],
+    correct: 'a) Yes, of course.',
+  },
+  {
+    q: '12. Are you Italian?',
+    options: ['a) Not very well.', "b) It's very good.", "c) No, I'm not."],
+    correct: "c) No, I'm not.",
+  },
+  {
+    q: '12. Do you like maths?',
+    options: ['a) Yes, I like her.', 'b) Yes, I do.', 'c) Yes, I like.'],
+    correct: 'b) Yes, I do.',
+  },
+  {
+    q: '12. Do you want some ice cream?',
+    options: ['a) No, thanks.', "b) No, you don't.", "c) No, it isn't."],
+    correct: 'a) No, thanks.',
+  },
+];
