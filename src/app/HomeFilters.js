@@ -66,6 +66,14 @@ const SUBJECTS = [
     accent: "#8b5cf6",
     border: "#c4a8f5",
   },
+  {
+    key: "km",
+    label: "Компютърно моделиране",
+    icon: "💻",
+    tone: "#e0f7fa",
+    accent: "#0ea5c6",
+    border: "#7ad4e8",
+  },
 ];
 
 const CLASS_PILLS = [

@@ -25,6 +25,7 @@ const SUBJECT_ORDER = [
   "istoriya",
   "priroda",
   "literatura",
+  "km",
 ];
 
 const SUBJECT_TONES = {

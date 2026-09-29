@@ -8,6 +8,7 @@ import PageHero from "@/components/PageHero";
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 
 import { getFirebaseDb, isFirebaseConfigured } from "@/lib/firebase";
+import { computeAssessment } from "@/lib/gradeAssessment";
 import { isPassingPercent } from "@/lib/rewards";
 import { applyUserAttemptReward } from "@/lib/userProfile";
 
@@ -426,6 +427,7 @@ export default function Quiz({
   subjectThumbnailSrc,
   preserveQuestionOrder = false,
   preserveOptionOrder = false,
+  gradeScale = null,
 }) {
   const { user, displayName, loading: authLoading, getBestForContent, refreshProfile } = useAuth();
   const authUid = user?.uid || null;
@@ -642,6 +644,7 @@ export default function Quiz({
     stepIndex,
     completed,
     pointsLabel,
+    assessmentLabel,
   }) => {
     if (!isFirebaseConfigured()) return;
     const db = getFirebaseDb();
@@ -674,6 +677,7 @@ export default function Quiz({
         attemptId: localAttemptId || attemptId || null,
         startedAtIso: localStartedAtIso || startedAtIso || null,
         points: pointsLabel ?? computeDisplayResult(summary),
+        ...(completed && assessmentLabel ? { assessment: assessmentLabel } : {}),
         status: completed ? "completed" : "in_progress",
         completed: Boolean(completed),
         lockedCount: answeredCount,
@@ -1068,8 +1072,13 @@ export default function Quiz({
       const questionResults = qs.map((q, i) => summarizeQuestionResult(q, sequence, stepAnswers, i));
 
       const summary = gradeQuiz(qs, stepAnswers, sequence);
-      setFinishSummary({ ...summary, questionResults });
+      const assessment = computeAssessment({
+        ...summary,
+        gradeScale,
+      });
+      setFinishSummary({ ...summary, questionResults, assessment });
       const finalPointsLabel = computeDisplayResult(summary);
+      const assessmentLabel = assessment?.display || assessment?.label || "";
 
       let wrote = false;
       if (isFirebaseConfigured()) {
@@ -1087,12 +1096,14 @@ export default function Quiz({
             stepIndex: stepRef.current,
             completed: true,
             pointsLabel: finalPointsLabel,
+            assessmentLabel,
           });
           await setDoc(
             doc(db, "results", resultDocId),
             {
               answers: summaryAnswers,
               questionResults,
+              assessment: assessmentLabel,
               completedAt: serverTimestamp(),
             },
             { merge: true }
@@ -1103,6 +1114,7 @@ export default function Quiz({
             nameKey: buildNameKey(participantName),
             ...(authUid ? { uid: authUid } : {}),
             points: finalPointsLabel,
+            assessment: assessmentLabel,
             test: testId,
             testTitle: testTitle ?? title ?? "Тест",
             attemptId: attemptId || null,
@@ -1175,8 +1187,24 @@ export default function Quiz({
           </p>
           {finishSummary && (
             <div className={styles.done} style={{ marginTop: 12 }}>
-              <div style={{ fontSize: 18, fontWeight: 1000, color: "#1a3a52" }}>
-                {isSeventhGradeQuiz
+              {finishSummary.assessment ? (
+                <div className={styles.assessmentBlock}>
+                  <div className={styles.assessmentLabel}>Оценка</div>
+                  <div className={styles.assessmentGrade} data-grade={finishSummary.assessment.grade}>
+                    {finishSummary.assessment.display || finishSummary.assessment.label}
+                  </div>
+                  {Number.isFinite(finishSummary.assessment.percent) ? (
+                    <div className={styles.assessmentMeta}>
+                      {Math.round(finishSummary.assessment.percent)}%
+                      {finishSummary.assessment.mode === "points"
+                        ? ` · ${finishSummary.assessment.score}/${finishSummary.assessment.total} т.`
+                        : null}
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+              <div style={{ fontSize: 18, fontWeight: 1000, color: "#1a3a52", marginTop: finishSummary.assessment ? 14 : 0 }}>
+                {isSeventhGradeQuiz || finishSummary.hasDefinedPoints
                   ? `Точки: ${finishSummary.pointsText}`
                   : `Верни: ${
                       typeof finishSummary.firstTryCorrect === "number"

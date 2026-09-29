@@ -1,0 +1,200 @@
+.page {
+  min-height: calc(100dvh - 72px);
+  background:
+    radial-gradient(900px 420px at 10% 0%, rgba(14, 165, 198, 0.14), transparent 55%),
+    radial-gradient(800px 380px at 90% 6%, rgba(255, 184, 34, 0.14), transparent 50%),
+    linear-gradient(180deg, #eef8fc 0%, #f5f8fd 40%, #ffffff 100%);
+}
+
+.wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 8px 20px 48px;
+}
+
+.wrapWide {
+  max-width: 1100px;
+}
+
+.card {
+  margin-top: 14px;
+  padding: 22px 22px 24px;
+  border-radius: 24px;
+  background: #fff;
+  border: 1px solid rgba(26, 58, 82, 0.1);
+  box-shadow: 0 12px 28px rgba(26, 43, 75, 0.08);
+}
+
+.lessonImage {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 18px;
+  border: 1px solid rgba(26, 58, 82, 0.1);
+  margin-bottom: 18px;
+}
+
+.section {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px dashed rgba(26, 58, 82, 0.14);
+}
+
+.section:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.sectionTitle {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 900;
+  color: #1a2b4b;
+}
+
+.sectionBody {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.55;
+  color: rgba(26, 43, 75, 0.88);
+}
+
+.bullets {
+  margin: 8px 0 0;
+  padding-left: 1.2em;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #1a2b4b;
+}
+
+.bullets li {
+  margin-bottom: 6px;
+}
+
+.tip {
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #e0f2fe, #fef9c3);
+  border: 1px solid rgba(14, 165, 198, 0.25);
+  font-weight: 800;
+  font-size: 15px;
+  color: #0f4c6e;
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 16px;
+  border-radius: 999px;
+  font-weight: 800;
+  text-decoration: none;
+  color: #1a2b4b;
+  background: linear-gradient(180deg, #ffd04a 0%, #ffb822 100%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.btnGhost {
+  background: #fff;
+  border: 1px solid rgba(26, 58, 82, 0.14);
+  box-shadow: none;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.lessonCard {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+  border: 2px solid rgba(14, 165, 198, 0.22);
+  box-shadow: 0 12px 26px rgba(10, 35, 70, 0.1);
+  transition: transform 0.15s ease;
+}
+
+.lessonCard:hover {
+  transform: translateY(-3px);
+}
+
+.lessonCardThumb {
+  height: 140px;
+  background: linear-gradient(145deg, #e0f2fe, #fef3c7);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.lessonCardThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.lessonCardBody {
+  padding: 14px 14px 16px;
+}
+
+.lessonCardMeta {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(26, 43, 75, 0.55);
+}
+
+.lessonCardTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 900;
+  color: #1a2b4b;
+  line-height: 1.25;
+}
+
+.lessonCardDesc {
+  margin: 8px 0 0;
+  font-size: 14px;
+  font-weight: 650;
+  color: rgba(26, 43, 75, 0.68);
+  line-height: 1.4;
+}
+
+.empty {
+  margin-top: 14px;
+  font-weight: 700;
+  color: rgba(26, 43, 75, 0.65);
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    padding: 8px 14px 40px;
+  }
+
+  .card {
+    padding: 16px 14px 18px;
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+  }
+}

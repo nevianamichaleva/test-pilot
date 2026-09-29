@@ -104,6 +104,7 @@ export default async function TestPage({ params }) {
         subjectThumbnailSrc={subjectThumbnailSrc}
         preserveQuestionOrder={Boolean(testData.preserveQuestionOrder)}
         preserveOptionOrder={Boolean(testData.preserveOptionOrder)}
+        gradeScale={Array.isArray(testData.gradeScale) ? testData.gradeScale : null}
       />
       <Footer />
     </div>

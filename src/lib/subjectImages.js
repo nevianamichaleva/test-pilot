@@ -8,6 +8,7 @@ export const SUBJECT_THUMB_SRC = {
   istoriya: "/images/history.png",
   literatura: "/images/literature.png",
   priroda: "/images/nature.png",
+  km: "/images/km/edinici-informaciya.png",
 };
 
 const NVO_THUMB_SRC = "/images/nvo.png";

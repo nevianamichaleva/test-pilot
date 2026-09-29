@@ -7,4 +7,5 @@ export const SUBJECT_LABELS = {
   matematika: "Математика",
   bg: "Български език",
   priroda: "Човек и природа",
+  km: "Компютърно моделиране",
 };

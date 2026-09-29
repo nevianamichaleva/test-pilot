@@ -333,6 +333,58 @@
   background: rgba(255, 255, 255, 0.85);
 }
 
+.assessmentBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(26, 58, 82, 0.06), rgba(111, 69, 255, 0.08));
+  border: 1px solid rgba(26, 58, 82, 0.12);
+}
+
+.assessmentLabel {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(26, 58, 82, 0.65);
+}
+
+.assessmentGrade {
+  font-size: 28px;
+  font-weight: 1000;
+  line-height: 1.15;
+  color: #1a3a52;
+}
+
+.assessmentGrade[data-grade="6"] {
+  color: #1b7a3d;
+}
+
+.assessmentGrade[data-grade="5"] {
+  color: #2a6f9e;
+}
+
+.assessmentGrade[data-grade="4"] {
+  color: #8a6a12;
+}
+
+.assessmentGrade[data-grade="3"] {
+  color: #a85a1a;
+}
+
+.assessmentGrade[data-grade="2"] {
+  color: #b42318;
+}
+
+.assessmentMeta {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.7);
+}
+
 .summaryList {
   margin-top: 14px;
   display: grid;
