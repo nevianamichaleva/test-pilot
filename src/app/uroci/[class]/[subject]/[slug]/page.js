@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
+import ZoomableImage from "@/components/ZoomableImage";
 import { getAllLessons, getLesson } from "@/data/lessons";
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 
@@ -55,8 +56,7 @@ export default async function LessonPage({ params }) {
 
         <article className={styles.card}>
           {lesson.image ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img className={styles.lessonImage} src={lesson.image} alt="" />
+            <ZoomableImage src={lesson.image} alt={lesson.title} />
           ) : null}
 
           {(lesson.sections || []).map((section) => (
