@@ -10,6 +10,7 @@
  * - priroda-tests.js (Човек и природа)
  * - km-tests.js (Компютърно моделиране)
  * - literatura-tests.js (Литература)
+ * - matematika-tests.js (Математика)
  *
  * URL на тест: /test-pilot/клас/предмет/slug
  *
@@ -159,6 +160,8 @@ import {
   LITERATURA_HAYDUTI_RABOTEN_LIST_18_03_2020_QUESTIONS,
   LITERATURA_HAYDUTI_TESTOVI_ZADACHI_PDF_QUESTIONS,
 } from './literatura-tests';
+
+import { MATEMATIKA_6_VHODNO_NIVO_1_QUESTIONS } from './matematika-tests';
 
 const NVO_7_POINTS_BY_QNUM = {
   1: 1,
@@ -725,6 +728,22 @@ const TESTS = {
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
+  '6|matematika|vhodno-nivo-1': {
+    title: 'Математика – Входно ниво 1 (6. клас)',
+    slug: 'vhodno-nivo-1',
+    addedAt: '2026-10-01',
+    questions: MATEMATIKA_6_VHODNO_NIVO_1_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+    gradeScale: [
+      { min: 23, grade: 6, label: 'Отличен 6' },
+      { min: 18, grade: 5, label: 'Много добър 5' },
+      { min: 13, grade: 4, label: 'Добър 4' },
+      { min: 8, grade: 3, label: 'Среден 3' },
+      { min: 0, grade: 2, label: 'Слаб 2' },
+    ],
+  },
+
   '6|km|operacionna-sistema': {
     title: 'Операционна система – тест по урока',
     slug: 'operacionna-sistema',

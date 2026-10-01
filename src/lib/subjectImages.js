@@ -7,6 +7,7 @@ export const SUBJECT_THUMB_SRC = {
   geografia: "/images/geografy.png",
   istoriya: "/images/history.png",
   literatura: "/images/literature.png",
+  matematika: "/images/igri/matematika-drob-procenti.svg",
   priroda: "/images/nature.png",
   km: "/images/km/edinici-informaciya.png",
 };
