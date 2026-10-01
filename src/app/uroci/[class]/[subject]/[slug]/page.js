@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Footer from "@/components/Footer";
+import LessonContent from "@/components/LessonContent";
 import PageHero from "@/components/PageHero";
 import ZoomableImage from "@/components/ZoomableImage";
 import { getAllLessons, getLesson } from "@/data/lessons";
@@ -60,29 +61,11 @@ export default async function LessonPage({ params }) {
         />
 
         <article className={styles.card}>
-          {lesson.intro ? <p className={styles.lessonIntro}>{lesson.intro}</p> : null}
+          <LessonContent intro={lesson.intro} sections={[]} />
           {lesson.image ? (
             <ZoomableImage src={lesson.image} alt={lesson.title} />
           ) : null}
-
-          {(lesson.sections || []).map((section) => (
-            <section key={section.heading} className={styles.section}>
-              <h2 className={styles.sectionTitle}>{section.heading}</h2>
-              {(section.body || []).map((p) => (
-                <p key={p} className={styles.sectionBody}>
-                  {p}
-                </p>
-              ))}
-              {Array.isArray(section.bullets) && section.bullets.length > 0 ? (
-                <ul className={styles.bullets}>
-                  {section.bullets.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              ) : null}
-              {section.tip ? <p className={styles.tip}>{section.tip}</p> : null}
-            </section>
-          ))}
+          <LessonContent sections={lesson.sections} />
 
           <div className={styles.actions}>
             <Link className={`${styles.btn} ${styles.btnGhost}`} href="/uroci">

@@ -29,12 +29,12 @@
   margin: 0 0 16px;
   padding: 12px 14px;
   border-radius: 14px;
-  background: rgba(14, 165, 198, 0.1);
-  border: 1px solid rgba(14, 165, 198, 0.28);
+  background: linear-gradient(135deg, rgba(14, 165, 198, 0.14), rgba(255, 184, 34, 0.16));
+  border: 1px solid rgba(14, 165, 198, 0.32);
   font-size: 16px;
   font-weight: 800;
   line-height: 1.45;
-  color: #0f4c6e;
+  color: #0a5a78;
 }
 
 .lessonImage {
@@ -49,21 +49,57 @@
 
 .section {
   margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px dashed rgba(26, 58, 82, 0.14);
+  padding: 14px 14px 14px 16px;
+  border-radius: 16px;
+  border-top: none;
+  border-left: 4px solid rgba(26, 58, 82, 0.18);
+  background: rgba(248, 251, 255, 0.7);
 }
 
 .section:first-of-type {
   margin-top: 0;
-  padding-top: 0;
-  border-top: none;
 }
 
 .sectionTitle {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   font-size: 20px;
   font-weight: 900;
   color: #1a2b4b;
+}
+
+.tone_default {
+  border-left-color: #0ea5c6;
+}
+
+.tone_default .sectionTitle {
+  color: #0a6d86;
+}
+
+.tone_key {
+  border-left-color: #28a745;
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(255, 248, 220, 0.55));
+}
+
+.tone_key .sectionTitle {
+  color: #1b7a3d;
+}
+
+.tone_vocab {
+  border-left-color: #6f42c1;
+  background: linear-gradient(135deg, rgba(111, 66, 193, 0.08), rgba(248, 251, 255, 0.9));
+}
+
+.tone_vocab .sectionTitle {
+  color: #5a32a3;
+}
+
+.tone_practice {
+  border-left-color: #f5a623;
+  background: linear-gradient(135deg, rgba(245, 166, 35, 0.12), rgba(255, 255, 255, 0.85));
+}
+
+.tone_practice .sectionTitle {
+  color: #a66a00;
 }
 
 .sectionBody {
@@ -72,6 +108,38 @@
   font-weight: 650;
   line-height: 1.55;
   color: rgba(26, 43, 75, 0.88);
+}
+
+.metaphor {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(111, 66, 193, 0.08);
+  border: 1px dashed rgba(111, 66, 193, 0.28);
+  color: #4a2f86;
+}
+
+.metaphorLabel {
+  color: #6f42c1;
+  font-weight: 900;
+}
+
+.hl {
+  color: #0a6d86;
+  background: linear-gradient(180deg, transparent 55%, rgba(255, 208, 74, 0.55) 55%);
+  font-weight: 900;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+
+.quote {
+  color: #b45309;
+  font-weight: 800;
+}
+
+.en {
+  color: #1e62d0;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .bullets {
@@ -84,7 +152,23 @@
 }
 
 .bullets li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+}
+
+.bullets li::marker {
+  color: #0ea5c6;
+}
+
+.tone_key .bullets li::marker {
+  color: #28a745;
+}
+
+.tone_vocab .bullets li::marker {
+  color: #6f42c1;
+}
+
+.tone_practice .bullets li::marker {
+  color: #f5a623;
 }
 
 .tip {
@@ -123,6 +207,37 @@
   background: #fff;
   border: 1px solid rgba(26, 58, 82, 0.14);
   box-shadow: none;
+}
+
+.subjectFilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.subjectPill {
+  appearance: none;
+  border: 1.5px solid rgba(26, 58, 82, 0.16);
+  background: rgba(255, 255, 255, 0.92);
+  color: #1a2b4b;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(10, 35, 70, 0.06);
+}
+
+.subjectPill:hover {
+  border-color: rgba(14, 165, 198, 0.45);
+}
+
+.subjectPillActive {
+  background: linear-gradient(180deg, #3dd16a 0%, #28a745 100%);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(40, 167, 69, 0.28);
 }
 
 .list {
