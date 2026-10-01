@@ -8,6 +8,7 @@
  * - english-tests.js (Английски език)
  * - istoriya-tests.js (История)
  * - priroda-tests.js (Човек и природа)
+ * - km-tests.js (Компютърно моделиране)
  * - literatura-tests.js (Литература)
  *
  * URL на тест: /test-pilot/клас/предмет/slug
@@ -148,6 +149,8 @@ import {
   PRIRODA_VODATA_I_HORATA_QUESTIONS,
   PRIRODA_VOZDUH_QUESTIONS,
 } from './priroda-tests';
+
+import { KM_6_OPERACIONNA_SISTEMA_QUESTIONS } from './km-tests';
 
 import {
   LITERATURA_DA_PROVERIM_VAR1_QUESTIONS,
@@ -719,6 +722,14 @@ const TESTS = {
     title: 'Човек и природа – Входно равнище (6. клас)',
     slug: 'vhodno-ravnishte',
     questions: PRIRODA_6_VHODNO_RAVNISHTE_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '6|km|operacionna-sistema': {
+    title: 'Операционна система – тест по урока',
+    slug: 'operacionna-sistema',
+    addedAt: '2026-10-01',
+    questions: KM_6_OPERACIONNA_SISTEMA_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },

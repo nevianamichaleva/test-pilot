@@ -43,6 +43,11 @@ export default async function LessonPage({ params }) {
   if (!lesson) notFound();
 
   const subjectLabel = SUBJECT_LABELS[lesson.subject] ?? lesson.subject;
+  const relatedTest = lesson.relatedTest;
+  const relatedTestHref =
+    relatedTest?.slug
+      ? `/test-pilot/${encodeURIComponent(lesson.classNum)}/${encodeURIComponent(lesson.subject)}/${encodeURIComponent(relatedTest.slug)}`
+      : null;
 
   return (
     <div className={styles.page}>
@@ -55,6 +60,7 @@ export default async function LessonPage({ params }) {
         />
 
         <article className={styles.card}>
+          {lesson.intro ? <p className={styles.lessonIntro}>{lesson.intro}</p> : null}
           {lesson.image ? (
             <ZoomableImage src={lesson.image} alt={lesson.title} />
           ) : null}
@@ -82,7 +88,12 @@ export default async function LessonPage({ params }) {
             <Link className={`${styles.btn} ${styles.btnGhost}`} href="/uroci">
               ← Всички уроци
             </Link>
-            <Link className={styles.btn} href="/test-pilot?class=6">
+            {relatedTestHref ? (
+              <Link className={styles.btn} href={relatedTestHref}>
+                {relatedTest?.label || "Реши теста по урока"}
+              </Link>
+            ) : null}
+            <Link className={`${styles.btn} ${styles.btnGhost}`} href={`/test-pilot?class=${encodeURIComponent(lesson.classNum)}`}>
               Към тестовете
             </Link>
           </div>
