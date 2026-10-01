@@ -168,6 +168,26 @@
   color: rgba(26, 43, 75, 0.75);
 }
 
+.helpBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  color: #1a2b4b;
+  background: linear-gradient(180deg, #ffd04a 0%, #ffb822 100%);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.helpBtn:hover {
+  filter: brightness(1.03);
+}
+
 .toc {
   list-style: none;
   margin: 0;
@@ -190,6 +210,8 @@
   font-weight: 800;
   font-size: 13px;
   cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
 }
 
 .tocBtn:hover {

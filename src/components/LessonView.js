@@ -42,9 +42,10 @@ function splitGlossary(bullets) {
  *   lesson: object,
  *   subjectLabel: string,
  *   relatedTestHref?: string | null,
+ *   taskHelpHref?: string | null,
  * }} props
  */
-export default function LessonView({ lesson, subjectLabel, relatedTestHref }) {
+export default function LessonView({ lesson, subjectLabel, relatedTestHref, taskHelpHref }) {
   const sections = lesson.sections || [];
   const mainSections = sections.filter((s) => !isVocabSection(s));
   const vocabSection = sections.find((s) => isVocabSection(s));
@@ -139,6 +140,11 @@ export default function LessonView({ lesson, subjectLabel, relatedTestHref }) {
                   Отвори учебника и чети заедно с обясненията вдясно.
                 </p>
               )}
+              {taskHelpHref ? (
+                <Link className={styles.helpBtn} href={taskHelpHref}>
+                  📝 Помощ по задачите
+                </Link>
+              ) : null}
             </div>
           ) : null}
 
@@ -302,6 +308,11 @@ export default function LessonView({ lesson, subjectLabel, relatedTestHref }) {
             <Link className={`${styles.btn} ${styles.btnGhost}`} href="/uroci">
               ← Всички уроци
             </Link>
+            {taskHelpHref ? (
+              <Link className={styles.btn} href={taskHelpHref}>
+                📝 Помощ по задачите
+              </Link>
+            ) : null}
             {relatedTestHref ? (
               <Link className={styles.btn} href={relatedTestHref}>
                 {lesson.relatedTest?.label || "Реши теста по урока"}
