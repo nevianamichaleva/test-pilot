@@ -6,7 +6,7 @@ export default function robots() {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/test-pilot/rezultati"],
+      disallow: ["/test-pilot/rezultati", "/uroci"],
     },
     host: base,
     sitemap: `${base}/sitemap.xml`,

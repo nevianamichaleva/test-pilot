@@ -15,5 +15,12 @@ export const metadata = {
 };
 
 export default function RezultatiLayout({ children }) {
-  return <AdminGate>{children}</AdminGate>;
+  return (
+    <AdminGate
+      title="Админ достъп"
+      description="Въведи парола, за да видиш всички резултати."
+    >
+      {children}
+    </AdminGate>
+  );
 }

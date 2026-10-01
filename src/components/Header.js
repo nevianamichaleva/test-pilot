@@ -12,6 +12,7 @@ const NAV = [
   { href: "/", label: "Начало", match: (p) => p === "/" },
   { href: "/test-pilot", label: "Тестове", match: (p) => p.startsWith("/test-pilot") && !p.includes("/rezultati") },
   { href: "/uroci", label: "Уроци", match: (p) => p.startsWith("/uroci") },
+  { href: "/test-pilot/rezultati", label: "Резултати", match: (p) => p.includes("/rezultati") },
   { href: "/igri", label: "Хайде да поиграем", match: (p) => p.startsWith("/igri") },
   { href: "/za-men", label: "За мен", match: (p) => p.startsWith("/za-men") },
 ];
