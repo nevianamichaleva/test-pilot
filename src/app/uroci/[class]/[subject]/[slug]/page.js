@@ -1,10 +1,7 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import Footer from "@/components/Footer";
-import LessonContent from "@/components/LessonContent";
-import PageHero from "@/components/PageHero";
-import ZoomableImage from "@/components/ZoomableImage";
+import LessonView from "@/components/LessonView";
 import { getAllLessons, getLesson } from "@/data/lessons";
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 
@@ -52,35 +49,12 @@ export default async function LessonPage({ params }) {
 
   return (
     <div className={styles.page}>
-      <main className={styles.wrap}>
-        <PageHero
-          variant="page"
-          title={lesson.title}
-          subtitle={`${lesson.classNum}. клас · ${subjectLabel}${lesson.subtitle ? ` · ${lesson.subtitle}` : ""}`}
-          subtitleVariant="meta"
+      <main className={`${styles.wrap} ${styles.wrapLesson}`}>
+        <LessonView
+          lesson={lesson}
+          subjectLabel={subjectLabel}
+          relatedTestHref={relatedTestHref}
         />
-
-        <article className={styles.card}>
-          <LessonContent intro={lesson.intro} sections={[]} />
-          {lesson.image ? (
-            <ZoomableImage src={lesson.image} alt={lesson.title} />
-          ) : null}
-          <LessonContent sections={lesson.sections} />
-
-          <div className={styles.actions}>
-            <Link className={`${styles.btn} ${styles.btnGhost}`} href="/uroci">
-              ← Всички уроци
-            </Link>
-            {relatedTestHref ? (
-              <Link className={styles.btn} href={relatedTestHref}>
-                {relatedTest?.label || "Реши теста по урока"}
-              </Link>
-            ) : null}
-            <Link className={`${styles.btn} ${styles.btnGhost}`} href={`/test-pilot?class=${encodeURIComponent(lesson.classNum)}`}>
-              Към тестовете
-            </Link>
-          </div>
-        </article>
       </main>
       <Footer />
     </div>

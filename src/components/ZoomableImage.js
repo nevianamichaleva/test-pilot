@@ -1,12 +1,18 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
+import { createPortal } from "react-dom";
 
 import styles from "./ZoomableImage.module.css";
 
 export default function ZoomableImage({ src, alt = "", className = "" }) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const titleId = useId();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -24,6 +30,40 @@ export default function ZoomableImage({ src, alt = "", className = "" }) {
 
   if (!src) return null;
 
+  const lightbox =
+    open && mounted
+      ? createPortal(
+          <div
+            className={styles.overlay}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            onClick={() => setOpen(false)}
+          >
+            <p id={titleId} className={styles.srOnly}>
+              Уголемена картинка
+            </p>
+            <button
+              type="button"
+              className={styles.close}
+              onClick={() => setOpen(false)}
+              aria-label="Затвори"
+            >
+              ×
+            </button>
+            <div
+              className={styles.stage}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className={styles.full} src={src} alt={alt} />
+            </div>
+            <p className={styles.overlayHint}>Кликни извън картинката или Escape за затваряне</p>
+          </div>,
+          document.body
+        )
+      : null;
+
   return (
     <>
       <button
@@ -38,35 +78,7 @@ export default function ZoomableImage({ src, alt = "", className = "" }) {
           кликни за уголемяване
         </span>
       </button>
-
-      {open ? (
-        <div
-          className={styles.overlay}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={titleId}
-          onClick={() => setOpen(false)}
-        >
-          <p id={titleId} className={styles.srOnly}>
-            Уголемена картинка
-          </p>
-          <button
-            type="button"
-            className={styles.close}
-            onClick={() => setOpen(false)}
-            aria-label="Затвори"
-          >
-            ×
-          </button>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            className={styles.full}
-            src={src}
-            alt={alt}
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      ) : null}
+      {lightbox}
     </>
   );
 }

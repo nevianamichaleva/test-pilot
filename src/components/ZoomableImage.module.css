@@ -52,37 +52,51 @@
   position: fixed;
   inset: 0;
   z-index: 10000;
-  display: grid;
-  place-items: center;
-  padding: 24px 16px;
-  background: rgba(8, 16, 28, 0.88);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 56px 12px 20px;
+  background: rgba(8, 16, 28, 0.92);
   cursor: zoom-out;
   animation: fadeIn 0.15s ease;
 }
 
-.full {
-  max-width: min(96vw, 1100px);
-  max-height: 92vh;
-  width: auto;
-  height: auto;
-  object-fit: contain;
+.stage {
+  flex: 1 1 auto;
+  width: min(98vw, 1600px);
+  max-height: calc(100vh - 90px);
+  overflow: auto;
   border-radius: 12px;
+  background: #fff;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
   cursor: default;
-  background: #fff;
+  -webkit-overflow-scrolling: touch;
+}
+
+.full {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  vertical-align: top;
 }
 
 .close {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 44px;
-  height: 44px;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
   border: none;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.96);
   color: #1a2b4b;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
@@ -92,6 +106,13 @@
 .close:hover,
 .close:focus-visible {
   background: #fff;
+}
+
+.overlayHint {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .srOnly {
@@ -117,12 +138,12 @@
 
 @media (max-width: 640px) {
   .overlay {
-    padding: 12px 8px;
+    padding: 52px 6px 12px;
   }
 
-  .full {
-    max-width: 100%;
-    max-height: 88vh;
+  .stage {
+    width: 100%;
+    max-height: calc(100vh - 80px);
     border-radius: 8px;
   }
 }
