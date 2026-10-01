@@ -94,9 +94,9 @@ export default function UrociClient() {
               className={styles.lessonCard}
             >
               <div className={styles.lessonCardThumb}>
-                {l.image ? (
+                {l.image || l.textbookImage ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={l.image} alt="" />
+                  <img src={l.image || l.textbookImage} alt="" />
                 ) : (
                   <span aria-hidden>📘</span>
                 )}
