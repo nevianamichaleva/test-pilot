@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 
 import ZoomableImage from "@/components/ZoomableImage";
+import LessonVisitTracker from "@/components/LessonVisitTracker";
 import {
   getSectionTone,
   renderLessonText,
@@ -84,6 +85,7 @@ export default function LessonView({ lesson, subjectLabel, relatedTestHref, task
 
   return (
     <div className={`${styles.root} ${fontClass}`.trim()}>
+      <LessonVisitTracker lesson={lesson} subjectLabel={subjectLabel} />
       <header className={styles.heroBar}>
         <div className={styles.heroLeft}>
           <span className={styles.heroIcon} aria-hidden>

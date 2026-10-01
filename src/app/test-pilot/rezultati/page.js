@@ -21,6 +21,7 @@ const SUBJECT_LABELS = {
   matematika: "Математика",
   literatura: "Литература",
   priroda: "Човек и природа",
+  km: "Компютърно моделиране",
 };
 
 const SUBJECT_ORDER = ["bg", "english", "geografia", "istoriya", "matematika", "priroda", "literatura"];
@@ -90,6 +91,7 @@ export default function RezultatiPage() {
   const router = useRouter();
   const [results, setResults] = useState([]);
   const [gamePlays, setGamePlays] = useState([]);
+  const [lessonVisits, setLessonVisits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dateFilter, setDateFilter] = useState("7d");
@@ -114,9 +116,10 @@ export default function RezultatiPage() {
           return;
         }
 
-        const [resultsOutcome, gamesOutcome] = await Promise.allSettled([
+        const [resultsOutcome, gamesOutcome, lessonsOutcome] = await Promise.allSettled([
           getDocs(collection(db, "results")),
           getDocs(collection(db, "gamePlayEvents")),
+          getDocs(collection(db, "lessonVisitEvents")),
         ]);
 
         if (cancelled) return;
@@ -185,6 +188,33 @@ export default function RezultatiPage() {
           });
         }
         setGamePlays(plays);
+
+        const visits = [];
+        if (lessonsOutcome.status === "fulfilled") {
+          lessonsOutcome.value.forEach((docSnap) => {
+            const data = docSnap.data();
+            const classNum = data.classNum || "";
+            const subject = data.subject || "";
+            const slug = data.slug || "";
+            visits.push({
+              id: docSnap.id,
+              classNum,
+              subject,
+              subjectLabel: data.subjectLabel || SUBJECT_LABELS[subject] || subject || "–",
+              slug,
+              title: data.title || slug || "Урок",
+              lessonKey: data.lessonKey || `${classNum}|${subject}|${slug}`,
+              startedAtIso: data.startedAtIso || null,
+              createdAt: data.createdAt ?? null,
+            });
+          });
+          visits.sort((a, b) => {
+            const tA = getStartDateFromResult(a)?.getTime() ?? 0;
+            const tB = getStartDateFromResult(b)?.getTime() ?? 0;
+            return tB - tA;
+          });
+        }
+        setLessonVisits(visits);
       } catch (err) {
         if (!cancelled) setError(err?.message || "Грешка при зареждане.");
       } finally {
@@ -223,6 +253,16 @@ export default function RezultatiPage() {
     });
   }, [gamePlays, dateFilter]);
 
+  const filteredLessonVisits = useMemo(() => {
+    if (dateFilter === "all") return lessonVisits;
+    const days = dateFilter === "30d" ? 30 : 7;
+    const from = Date.now() - days * 24 * 60 * 60 * 1000;
+    return lessonVisits.filter((v) => {
+      const d = getStartDateFromResult(v);
+      return d ? d.getTime() >= from : false;
+    });
+  }, [lessonVisits, dateFilter]);
+
   const gameInterest = useMemo(() => {
     const bySlug = new Map();
     for (const play of filteredGamePlays) {
@@ -249,6 +289,32 @@ export default function RezultatiPage() {
     return [...bySlug.values()].sort((a, b) => b.count - a.count || a.title.localeCompare(b.title, "bg"));
   }, [filteredGamePlays]);
 
+  const lessonInterest = useMemo(() => {
+    const byKey = new Map();
+    for (const visit of filteredLessonVisits) {
+      const key = visit.lessonKey || `${visit.classNum}|${visit.subject}|${visit.slug}` || visit.title;
+      const prev = byKey.get(key);
+      if (!prev) {
+        byKey.set(key, {
+          lessonKey: key,
+          title: visit.title,
+          subject: visit.subject,
+          subjectLabel: visit.subjectLabel,
+          classNum: visit.classNum,
+          count: 1,
+          lastVisitedAt: getStartDateFromResult(visit),
+        });
+      } else {
+        prev.count += 1;
+        const d = getStartDateFromResult(visit);
+        if (d && (!prev.lastVisitedAt || d.getTime() > prev.lastVisitedAt.getTime())) {
+          prev.lastVisitedAt = d;
+        }
+      }
+    }
+    return [...byKey.values()].sort((a, b) => b.count - a.count || a.title.localeCompare(b.title, "bg"));
+  }, [filteredLessonVisits]);
+
   const bySubject = {};
   filteredResults.forEach((r) => {
     const sub = r.subject || "друг";
@@ -271,7 +337,8 @@ export default function RezultatiPage() {
     });
   }
 
-  const hasAnyData = filteredResults.length > 0 || filteredGamePlays.length > 0;
+  const hasAnyData =
+    filteredResults.length > 0 || filteredGamePlays.length > 0 || filteredLessonVisits.length > 0;
 
   return (
     <div className={tp.page}>
@@ -279,7 +346,7 @@ export default function RezultatiPage() {
         <PageHero
           variant="page"
           title="Резултати"
-          subtitle="Резултати от тестове и игри (грешно/вярно), плюс интерес към игрите."
+          subtitle="Резултати от тестове и игри, интерес към игрите и кога е влизано в уроците."
           actions={
             <Link href="/test-pilot" className={styles.backLink}>
               Към тестовете <span aria-hidden>›</span>
@@ -291,15 +358,17 @@ export default function RezultatiPage() {
           <p className={`${styles.message} ${styles.messageCenter}`}>Зареждане...</p>
         )}
 
-        {error && !results.length && !gamePlays.length && <p className={styles.messageError}>{error}</p>}
+        {error && !results.length && !gamePlays.length && !lessonVisits.length && (
+          <p className={styles.messageError}>{error}</p>
+        )}
 
         {!loading && !hasAnyData && !error && (
           <p className={`${styles.message} ${styles.messageCenter}`}>
-            Все още няма записани резултати. Тестовете и игрите записват грешно/вярно при завършване; отварянията на игри — при старт.
+            Все още няма записани резултати. Тестовете и игрите записват при завършване; отварянията на игри и уроци — при вход.
           </p>
         )}
 
-        {!loading && (results.length > 0 || gamePlays.length > 0) && (
+        {!loading && (results.length > 0 || gamePlays.length > 0 || lessonVisits.length > 0) && (
           <section className={styles.panel}>
             <div className={styles.panelHeadRow}>
               <h2 className={styles.panelHead}>Филтри</h2>
@@ -331,6 +400,86 @@ export default function RezultatiPage() {
                   ))}
                 </select>
               </label>
+            </div>
+          </section>
+        )}
+
+        {!loading && filteredLessonVisits.length > 0 && (
+          <section className={styles.panel}>
+            <div className={styles.panelHeadRow}>
+              <h2 className={styles.panelHead}>Уроци — кога е влизано</h2>
+              <span className={styles.filterLabel}>
+                {filteredLessonVisits.length}{" "}
+                {filteredLessonVisits.length === 1 ? "влизане" : "влизания"}
+              </span>
+            </div>
+            <div className={styles.tableScroll}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Урок</th>
+                    <th>Предмет</th>
+                    <th>Клас</th>
+                    <th>Влизания</th>
+                    <th>Последно</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lessonInterest.map((l, i) => (
+                    <tr key={l.lessonKey || l.title}>
+                      <td className={styles.cellMuted}>{i + 1}</td>
+                      <td className={styles.cellStrong}>{l.title}</td>
+                      <td>
+                        <span className={styles.subjectCell}>
+                          {SUBJECT_THUMB_SRC[l.subject] ? (
+                            <img
+                              className={styles.subjectThumb}
+                              src={SUBJECT_THUMB_SRC[l.subject]}
+                              alt=""
+                              width={40}
+                              height={40}
+                              decoding="async"
+                            />
+                          ) : null}
+                          <span>{l.subjectLabel}</span>
+                        </span>
+                      </td>
+                      <td>{l.classNum ? `${l.classNum}. клас` : "–"}</td>
+                      <td className={styles.cellStrong}>{l.count}</td>
+                      <td className={styles.cellMuted}>{formatDate(l.lastVisitedAt)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <h3 className={styles.sectionTitle} style={{ marginTop: 20, marginBottom: 10 }}>
+              Последни влизания
+            </h3>
+            <div className={styles.tableScroll}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Кога</th>
+                    <th>Урок</th>
+                    <th>Предмет</th>
+                    <th>Клас</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredLessonVisits.slice(0, 30).map((v) => (
+                    <tr key={v.id}>
+                      <td className={styles.cellMuted}>
+                        {formatDate(getStartDateFromResult(v))}
+                      </td>
+                      <td className={styles.cellStrong}>{v.title}</td>
+                      <td>{v.subjectLabel}</td>
+                      <td>{v.classNum ? `${v.classNum}. клас` : "–"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </section>
         )}
