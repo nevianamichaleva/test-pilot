@@ -127,6 +127,7 @@ import {
   ISTORIA_RIMSKATA_IMPERIA_I_II_V_QUESTIONS,
   ISTORIA_SVAURZVANE_QUESTIONS,
   ISTORIA_UPRAJNENIE,
+  ISTORIA_6_VAVEDENIE_EVROPEYSKO_SREDNOVEKOVIE_QUESTIONS,
   ISTORIA_VHODEN_6_KLAS_QUESTIONS,
   ISTORIA_VHODNO_6_GRUPA1_QUESTIONS,
   ISTORIA_VHODNO_6_GRUPA2_QUESTIONS,
@@ -137,6 +138,7 @@ import {
 } from './istoriya-tests';
 
 import {
+  PRIRODA_6_BEZOPASNOST_NA_DVIZHENIETO_QUESTIONS,
   PRIRODA_6_VHODNO_RAVNISHTE_QUESTIONS,
   PRIRODA_CHP_TEST2_VESHTESTVA_I_TEHNI_SVOYSTVA_QUESTIONS,
   PRIRODA_EDNOKLETACHNI_MNOGOKLETACHNI_QUESTIONS,
@@ -634,6 +636,14 @@ const TESTS = {
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
+  '6|istoriya|vavedenie-v-evropeyskoto-srednovekovie': {
+    title: 'История – Въведение в Европейското Средновековие',
+    slug: 'vavedenie-v-evropeyskoto-srednovekovie',
+    addedAt: '2026-10-02',
+    questions: ISTORIA_6_VAVEDENIE_EVROPEYSKO_SREDNOVEKOVIE_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
   '6|bg|vhodno-ravnishte-var1': {
     title: 'БЕЛ – Входно равнище, вариант 1 (6. клас)',
     slug: 'vhodno-ravnishte-var1',
@@ -725,6 +735,14 @@ const TESTS = {
     title: 'Човек и природа – Входно равнище (6. клас)',
     slug: 'vhodno-ravnishte',
     questions: PRIRODA_6_VHODNO_RAVNISHTE_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '6|priroda|bezopasnost-na-dvizhenieto': {
+    title: 'Човек и природа – Безопасност на движението',
+    slug: 'bezopasnost-na-dvizhenieto',
+    addedAt: '2026-10-02',
+    questions: PRIRODA_6_BEZOPASNOST_NA_DVIZHENIETO_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
