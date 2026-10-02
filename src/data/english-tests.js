@@ -2556,3 +2556,346 @@ export const ENGLISH_6_UNIT_TEST_1A_QUESTIONS = [
     acceptedAnswers: ['want'],
   },
 ];
+
+/**
+ * Unit test 1B (6. клас) – Present simple, have got, there is/are,
+ * present continuous, countries/nationalities, family & jobs, go/ride/play,
+ * describing a person, function dialogue.
+ * Total: 50 marks (45 scored items; examples excluded).
+ */
+export const ENGLISH_6_UNIT_TEST_1B_QUESTIONS = [
+  // —— 1. Present simple ——
+  {
+    type: 'text',
+    q: '1. A: Do you live in London?\nB: No, I ___.',
+    correct: "don't",
+    acceptedAnswers: ["don't", 'dont', 'do not'],
+  },
+  {
+    type: 'text',
+    q: '1. A: ___ (you / know) Alison?',
+    correct: 'Do you know',
+    acceptedAnswers: ['Do you know', 'do you know'],
+  },
+  {
+    type: 'text',
+    q: '1. B: Yes, I ___.',
+    correct: 'do',
+    acceptedAnswers: ['do'],
+  },
+  {
+    type: 'text',
+    q: '1. A: ___ (she / live) near you?',
+    correct: 'Does she live',
+    acceptedAnswers: ['Does she live', 'does she live'],
+  },
+  {
+    type: 'text',
+    q: '1. B: Yes, she ___ (live) in my street.',
+    correct: 'lives',
+    acceptedAnswers: ['lives'],
+  },
+
+  // —— 2. have got ——
+  {
+    type: 'text',
+    q: '2. Write a question: Lucy and Mark / a car?',
+    correct: 'Have Lucy and Mark got a car?',
+    acceptedAnswers: [
+      'Have Lucy and Mark got a car?',
+      'Have Lucy and Mark got a car',
+      'have Lucy and Mark got a car?',
+      'Have they got a car?',
+      'Have they got a car',
+    ],
+  },
+  {
+    type: 'text',
+    q: "2. B: No, they ___. (have got – short answer)",
+    correct: "haven't",
+    acceptedAnswers: ["haven't", 'havent', 'have not'],
+  },
+  {
+    type: 'text',
+    q: '2. Write a negative sentence: She / not / long hair',
+    correct: "She hasn't got long hair.",
+    acceptedAnswers: [
+      "She hasn't got long hair.",
+      "She hasn't got long hair",
+      'She has not got long hair.',
+      'She has not got long hair',
+    ],
+  },
+  {
+    type: 'text',
+    q: '2. Write a question: your brother / a camera?',
+    correct: 'Has your brother got a camera?',
+    acceptedAnswers: [
+      'Has your brother got a camera?',
+      'Has your brother got a camera',
+      'has your brother got a camera?',
+      'Has he got a camera?',
+      'Has he got a camera',
+    ],
+  },
+  {
+    type: 'text',
+    q: '2. B: Yes, he ___. (have got – short answer)',
+    correct: 'has',
+    acceptedAnswers: ['has', "he's", 'he has'],
+  },
+
+  // —— 3. there is / are ——
+  {
+    type: 'text',
+    q: '3. A: ___ a phone in your bag?',
+    correct: 'Is there',
+    acceptedAnswers: ['Is there', 'is there'],
+  },
+  {
+    type: 'text',
+    q: "3. B: No, ___.",
+    correct: "there isn't",
+    acceptedAnswers: ["there isn't", 'there isnt', 'there is not', "There isn't"],
+  },
+  {
+    type: 'text',
+    q: '3. B: ___ two sandwiches in my bag.',
+    correct: 'There are',
+    acceptedAnswers: ['There are', 'there are'],
+  },
+  {
+    type: 'text',
+    q: '3. A: ___ food on the table?',
+    correct: 'Is there',
+    acceptedAnswers: ['Is there', 'is there'],
+  },
+  {
+    type: 'text',
+    q: '3. B: Yes, ___.',
+    correct: 'there is',
+    acceptedAnswers: ['there is', "there's", 'There is', "There's"],
+  },
+
+  // —— 4. Present continuous ——
+  {
+    type: 'text',
+    q: '4. Verbs: do, eat, sit, watch.\nA: What is Naomi doing?\nB: She ___ in the park.',
+    correct: "'s sitting",
+    acceptedAnswers: ["'s sitting", 'is sitting', 's sitting'],
+  },
+  {
+    type: 'text',
+    q: '4. A: ___ she ___ lunch? (eat)',
+    correct: 'Is she eating',
+    acceptedAnswers: ['Is she eating', 'is she eating'],
+  },
+  {
+    type: 'text',
+    q: "4. B: No, she ___.",
+    correct: "isn't",
+    acceptedAnswers: ["isn't", 'isnt', 'is not'],
+  },
+  {
+    type: 'text',
+    q: '4. A: ___ you ___ TV? (watch)',
+    correct: 'Are you watching',
+    acceptedAnswers: ['Are you watching', 'are you watching'],
+  },
+  {
+    type: 'text',
+    q: "4. B: No, I ___.",
+    correct: "'m not",
+    acceptedAnswers: ["'m not", 'am not', "I'm not", 'im not'],
+  },
+
+  // —— 5. Country / nationality ——
+  {
+    type: 'text',
+    q: '5. Jessica is Mexican. She is from ___.',
+    correct: 'Mexico',
+    acceptedAnswers: ['Mexico', 'mexico'],
+  },
+  {
+    type: 'text',
+    q: '5. Hideki is from Japan. He is ___.',
+    correct: 'Japanese',
+    acceptedAnswers: ['Japanese', 'japanese'],
+  },
+  {
+    type: 'text',
+    q: '5. Mark is from the USA. He is ___.',
+    correct: 'American',
+    acceptedAnswers: ['American', 'american'],
+  },
+  {
+    type: 'text',
+    q: '5. Mika is Canadian. She is from ___.',
+    correct: 'Canada',
+    acceptedAnswers: ['Canada', 'canada'],
+  },
+  {
+    type: 'text',
+    q: '5. Isabel is from Brazil. She is ___.',
+    correct: 'Brazilian',
+    acceptedAnswers: ['Brazilian', 'brazilian'],
+  },
+
+  // —— 6. Family & jobs (MC) ——
+  {
+    q: '6. Marina is my grandmother. Her daughter is my ___.',
+    options: ['a) sister', 'b) granddaughter', 'c) mother'],
+    correct: 'c) mother',
+  },
+  {
+    q: '6. Fernando is my cousin. His father is my ___.',
+    options: ['a) brother', 'b) uncle', 'c) grandfather'],
+    correct: 'b) uncle',
+  },
+  {
+    q: '6. Louisa is my aunt. My mother is her ___.',
+    options: ['a) sister', 'b) cousin', 'c) daughter'],
+    correct: 'a) sister',
+  },
+  {
+    q: "6. Jacky makes tables and chairs. He's a ___.",
+    options: ['a) dentist', 'b) carpenter', 'c) vet'],
+    correct: 'b) carpenter',
+  },
+  {
+    q: "6. Ellen puts on make-up. She's a ___.",
+    options: ['a) politician', 'b) engineer', 'c) beautician'],
+    correct: 'c) beautician',
+  },
+
+  // —— 7. go / ride / play ——
+  {
+    type: 'text',
+    q: '7. Word box: a bike, football, the guitar, a horse, jogging, shopping.\ngo: jogging (example). go: ___',
+    correct: 'shopping',
+    acceptedAnswers: ['shopping'],
+  },
+  {
+    type: 'text',
+    q: '7. ride: write one from the box.',
+    correct: 'a bike',
+    acceptedAnswers: ['a bike', 'bike', 'a horse', 'horse'],
+  },
+  {
+    type: 'text',
+    q: '7. ride: write the other from the box.',
+    correct: 'a horse',
+    acceptedAnswers: ['a bike', 'bike', 'a horse', 'horse'],
+  },
+  {
+    type: 'text',
+    q: '7. play: write one from the box.',
+    correct: 'football',
+    acceptedAnswers: ['football', 'the guitar', 'guitar'],
+  },
+  {
+    type: 'text',
+    q: '7. play: write the other from the box.',
+    correct: 'the guitar',
+    acceptedAnswers: ['football', 'the guitar', 'guitar'],
+  },
+
+  // —— 8. Describe the woman ——
+  {
+    q: '8. Look at the woman: Her hair is ___.',
+    options: ['long', 'short'],
+    correct: 'long',
+    imageSrc: '/images/english/unit-test-1b-woman.jpg',
+    imageAlt: 'A young woman with long hair and glasses',
+  },
+  {
+    q: '8. She ___ got glasses.',
+    options: ['has', "hasn't"],
+    correct: 'has',
+    imageSrc: '/images/english/unit-test-1b-woman.jpg',
+    imageAlt: 'A young woman with long hair and glasses',
+  },
+  {
+    q: '8. She ___ smiling.',
+    options: ['is', "isn't"],
+    correct: 'is',
+    imageSrc: '/images/english/unit-test-1b-woman.jpg',
+    imageAlt: 'A young woman with long hair and glasses',
+  },
+  {
+    q: '8. Her hair is ___.',
+    options: ['straight', 'curly'],
+    correct: 'straight',
+    imageSrc: '/images/english/unit-test-1b-woman.jpg',
+    imageAlt: 'A young woman with long hair and glasses',
+  },
+  {
+    q: '8. Her hair is ___.',
+    options: ['light', 'dark'],
+    correct: 'light',
+    imageSrc: '/images/english/unit-test-1b-woman.jpg',
+    imageAlt: 'A young woman with long hair and glasses',
+  },
+
+  // —— 9. Function dialogue ——
+  {
+    type: 'text',
+    q: "9. Words: name, from, great, like, Let's, often, times, can, When, Who, you.\nA: Hi! What's your name?\nB: I'm Katriona. How about ___?",
+    correct: 'you',
+    acceptedAnswers: ['you'],
+  },
+  {
+    type: 'text',
+    q: "9. A: My name's Fernando. I'm ___ Italy.",
+    correct: 'from',
+    acceptedAnswers: ['from'],
+  },
+  {
+    type: 'text',
+    q: '9. B: What sports ___ you play?',
+    correct: 'can',
+    acceptedAnswers: ['can'],
+  },
+  {
+    type: 'text',
+    q: '9. B: Really? How ___ do you play?',
+    correct: 'often',
+    acceptedAnswers: ['often'],
+  },
+  {
+    type: 'text',
+    q: '9. A: About three ___ a week.',
+    correct: 'times',
+    acceptedAnswers: ['times'],
+  },
+  {
+    type: 'text',
+    q: "9. B: ___'s your favourite tennis player?",
+    correct: 'Who',
+    acceptedAnswers: ['Who', 'who'],
+  },
+  {
+    type: 'text',
+    q: "9. A: Rafael Nadal. He's ___!",
+    correct: 'great',
+    acceptedAnswers: ['great'],
+  },
+  {
+    type: 'text',
+    q: '9. B: Do you ___ this school?',
+    correct: 'like',
+    acceptedAnswers: ['like'],
+  },
+  {
+    type: 'text',
+    q: '9. A: It\'s nice! ___ do you finish your lessons?',
+    correct: 'When',
+    acceptedAnswers: ['When', 'when'],
+  },
+  {
+    type: 'text',
+    q: "9. A: ___ go for an ice cream after school!",
+    correct: "Let's",
+    acceptedAnswers: ["Let's", 'Lets', "let's", 'lets'],
+  },
+];
