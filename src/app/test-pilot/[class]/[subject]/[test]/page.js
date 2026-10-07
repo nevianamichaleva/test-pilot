@@ -1,6 +1,8 @@
+import AdminGate from "@/components/AdminGate";
 import Footer from "@/components/Footer";
 import Quiz from "@/components/Quiz";
 import { getTest } from "@/data/tests";
+import { isTestSubjectLocked } from "@/lib/adminAccess";
 import { getTestListThumbnailSrc } from "@/lib/subjectImages";
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
 import Link from "next/link";
@@ -91,7 +93,7 @@ export default async function TestPage({ params }) {
     slug: testSlug,
   });
 
-  return (
+  const content = (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <Quiz
         title={testData.title}
@@ -109,4 +111,18 @@ export default async function TestPage({ params }) {
       <Footer />
     </div>
   );
+
+  if (isTestSubjectLocked(subject)) {
+    return (
+      <AdminGate
+        title="Достъп до теста"
+        description="Тестовете по български и английски са само за разрешени акаунти или с админска парола."
+        allowLessonsEmail
+      >
+        {content}
+      </AdminGate>
+    );
+  }
+
+  return content;
 }
