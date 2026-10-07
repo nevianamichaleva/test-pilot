@@ -74,6 +74,7 @@ import {
 
 import {
   GEOGRAFIA_6_VHODNO_NIVO_QUESTIONS,
+  GEOGRAFIA_6_VHODNO_RAVNISHTE_VAR1_QUESTIONS,
   GEOGRAFIA_AFRIKA_IZHODYASHTO_NIVO_QUESTIONS,
   GEOGRAFIA_AFRIKA_NASELENIE_POLITICHESKA_KARTA_10_PLUS_2_QUESTIONS,
   GEOGRAFIA_DOPALNITELNI_QUESTIONS,
@@ -510,6 +511,21 @@ const TESTS = {
       { min: 23, grade: 5, label: 'Много добър 5' },
       { min: 16, grade: 4, label: 'Добър 4' },
       { min: 10, grade: 3, label: 'Среден 3' },
+      { min: 0, grade: 2, label: 'Слаб 2' },
+    ],
+  },
+  '6|geografia|vhodno-ravnishte-var1': {
+    title: 'География – Входно равнище, Вариант I (6. клас)',
+    slug: 'vhodno-ravnishte-var1',
+    addedAt: '2026-10-07',
+    questions: GEOGRAFIA_6_VHODNO_RAVNISHTE_VAR1_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+    gradeScale: [
+      { min: 31, grade: 6, label: 'Отличен 6' },
+      { min: 25, grade: 5, label: 'Много добър 5' },
+      { min: 19, grade: 4, label: 'Добър 4' },
+      { min: 12, grade: 3, label: 'Среден 3' },
       { min: 0, grade: 2, label: 'Слаб 2' },
     ],
   },
