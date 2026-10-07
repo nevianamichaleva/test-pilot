@@ -2899,3 +2899,677 @@ export const ENGLISH_6_UNIT_TEST_1B_QUESTIONS = [
     acceptedAnswers: ["Let's", 'Lets', "let's", 'lets'],
   },
 ];
+
+/**
+ * Unit test 2A (6. клас) – Present simple/continuous, verb+gerund,
+ * quantifiers, sports, sports places, food, suggestions.
+ */
+export const ENGLISH_6_UNIT_TEST_2A_QUESTIONS = [
+  // —— 1. Present simple / continuous ——
+  {
+    type: 'text',
+    q: '1. They ___ dinner right now. (eat)',
+    correct: 'are eating',
+    acceptedAnswers: ['are eating', "'re eating", 're eating'],
+  },
+  {
+    type: 'text',
+    q: '1. Kylie ___ her computer at the moment. (not use)',
+    correct: "isn't using",
+    acceptedAnswers: ["isn't using", 'isnt using', 'is not using', "'s not using"],
+  },
+  {
+    type: 'text',
+    q: '1. My friend sometimes ___ articles for a magazine. (write)',
+    correct: 'writes',
+    acceptedAnswers: ['writes'],
+  },
+  {
+    type: 'text',
+    q: '1. We ___ up early on Sundays. (not get)',
+    correct: "don't get",
+    acceptedAnswers: ["don't get", 'dont get', 'do not get'],
+  },
+  {
+    type: 'text',
+    q: '1. Tony ___ to school by bus every day. (go)',
+    correct: 'goes',
+    acceptedAnswers: ['goes'],
+  },
+  {
+    type: 'text',
+    q: '1. My mum ___ music at my school every week. (teach)',
+    correct: 'teaches',
+    acceptedAnswers: ['teaches'],
+  },
+  {
+    type: 'text',
+    q: '1. Jake and Luisa ___ in the garden today. (work)',
+    correct: 'are working',
+    acceptedAnswers: ['are working', "'re working", 're working'],
+  },
+  {
+    type: 'text',
+    q: '1. Greg usually ___ to bed early. (not go)',
+    correct: "doesn't go",
+    acceptedAnswers: ["doesn't go", 'doesnt go', 'does not go'],
+  },
+
+  // —— 2. Verb + gerund ——
+  {
+    type: 'text',
+    q: '2. I ___ to school in the morning. (cycle, not mind)',
+    correct: "don't mind cycling",
+    acceptedAnswers: ["don't mind cycling", 'dont mind cycling', 'do not mind cycling'],
+  },
+  {
+    type: 'text',
+    q: '2. My sister ___ in the park. (run, love)',
+    correct: 'loves running',
+    acceptedAnswers: ['loves running', 'love running'],
+  },
+  {
+    type: 'text',
+    q: '2. We ___ football in the rain. (play, not like)',
+    correct: "don't like playing",
+    acceptedAnswers: ["don't like playing", 'dont like playing', 'do not like playing'],
+  },
+  {
+    type: 'text',
+    q: '2. Jessie ___ team sports. (do, hate)',
+    correct: 'hates doing',
+    acceptedAnswers: ['hates doing', 'hate doing'],
+  },
+  {
+    type: 'text',
+    q: '2. Max and Lisa ___ in the sea. (swim, enjoy)',
+    correct: 'enjoy swimming',
+    acceptedAnswers: ['enjoy swimming', 'enjoys swimming'],
+  },
+  {
+    type: 'text',
+    q: '2. My dad ___ to ice skating. (ski, prefer)',
+    correct: 'prefers skiing',
+    acceptedAnswers: ['prefers skiing', 'prefer skiing'],
+  },
+
+  // —— 3. Choose the correct options ——
+  {
+    q: "3. There isn't ___ milk.",
+    options: ['some', 'any'],
+    correct: 'any',
+  },
+  {
+    q: '3. ___ there any tomatoes?',
+    options: ['Is', 'Are'],
+    correct: 'Are',
+  },
+  {
+    q: '3. There ___ no mushrooms.',
+    options: ['are', "aren't"],
+    correct: 'are',
+  },
+  {
+    q: '3. There ___ some yoghurt.',
+    options: ['is', 'are'],
+    correct: 'is',
+  },
+  {
+    q: '3. There ___ any milk.',
+    options: ["isn't", 'is'],
+    correct: "isn't",
+  },
+  {
+    q: "3. We haven't got ___ lettuce.",
+    options: ['any', 'no'],
+    correct: 'any',
+  },
+
+  // —— 4. Write the sports ——
+  {
+    type: 'text',
+    q: '4. Look at the pictures. Write the sport for picture 1 (person on a board with a sail on water).',
+    correct: 'windsurfing',
+    acceptedAnswers: ['windsurfing', 'Windsurfing', 'wind surfing'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2A',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 2 (two people in martial arts uniforms).',
+    correct: 'judo',
+    acceptedAnswers: ['judo', 'Judo', 'karate', 'Karate'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2A',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 3 (small racing cars / go-karts).',
+    correct: 'karting',
+    acceptedAnswers: ['karting', 'Karting', 'go-karting', 'go karting', 'go-karting'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2A',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 4 (person on a bicycle).',
+    correct: 'cycling',
+    acceptedAnswers: ['cycling', 'Cycling', 'bike riding', 'riding a bike'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2A',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 5 (person on a skateboard).',
+    correct: 'skateboarding',
+    acceptedAnswers: ['skateboarding', 'Skateboarding', 'skateboarding'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2A',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 6 (people hiking / walking with backpacks).',
+    correct: 'hiking',
+    acceptedAnswers: ['hiking', 'Hiking', 'rollerblading', 'Rollerblading', 'skating', 'Skating', 'roller skating'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2A',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 7 (person on skis).',
+    correct: 'skiing',
+    acceptedAnswers: ['skiing', 'Skiing'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2A',
+  },
+
+  // —— 5. Sports places / verbs ——
+  {
+    q: '5. a swimming ___',
+    options: ['a) pitch', 'b) pool', 'c) rink'],
+    correct: 'b) pool',
+  },
+  {
+    q: '5. a boxing ___',
+    options: ['a) pool', 'b) ring', 'c) rink'],
+    correct: 'b) ring',
+  },
+  {
+    q: '5. a basketball ___',
+    options: ['a) court', 'b) course', 'c) pitch'],
+    correct: 'a) court',
+  },
+  {
+    q: '5. a golf ___',
+    options: ['a) pitch', 'b) course', 'c) rink'],
+    correct: 'b) course',
+  },
+  {
+    q: '5. an ice-skating ___',
+    options: ['a) pool', 'b) track', 'c) rink'],
+    correct: 'c) rink',
+  },
+  {
+    q: '5. a karting ___',
+    options: ['a) track', 'b) pitch', 'c) course'],
+    correct: 'a) track',
+  },
+  {
+    q: '5. ___ rugby',
+    options: ['a) do', 'b) go', 'c) play'],
+    correct: 'c) play',
+  },
+  {
+    q: '5. ___ running',
+    options: ['a) do', 'b) go', 'c) play'],
+    correct: 'b) go',
+  },
+
+  // —— 6. Food in the fridge ——
+  {
+    type: 'text',
+    q: '6. Words: beans, beef, cream, olives, strawberries, yoghurt.\nLook at the fridge. What is number 1?',
+    correct: 'yoghurt',
+    acceptedAnswers: ['yoghurt', 'Yoghurt', 'yogurt', 'Yogurt'],
+    imageSrc: '/images/english/unit-test-2a-fridge.jpg',
+    imageAlt: 'Fridge picture for Unit test 2A',
+  },
+  {
+    type: 'text',
+    q: '6. What is number 2 in the fridge?',
+    correct: 'olives',
+    acceptedAnswers: ['olives', 'Olives'],
+    imageSrc: '/images/english/unit-test-2a-fridge.jpg',
+    imageAlt: 'Fridge picture for Unit test 2A',
+  },
+  {
+    type: 'text',
+    q: '6. What is number 3 in the fridge?',
+    correct: 'strawberries',
+    acceptedAnswers: ['strawberries', 'Strawberries'],
+    imageSrc: '/images/english/unit-test-2a-fridge.jpg',
+    imageAlt: 'Fridge picture for Unit test 2A',
+  },
+  {
+    type: 'text',
+    q: '6. What is number 4 in the fridge?',
+    correct: 'beans',
+    acceptedAnswers: ['beans', 'Beans'],
+    imageSrc: '/images/english/unit-test-2a-fridge.jpg',
+    imageAlt: 'Fridge picture for Unit test 2A',
+  },
+  {
+    type: 'text',
+    q: '6. What is number 5 in the fridge?',
+    correct: 'beef',
+    acceptedAnswers: ['beef', 'Beef'],
+    imageSrc: '/images/english/unit-test-2a-fridge.jpg',
+    imageAlt: 'Fridge picture for Unit test 2A',
+  },
+
+  // —— 7. Function ——
+  {
+    type: 'text',
+    q: "7. Words: about, do, don't, fancy, feel, good, idea, Let's, shall, That's, What.\nLiz: What shall we ___ this weekend?",
+    correct: 'do',
+    acceptedAnswers: ['do'],
+  },
+  {
+    type: 'text',
+    q: '7. Tim: ___ about going to the funfair?',
+    correct: 'What',
+    acceptedAnswers: ['What', 'what', 'How', 'how'],
+  },
+  {
+    type: 'text',
+    q: "7. Liz: No, I don't ___ like it.",
+    correct: 'feel',
+    acceptedAnswers: ['feel'],
+  },
+  {
+    type: 'text',
+    q: "7. Liz: Why ___ we go ice-skating?",
+    correct: "don't",
+    acceptedAnswers: ["don't", 'dont', 'do not'],
+  },
+  {
+    type: 'text',
+    q: '7. Tim: Good ___!',
+    correct: 'idea',
+    acceptedAnswers: ['idea'],
+  },
+  {
+    type: 'text',
+    q: '7. Jamie: How ___ going for a walk this weekend?',
+    correct: 'about',
+    acceptedAnswers: ['about'],
+  },
+  {
+    type: 'text',
+    q: "7. Alex: ___ a bit boring.",
+    correct: "That's",
+    acceptedAnswers: ["That's", 'Thats', "that's", 'thats'],
+  },
+  {
+    type: 'text',
+    q: '7. Alex: Do you ___ going to the beach?',
+    correct: 'fancy',
+    acceptedAnswers: ['fancy'],
+  },
+  {
+    type: 'text',
+    q: "7. Jamie: That's a ___ idea.",
+    correct: 'good',
+    acceptedAnswers: ['good'],
+  },
+  {
+    type: 'text',
+    q: '7. Jamie: ___ ask Sam to come, too!',
+    correct: "Let's",
+    acceptedAnswers: ["Let's", 'Lets', "let's", 'lets'],
+  },
+];
+
+/**
+ * Unit test 2B (6. клас) – Present simple/continuous, verb+gerund,
+ * quantifiers, sports, sports places, food, suggestions.
+ */
+export const ENGLISH_6_UNIT_TEST_2B_QUESTIONS = [
+  // —— 1. Present simple / continuous ——
+  {
+    type: 'text',
+    q: '1. Julie and Anna ___ dinner on Saturdays. (cook)',
+    correct: 'cook',
+    acceptedAnswers: ['cook'],
+  },
+  {
+    type: 'text',
+    q: '1. My dad ___ to work every day. (drive)',
+    correct: 'drives',
+    acceptedAnswers: ['drives'],
+  },
+  {
+    type: 'text',
+    q: '1. We ___ out on weekdays. (not eat)',
+    correct: "don't eat",
+    acceptedAnswers: ["don't eat", 'dont eat', 'do not eat'],
+  },
+  {
+    type: 'text',
+    q: '1. I ___ football at school every day. (play)',
+    correct: 'play',
+    acceptedAnswers: ['play'],
+  },
+  {
+    type: 'text',
+    q: '1. Tina ___ TV right now. (watch)',
+    correct: 'is watching',
+    acceptedAnswers: ['is watching', "'s watching", 's watching'],
+  },
+  {
+    type: 'text',
+    q: '1. We ___ art at my school. (not study)',
+    correct: "don't study",
+    acceptedAnswers: ["don't study", 'dont study', 'do not study'],
+  },
+  {
+    type: 'text',
+    q: '1. Max ___ on weekends. (not work)',
+    correct: "doesn't work",
+    acceptedAnswers: ["doesn't work", 'doesnt work', 'does not work'],
+  },
+  {
+    type: 'text',
+    q: '1. Max ___ at the moment. (not work)',
+    correct: "isn't working",
+    acceptedAnswers: ["isn't working", 'isnt working', 'is not working', "'s not working"],
+  },
+
+  // —— 2. Verb + gerund ——
+  {
+    type: 'text',
+    q: '2. Jim and Kyla ___ in the pool. (swim, enjoy)',
+    correct: 'enjoy swimming',
+    acceptedAnswers: ['enjoy swimming', 'enjoys swimming'],
+  },
+  {
+    type: 'text',
+    q: '2. Nick ___ in hot weather. (run, hate)',
+    correct: 'hates running',
+    acceptedAnswers: ['hates running', 'hate running'],
+  },
+  {
+    type: 'text',
+    q: '2. We ___ football in the rain. (play, not mind)',
+    correct: "don't mind playing",
+    acceptedAnswers: ["don't mind playing", 'dont mind playing', 'do not mind playing'],
+  },
+  {
+    type: 'text',
+    q: '2. Jessie ___ to golf. (ice-skate, prefer)',
+    correct: 'prefers ice-skating',
+    acceptedAnswers: [
+      'prefers ice-skating',
+      'prefer ice-skating',
+      'prefers ice skating',
+      'prefer ice skating',
+      'prefers iceskating',
+    ],
+  },
+  {
+    type: 'text',
+    q: '2. I ___ over on the ice. (fall, hate)',
+    correct: 'hate falling',
+    acceptedAnswers: ['hate falling', 'hates falling'],
+  },
+  {
+    type: 'text',
+    q: '2. My friends ___ team sports. (do, not like)',
+    correct: "don't like doing",
+    acceptedAnswers: ["don't like doing", 'dont like doing', 'do not like doing'],
+  },
+
+  // —— 3. Choose the correct options ——
+  {
+    q: '3. Is there ___ bread?',
+    options: ['a', 'any'],
+    correct: 'any',
+  },
+  {
+    q: '3. ___ there any mushrooms?',
+    options: ['Is', 'Are'],
+    correct: 'Are',
+  },
+  {
+    q: '3. There ___ any chicken.',
+    options: ['is', "isn't"],
+    correct: "isn't",
+  },
+  {
+    q: '3. There ___ some strawberries.',
+    options: ['is', 'are'],
+    correct: 'are',
+  },
+  {
+    q: '3. Have you got ___ yoghurt?',
+    options: ['a', 'any'],
+    correct: 'any',
+  },
+  {
+    q: '3. There is ___ cake.',
+    options: ['any', 'no'],
+    correct: 'no',
+  },
+
+  // —— 4. Write the sports ——
+  {
+    type: 'text',
+    q: '4. Look at the pictures. Write the sport for picture 1 (person swimming).',
+    correct: 'swimming',
+    acceptedAnswers: ['swimming', 'Swimming', 'running', 'Running'],
+    imageSrc: '/images/english/unit-test-2b-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2B',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 2 (go-karts / motor racing).',
+    correct: 'karting',
+    acceptedAnswers: [
+      'karting',
+      'Karting',
+      'go-karting',
+      'go karting',
+      'motor racing',
+      'Motor racing',
+      'motorbike racing',
+    ],
+    imageSrc: '/images/english/unit-test-2b-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2B',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 3 (two people in martial arts uniforms / judo).',
+    correct: 'judo',
+    acceptedAnswers: ['judo', 'Judo', 'karate', 'Karate', 'tennis', 'Tennis'],
+    imageSrc: '/images/english/unit-test-2b-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2B',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 4 (person on a skateboard).',
+    correct: 'skateboarding',
+    acceptedAnswers: ['skateboarding', 'Skateboarding'],
+    imageSrc: '/images/english/unit-test-2b-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2B',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 5 (person on a board with a sail).',
+    correct: 'windsurfing',
+    acceptedAnswers: ['windsurfing', 'Windsurfing', 'wind surfing', 'sailing', 'Sailing'],
+    imageSrc: '/images/english/unit-test-2b-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2B',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 6 (person on skis).',
+    correct: 'skiing',
+    acceptedAnswers: ['skiing', 'Skiing'],
+    imageSrc: '/images/english/unit-test-2b-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2B',
+  },
+  {
+    type: 'text',
+    q: '4. Picture 7 (person on a bicycle).',
+    correct: 'cycling',
+    acceptedAnswers: ['cycling', 'Cycling', 'bike riding', 'riding a bike'],
+    imageSrc: '/images/english/unit-test-2b-sports.jpg',
+    imageAlt: 'Sports pictures for Unit test 2B',
+  },
+
+  // —— 5. Sports places / verbs ——
+  {
+    q: '5. a ___ pool',
+    options: ['a) skating', 'b) swimming', 'c) golf'],
+    correct: 'b) swimming',
+  },
+  {
+    q: '5. a ___ track',
+    options: ['a) karting', 'b) golf', 'c) football'],
+    correct: 'a) karting',
+  },
+  {
+    q: '5. a ___ court',
+    options: ['a) boxing', 'b) basketball', 'c) skating'],
+    correct: 'b) basketball',
+  },
+  {
+    q: '5. a ___ rink',
+    options: ['a) golf', 'b) swimming', 'c) skating'],
+    correct: 'c) skating',
+  },
+  {
+    q: '5. a ___ course',
+    options: ['a) basketball', 'b) golf', 'c) skating'],
+    correct: 'b) golf',
+  },
+  {
+    q: '5. a ___ ring',
+    options: ['a) boxing', 'b) basketball', 'c) karting'],
+    correct: 'a) boxing',
+  },
+  {
+    q: '5. go ___',
+    options: ['a) cycling', 'b) gymnastics', 'c) tennis'],
+    correct: 'a) cycling',
+  },
+  {
+    q: '5. do ___',
+    options: ['a) basketball', 'b) athletics', 'c) swimming'],
+    correct: 'b) athletics',
+  },
+
+  // —— 6. Food in the fridge ——
+  {
+    type: 'text',
+    q: '6. Words: cake, cream, lettuce, mushrooms, olive oil, pears.\nLook at the fridge. What is number 1?',
+    correct: 'cake',
+    acceptedAnswers: ['cake', 'Cake', 'olive oil', 'Olive oil'],
+    imageSrc: '/images/english/unit-test-2b-fridge.jpg',
+    imageAlt: 'Fridge picture for Unit test 2B',
+  },
+  {
+    type: 'text',
+    q: '6. What is number 2 in the fridge?',
+    correct: 'pears',
+    acceptedAnswers: ['pears', 'Pears'],
+    imageSrc: '/images/english/unit-test-2b-fridge.jpg',
+    imageAlt: 'Fridge picture for Unit test 2B',
+  },
+  {
+    type: 'text',
+    q: '6. What is number 3 in the fridge?',
+    correct: 'olive oil',
+    acceptedAnswers: ['olive oil', 'Olive oil', 'mushrooms', 'Mushrooms'],
+    imageSrc: '/images/english/unit-test-2b-fridge.jpg',
+    imageAlt: 'Fridge picture for Unit test 2B',
+  },
+  {
+    type: 'text',
+    q: '6. What is number 4 in the fridge?',
+    correct: 'lettuce',
+    acceptedAnswers: ['lettuce', 'Lettuce', 'cake', 'Cake'],
+    imageSrc: '/images/english/unit-test-2b-fridge.jpg',
+    imageAlt: 'Fridge picture for Unit test 2B',
+  },
+  {
+    type: 'text',
+    q: '6. What is number 5 in the fridge?',
+    correct: 'mushrooms',
+    acceptedAnswers: ['mushrooms', 'Mushrooms', 'lettuce', 'Lettuce'],
+    imageSrc: '/images/english/unit-test-2b-fridge.jpg',
+    imageAlt: 'Fridge picture for Unit test 2B',
+  },
+
+  // —— 7. Function ——
+  {
+    type: 'text',
+    q: "7. Words: about, boring, great, How, idea, joking, Let's, shall, shall, visiting, Why.\nTim: ___ about visiting a museum?",
+    correct: 'How',
+    acceptedAnswers: ['How', 'how'],
+  },
+  {
+    type: 'text',
+    q: '7. Tim: How about ___ a museum?',
+    correct: 'visiting',
+    acceptedAnswers: ['visiting'],
+  },
+  {
+    type: 'text',
+    q: "7. Liz: No, that's a bit ___.",
+    correct: 'boring',
+    acceptedAnswers: ['boring'],
+  },
+  {
+    type: 'text',
+    q: '7. Liz: ___ go ice-skating.',
+    correct: "Let's",
+    acceptedAnswers: ["Let's", 'Lets', "let's", 'lets'],
+  },
+  {
+    type: 'text',
+    q: "7. Tim: You're ___!",
+    correct: 'joking',
+    acceptedAnswers: ['joking'],
+  },
+  {
+    type: 'text',
+    q: "7. Jamie: ___ don't we go out for a snack?",
+    correct: 'Why',
+    acceptedAnswers: ['Why', 'why'],
+  },
+  {
+    type: 'text',
+    q: "7. Alex: That's a ___ idea.",
+    correct: 'great',
+    acceptedAnswers: ['great'],
+  },
+  {
+    type: 'text',
+    q: "7. Alex: That's a great ___.",
+    correct: 'idea',
+    acceptedAnswers: ['idea'],
+  },
+  {
+    type: 'text',
+    q: '7. Jamie: Where ___ we go?',
+    correct: 'shall',
+    acceptedAnswers: ['shall'],
+  },
+  {
+    type: 'text',
+    q: '7. Jamie: How ___ that new pizza place?',
+    correct: 'about',
+    acceptedAnswers: ['about'],
+  },
+];
