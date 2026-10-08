@@ -75,6 +75,7 @@ import {
 import {
   GEOGRAFIA_6_VHODNO_NIVO_QUESTIONS,
   GEOGRAFIA_6_VHODNO_RAVNISHTE_VAR1_QUESTIONS,
+  GEOGRAFIA_6_RELEF_POLEZNI_IZKOPAEMI_YUZHNA_AMERIKA_QUESTIONS,
   GEOGRAFIA_AFRIKA_IZHODYASHTO_NIVO_QUESTIONS,
   GEOGRAFIA_AFRIKA_NASELENIE_POLITICHESKA_KARTA_10_PLUS_2_QUESTIONS,
   GEOGRAFIA_DOPALNITELNI_QUESTIONS,
@@ -528,6 +529,14 @@ const TESTS = {
       { min: 12, grade: 3, label: 'Среден 3' },
       { min: 0, grade: 2, label: 'Слаб 2' },
     ],
+  },
+  '6|geografia|relef-polezni-izkopaemi-yuzhna-amerika': {
+    title: 'География – Релеф и полезни изкопаеми на Южна Америка',
+    slug: 'relef-polezni-izkopaemi-yuzhna-amerika',
+    addedAt: '2026-10-08',
+    questions: GEOGRAFIA_6_RELEF_POLEZNI_IZKOPAEMI_YUZHNA_AMERIKA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
   },
   '5|english|language-revision': {
     title: 'Language Revision (English)',

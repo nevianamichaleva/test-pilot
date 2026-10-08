@@ -122,17 +122,42 @@ function getReadingContextForQuestion(qs, qIndex) {
   return raw;
 }
 
+/** Ред по буква на варианта: а/А/a, б/Б/b, в/В/c, г/Г/d… */
+function optionLetterRank(opt) {
+  const m = String(opt ?? "").match(/^\s*([А-Га-гA-Da-d])\)/);
+  if (!m) return null;
+  const ch = m[1].toLowerCase();
+  const order = { а: 0, a: 0, б: 1, b: 1, в: 2, c: 2, г: 3, d: 3 };
+  return Object.prototype.hasOwnProperty.call(order, ch) ? order[ch] : null;
+}
+
+/** Ако вариантите са с букви (а)/б)/…), подреди ги по буква — иначе верният от wrong* остава първи. */
+function sortOptionsByLetterPrefix(opts) {
+  if (!Array.isArray(opts) || opts.length < 2) return opts;
+  const ranked = opts.map((o, i) => ({ o, i, rank: optionLetterRank(o) }));
+  if (ranked.filter((x) => x.rank != null).length < 2) return opts;
+  return ranked
+    .slice()
+    .sort((a, b) => {
+      if (a.rank == null && b.rank == null) return a.i - b.i;
+      if (a.rank == null) return 1;
+      if (b.rank == null) return -1;
+      return a.rank - b.rank || a.i - b.i;
+    })
+    .map((x) => x.o);
+}
+
 /** Варианти за избор (ред в данните; показването се разбърква в Quiz): `options` или correct + wrong1… */
 function getMcOptionsRaw(q) {
   if (!q || isTextQuestion(q)) return [];
   if (isOrderingQuestion(q) || isMatchingQuestion(q)) return [];
   if (Array.isArray(q.options) && q.options.length) {
-    return dedupeOptionStrings(q.options.map(normalizeOption));
+    return sortOptionsByLetterPrefix(dedupeOptionStrings(q.options.map(normalizeOption)));
   }
   const raw = [q.correct, q.wrong1, q.wrong2, q.wrong3, q.wrong4].filter(
     (x) => typeof x === "string" && x.trim()
   );
-  return dedupeOptionStrings(raw);
+  return sortOptionsByLetterPrefix(dedupeOptionStrings(raw));
 }
 
 function normalizeOption(opt) {
