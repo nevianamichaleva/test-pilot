@@ -135,6 +135,7 @@ import {
   ISTORIA_UPRAJNENIE,
   ISTORIA_6_VAVEDENIE_EVROPEYSKO_SREDNOVEKOVIE_QUESTIONS,
   ISTORIA_6_VELIKOTO_PRESELENIE_NARODI_QUESTIONS,
+  ISTORIA_6_HRISTIYANSTVOTO_I_TSARKVATA_QUESTIONS,
   ISTORIA_VHODEN_6_KLAS_QUESTIONS,
   ISTORIA_VHODNO_6_GRUPA1_QUESTIONS,
   ISTORIA_VHODNO_6_GRUPA2_QUESTIONS,
@@ -147,6 +148,7 @@ import {
 import {
   PRIRODA_6_BEZOPASNOST_NA_DVIZHENIETO_QUESTIONS,
   PRIRODA_6_SILI_QUESTIONS,
+  PRIRODA_6_SILA_NA_TEZHESTTA_QUESTIONS,
   PRIRODA_6_VHODNO_RAVNISHTE_QUESTIONS,
   PRIRODA_CHP_TEST2_VESHTESTVA_I_TEHNI_SVOYSTVA_QUESTIONS,
   PRIRODA_EDNOKLETACHNI_MNOGOKLETACHNI_QUESTIONS,
@@ -164,6 +166,7 @@ import {
 import { KM_6_OPERACIONNA_SISTEMA_QUESTIONS } from './km-tests';
 
 import {
+  LITERATURA_6_CHOVEKAT_I_PRIRODATA_QUESTIONS,
   LITERATURA_DA_PROVERIM_VAR1_QUESTIONS,
   LITERATURA_DA_PROVERIM_VAR2_QUESTIONS,
   LITERATURA_FOLKLOR_KALENDAR_QUESTIONS,
@@ -683,6 +686,14 @@ const TESTS = {
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
+  '6|istoriya|hristiyanstvoto-i-tsarkvata': {
+    title: 'История – Християнството и църквата',
+    slug: 'hristiyanstvoto-i-tsarkvata',
+    addedAt: '2026-10-09',
+    questions: ISTORIA_6_HRISTIYANSTVOTO_I_TSARKVATA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
   '6|bg|vhodno-ravnishte-var1': {
     title: 'БЕЛ – Входно равнище, вариант 1 (6. клас)',
     slug: 'vhodno-ravnishte-var1',
@@ -801,6 +812,14 @@ const TESTS = {
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
+  '6|priroda|sila-na-tezhestta': {
+    title: 'Човек и природа – Сила на тежестта',
+    slug: 'sila-na-tezhestta',
+    addedAt: '2026-10-09',
+    questions: PRIRODA_6_SILA_NA_TEZHESTTA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
   '6|matematika|vhodno-nivo-1': {
     title: 'Математика – Входно ниво 1 (6. клас)',
     slug: 'vhodno-nivo-1',
@@ -822,6 +841,14 @@ const TESTS = {
     slug: 'operacionna-sistema',
     addedAt: '2026-10-01',
     questions: KM_6_OPERACIONNA_SISTEMA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '6|literatura|chovekat-i-prirodata': {
+    title: 'Литература – Човекът и природата (обобщение)',
+    slug: 'chovekat-i-prirodata',
+    addedAt: '2026-10-09',
+    questions: LITERATURA_6_CHOVEKAT_I_PRIRODATA_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
