@@ -74,17 +74,169 @@ function isResultCompleted(data) {
   return false;
 }
 
-/** Форматира дата от Firestore Timestamp или обект. */
-function formatDate(timestamp) {
-  const date = toJsDate(timestamp);
+function formatTime(date) {
+  if (!date) return "–";
+  return date.toLocaleTimeString("bg-BG", { hour: "2-digit", minute: "2-digit" });
+}
+
+function formatDayHeading(date) {
   if (!date) return "–";
   return date.toLocaleDateString("bg-BG", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
+}
+
+function formatDayShort(date) {
+  if (!date) return "–";
+  return date.toLocaleDateString("bg-BG", {
+    weekday: "short",
     day: "numeric",
     month: "short",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
   });
+}
+
+/** Локален ключ YYYY-MM-DD за групиране по ден. */
+function toDayKey(date) {
+  if (!date) return null;
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+function todayDayKey() {
+  return toDayKey(new Date());
+}
+
+function dayKeyToDate(dayKey) {
+  if (!dayKey) return null;
+  const [y, m, d] = dayKey.split("-").map(Number);
+  if (!y || !m || !d) return null;
+  return new Date(y, m - 1, d);
+}
+
+function SubjectThumb({ subject, testId, size = 36 }) {
+  const src = testId ? getThumbnailSrcFromTestId(testId) : SUBJECT_THUMB_SRC[subject];
+  if (!src) return null;
+  return (
+    <img
+      className={styles.subjectThumb}
+      src={src}
+      alt=""
+      width={size}
+      height={size}
+      decoding="async"
+      style={{ width: size, height: size }}
+    />
+  );
+}
+
+function DaySummaryChips({ tests, games, lessons }) {
+  return (
+    <div className={styles.dayChips}>
+      <span className={styles.dayChip}>
+        <strong>{tests}</strong> {tests === 1 ? "тест" : "теста"}
+      </span>
+      <span className={styles.dayChip}>
+        <strong>{games}</strong> {games === 1 ? "игра" : "игри"}
+      </span>
+      <span className={styles.dayChip}>
+        <strong>{lessons}</strong> {lessons === 1 ? "урок" : "урока"}
+      </span>
+    </div>
+  );
+}
+
+function ActivityRow({ item, onOpenResult }) {
+  const time = formatTime(item.at);
+  const subjectLabel = SUBJECT_LABELS[item.subject] || item.subjectLabel || item.subject || "–";
+
+  if (item.kind === "result") {
+    const r = item.data;
+    return (
+      <button
+        type="button"
+        className={`${styles.activityRow} ${styles.activityRowClickable}`}
+        onClick={() => onOpenResult(r.id)}
+        aria-label={`Детайли за резултат на ${r.name}`}
+      >
+        <span className={styles.activityTime}>{time}</span>
+        <span className={styles.activityKind} data-kind="test">
+          {r.source === "game" ? "Игра" : "Тест"}
+        </span>
+        <span className={styles.activityMain}>
+          <SubjectThumb subject={r.subject} testId={r.test} />
+          <span className={styles.activityText}>
+            <span className={styles.activityTitle}>{r.testTitle}</span>
+            <span className={styles.activityMeta}>
+              {r.name} · {subjectLabel}
+              {r.completed ? "" : " · незавършен"}
+            </span>
+          </span>
+        </span>
+        <span className={styles.activityScore}>
+          {r.completed ? r.points : r.progressText || r.points || "–"}
+        </span>
+      </button>
+    );
+  }
+
+  if (item.kind === "game") {
+    const g = item.data;
+    return (
+      <div className={styles.activityRow}>
+        <span className={styles.activityTime}>{time}</span>
+        <span className={styles.activityKind} data-kind="game">
+          Отваряне
+        </span>
+        <span className={styles.activityMain}>
+          <SubjectThumb subject={g.subject} />
+          <span className={styles.activityText}>
+            <span className={styles.activityTitle}>{g.title}</span>
+            <span className={styles.activityMeta}>
+              {g.subjectLabel}
+              {g.classHint ? ` · ${g.classHint}` : ""}
+            </span>
+          </span>
+        </span>
+      </div>
+    );
+  }
+
+  const v = item.data;
+  return (
+    <div className={styles.activityRow}>
+      <span className={styles.activityTime}>{time}</span>
+      <span className={styles.activityKind} data-kind="lesson">
+        Урок
+      </span>
+      <span className={styles.activityMain}>
+        <SubjectThumb subject={v.subject} />
+        <span className={styles.activityText}>
+          <span className={styles.activityTitle}>{v.title}</span>
+          <span className={styles.activityMeta}>
+            {v.subjectLabel}
+            {v.classNum ? ` · ${v.classNum}. клас` : ""}
+          </span>
+        </span>
+      </span>
+    </div>
+  );
+}
+
+function DayActivityList({ items, onOpenResult }) {
+  if (!items.length) {
+    return <p className={styles.dayEmpty}>Няма активност за този ден.</p>;
+  }
+  return (
+    <div className={styles.activityList}>
+      {items.map((item) => (
+        <ActivityRow key={item.id} item={item} onOpenResult={onOpenResult} />
+      ))}
+    </div>
+  );
 }
 
 export default function RezultatiPage() {
@@ -96,6 +248,7 @@ export default function RezultatiPage() {
   const [error, setError] = useState(null);
   const [dateFilter, setDateFilter] = useState("7d");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [expandedDays, setExpandedDays] = useState(() => new Set());
 
   useEffect(() => {
     let cancelled = false;
@@ -263,70 +416,105 @@ export default function RezultatiPage() {
     });
   }, [lessonVisits, dateFilter]);
 
-  const gameInterest = useMemo(() => {
-    const bySlug = new Map();
-    for (const play of filteredGamePlays) {
-      const key = play.slug || play.title;
-      const prev = bySlug.get(key);
-      if (!prev) {
-        bySlug.set(key, {
-          slug: play.slug,
-          title: play.title,
-          subject: play.subject,
-          subjectLabel: play.subjectLabel,
-          classHint: play.classHint,
-          count: 1,
-          lastPlayedAt: getStartDateFromResult(play),
-        });
-      } else {
-        prev.count += 1;
-        const d = getStartDateFromResult(play);
-        if (d && (!prev.lastPlayedAt || d.getTime() > prev.lastPlayedAt.getTime())) {
-          prev.lastPlayedAt = d;
-        }
-      }
-    }
-    return [...bySlug.values()].sort((a, b) => b.count - a.count || a.title.localeCompare(b.title, "bg"));
-  }, [filteredGamePlays]);
+  const { todayBundle, otherDays } = useMemo(() => {
+    const todayKey = todayDayKey();
+    const byDay = new Map();
 
-  const lessonInterest = useMemo(() => {
-    const byKey = new Map();
-    for (const visit of filteredLessonVisits) {
-      const key = visit.lessonKey || `${visit.classNum}|${visit.subject}|${visit.slug}` || visit.title;
-      const prev = byKey.get(key);
-      if (!prev) {
-        byKey.set(key, {
-          lessonKey: key,
-          title: visit.title,
-          subject: visit.subject,
-          subjectLabel: visit.subjectLabel,
-          classNum: visit.classNum,
-          count: 1,
-          lastVisitedAt: getStartDateFromResult(visit),
+    const ensure = (key) => {
+      if (!byDay.has(key)) {
+        byDay.set(key, {
+          dayKey: key,
+          date: dayKeyToDate(key),
+          items: [],
+          tests: 0,
+          games: 0,
+          lessons: 0,
         });
-      } else {
-        prev.count += 1;
-        const d = getStartDateFromResult(visit);
-        if (d && (!prev.lastVisitedAt || d.getTime() > prev.lastVisitedAt.getTime())) {
-          prev.lastVisitedAt = d;
-        }
       }
+      return byDay.get(key);
+    };
+
+    for (const r of filteredResults) {
+      const at = getStartDateFromResult(r);
+      const key = toDayKey(at);
+      if (!key) continue;
+      const day = ensure(key);
+      day.tests += 1;
+      day.items.push({
+        id: `result-${r.id}`,
+        kind: "result",
+        at,
+        data: r,
+        sort: at?.getTime() ?? 0,
+      });
     }
-    return [...byKey.values()].sort((a, b) => b.count - a.count || a.title.localeCompare(b.title, "bg"));
-  }, [filteredLessonVisits]);
+
+    for (const g of filteredGamePlays) {
+      const at = getStartDateFromResult(g);
+      const key = toDayKey(at);
+      if (!key) continue;
+      const day = ensure(key);
+      day.games += 1;
+      day.items.push({
+        id: `game-${g.id}`,
+        kind: "game",
+        at,
+        data: g,
+        sort: at?.getTime() ?? 0,
+      });
+    }
+
+    for (const v of filteredLessonVisits) {
+      const at = getStartDateFromResult(v);
+      const key = toDayKey(at);
+      if (!key) continue;
+      const day = ensure(key);
+      day.lessons += 1;
+      day.items.push({
+        id: `lesson-${v.id}`,
+        kind: "lesson",
+        at,
+        data: v,
+        sort: at?.getTime() ?? 0,
+      });
+    }
+
+    for (const day of byDay.values()) {
+      day.items.sort((a, b) => b.sort - a.sort);
+    }
+
+    const todayBundle =
+      byDay.get(todayKey) || {
+        dayKey: todayKey,
+        date: new Date(),
+        items: [],
+        tests: 0,
+        games: 0,
+        lessons: 0,
+      };
+
+    const otherDays = [...byDay.values()]
+      .filter((d) => d.dayKey !== todayKey)
+      .sort((a, b) => b.dayKey.localeCompare(a.dayKey));
+
+    return { todayBundle, otherDays };
+  }, [filteredResults, filteredGamePlays, filteredLessonVisits]);
 
   const bySubject = {};
   filteredResults.forEach((r) => {
+    if (!r.completed) return;
     const sub = r.subject || "друг";
     if (!bySubject[sub]) bySubject[sub] = [];
     bySubject[sub].push(r);
   });
   SUBJECT_ORDER.forEach((s) => {
-    if (bySubject[s]) bySubject[s].sort((a, b) => {
-      const tA = getStartDateFromResult(a)?.getTime() ?? 0;
-      const tB = getStartDateFromResult(b)?.getTime() ?? 0;
-      return tB - tA;
-    });
+    if (bySubject[s]) {
+      bySubject[s].sort((a, b) => {
+        const tA = getStartDateFromResult(a)?.getTime() ?? 0;
+        const tB = getStartDateFromResult(b)?.getTime() ?? 0;
+        return tB - tA;
+      });
+    }
   });
   const otherSubject = bySubject["друг"];
   if (otherSubject) {
@@ -339,6 +527,19 @@ export default function RezultatiPage() {
 
   const hasAnyData =
     filteredResults.length > 0 || filteredGamePlays.length > 0 || filteredLessonVisits.length > 0;
+  const hasRawData = results.length > 0 || gamePlays.length > 0 || lessonVisits.length > 0;
+  const hasRanking = SUBJECT_ORDER.some((s) => bySubject[s]?.length) || otherSubject?.length > 0;
+
+  const openResult = (id) => router.push(`/test-pilot/rezultati/${id}`);
+
+  const toggleDay = (dayKey) => {
+    setExpandedDays((prev) => {
+      const next = new Set(prev);
+      if (next.has(dayKey)) next.delete(dayKey);
+      else next.add(dayKey);
+      return next;
+    });
+  };
 
   return (
     <div className={tp.page}>
@@ -346,7 +547,7 @@ export default function RezultatiPage() {
         <PageHero
           variant="page"
           title="Резултати"
-          subtitle="Резултати от тестове и игри, интерес към игрите и кога е влизано в уроците."
+          subtitle="Днешната активност напред; другите дни — в сбити резюмета."
           actions={
             <Link href="/test-pilot" className={styles.backLink}>
               Към тестовете <span aria-hidden>›</span>
@@ -358,7 +559,7 @@ export default function RezultatiPage() {
           <p className={`${styles.message} ${styles.messageCenter}`}>Зареждане...</p>
         )}
 
-        {error && !results.length && !gamePlays.length && !lessonVisits.length && (
+        {error && !hasRawData && (
           <p className={styles.messageError}>{error}</p>
         )}
 
@@ -368,7 +569,7 @@ export default function RezultatiPage() {
           </p>
         )}
 
-        {!loading && (results.length > 0 || gamePlays.length > 0 || lessonVisits.length > 0) && (
+        {!loading && hasRawData && (
           <section className={styles.panel}>
             <div className={styles.panelHeadRow}>
               <h2 className={styles.panelHead}>Филтри</h2>
@@ -404,210 +605,69 @@ export default function RezultatiPage() {
           </section>
         )}
 
-        {!loading && filteredLessonVisits.length > 0 && (
-          <section className={styles.panel}>
-            <div className={styles.panelHeadRow}>
-              <h2 className={styles.panelHead}>Уроци — кога е влизано</h2>
-              <span className={styles.filterLabel}>
-                {filteredLessonVisits.length}{" "}
-                {filteredLessonVisits.length === 1 ? "влизане" : "влизания"}
-              </span>
-            </div>
-            <div className={styles.tableScroll}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Урок</th>
-                    <th>Предмет</th>
-                    <th>Клас</th>
-                    <th>Влизания</th>
-                    <th>Последно</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {lessonInterest.map((l, i) => (
-                    <tr key={l.lessonKey || l.title}>
-                      <td className={styles.cellMuted}>{i + 1}</td>
-                      <td className={styles.cellStrong}>{l.title}</td>
-                      <td>
-                        <span className={styles.subjectCell}>
-                          {SUBJECT_THUMB_SRC[l.subject] ? (
-                            <img
-                              className={styles.subjectThumb}
-                              src={SUBJECT_THUMB_SRC[l.subject]}
-                              alt=""
-                              width={40}
-                              height={40}
-                              decoding="async"
-                            />
-                          ) : null}
-                          <span>{l.subjectLabel}</span>
-                        </span>
-                      </td>
-                      <td>{l.classNum ? `${l.classNum}. клас` : "–"}</td>
-                      <td className={styles.cellStrong}>{l.count}</td>
-                      <td className={styles.cellMuted}>{formatDate(l.lastVisitedAt)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <h3 className={styles.sectionTitle} style={{ marginTop: 20, marginBottom: 10 }}>
-              Последни влизания
-            </h3>
-            <div className={styles.tableScroll}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>Кога</th>
-                    <th>Урок</th>
-                    <th>Предмет</th>
-                    <th>Клас</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredLessonVisits.slice(0, 30).map((v) => (
-                    <tr key={v.id}>
-                      <td className={styles.cellMuted}>
-                        {formatDate(getStartDateFromResult(v))}
-                      </td>
-                      <td className={styles.cellStrong}>{v.title}</td>
-                      <td>{v.subjectLabel}</td>
-                      <td>{v.classNum ? `${v.classNum}. клас` : "–"}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-        )}
-
-        {!loading && filteredGamePlays.length > 0 && (
-          <section className={styles.panel}>
-            <div className={styles.panelHeadRow}>
-              <h2 className={styles.panelHead}>Интерес към игрите</h2>
-              <span className={styles.filterLabel}>
-                {filteredGamePlays.length}{" "}
-                {filteredGamePlays.length === 1 ? "отваряне" : "отваряния"}
-              </span>
-            </div>
-            <div className={styles.tableScroll}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Игра</th>
-                    <th>Предмет</th>
-                    <th>Клас</th>
-                    <th>Отваряния</th>
-                    <th>Последно</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {gameInterest.map((g, i) => (
-                    <tr key={g.slug || g.title}>
-                      <td className={styles.cellMuted}>{i + 1}</td>
-                      <td className={styles.cellStrong}>{g.title}</td>
-                      <td>
-                        <span className={styles.subjectCell}>
-                          {SUBJECT_THUMB_SRC[g.subject] ? (
-                            <img
-                              className={styles.subjectThumb}
-                              src={SUBJECT_THUMB_SRC[g.subject]}
-                              alt=""
-                              width={40}
-                              height={40}
-                              decoding="async"
-                            />
-                          ) : null}
-                          <span>{g.subjectLabel}</span>
-                        </span>
-                      </td>
-                      <td>{g.classHint || "–"}</td>
-                      <td className={styles.cellStrong}>{g.count}</td>
-                      <td className={styles.cellMuted}>{formatDate(g.lastPlayedAt)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-        )}
-
-        {!loading && filteredResults.length > 0 && (
+        {!loading && hasAnyData && (
           <>
-            <section className={styles.panel}>
-              <div className={styles.panelHeadRow}>
-                <h2 className={styles.panelHead}>Резултати от тестове и игри</h2>
+            <section className={`${styles.panel} ${styles.todayPanel}`} aria-labelledby="today-title">
+              <div className={styles.todayHead}>
+                <div>
+                  <p className={styles.todayEyebrow}>Днес</p>
+                  <h2 id="today-title" className={styles.todayTitle}>
+                    {formatDayHeading(todayBundle.date)}
+                  </h2>
+                </div>
+                <DaySummaryChips
+                  tests={todayBundle.tests}
+                  games={todayBundle.games}
+                  lessons={todayBundle.lessons}
+                />
               </div>
-              <div className={styles.tableScroll}>
-                <table className={styles.table}>
-                  <thead>
-                    <tr>
-                      <th>Дата</th>
-                      <th>Статус</th>
-                      <th>Име</th>
-                      <th>Предмет</th>
-                      <th>Тест / игра</th>
-                      <th>Резултат</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredResults.map((r) => {
-                      const subThumb = getThumbnailSrcFromTestId(r.test);
-                      return (
-                      <tr
-                        key={r.id}
-                        className={styles.clickableRow}
-                        onClick={() => router.push(`/test-pilot/rezultati/${r.id}`)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter" || e.key === " ") {
-                            e.preventDefault();
-                            router.push(`/test-pilot/rezultati/${r.id}`);
-                          }
-                        }}
-                        tabIndex={0}
-                        role="button"
-                        aria-label={`Детайли за резултат на ${r.name}`}
-                      >
-                        <td className={styles.cellMuted}>
-                          {formatDate(getStartDateFromResult(r))}
-                        </td>
-                        <td className={styles.cellStrong}>
-                          {r.completed ? "✓" : "x"}
-                        </td>
-                        <td className={styles.cellStrong}>{r.name}</td>
-                        <td>
-                          <span className={styles.subjectCell}>
-                            {subThumb ? (
-                              <img
-                                className={styles.subjectThumb}
-                                src={subThumb}
-                                alt=""
-                                width={40}
-                                height={40}
-                                decoding="async"
-                              />
-                            ) : null}
-                            <span>{SUBJECT_LABELS[r.subject] || r.subject || "–"}</span>
-                          </span>
-                        </td>
-                        <td>
-                          <span className={styles.truncate} title={r.testTitle}>
-                            {r.source === "game" ? `Игра · ${r.testTitle}` : r.testTitle}
-                          </span>
-                        </td>
-                        <td>{r.completed ? r.points : r.progressText || r.points || "–"}</td>
-                      </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
+              <DayActivityList items={todayBundle.items} onOpenResult={openResult} />
             </section>
 
+            {otherDays.length > 0 && (
+              <section className={styles.pastSection} aria-labelledby="past-title">
+                <h2 id="past-title" className={styles.sectionTitle}>
+                  Предишни дни
+                </h2>
+                <div className={styles.dayStack}>
+                  {otherDays.map((day) => {
+                    const open = expandedDays.has(day.dayKey);
+                    return (
+                      <div key={day.dayKey} className={styles.dayCard}>
+                        <button
+                          type="button"
+                          className={styles.dayCardToggle}
+                          onClick={() => toggleDay(day.dayKey)}
+                          aria-expanded={open}
+                        >
+                          <span className={styles.dayCardLeft}>
+                            <span className={styles.dayCardDate}>{formatDayShort(day.date)}</span>
+                            <DaySummaryChips
+                              tests={day.tests}
+                              games={day.games}
+                              lessons={day.lessons}
+                            />
+                          </span>
+                          <span className={styles.dayCardChevron} aria-hidden>
+                            {open ? "▾" : "▸"}
+                          </span>
+                        </button>
+                        {open && (
+                          <div className={styles.dayCardBody}>
+                            <DayActivityList items={day.items} onOpenResult={openResult} />
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+          </>
+        )}
+
+        {!loading && hasRanking && (
+          <>
             <h2 className={styles.sectionTitle}>Класация по предмет</h2>
             <div className={styles.rankGrid}>
               {SUBJECT_ORDER.filter((s) => bySubject[s]?.length).map((subject) => (
@@ -626,20 +686,18 @@ export default function RezultatiPage() {
                     <span>{SUBJECT_LABELS[subject]}</span>
                   </h3>
                   <ol className={styles.rankList}>
-                    {bySubject[subject].slice(0, 10).map((r, i) => (
+                    {bySubject[subject].slice(0, 5).map((r, i) => (
                       <li key={r.id} className={styles.rankItem}>
                         <span className={styles.rankLeft}>
                           <span className={styles.rankNum}>{i + 1}.</span>
                           <span className={styles.rankName}>{r.name}</span>
                         </span>
-                        <span className={styles.rankMeta}>
-                          {r.completed ? r.points : r.progressText || "Незавършен"}
-                        </span>
+                        <span className={styles.rankMeta}>{r.points}</span>
                       </li>
                     ))}
                   </ol>
-                  {bySubject[subject].length > 10 && (
-                    <p className={styles.rankFoot}>и още {bySubject[subject].length - 10} резултата</p>
+                  {bySubject[subject].length > 5 && (
+                    <p className={styles.rankFoot}>и още {bySubject[subject].length - 5} резултата</p>
                   )}
                 </div>
               ))}
@@ -647,15 +705,13 @@ export default function RezultatiPage() {
                 <div className={styles.panel}>
                   <h3 className={styles.panelHead}>Други</h3>
                   <ol className={styles.rankList}>
-                    {otherSubject.slice(0, 10).map((r, i) => (
+                    {otherSubject.slice(0, 5).map((r, i) => (
                       <li key={r.id} className={styles.rankItem}>
                         <span className={styles.rankLeft}>
                           <span className={styles.rankNum}>{i + 1}.</span>
                           <span className={styles.rankName}>{r.name}</span>
                         </span>
-                        <span className={styles.rankMeta}>
-                          {r.completed ? r.points : r.progressText || "Незавършен"}
-                        </span>
+                        <span className={styles.rankMeta}>{r.points}</span>
                       </li>
                     ))}
                   </ol>

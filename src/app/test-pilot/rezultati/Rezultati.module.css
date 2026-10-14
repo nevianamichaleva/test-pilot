@@ -237,6 +237,288 @@
   color: rgba(26, 58, 82, 0.55);
 }
 
+.todayPanel {
+  margin-top: 18px;
+  border: 1px solid rgba(46, 122, 208, 0.22);
+  box-shadow: 0 18px 44px rgba(46, 122, 208, 0.12);
+}
+
+.todayHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 18px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, rgba(234, 243, 255, 0.95), rgba(255, 255, 255, 0.4));
+}
+
+.todayEyebrow {
+  margin: 0 0 4px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(46, 122, 208, 0.85);
+}
+
+.todayTitle {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 1000;
+  color: #1a3a52;
+  letter-spacing: -0.3px;
+  text-transform: capitalize;
+}
+
+.dayChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dayChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(26, 58, 82, 0.1);
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.72);
+}
+
+.dayChip strong {
+  font-weight: 1000;
+  color: #1a3a52;
+}
+
+.activityList {
+  display: grid;
+  gap: 0;
+}
+
+.activityRow {
+  display: grid;
+  grid-template-columns: 52px 78px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 12px 16px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background: transparent;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+
+.activityRow:last-child {
+  border-bottom: 0;
+}
+
+.activityRowClickable {
+  cursor: pointer;
+}
+
+.activityRowClickable:hover {
+  background: rgba(234, 243, 255, 0.55);
+}
+
+.activityRowClickable:focus-visible {
+  outline: 2px solid rgba(46, 122, 208, 0.5);
+  outline-offset: -2px;
+}
+
+.activityTime {
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(26, 58, 82, 0.55);
+  font-variant-numeric: tabular-nums;
+}
+
+.activityKind {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  background: rgba(26, 58, 82, 0.06);
+  color: rgba(26, 58, 82, 0.75);
+}
+
+.activityKind[data-kind="test"] {
+  background: rgba(46, 122, 208, 0.12);
+  color: #1a4f8a;
+}
+
+.activityKind[data-kind="game"] {
+  background: rgba(245, 166, 35, 0.16);
+  color: #8a5a00;
+}
+
+.activityKind[data-kind="lesson"] {
+  background: rgba(21, 111, 23, 0.1);
+  color: #156f17;
+}
+
+.activityMain {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.activityText {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.activityTitle {
+  font-size: 14px;
+  font-weight: 900;
+  color: #1a3a52;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.activityMeta {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.58);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.activityScore {
+  font-size: 13px;
+  font-weight: 1000;
+  color: #1a3a52;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.dayEmpty {
+  margin: 0;
+  padding: 22px 18px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(26, 58, 82, 0.55);
+}
+
+.pastSection {
+  margin-top: 8px;
+}
+
+.dayStack {
+  display: grid;
+  gap: 10px;
+}
+
+.dayCard {
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 28px rgba(10, 35, 70, 0.08);
+  overflow: hidden;
+}
+
+.dayCardToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin: 0;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+
+.dayCardToggle:hover {
+  background: rgba(234, 243, 255, 0.45);
+}
+
+.dayCardToggle:focus-visible {
+  outline: 2px solid rgba(46, 122, 208, 0.5);
+  outline-offset: -2px;
+}
+
+.dayCardLeft {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.dayCardDate {
+  font-size: 15px;
+  font-weight: 1000;
+  color: #1a3a52;
+  text-transform: capitalize;
+  min-width: 7.5rem;
+}
+
+.dayCardChevron {
+  flex-shrink: 0;
+  font-size: 14px;
+  color: rgba(26, 58, 82, 0.45);
+}
+
+.dayCardBody {
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 720px) {
+  .activityRow {
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "time kind score"
+      "main main main";
+    gap: 6px 8px;
+  }
+
+  .activityTime {
+    grid-area: time;
+  }
+
+  .activityKind {
+    grid-area: kind;
+    justify-self: start;
+  }
+
+  .activityScore {
+    grid-area: score;
+  }
+
+  .activityMain {
+    grid-area: main;
+  }
+
+  .dayCardDate {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
 .backLink {
   text-decoration: none;
   display: inline-flex;
