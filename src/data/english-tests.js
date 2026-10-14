@@ -3573,3 +3573,177 @@ export const ENGLISH_6_UNIT_TEST_2B_QUESTIONS = [
     acceptedAnswers: ['about'],
   },
 ];
+
+const ENGLISH_6_SKILLS_1_READING_INTRO = `Read the two blogs.
+
+Alex's School Blog
+I go to an international school. There are students here from all over the world. All our lessons are in English, except Spanish and French lessons, of course! There are twenty students in my class. We start the day with a general assembly. Each day, a student from a different country tells a story or a poem from their country. Our lessons start at nine o'clock. We have a break for lunch at noon and then we go back to class until four in the afternoon. I'm in the computer club and we meet twice a week. There aren't any computers in our classroom, so we go to the library and use the computers there. Right now I'm learning a new computer program to make our own games.
+
+Laura's School Blog
+My school is a dance academy. It's just like a normal school except we have dance lessons every day as well as our normal academic subjects. It's a boarding school so all the students live here during term time. We start the day with breakfast at seven o'clock. Lessons start at half past eight. Every morning we have four hours of academic study and two hours of ballet class. We sometimes have more dance classes in the afternoons. Then we do an hour of homework and after that we usually have some free time before dinner. Sometimes I watch a film on my laptop or play games in the common room. Right now we're very busy because we are working on a dance for the final exam.`;
+
+/**
+ * Skills test 1A (Units 1 & 2) – Reading (Alex & Laura blogs)
+ */
+export const ENGLISH_6_SKILLS_TEST_1A_QUESTIONS = [
+  {
+    readingContextEndQIndex: 14,
+    sectionIntro: ENGLISH_6_SKILLS_1_READING_INTRO,
+    q: '1. Who starts lessons at 8.30 a.m.?',
+    options: ['A) Alex', 'B) Laura'],
+    correct: 'B) Laura',
+  },
+  {
+    q: '2. Who studies with students from different countries?',
+    options: ['A) Alex', 'B) Laura'],
+    correct: 'A) Alex',
+  },
+  {
+    q: '3. Who finishes school at 4.00 p.m.?',
+    options: ['A) Alex', 'B) Laura'],
+    correct: 'A) Alex',
+  },
+  {
+    q: '4. Who plays computer games?',
+    options: ['A) Alex', 'B) Laura'],
+    correct: 'B) Laura',
+  },
+  {
+    q: '5. Who does homework at school?',
+    options: ['A) Alex', 'B) Laura'],
+    correct: 'B) Laura',
+  },
+  {
+    q: "6. ___ of Alex's lessons are in English.",
+    options: ['A) Most', 'B) All'],
+    correct: 'A) Most',
+  },
+  {
+    q: '7. There are ___ students in Alex\'s class.',
+    options: ['A) twelve', 'B) twenty'],
+    correct: 'B) twenty',
+  },
+  {
+    q: '8. General assembly is at the ___ of the day.',
+    options: ['A) beginning', 'B) end'],
+    correct: 'A) beginning',
+  },
+  {
+    q: '9. Alex has lunch at ___.',
+    options: ['A) 12.00 p.m.', 'B) 1.00 p.m.'],
+    correct: 'A) 12.00 p.m.',
+  },
+  {
+    q: '10. There are computers in the ___.',
+    options: ['A) classroom', 'B) library'],
+    correct: 'B) library',
+  },
+  {
+    q: '11. Laura ___ at 7.00 a.m.',
+    options: ['A) gets up', 'B) has breakfast'],
+    correct: 'B) has breakfast',
+  },
+  {
+    q: '12. She has ___ hours of dance classes in the morning.',
+    options: ['A) two', 'B) four'],
+    correct: 'A) two',
+  },
+  {
+    q: '13. She sometimes studies dance in the ___.',
+    options: ['A) afternoon', 'B) evening'],
+    correct: 'A) afternoon',
+  },
+  {
+    q: '14. She usually has some free time ___ dinner.',
+    options: ['A) before', 'B) after'],
+    correct: 'A) before',
+  },
+  {
+    q: '15. She ___ practising for a dance performance for her final exam now.',
+    options: ['A) is', "B) isn't"],
+    correct: 'A) is',
+  },
+];
+
+/**
+ * Skills test 1B (Units 1 & 2) – Reading (Alex & Laura blogs)
+ */
+export const ENGLISH_6_SKILLS_TEST_1B_QUESTIONS = [
+  {
+    readingContextEndQIndex: 14,
+    sectionIntro: ENGLISH_6_SKILLS_1_READING_INTRO,
+    q: '1. Who starts lessons at 8.30 a.m.?',
+    options: ['A) Alex', 'B) Laura'],
+    correct: 'B) Laura',
+  },
+  {
+    q: '2. Who studies with students from different countries?',
+    options: ['A) Alex', 'B) Laura'],
+    correct: 'A) Alex',
+  },
+  {
+    q: '3. Who finishes school at 4.00 p.m.?',
+    options: ['A) Alex', 'B) Laura'],
+    correct: 'A) Alex',
+  },
+  {
+    q: '4. Who plays computer games?',
+    options: ['A) Alex', 'B) Laura'],
+    correct: 'B) Laura',
+  },
+  {
+    q: '5. Who does homework at school?',
+    options: ['A) Alex', 'B) Laura'],
+    correct: 'B) Laura',
+  },
+  {
+    q: "6. Alex's school has got students from ___.",
+    options: ['A) many countries', 'B) one country'],
+    correct: 'A) many countries',
+  },
+  {
+    q: "7. Some of Alex's lessons ___ in English.",
+    options: ['A) are', "B) aren't"],
+    correct: "B) aren't",
+  },
+  {
+    q: '8. General assembly is ___.',
+    options: ['A) every day', 'B) once a week'],
+    correct: 'A) every day',
+  },
+  {
+    q: '9. Lessons start at ___.',
+    options: ['A) 9.00 a.m.', 'B) 9.30 a.m.'],
+    correct: 'A) 9.00 a.m.',
+  },
+  {
+    q: "10. There aren't any computers in the ___.",
+    options: ['A) classroom', 'B) library'],
+    correct: 'A) classroom',
+  },
+  {
+    q: '11. The computer club meets ___ a week.',
+    options: ['A) one day', 'B) two days'],
+    correct: 'B) two days',
+  },
+  {
+    q: '12. Laura studies dance ___.',
+    options: ['A) once a week', 'B) every day'],
+    correct: 'B) every day',
+  },
+  {
+    q: '13. She studies ___ in the afternoons.',
+    options: ['A) dance', 'B) music'],
+    correct: 'A) dance',
+  },
+  {
+    q: '14. She does ___ of homework.',
+    options: ['A) one hour', 'B) two hours'],
+    correct: 'A) one hour',
+  },
+  {
+    q: '15. She is ___ a dance for her final exam now.',
+    options: ['A) practising', 'B) watching'],
+    correct: 'A) practising',
+  },
+];
