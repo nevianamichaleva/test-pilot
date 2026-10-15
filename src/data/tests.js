@@ -77,6 +77,7 @@ import {
   GEOGRAFIA_6_VHODNO_NIVO_QUESTIONS,
   GEOGRAFIA_6_VHODNO_RAVNISHTE_VAR1_QUESTIONS,
   GEOGRAFIA_6_RELEF_POLEZNI_IZKOPAEMI_YUZHNA_AMERIKA_QUESTIONS,
+  GEOGRAFIA_6_KLIMAT_YUZHNA_AMERIKA_QUESTIONS,
   GEOGRAFIA_AFRIKA_IZHODYASHTO_NIVO_QUESTIONS,
   GEOGRAFIA_AFRIKA_NASELENIE_POLITICHESKA_KARTA_10_PLUS_2_QUESTIONS,
   GEOGRAFIA_DOPALNITELNI_QUESTIONS,
@@ -546,6 +547,15 @@ const TESTS = {
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
+  '6|geografia|klimat-yuzhna-amerika': {
+    title: 'География – Климат и климатични пояси на Южна Америка',
+    slug: 'klimat-yuzhna-amerika',
+    addedAt: '2026-10-15',
+    questions: GEOGRAFIA_6_KLIMAT_YUZHNA_AMERIKA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+
   '5|english|language-revision': {
     title: 'Language Revision (English)',
     slug: 'language-revision',
