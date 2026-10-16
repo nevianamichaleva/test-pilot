@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import { useAuth } from "@/components/AuthProvider";
 import PageHero from "@/components/PageHero";
+import ZoomableImage from "@/components/ZoomableImage";
 import { useEffect, useMemo, useReducer, useRef, useState } from "react";
 
 import { getFirebaseDb, isFirebaseConfigured } from "@/lib/firebase";
@@ -1461,15 +1462,25 @@ export default function Quiz({
             ) : null}
             <p className={styles.question}>{getQuestionText(current)}</p>
             {getQuestionImageSrc(current) ? (
-              <figure className={styles.questionFigure}>
-                <img
-                  className={styles.questionImage}
-                  src={getQuestionImageSrc(current)}
-                  alt={getQuestionImageAlt(current)}
-                  decoding="async"
-                  loading="lazy"
-                />
-              </figure>
+              current?.imageLarge ? (
+                <div className={styles.questionFigure}>
+                  <ZoomableImage
+                    src={getQuestionImageSrc(current)}
+                    alt={getQuestionImageAlt(current)}
+                    large
+                  />
+                </div>
+              ) : (
+                <figure className={styles.questionFigure}>
+                  <img
+                    className={styles.questionImage}
+                    src={getQuestionImageSrc(current)}
+                    alt={getQuestionImageAlt(current)}
+                    decoding="async"
+                    loading="lazy"
+                  />
+                </figure>
+              )
             ) : null}
             <div className={styles.divider} />
 

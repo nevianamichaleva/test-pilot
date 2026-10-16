@@ -23,6 +23,17 @@
   transition: opacity 0.15s ease;
 }
 
+.triggerLarge {
+  margin-bottom: 8px;
+}
+
+.triggerLarge img {
+  max-height: min(72vh, 720px);
+  object-fit: contain;
+  object-position: center;
+  background: rgba(248, 251, 255, 0.9);
+}
+
 .trigger:hover img,
 .trigger:focus-visible img {
   opacity: 0.92;

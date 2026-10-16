@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 
 import styles from "./ZoomableImage.module.css";
 
-export default function ZoomableImage({ src, alt = "", className = "" }) {
+export default function ZoomableImage({ src, alt = "", className = "", large = false }) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const titleId = useId();
@@ -68,7 +68,7 @@ export default function ZoomableImage({ src, alt = "", className = "" }) {
     <>
       <button
         type="button"
-        className={`${styles.trigger} ${className}`.trim()}
+        className={`${styles.trigger} ${large ? styles.triggerLarge : ""} ${className}`.trim()}
         onClick={() => setOpen(true)}
         aria-label="Увеличи картинката"
       >
