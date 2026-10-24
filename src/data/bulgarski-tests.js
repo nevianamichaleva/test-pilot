@@ -6287,10 +6287,10 @@ export const BULGARSKI_6_MESTOIMENIA_VAR3_QUESTIONS = [
 ];
 
 /**
- * БЕЛ – Тест № 12: Местоимения (неопределителни, отрицателни и обобщителни)
- * По помагало 7. клас; 27 въпроса с избор.
+ * БЕЛ 6. клас – Тест № 12: Местоимения (неопределителни, отрицателни и обобщителни)
+ * 27 въпроса с избор.
  */
-export const BULGARSKI_7_MESTOIMENIA_NEOPREDELITELNI_OTRITSATELNI_OBOBSHTITELNI_QUESTIONS = [
+export const BULGARSKI_6_MESTOIMENIA_NEOPREDELITELNI_OTRITSATELNI_OBOBSHTITELNI_QUESTIONS = [
   {
     q: '1. Кое твърдение за отрицателните местоимения НЕ е вярно?',
     options: [

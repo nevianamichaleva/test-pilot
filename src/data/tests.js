@@ -27,7 +27,7 @@ import {
   BULGARSKI_6_MESTOIMENIA_VAR1_QUESTIONS,
   BULGARSKI_6_MESTOIMENIA_VAR2_QUESTIONS,
   BULGARSKI_6_MESTOIMENIA_VAR3_QUESTIONS,
-  BULGARSKI_7_MESTOIMENIA_NEOPREDELITELNI_OTRITSATELNI_OBOBSHTITELNI_QUESTIONS,
+  BULGARSKI_6_MESTOIMENIA_NEOPREDELITELNI_OTRITSATELNI_OBOBSHTITELNI_QUESTIONS,
   BULGARSKI_6_MESTOIMENIA_TEST4_Q11_19_QUESTIONS,
   BULGARSKI_6_MESTOIMENIA_GRAMATICHNI_7_16_QUESTIONS,
   BULGARSKI_6_VHODEN_TEST_QUESTIONS,
@@ -467,14 +467,6 @@ const TESTS = {
     addedAt: '2025-09-01',
     questions: addNvo7Points(BULGARSKI_NVO_7_BEL_2026_MODEL_QUESTIONS),
   },
-  '7|bg|mestoimenia-neopredelitelni-otritsatelni-obobshtitelni': {
-    title: 'БЕЛ – Местоимения: неопределителни, отрицателни и обобщителни (тест № 12)',
-    slug: 'mestoimenia-neopredelitelni-otritsatelni-obobshtitelni',
-    addedAt: '2026-10-24',
-    questions: BULGARSKI_7_MESTOIMENIA_NEOPREDELITELNI_OTRITSATELNI_OBOBSHTITELNI_QUESTIONS,
-    preserveQuestionOrder: true,
-    preserveOptionOrder: true,
-  },
   '5|geografia|geografia-ikonomika-2': {
     title: 'География и стопанство (част 2)',
     slug: 'geografia-ikonomika-2',
@@ -877,6 +869,14 @@ const TESTS = {
       { min: 9, grade: 3, label: 'Среден 3' },
       { min: 0, grade: 2, label: 'Слаб 2' },
     ],
+  },
+  '6|bg|mestoimenia-neopredelitelni-otritsatelni-obobshtitelni': {
+    title: 'БЕЛ – Местоимения: неопределителни, отрицателни и обобщителни (тест № 12)',
+    slug: 'mestoimenia-neopredelitelni-otritsatelni-obobshtitelni',
+    addedAt: '2026-10-24',
+    questions: BULGARSKI_6_MESTOIMENIA_NEOPREDELITELNI_OTRITSATELNI_OBOBSHTITELNI_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
   },
   '6|bg|mestoimenia-test-4': {
     title: 'БЕЛ – Местоимения (тест 4, въпроси 11–19)',
