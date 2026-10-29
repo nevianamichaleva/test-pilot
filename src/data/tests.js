@@ -11,6 +11,7 @@
  * - km-tests.js (Компютърно моделиране)
  * - literatura-tests.js (Литература)
  * - matematika-tests.js (Математика)
+ * - filosofia-tests.js (Философия)
  *
  * URL на тест: /test-pilot/клас/предмет/slug
  *
@@ -152,6 +153,8 @@ import {
   ISTORIA_6_HRISTIYANSTVOTO_I_TSARKVATA_QUESTIONS,
   ISTORIA_6_HRISTIYANSKOTO_OBSHTESTVO_QUESTIONS,
   ISTORIA_6_VIZANTIYSKATA_IMPERIA_QUESTIONS,
+  ISTORIA_8_REFORMATSIYATA_QUESTIONS,
+  ISTORIA_8_KONTRAREFORMATSIYA_QUESTIONS,
   ISTORIA_VHODEN_6_KLAS_QUESTIONS,
   ISTORIA_VHODNO_6_GRUPA1_QUESTIONS,
   ISTORIA_VHODNO_6_GRUPA2_QUESTIONS,
@@ -194,6 +197,8 @@ import {
 } from './literatura-tests';
 
 import { MATEMATIKA_6_VHODNO_NIVO_1_QUESTIONS } from './matematika-tests';
+
+import { FILOSOFIA_8_PODHODI_ZA_IZSLEDVANE_NA_CHOVEKA_QUESTIONS } from './filosofia-tests';
 
 const NVO_7_POINTS_BY_QNUM = {
   1: 1,
@@ -768,6 +773,31 @@ const TESTS = {
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
+  '8|istoriya|reformatsiyata': {
+    title: 'История – Реформацията',
+    slug: 'reformatsiyata',
+    addedAt: '2026-10-29',
+    questions: ISTORIA_8_REFORMATSIYATA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '8|istoriya|kontrareformatsiya-i-religiozni-voyni': {
+    title: 'История – Контрареформация и религиозни войни',
+    slug: 'kontrareformatsiya-i-religiozni-voyni',
+    addedAt: '2026-10-29',
+    questions: ISTORIA_8_KONTRAREFORMATSIYA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '8|filosofia|podhodi-za-izsledvane-na-choveka': {
+    title: 'Философия – Подходи за изследване на човека',
+    slug: 'podhodi-za-izsledvane-na-choveka',
+    addedAt: '2026-10-29',
+    questions: FILOSOFIA_8_PODHODI_ZA_IZSLEDVANE_NA_CHOVEKA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+
   '6|bg|vhodno-ravnishte-var1': {
     title: 'БЕЛ – Входно равнище, вариант 1 (6. клас)',
     slug: 'vhodno-ravnishte-var1',

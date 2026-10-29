@@ -21,6 +21,7 @@ const SUBJECT_LABELS = {
   bg: "Български език",
   priroda: "Човек и природа",
   km: "Компютърно моделиране",
+  filosofia: "Философия",
 };
 
 function normalizeClassNum(classNum) {
@@ -51,7 +52,17 @@ function testsForClass(tests, classNumStr) {
 
 function orderedSubjectsFromPool(pool) {
   const unique = uniq(pool.map((t) => t.subject).filter(Boolean)).sort();
-  const preferred = ["bg", "matematika", "english", "geografia", "istoriya", "priroda", "literatura", "km"];
+  const preferred = [
+    "bg",
+    "matematika",
+    "english",
+    "geografia",
+    "istoriya",
+    "priroda",
+    "literatura",
+    "km",
+    "filosofia",
+  ];
   return [
     ...preferred.filter((s) => unique.includes(s)),
     ...unique.filter((s) => !preferred.includes(s)),
@@ -85,6 +96,8 @@ function pickDescription(subject) {
       return "Теми, жанрове и упражнения по литература.";
     case "km":
       return "Тестове по операционна система, файлове и основни понятия.";
+    case "filosofia":
+      return "Подходи към човека, психика и ключови понятия от философията.";
     default:
       return "Избери тест и започни да упражняваш знанията си.";
   }

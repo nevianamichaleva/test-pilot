@@ -64,7 +64,22 @@ export default function LessonView({ lesson, subjectLabel, relatedTestHref, task
   const progressPct = totalMain > 0 ? Math.round((readCount / totalMain) * 100) : 0;
 
   const textbookSrc = lesson.textbookImage || lesson.image || "";
-  const hasTextbookBlock = Boolean(textbookSrc || lesson.intro || lesson.textbookPages);
+  const textbookSources = (
+    Array.isArray(lesson.textbookImages) && lesson.textbookImages.length
+      ? lesson.textbookImages
+      : textbookSrc
+        ? [textbookSrc]
+        : []
+  )
+    .map((item) =>
+      typeof item === "string"
+        ? { src: item, caption: "" }
+        : { src: item?.src || "", caption: item?.caption || "" }
+    )
+    .filter((item) => item.src);
+  const hasTextbookBlock = Boolean(
+    textbookSources.length || lesson.intro || lesson.textbookPages
+  );
   const quick = lesson.quickQuestion;
   const quizCorrect =
     quick && quizAnswer != null
@@ -130,11 +145,21 @@ export default function LessonView({ lesson, subjectLabel, relatedTestHref, task
                   <span className={styles.pageBadge}>{lesson.textbookPages}</span>
                 ) : null}
               </div>
-              {textbookSrc ? (
-                <div className={styles.sideThumb}>
-                  <ZoomableImage src={textbookSrc} alt="Страници от учебника" />
+              {textbookSources.map((item) => (
+                <div key={item.src} className={styles.sideThumb}>
+                  {item.caption ? (
+                    <span className={styles.pageBadge}>{item.caption}</span>
+                  ) : null}
+                  <ZoomableImage
+                    src={item.src}
+                    alt={
+                      item.caption
+                        ? `Страници от учебника, ${item.caption}`
+                        : "Страници от учебника"
+                    }
+                  />
                 </div>
-              ) : null}
+              ))}
               {lesson.intro ? (
                 <p className={styles.sideHint}>{renderLessonText(lesson.intro, richStyles)}</p>
               ) : (

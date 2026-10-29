@@ -18,6 +18,7 @@ const SUBJECT_ORDER = [
   "priroda",
   "literatura",
   "km",
+  "filosofia",
 ];
 
 function orderedSubjects(subjects) {

@@ -26,6 +26,7 @@ const SUBJECT_ORDER = [
   "priroda",
   "literatura",
   "km",
+  "filosofia",
 ];
 
 const SUBJECT_TONES = {
@@ -36,6 +37,7 @@ const SUBJECT_TONES = {
   istoriya: { tone: "#fef3c7", accent: "#d97706" },
   priroda: { tone: "#ccfbf1", accent: "#0d9488" },
   literatura: { tone: "#fce7f3", accent: "#db2777" },
+  filosofia: { tone: "#f5f0ff", accent: "#7c3aed" },
 };
 
 const MATH_THUMB = "/images/igri/matematika-geometria-5.svg";

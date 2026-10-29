@@ -124,6 +124,10 @@
   margin-bottom: 10px;
 }
 
+.sideThumb .pageBadge {
+  margin-bottom: 6px;
+}
+
 .sideThumb :global(button img) {
   max-height: 160px !important;
   object-fit: cover;

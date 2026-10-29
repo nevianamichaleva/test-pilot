@@ -6,7 +6,7 @@ export const ADMIN_PASSWORD = "developer2026!";
 export const ADMIN_STORAGE_KEY = "tp_admin_ok";
 
 /** Регистрирани потребители с директен достъп (без парола). */
-export const LESSONS_ALLOWED_EMAILS = ["bori141114@gmail.com"];
+export const LESSONS_ALLOWED_EMAILS = ["dariyafilipova26@gmail.com"];
 
 /** Предмети, чиито тестове са заключени за всички освен admin / allowlist. */
 export const LOCKED_TEST_SUBJECTS = ["bg", "english"];

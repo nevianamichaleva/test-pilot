@@ -10,6 +10,7 @@ export const SUBJECT_THUMB_SRC = {
   matematika: "/images/igri/matematika-drob-procenti.svg",
   priroda: "/images/nature.png",
   km: "/images/km/edinici-informaciya.png",
+  filosofia: "/images/filosofia.svg",
 };
 
 const NVO_THUMB_SRC = "/images/nvo.png";

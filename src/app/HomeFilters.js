@@ -74,6 +74,14 @@ const SUBJECTS = [
     accent: "#0ea5c6",
     border: "#7ad4e8",
   },
+  {
+    key: "filosofia",
+    label: "Философия",
+    icon: "💭",
+    tone: "#f5f0ff",
+    accent: "#7c3aed",
+    border: "#c4b5fd",
+  },
 ];
 
 const CLASS_PILLS = [
@@ -84,6 +92,7 @@ const CLASS_PILLS = [
   { label: "5. клас", classNum: "5" },
   { label: "6. клас", classNum: "6" },
   { label: "7. клас", classNum: "7" },
+  { label: "8. клас", classNum: "8" },
 ];
 
 function normalizeClassNum(classNum) {

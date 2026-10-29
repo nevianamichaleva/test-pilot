@@ -22,9 +22,19 @@ const SUBJECT_LABELS = {
   literatura: "Литература",
   priroda: "Човек и природа",
   km: "Компютърно моделиране",
+  filosofia: "Философия",
 };
 
-const SUBJECT_ORDER = ["bg", "english", "geografia", "istoriya", "matematika", "priroda", "literatura"];
+const SUBJECT_ORDER = [
+  "bg",
+  "english",
+  "geografia",
+  "istoriya",
+  "matematika",
+  "priroda",
+  "literatura",
+  "filosofia",
+];
 const DATE_FILTERS = [
   { value: "7d", label: "Последните 7 дни" },
   { value: "30d", label: "Последните 30 дни" },
