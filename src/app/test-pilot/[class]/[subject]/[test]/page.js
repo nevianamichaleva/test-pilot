@@ -116,7 +116,7 @@ export default async function TestPage({ params }) {
     return (
       <AdminGate
         title="Достъп до теста"
-        description="Тестовете по български и английски са само за разрешени акаунти или с админска парола."
+        description="Тестовете по български и английски са за влезли потребители. Без вход — с админска парола."
         allowLessonsEmail
       >
         {content}

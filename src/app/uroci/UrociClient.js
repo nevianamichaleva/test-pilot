@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 import { getAllLessons } from "@/data/lessons";
 import { SUBJECT_LABELS } from "@/lib/subjectLabels";
@@ -29,8 +29,16 @@ function orderedSubjects(subjects) {
   ];
 }
 
+function normalizeSubject(subject, options) {
+  const s = String(subject || "");
+  return options.includes(s) ? s : "";
+}
+
+function buildUrociUrl(subject) {
+  return subject ? `/uroci?subject=${encodeURIComponent(subject)}` : "/uroci";
+}
+
 export default function UrociClient() {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const lessons = useMemo(() => getAllLessons(), []);
 
@@ -39,8 +47,12 @@ export default function UrociClient() {
     [lessons]
   );
 
-  const qpSubject = searchParams?.get("subject") ?? "";
-  const selectedSubject = subjectOptions.includes(qpSubject) ? qpSubject : "";
+  const qpSubject = normalizeSubject(searchParams?.get("subject") ?? "", subjectOptions);
+  const [selectedSubject, setSelectedSubject] = useState(qpSubject);
+
+  useEffect(() => {
+    setSelectedSubject(qpSubject);
+  }, [qpSubject]);
 
   const filtered = useMemo(() => {
     if (!selectedSubject) return lessons;
@@ -48,10 +60,12 @@ export default function UrociClient() {
   }, [lessons, selectedSubject]);
 
   const setSubject = (subject) => {
-    const p = new URLSearchParams();
-    if (subject) p.set("subject", subject);
-    const q = p.toString();
-    router.replace(q ? `/uroci?${q}` : "/uroci", { scroll: false });
+    const next = normalizeSubject(subject, subjectOptions);
+    setSelectedSubject(next);
+    const url = buildUrociUrl(next);
+    if (typeof window !== "undefined") {
+      window.history.replaceState(window.history.state, "", url);
+    }
   };
 
   return (

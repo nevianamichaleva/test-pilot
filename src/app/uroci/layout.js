@@ -13,7 +13,7 @@ export default function UrociLayout({ children }) {
   return (
     <AdminGate
       title="Достъп до уроци"
-      description="Уроците са за регистрирани потребители с разрешен достъп или с админска парола."
+      description="Уроците са за влезли потребители. Без вход можеш да ги отключиш с админска парола."
       allowLessonsEmail
     >
       {children}

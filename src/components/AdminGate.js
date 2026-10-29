@@ -6,7 +6,6 @@ import { useAuth } from "@/components/AuthProvider";
 import {
   ADMIN_PASSWORD,
   ADMIN_STORAGE_KEY,
-  isLessonsEmailAllowed,
 } from "@/lib/adminAccess";
 
 /**
@@ -30,7 +29,8 @@ export default function AdminGate({
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const emailAllowed = allowLessonsEmail && isLessonsEmailAllowed(user?.email);
+  /** При allowLessonsEmail всеки логнат потребител минава без парола. */
+  const loggedInAllowed = allowLessonsEmail && Boolean(user);
 
   useEffect(() => {
     try {
@@ -66,7 +66,7 @@ export default function AdminGate({
     );
   }
 
-  if (emailAllowed || unlocked) {
+  if (loggedInAllowed || unlocked) {
     return children;
   }
 
@@ -90,10 +90,11 @@ export default function AdminGate({
       </p>
       {allowLessonsEmail ? (
         <p style={{ margin: "0 0 16px", color: "rgba(26,43,75,0.55)", fontWeight: 650, fontSize: 14 }}>
-          Или влез с разрешен акаунт.{" "}
+          Или{" "}
           <a href="/vhod" style={{ color: "#0ea5c6", fontWeight: 800 }}>
-            Вход
+            влез в профила
           </a>
+          , за да продължиш без парола.
         </p>
       ) : null}
       <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
