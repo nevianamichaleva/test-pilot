@@ -83,6 +83,7 @@ import {
 } from './seventh-grade-tests';
 
 import {
+  GEOGRAFIA_6_AMAZONIYA_I_ATAKAMA_QUESTIONS,
   GEOGRAFIA_6_VHODNO_NIVO_QUESTIONS,
   GEOGRAFIA_6_VHODNO_RAVNISHTE_VAR1_QUESTIONS,
   GEOGRAFIA_6_RELEF_POLEZNI_IZKOPAEMI_YUZHNA_AMERIKA_QUESTIONS,
@@ -587,6 +588,14 @@ const TESTS = {
       { min: 10, grade: 3, label: 'Среден 3' },
       { min: 0, grade: 2, label: 'Слаб 2' },
     ],
+  },
+  '6|geografia|amazoniya-i-atakama': {
+    title: 'География – Между изобилието в Амазония и недоимка в Атакама',
+    slug: 'amazoniya-i-atakama',
+    addedAt: '2026-11-02',
+    questions: GEOGRAFIA_6_AMAZONIYA_I_ATAKAMA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
   },
   '6|geografia|yuzhna-amerika-kontrol-2': {
     title: 'География – Южна Америка, тест за контрол (вариант 2)',
