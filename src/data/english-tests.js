@@ -3771,3 +3771,140 @@ export const ENGLISH_6_SKILLS_TEST_1B_QUESTIONS = [
     correct: 'A) practising',
   },
 ];
+
+/**
+ * Grade 6, lesson 2c – Are there any mushrooms?
+ * Food vocabulary and countable/uncountable nouns with some, any and no.
+ */
+export const ENGLISH_6_UNIT_2C_MUSHROOMS_QUESTIONS = [
+  {
+    q: '1. Which foods are vegetables?',
+    options: ['A) peas and beans', 'B) lamb and cream', 'C) pear and peach', 'D) cake and melon'],
+    correct: 'A) peas and beans',
+  },
+  {
+    q: '2. Lamb is ___.',
+    options: ['A) a fruit', 'B) meat', 'C) a dairy product', 'D) a vegetable'],
+    correct: 'B) meat',
+  },
+  {
+    q: '3. Which sentence about cake is true?',
+    options: [
+      'A) Cake is a dairy product.',
+      "B) Cake isn't dairy, but sometimes it's got cream on it.",
+      'C) Cake is a big yellow fruit.',
+      'D) Cake is a vegetable.',
+    ],
+    correct: "B) Cake isn't dairy, but sometimes it's got cream on it.",
+  },
+  {
+    q: '4. A pear is ___.',
+    options: ['A) meat', 'B) a dairy product', 'C) a fruit', 'D) a vegetable'],
+    correct: 'C) a fruit',
+  },
+  {
+    q: '5. Cream is ___.',
+    options: ['A) a dairy product', 'B) a big yellow fruit', 'C) meat', 'D) a vegetable'],
+    correct: 'A) a dairy product',
+  },
+  {
+    q: '6. Which fruit is orange or pink?',
+    options: ['A) melon', 'B) pear', 'C) peach', 'D) beans'],
+    correct: 'C) peach',
+  },
+  {
+    q: '7. A melon is ___.',
+    options: ['A) a small green vegetable', 'B) a big yellow fruit', 'C) a dairy product', 'D) meat'],
+    correct: 'B) a big yellow fruit',
+  },
+  {
+    q: '8. Which pair is correct for a countable noun?',
+    options: ['A) melon – melons', 'B) meat – meats', 'C) olive oil – olive oils', 'D) cream – creams'],
+    correct: 'A) melon – melons',
+  },
+  {
+    q: '9. Which sentence is correct?',
+    options: [
+      'A) There is an olive oil.',
+      'B) There is a melon.',
+      'C) There are a melon.',
+      'D) There is some melons.',
+    ],
+    correct: 'B) There is a melon.',
+  },
+  {
+    q: '10. Which affirmative sentence is correct?',
+    options: [
+      'A) There is some vinegar.',
+      'B) There are any peas.',
+      'C) There is some peas.',
+      'D) There are some vinegar.',
+    ],
+    correct: 'A) There is some vinegar.',
+  },
+  {
+    q: '11. Which negative sentence is correct?',
+    options: [
+      "A) There isn't any lamb.",
+      'B) There are any peas.',
+      "C) There aren't no mushrooms.",
+      "D) There isn't no olive oil.",
+    ],
+    correct: "A) There isn't any lamb.",
+  },
+  {
+    q: '12. There ___ any mushrooms.',
+    options: ['A) is', 'B) are', "C) aren't", 'D) is no'],
+    correct: "C) aren't",
+  },
+  {
+    q: '13. There ___ some olive oil.',
+    options: ['A) are', "B) aren't", 'C) is', "D) isn't"],
+    correct: 'C) is',
+  },
+  {
+    q: '14. There ___ no cream.',
+    options: ['A) are', 'B) is', "C) aren't", "D) isn't"],
+    correct: 'B) is',
+  },
+  {
+    q: '15. Which sentence is correct?',
+    options: [
+      "A) I haven't got any peaches.",
+      "B) I haven't got no peaches.",
+      "C) I've got any peaches.",
+      'D) There are any peas.',
+    ],
+    correct: "A) I haven't got any peaches.",
+  },
+  {
+    q: '16. Which question is correct?',
+    options: [
+      'A) Are there any mushrooms?',
+      'B) Are there no mushrooms?',
+      'C) Is there a beef?',
+      'D) Have you got no any meat?',
+    ],
+    correct: 'A) Are there any mushrooms?',
+  },
+  {
+    q: '17. Are there any melons on the table in the picture?',
+    options: ['A) Yes, there are.', "B) No, there aren't.", 'C) Yes, there is.', "D) No, there isn't."],
+    correct: 'A) Yes, there are.',
+  },
+  {
+    q: '18. Is there any meat on the table in the picture?',
+    options: ['A) Yes, there is.', "B) No, there isn't.", 'C) Yes, there are.', "D) No, there aren't."],
+    correct: 'A) Yes, there is.',
+  },
+  {
+    q: '19. Are there any strawberries on the table in the picture?',
+    options: ['A) Yes, there are.', "B) No, there aren't.", 'C) Yes, there is.', "D) No, there isn't."],
+    correct: 'A) Yes, there are.',
+  },
+  {
+    q: '20. Is there any olive oil on the table in the picture?',
+    options: ['A) Yes, there is.', "B) No, there isn't.", 'C) Yes, there are.', "D) No, there aren't."],
+    correct: 'A) Yes, there is.',
+  },
+];
