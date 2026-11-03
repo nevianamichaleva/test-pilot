@@ -1257,6 +1257,7 @@ const TESTS = {
     questions: ENGLISH_6_UNIT_2C_MUSHROOMS_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
+    publicAccess: true,
   },
   '6|english|skills-test-1b': {
     title: 'Skills test 1B (Units 1 & 2)',

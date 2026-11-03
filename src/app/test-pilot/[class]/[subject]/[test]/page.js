@@ -112,7 +112,7 @@ export default async function TestPage({ params }) {
     </div>
   );
 
-  if (isTestSubjectLocked(subject)) {
+  if (isTestSubjectLocked(subject) && !testData.publicAccess) {
     return (
       <AdminGate
         title="Достъп до теста"
