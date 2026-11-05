@@ -206,6 +206,7 @@ import { MATEMATIKA_6_VHODNO_NIVO_1_QUESTIONS } from './matematika-tests';
 import {
   FILOSOFIA_8_PODHODI_ZA_IZSLEDVANE_NA_CHOVEKA_QUESTIONS,
   FILOSOFIA_8_KAKVO_NAUCHIH_DOSEGA_QUESTIONS,
+  FILOSOFIA_8_FILOSOFIYATA_NAUKATA_I_RELIGIYATA_QUESTIONS,
 } from './filosofia-tests';
 
 const NVO_7_POINTS_BY_QNUM = {
@@ -826,6 +827,14 @@ const TESTS = {
     slug: 'kakvo-nauchih-dosega',
     addedAt: '2026-11-05',
     questions: FILOSOFIA_8_KAKVO_NAUCHIH_DOSEGA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '8|filosofia|filosofiyata-naukata-i-religiyata': {
+    title: 'Философия – Философията, науката и религията в моя живот',
+    slug: 'filosofiyata-naukata-i-religiyata',
+    addedAt: '2026-11-05',
+    questions: FILOSOFIA_8_FILOSOFIYATA_NAUKATA_I_RELIGIYATA_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
