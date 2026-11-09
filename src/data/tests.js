@@ -85,6 +85,7 @@ import {
 
 import {
   GEOGRAFIA_6_AMAZONIYA_I_ATAKAMA_QUESTIONS,
+  GEOGRAFIA_8_ATMOSFERA_SUSTAV_I_STROEZH_QUESTIONS,
   GEOGRAFIA_6_VHODNO_NIVO_QUESTIONS,
   GEOGRAFIA_6_VHODNO_RAVNISHTE_VAR1_QUESTIONS,
   GEOGRAFIA_6_RELEF_POLEZNI_IZKOPAEMI_YUZHNA_AMERIKA_QUESTIONS,
@@ -602,6 +603,14 @@ const TESTS = {
     slug: 'amazoniya-i-atakama',
     addedAt: '2026-11-02',
     questions: GEOGRAFIA_6_AMAZONIYA_I_ATAKAMA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '8|geografia|atmosfera-sustav-i-stroezh': {
+    title: 'География – Атмосфера: състав и строеж',
+    slug: 'atmosfera-sustav-i-stroezh',
+    addedAt: '2026-11-09',
+    questions: GEOGRAFIA_8_ATMOSFERA_SUSTAV_I_STROEZH_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
