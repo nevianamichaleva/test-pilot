@@ -85,6 +85,7 @@ import {
 
 import {
   GEOGRAFIA_6_AMAZONIYA_I_ATAKAMA_QUESTIONS,
+  GEOGRAFIA_6_PRIRODNI_ZONI_YUZHNA_AMERIKA_QUESTIONS,
   GEOGRAFIA_8_ATMOSFERA_SUSTAV_I_STROEZH_QUESTIONS,
   GEOGRAFIA_6_VHODNO_NIVO_QUESTIONS,
   GEOGRAFIA_6_VHODNO_RAVNISHTE_VAR1_QUESTIONS,
@@ -1374,6 +1375,14 @@ const TESTS = {
     slug: 'kontrolno-angliyski-chast-2b',
     addedAt: '2026-11-10',
     questions: ENGLISH_6_KONTROLNO_CHAST_2B_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '6|geografia|prirodni-zoni-yuzhna-amerika': {
+    title: 'География – Природни зони на Южна Америка',
+    slug: 'prirodni-zoni-yuzhna-amerika',
+    addedAt: '2026-11-10',
+    questions: GEOGRAFIA_6_PRIRODNI_ZONI_YUZHNA_AMERIKA_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
