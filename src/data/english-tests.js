@@ -4255,13 +4255,13 @@ export const ENGLISH_6_UNIT_TEST_3A_QUESTIONS = [
   },
   {
     type: 'text',
-    q: '7. Ask if you can stay at someone’s house. Start with Can I.',
+    q: '9. Put the words in the correct order.\nyour / I / house / at / stay / can',
     correct: 'Can I stay at your house?',
     acceptedAnswers: ['Can I stay at your house?', 'Can I stay at your house'],
   },
   {
     type: 'text',
-    q: '7. Agree politely in three words.',
+    q: '10. Put the words in the correct order.\ncourse / of / yes',
     correct: 'Yes, of course.',
     acceptedAnswers: ['Yes, of course.', 'Yes, of course', 'Yes of course.', 'Yes of course'],
   },
@@ -4606,13 +4606,13 @@ export const ENGLISH_6_UNIT_TEST_3B_QUESTIONS = [
   },
   {
     type: 'text',
-    q: '7. Ask to read someone’s magazine. Start with Can I.',
+    q: '9. Put the words in the correct order.\nyour / I / magazine / read / can',
     correct: 'Can I read your magazine?',
     acceptedAnswers: ['Can I read your magazine?', 'Can I read your magazine'],
   },
   {
     type: 'text',
-    q: '7. Refuse politely.',
+    q: '10. Put the words in the correct order.\nno / course / of / not',
     correct: 'No, of course not.',
     acceptedAnswers: ['No, of course not.', 'No, of course not', 'No of course not.', 'No of course not'],
   },
