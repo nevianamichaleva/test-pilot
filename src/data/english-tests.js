@@ -4617,3 +4617,360 @@ export const ENGLISH_6_UNIT_TEST_3B_QUESTIONS = [
     acceptedAnswers: ['No, of course not.', 'No, of course not', 'No of course not.', 'No of course not'],
   },
 ];
+
+/**
+ * Контролно по английски по част 2 – Unit test 2A, непроменени изречения и ключ.
+ */
+export const ENGLISH_6_KONTROLNO_CHAST_2_QUESTIONS = [
+  {
+    type: 'text',
+    sectionIntro: `1 Complete the sentences with the present simple or present continuous.
+0 Alex usually plays tennis once a week. (play)`,
+    readingContextEndQIndex: 7,
+    q: '1. They ________ dinner right now. (eat)',
+    correct: 'are eating',
+    acceptedAnswers: ['are eating', "'re eating", 're eating'],
+  },
+  {
+    type: 'text',
+    q: '2. Kylie ________ her computer at the moment. (not use)',
+    correct: "isn't using",
+    acceptedAnswers: ["isn't using", 'isnt using', 'is not using'],
+  },
+  {
+    type: 'text',
+    q: '3. My friend sometimes ________ articles for a magazine. (write)',
+    correct: 'writes',
+    acceptedAnswers: ['writes'],
+  },
+  {
+    type: 'text',
+    q: '4. We ________ up early on Sundays. (not get)',
+    correct: "don't get",
+    acceptedAnswers: ["don't get", 'dont get', 'do not get'],
+  },
+  {
+    type: 'text',
+    q: '5. Tony ________ to school by bus every day. (go)',
+    correct: 'goes',
+    acceptedAnswers: ['goes'],
+  },
+  {
+    type: 'text',
+    q: '6. My mum ________ music at my school every week. (teach)',
+    correct: 'teaches',
+    acceptedAnswers: ['teaches'],
+  },
+  {
+    type: 'text',
+    q: '7. Jake and Luisa ________ in the garden today. (work)',
+    correct: 'are working',
+    acceptedAnswers: ['are working', "'re working", 're working'],
+  },
+  {
+    type: 'text',
+    q: '8. Greg usually ________ to bed early. (not go)',
+    correct: "doesn't go",
+    acceptedAnswers: ["doesn't go", 'doesnt go', 'does not go'],
+  },
+  {
+    type: 'text',
+    sectionIntro: `2 Complete the sentences with the verb + gerund (-ing) form.
+0 I love watching basketball on TV. (watch, love)`,
+    readingContextEndQIndex: 13,
+    q: '1. I ________ to school in the morning. (cycle, not mind)',
+    correct: "don't mind cycling",
+    acceptedAnswers: ["don't mind cycling", 'dont mind cycling', 'do not mind cycling'],
+  },
+  {
+    type: 'text',
+    q: '2. My sister ________ in the park. (run, love)',
+    correct: 'loves running',
+    acceptedAnswers: ['loves running'],
+  },
+  {
+    type: 'text',
+    q: '3. We ________ football in the rain. (play, not like)',
+    correct: "don't like playing",
+    acceptedAnswers: ["don't like playing", 'dont like playing', 'do not like playing'],
+  },
+  {
+    type: 'text',
+    q: '4. Jessie ________ team sports. (do, hate)',
+    correct: 'hates doing',
+    acceptedAnswers: ['hates doing'],
+  },
+  {
+    type: 'text',
+    q: '5. Max and Lisa ________ in the sea. (swim, enjoy)',
+    correct: 'enjoy swimming',
+    acceptedAnswers: ['enjoy swimming'],
+  },
+  {
+    type: 'text',
+    q: '6. My dad ________ to ice skating. (ski, prefer)',
+    correct: 'prefers skiing',
+    acceptedAnswers: ['prefers skiing'],
+  },
+  {
+    sectionIntro: '3 Choose the correct options.',
+    readingContextEndQIndex: 19,
+    q: "1. There isn't some / any milk.",
+    options: ['some', 'any'],
+    correct: 'any',
+  },
+  {
+    q: '2. Is / Are there any tomatoes?',
+    options: ['Is', 'Are'],
+    correct: 'Are',
+  },
+  {
+    q: "3. There are / aren't no mushrooms.",
+    options: ['are', "aren't"],
+    correct: 'are',
+  },
+  {
+    q: '4. There is / are some yoghurt.',
+    options: ['is', 'are'],
+    correct: 'is',
+  },
+  {
+    q: "5. There isn't / is any milk.",
+    options: ["isn't", 'is'],
+    correct: "isn't",
+  },
+  {
+    q: "6. We haven't got any / no lettuce.",
+    options: ['any', 'no'],
+    correct: 'any',
+  },
+  {
+    type: 'text',
+    sectionIntro: '4 Write the sports.',
+    readingContextEndQIndex: 26,
+    q: '1',
+    correct: 'windsurfing',
+    acceptedAnswers: ['windsurfing'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    q: '2',
+    correct: 'judo',
+    acceptedAnswers: ['judo'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    q: '3',
+    correct: 'carting',
+    acceptedAnswers: ['carting', 'car racing', 'carting/car racing'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    q: '4',
+    correct: 'cycling',
+    acceptedAnswers: ['cycling'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    q: '5',
+    correct: 'skateboarding',
+    acceptedAnswers: ['skateboarding'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    q: '6',
+    correct: 'rugby',
+    acceptedAnswers: ['rugby'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    q: '7',
+    correct: 'skiing',
+    acceptedAnswers: ['skiing'],
+    imageSrc: '/images/english/unit-test-2a-sports.jpg',
+    imageAlt: 'Sports pictures',
+    imageLarge: true,
+  },
+  {
+    sectionIntro: '5 Choose the correct options.',
+    readingContextEndQIndex: 34,
+    q: '1. a swimming ______',
+    options: ['a) pitch', 'b) pool', 'c) rink'],
+    correct: 'b) pool',
+  },
+  {
+    q: '2. a boxing ______',
+    options: ['a) pool', 'b) ring', 'c) rink'],
+    correct: 'b) ring',
+  },
+  {
+    q: '3. a basketball ______',
+    options: ['a) court', 'b) course', 'c) pitch'],
+    correct: 'a) court',
+  },
+  {
+    q: '4. a golf ______',
+    options: ['a) pitch', 'b) course', 'c) rink'],
+    correct: 'b) course',
+  },
+  {
+    q: '5. an ice-skating ______',
+    options: ['a) pool', 'b) track', 'c) rink'],
+    correct: 'c) rink',
+  },
+  {
+    q: '6. a karting ______',
+    options: ['a) track', 'b) pitch', 'c) course'],
+    correct: 'a) track',
+  },
+  {
+    q: '7. ______ rugby',
+    options: ['a) do', 'b) go', 'c) play'],
+    correct: 'c) play',
+  },
+  {
+    q: '8. ______ running',
+    options: ['a) do', 'b) go', 'c) play'],
+    correct: 'b) go',
+  },
+  {
+    type: 'text',
+    sectionIntro: `6 Label the picture with words from the box.
+beans • beef • cream • olives • strawberries • yoghurt`,
+    readingContextEndQIndex: 39,
+    q: '1',
+    correct: 'yoghurt',
+    acceptedAnswers: ['yoghurt', 'yogurt'],
+    imageSrc: '/images/english/unit-test-2a-fridge.jpg',
+    imageAlt: 'Fridge picture',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    q: '2',
+    correct: 'strawberries',
+    acceptedAnswers: ['strawberries'],
+    imageSrc: '/images/english/unit-test-2a-fridge.jpg',
+    imageAlt: 'Fridge picture',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    q: '3',
+    correct: 'olives',
+    acceptedAnswers: ['olives'],
+    imageSrc: '/images/english/unit-test-2a-fridge.jpg',
+    imageAlt: 'Fridge picture',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    q: '4',
+    correct: 'beans',
+    acceptedAnswers: ['beans'],
+    imageSrc: '/images/english/unit-test-2a-fridge.jpg',
+    imageAlt: 'Fridge picture',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    q: '5',
+    correct: 'beef',
+    acceptedAnswers: ['beef'],
+    imageSrc: '/images/english/unit-test-2a-fridge.jpg',
+    imageAlt: 'Fridge picture',
+    imageLarge: true,
+  },
+  {
+    type: 'text',
+    sectionIntro: `7 Complete the conversations with words from the box.
+about • do • don't • fancy • feel • good • idea • Let's • shall • That's • What
+
+A
+Liz: What shall we 1 ________ this weekend?
+Tim: 2 ________ about going to the funfair?
+Liz: No, I don't 3 ________ like it. Why 4 ________ we go ice-skating?
+Tim: Good 5 ________!
+
+B
+Jamie: How 6 ________ going for a walk this weekend?
+Alex: 7 ________ a bit boring. Do you 8 ________ going to the beach?
+Jamie: That's a 9 ________ idea. 10 ________ ask Sam to come, too!`,
+    readingContextEndQIndex: 49,
+    q: '1. Liz: What shall we ________ this weekend?',
+    correct: 'do',
+    acceptedAnswers: ['do'],
+  },
+  {
+    type: 'text',
+    q: '2. Tim: ________ about going to the funfair?',
+    correct: 'What',
+    acceptedAnswers: ['What', 'what'],
+  },
+  {
+    type: 'text',
+    q: "3. Liz: No, I don't ________ like it.",
+    correct: 'feel',
+    acceptedAnswers: ['feel'],
+  },
+  {
+    type: 'text',
+    q: '4. Liz: Why ________ we go ice-skating?',
+    correct: "don't",
+    acceptedAnswers: ["don't", 'dont', 'do not'],
+  },
+  {
+    type: 'text',
+    q: '5. Tim: Good ________!',
+    correct: 'idea',
+    acceptedAnswers: ['idea'],
+  },
+  {
+    type: 'text',
+    q: '6. Jamie: How ________ going for a walk this weekend?',
+    correct: 'about',
+    acceptedAnswers: ['about'],
+  },
+  {
+    type: 'text',
+    q: '7. Alex: ________ a bit boring.',
+    correct: "That's",
+    acceptedAnswers: ["That's", 'Thats', "that's", 'thats'],
+  },
+  {
+    type: 'text',
+    q: '8. Alex: Do you ________ going to the beach?',
+    correct: 'fancy',
+    acceptedAnswers: ['fancy'],
+  },
+  {
+    type: 'text',
+    q: '9. Jamie: That\'s a ________ idea.',
+    correct: 'good',
+    acceptedAnswers: ['good'],
+  },
+  {
+    type: 'text',
+    q: '10. Jamie: ________ ask Sam to come, too!',
+    correct: "Let's",
+    acceptedAnswers: ["Let's", 'Lets', "let's", 'lets'],
+  },
+];
