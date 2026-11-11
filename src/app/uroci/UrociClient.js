@@ -19,6 +19,7 @@ const SUBJECT_ORDER = [
   "literatura",
   "km",
   "filosofia",
+  "fizika",
 ];
 
 function orderedSubjects(subjects) {

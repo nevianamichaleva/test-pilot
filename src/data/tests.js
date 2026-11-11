@@ -12,6 +12,7 @@
  * - literatura-tests.js (Литература)
  * - matematika-tests.js (Математика)
  * - filosofia-tests.js (Философия)
+ * - fizika-tests.js (Физика)
  *
  * URL на тест: /test-pilot/клас/предмет/slug
  *
@@ -218,6 +219,8 @@ import {
   FILOSOFIA_8_KAKVO_NAUCHIH_DOSEGA_QUESTIONS,
   FILOSOFIA_8_FILOSOFIYATA_NAUKATA_I_RELIGIYATA_QUESTIONS,
 } from './filosofia-tests';
+
+import { FIZIKA_8_PARVI_PRINCIP_NA_MEHANIKATA_QUESTIONS } from './fizika-tests';
 
 const NVO_7_POINTS_BY_QNUM = {
   1: 1,
@@ -861,6 +864,14 @@ const TESTS = {
     slug: 'filosofiyata-naukata-i-religiyata',
     addedAt: '2026-11-05',
     questions: FILOSOFIA_8_FILOSOFIYATA_NAUKATA_I_RELIGIYATA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '8|fizika|parvi-princip-na-mehanikata': {
+    title: 'Физика – Първи принцип на механиката',
+    slug: 'parvi-princip-na-mehanikata',
+    addedAt: '2026-11-11',
+    questions: FIZIKA_8_PARVI_PRINCIP_NA_MEHANIKATA_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },

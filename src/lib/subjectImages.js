@@ -11,6 +11,7 @@ export const SUBJECT_THUMB_SRC = {
   priroda: "/images/nature.png",
   km: "/images/km/edinici-informaciya.png",
   filosofia: "/images/filosofia.svg",
+  fizika: "/images/fizika.svg",
 };
 
 const NVO_THUMB_SRC = "/images/nvo.png";

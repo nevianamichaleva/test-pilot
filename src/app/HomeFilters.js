@@ -82,6 +82,14 @@ const SUBJECTS = [
     accent: "#7c3aed",
     border: "#c4b5fd",
   },
+  {
+    key: "fizika",
+    label: "Физика",
+    icon: "⚛️",
+    tone: "#e8f4ff",
+    accent: "#0284c7",
+    border: "#7dd3fc",
+  },
 ];
 
 const CLASS_PILLS = [

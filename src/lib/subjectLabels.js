@@ -9,4 +9,5 @@ export const SUBJECT_LABELS = {
   priroda: "Човек и природа",
   km: "Компютърно моделиране",
   filosofia: "Философия",
+  fizika: "Физика",
 };
