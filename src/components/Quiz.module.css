@@ -114,6 +114,10 @@
   margin: 12px 0 0;
 }
 
+.introFigure {
+  margin: 0 0 14px;
+}
+
 .questionImage {
   display: block;
   max-width: 100%;

@@ -46,6 +46,26 @@ function getQuestionImageAlt(q) {
   return "";
 }
 
+/** Помощна картинка над въпроса (напр. лист с формули), отделно от илюстрацията `imageSrc`. */
+function getQuestionIntroImageSrc(q) {
+  const raw = q?.introImageSrc;
+  if (typeof raw !== "string") return "";
+  return raw.trim();
+}
+
+function getQuestionIntroImageAlt(q) {
+  const raw = q?.introImageAlt;
+  if (typeof raw === "string" && raw.trim()) return raw.trim();
+  return "";
+}
+
+/** Кратко решение, което се показва след заключване на отговора. */
+function getQuestionSolution(q) {
+  const raw = q?.solution;
+  if (typeof raw !== "string") return "";
+  return raw.trim();
+}
+
 function isOrderingQuestion(q) {
   return q?.type === "ordering" && Array.isArray(q.items) && q.items.filter(Boolean).length >= 2;
 }
@@ -1448,6 +1468,15 @@ export default function Quiz({
           </div>
 
           <div className={styles.cardBody}>
+            {getQuestionIntroImageSrc(current) ? (
+              <div className={styles.introFigure}>
+                <ZoomableImage
+                  src={getQuestionIntroImageSrc(current)}
+                  alt={getQuestionIntroImageAlt(current)}
+                  large
+                />
+              </div>
+            ) : null}
             {readingContext ? (
               <>
                 <div className={styles.readingContext}>{readingContext}</div>
@@ -1683,6 +1712,11 @@ export default function Quiz({
                       Верен отговор: <span style={{ fontWeight: 1000 }}>{current.correct}</span>
                     </div>
                   )}
+                {getQuestionSolution(current) ? (
+                  <div className={`${styles.feedbackHint} ${styles.feedbackExemplar}`}>
+                    Решение: <span>{getQuestionSolution(current)}</span>
+                  </div>
+                ) : null}
               </div>
             )}
 
