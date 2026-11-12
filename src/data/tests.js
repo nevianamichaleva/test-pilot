@@ -86,6 +86,7 @@ import {
 
 import {
   GEOGRAFIA_6_AMAZONIYA_I_ATAKAMA_QUESTIONS,
+  GEOGRAFIA_6_NASELENIE_POLITICHESKA_KARTA_YUZHNA_AMERIKA_QUESTIONS,
   GEOGRAFIA_6_PRIRODNI_ZONI_YUZHNA_AMERIKA_QUESTIONS,
   GEOGRAFIA_8_ATMOSFERA_SUSTAV_I_STROEZH_QUESTIONS,
   GEOGRAFIA_6_VHODNO_NIVO_QUESTIONS,
@@ -1412,6 +1413,14 @@ const TESTS = {
     slug: 'arabski-halifat',
     addedAt: '2026-11-11',
     questions: ISTORIA_6_ARABSKI_HALIFAT_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
+  '6|geografia|naselenie-politicheska-karta-yuzhna-amerika': {
+    title: 'География – Население и политическа карта на Южна Америка',
+    slug: 'naselenie-politicheska-karta-yuzhna-amerika',
+    addedAt: '2026-11-12',
+    questions: GEOGRAFIA_6_NASELENIE_POLITICHESKA_KARTA_YUZHNA_AMERIKA_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
