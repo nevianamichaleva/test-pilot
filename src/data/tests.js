@@ -207,6 +207,7 @@ import { KM_6_OPERACIONNA_SISTEMA_QUESTIONS } from './km-tests';
 
 import {
   LITERATURA_6_CHOVEKAT_I_PRIRODATA_QUESTIONS,
+  LITERATURA_6_TEST_CHOVEKAT_I_PRIRODATA_QUESTIONS,
   LITERATURA_DA_PROVERIM_VAR1_QUESTIONS,
   LITERATURA_DA_PROVERIM_VAR2_QUESTIONS,
   LITERATURA_FOLKLOR_KALENDAR_QUESTIONS,
@@ -1432,6 +1433,21 @@ const TESTS = {
     questions: PRIRODA_6_ZADACHI_SKOROST_PLATNOST_NALYAGANE_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
+  },
+  '6|literatura|test-chovekat-i-prirodata': {
+    title: 'Тест по литература – Човекът и природата',
+    slug: 'test-chovekat-i-prirodata',
+    addedAt: '2026-11-16',
+    questions: LITERATURA_6_TEST_CHOVEKAT_I_PRIRODATA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+    gradeScale: [
+      { min: 21, grade: 6, label: 'Отличен 6' },
+      { min: 15, grade: 5, label: 'Много добър 5' },
+      { min: 9, grade: 4, label: 'Добър 4' },
+      { min: 3, grade: 3, label: 'Среден 3' },
+      { min: 0, grade: 2, label: 'Слаб 2' },
+    ],
   },
 };
 
