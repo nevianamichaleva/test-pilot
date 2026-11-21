@@ -28,6 +28,7 @@ const SUBJECT_ORDER = [
   "km",
   "filosofia",
   "fizika",
+  "himiya",
 ];
 
 const SUBJECT_TONES = {
@@ -40,6 +41,7 @@ const SUBJECT_TONES = {
   literatura: { tone: "#fce7f3", accent: "#db2777" },
   filosofia: { tone: "#f5f0ff", accent: "#7c3aed" },
   fizika: { tone: "#e8f4ff", accent: "#0284c7" },
+  himiya: { tone: "#ecfdf5", accent: "#059669" },
 };
 
 const MATH_THUMB = "/images/igri/matematika-geometria-5.svg";

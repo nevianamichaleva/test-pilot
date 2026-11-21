@@ -12,6 +12,7 @@ export const SUBJECT_THUMB_SRC = {
   km: "/images/km/edinici-informaciya.png",
   filosofia: "/images/filosofia.svg",
   fizika: "/images/fizika.svg",
+  himiya: "/images/himiya.svg",
 };
 
 const NVO_THUMB_SRC = "/images/nvo.png";

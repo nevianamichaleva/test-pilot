@@ -13,6 +13,7 @@
  * - matematika-tests.js (Математика)
  * - filosofia-tests.js (Философия)
  * - fizika-tests.js (Физика)
+ * - himiya-tests.js (Химия)
  *
  * URL на тест: /test-pilot/клас/предмет/slug
  *
@@ -213,6 +214,7 @@ import {
   LITERATURA_6_TEST_CHOVEKAT_I_PRIRODATA_QUESTIONS,
   LITERATURA_8_ANTICHNOST_QUESTIONS,
   LITERATURA_8_ANTIGONA_QUESTIONS,
+  LITERATURA_8_ANTICHNOST_OBOBSHTITELEN_QUESTIONS,
   LITERATURA_DA_PROVERIM_VAR1_QUESTIONS,
   LITERATURA_DA_PROVERIM_VAR2_QUESTIONS,
   LITERATURA_FOLKLOR_KALENDAR_QUESTIONS,
@@ -229,6 +231,8 @@ import {
 } from './filosofia-tests';
 
 import { FIZIKA_8_PARVI_PRINCIP_NA_MEHANIKATA_QUESTIONS } from './fizika-tests';
+
+import { HIMIYA_8_HIMICHNA_VRAZKA_QUESTIONS } from './himiya-tests';
 
 const NVO_7_POINTS_BY_QNUM = {
   1: 1,
@@ -883,6 +887,14 @@ const TESTS = {
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
   },
+  '8|himiya|himichna-vrazka': {
+    title: 'Химия – Химична връзка',
+    slug: 'himichna-vrazka',
+    addedAt: '2026-11-21',
+    questions: HIMIYA_8_HIMICHNA_VRAZKA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+  },
 
   '6|bg|vhodno-ravnishte-var1': {
     title: 'БЕЛ – Входно равнище, вариант 1 (6. клас)',
@@ -1499,6 +1511,21 @@ const TESTS = {
       { min: 8, grade: 5, label: 'Много добър 5' },
       { min: 6, grade: 4, label: 'Добър 4' },
       { min: 4, grade: 3, label: 'Среден 3' },
+      { min: 0, grade: 2, label: 'Слаб 2' },
+    ],
+  },
+  '8|literatura|antichnost-obobshtitelen': {
+    title: 'Литература – Обобщителен тест (Античност)',
+    slug: 'antichnost-obobshtitelen',
+    addedAt: '2026-11-21',
+    questions: LITERATURA_8_ANTICHNOST_OBOBSHTITELEN_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+    gradeScale: [
+      { min: 14, grade: 6, label: 'Отличен 6' },
+      { min: 11, grade: 5, label: 'Много добър 5' },
+      { min: 8, grade: 4, label: 'Добър 4' },
+      { min: 5, grade: 3, label: 'Среден 3' },
       { min: 0, grade: 2, label: 'Слаб 2' },
     ],
   },

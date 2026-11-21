@@ -23,6 +23,7 @@ const SUBJECT_LABELS = {
   km: "Компютърно моделиране",
   filosofia: "Философия",
   fizika: "Физика",
+  himiya: "Химия",
 };
 
 function normalizeClassNum(classNum) {
@@ -64,6 +65,7 @@ function orderedSubjectsFromPool(pool) {
     "km",
     "filosofia",
     "fizika",
+    "himiya",
   ];
   return [
     ...preferred.filter((s) => unique.includes(s)),
@@ -102,6 +104,8 @@ function pickDescription(subject) {
       return "Подходи към човека, психика и ключови понятия от философията.";
     case "fizika":
       return "Механика, сили, инерция и основни физични принципи.";
+    case "himiya":
+      return "Строеж на веществото, химични връзки и формули.";
     default:
       return "Избери тест и започни да упражняваш знанията си.";
   }

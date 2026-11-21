@@ -24,6 +24,7 @@ const SUBJECT_LABELS = {
   km: "Компютърно моделиране",
   filosofia: "Философия",
   fizika: "Физика",
+  himiya: "Химия",
 };
 
 const SUBJECT_ORDER = [
@@ -36,6 +37,7 @@ const SUBJECT_ORDER = [
   "literatura",
   "filosofia",
   "fizika",
+  "himiya",
 ];
 const DATE_FILTERS = [
   { value: "7d", label: "Последните 7 дни" },

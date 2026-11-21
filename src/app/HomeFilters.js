@@ -90,6 +90,14 @@ const SUBJECTS = [
     accent: "#0284c7",
     border: "#7dd3fc",
   },
+  {
+    key: "himiya",
+    label: "Химия",
+    icon: "🧪",
+    tone: "#ecfdf5",
+    accent: "#059669",
+    border: "#6ee7b7",
+  },
 ];
 
 const CLASS_PILLS = [
