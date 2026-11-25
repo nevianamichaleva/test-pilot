@@ -9,6 +9,102 @@
 export const LESSONS = [
   {
     classNum: "6",
+    subject: "english",
+    slug: "stepenuvane-na-prilagatelni",
+    title: "Степенуване на прилагателните",
+    subtitle: "Сравнителна и превъзходна степен",
+    addedAt: "2026-11-25",
+    relatedTest: {
+      slug: "stepenuvane-na-prilagatelni",
+      label: "Реши упражненията по урока",
+    },
+    intro:
+      "С прилагателно сравняваме хора и неща. Тук са двете степени и как се образуват. Примерите са на английски.",
+    textbookPages: "3a",
+    quickQuestion: {
+      q: "Коя форма е превъзходна степен на big?",
+      options: ["bigger", "the biggest", "more big"],
+      correct: "the biggest",
+    },
+    sections: [
+      {
+        heading: "Двете степени",
+        body: [
+          "**Сравнителна степен** слагаме, когато сравняваме **две** неща или двама души. След нея стои **than**.",
+          "**Превъзходна степен** слагаме, когато нещо е първо в **група от три или повече**. Пред нея стои **the**.",
+        ],
+        cards: [
+          {
+            title: "Две неща",
+            body: "**The bedroom is bigger than the kitchen.** Спалнята е по-голяма от кухнята.",
+          },
+          {
+            title: "Цялата група",
+            body: "**The living room is the biggest room in the house.** Холът е най-голямата стая.",
+          },
+        ],
+        tip: "than = отколкото. the стои само пред превъзходната степен.",
+      },
+      {
+        heading: "Кратки прилагателни",
+        body: [
+          "Кратко е прилагателно от един или два слога. Сравнителната степен е с **-er**, превъзходната с **-est**.",
+        ],
+        bullets: [
+          "**old – older – the oldest**: Our house is **older** than my friend's house.",
+          "**cold – colder – the coldest**: The kitchen is **colder** than the bathroom.",
+          "Ако завършва на **-e**, добавяме само **-r** и **-st**: **nice – nicer – the nicest**.",
+          "Ако завършва на една гласна и една съгласна, съгласната се удвоява: **big – bigger – the biggest**.",
+          "Ако завършва на **-y**, **-y** става **-i**: **easy – easier – the easiest**, **tasty – tastier – the tastiest**.",
+        ],
+      },
+      {
+        heading: "Дълги прилагателни",
+        body: [
+          "Дълго е прилагателно с три и повече слога. Не слагаме **-er** и **-est**.",
+          "Пред него слагаме **more** за сравнителна степен и **the most** за превъзходна.",
+        ],
+        bullets: [
+          "**exciting – more exciting – the most exciting**",
+          "**comfortable – more comfortable – the most comfortable**",
+          "**expensive – more expensive – the most expensive**",
+          "The armchair is **more comfortable** than the sofa.",
+          "The computer is **the most useful** thing in my room.",
+        ],
+        tip: "Не казваме more bigger и more cheaper. Кратките прилагателни вече имат -er.",
+      },
+      {
+        heading: "Неправилни форми",
+        body: [
+          "Няколко прилагателни не следват правилото. Те се учат наизуст.",
+        ],
+        cards: [
+          { title: "good", body: "**better – the best**" },
+          { title: "bad", body: "**worse – the worst**" },
+          { title: "far", body: "**further – the furthest**" },
+        ],
+        bullets: [
+          "The computer is **better** than the DVD player.",
+          "The CD player is **worse** than the DVD player.",
+          "The computer is **the best** thing in my bedroom.",
+          "The balcony is **the best** thing about the house.",
+        ],
+      },
+      {
+        heading: "Най-важното за запомняне",
+        body: [],
+        bullets: [
+          "Две неща: **-er / more** + **than**",
+          "Група: **the** + **-est / the most**",
+          "Кратко: **colder, bigger, easier**",
+          "Дълго: **more comfortable, the most expensive**",
+          "Наизуст: **good – better – the best**, **bad – worse – the worst**, **far – further – the furthest**",
+        ],
+      },
+    ],
+  },
+  {
+    classNum: "6",
     subject: "bg",
     slug: "pokazatelno-mestoimenie",
     title: "Показателно местоимение",
