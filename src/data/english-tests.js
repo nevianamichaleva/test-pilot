@@ -5863,3 +5863,358 @@ export const ENGLISH_6_UNIT_3B_LUGGAGE_PRACTICE_QUESTIONS = [
     correct: 'C) uncountable',
   },
 ];
+
+/**
+ * 6. клас – упражнения към урока за степенуване на прилагателните.
+ * Верните форми са по правилото, не по грешно попълнените редове в тетрадката.
+ */
+export const ENGLISH_6_STEPENUVANE_QUESTIONS = [
+  {
+    type: 'text',
+    sectionIntro:
+      '1 Label the parts of the house. The numbers match the picture in the book.',
+    readingContextEndQIndex: 8,
+    q: '1. The covering on top of the house.',
+    correct: 'roof',
+    acceptedAnswers: ['roof', 'the roof'],
+  },
+  {
+    type: 'text',
+    q: '2. The pipe on the roof.',
+    correct: 'chimney',
+    acceptedAnswers: ['chimney', 'the chimney'],
+  },
+  {
+    type: 'text',
+    q: '3. The room at the top where someone works.',
+    correct: 'study',
+    acceptedAnswers: ['study', 'the study'],
+  },
+  {
+    type: 'text',
+    q: '4. The place with a railing outside an upstairs room.',
+    correct: 'balcony',
+    acceptedAnswers: ['balcony', 'the balcony'],
+  },
+  {
+    type: 'text',
+    q: '5. The space upstairs, next to the top of the stairs.',
+    correct: 'landing',
+    acceptedAnswers: ['landing', 'the landing'],
+  },
+  {
+    type: 'text',
+    q: '6. The long wooden barrier in the garden.',
+    correct: 'fence',
+    acceptedAnswers: ['fence', 'the fence'],
+  },
+  {
+    type: 'text',
+    q: '7. The steps between the floors.',
+    correct: 'stairs',
+    acceptedAnswers: ['stairs', 'the stairs'],
+  },
+  {
+    type: 'text',
+    q: '8. The small door in the fence.',
+    correct: 'gate',
+    acceptedAnswers: ['gate', 'the gate'],
+  },
+  {
+    type: 'text',
+    q: '9. The room under the house.',
+    correct: 'basement',
+    acceptedAnswers: ['basement', 'the basement'],
+  },
+  {
+    type: 'text',
+    sectionIntro: '2 Complete the words. One letter in each space.',
+    readingContextEndQIndex: 18,
+    q: '10. It is a room where someone works. s _ _ _ y',
+    correct: 'study',
+    acceptedAnswers: ['study'],
+  },
+  {
+    type: 'text',
+    q: '11. It is the room at the top of a house. l _ _ t',
+    correct: 'loft',
+    acceptedAnswers: ['loft'],
+  },
+  {
+    type: 'text',
+    q: '12. It keeps food cold. f r _ _ g e',
+    correct: 'fridge',
+    acceptedAnswers: ['fridge'],
+  },
+  {
+    type: 'text',
+    q: '13. You can look at yourself in this. m _ _ _ _ r',
+    correct: 'mirror',
+    acceptedAnswers: ['mirror'],
+  },
+  {
+    type: 'text',
+    q: '14. You put your clothes in this. w _ _ _ _ _ _ e',
+    correct: 'wardrobe',
+    acceptedAnswers: ['wardrobe'],
+  },
+  {
+    type: 'text',
+    q: '15. Two or three people can sit on it. s _ _ a',
+    correct: 'sofa',
+    acceptedAnswers: ['sofa'],
+  },
+  {
+    type: 'text',
+    q: '16. Bedrooms are often here. u _ _ _ _ _ _ s',
+    correct: 'upstairs',
+    acceptedAnswers: ['upstairs'],
+  },
+  {
+    type: 'text',
+    q: '17. You close these in the evening and open them in the morning. c _ _ _ _ _ _ s',
+    correct: 'curtains',
+    acceptedAnswers: ['curtains'],
+  },
+  {
+    type: 'text',
+    q: '18. In some rooms, people have this on the floor. c _ _ _ _ t',
+    correct: 'carpet',
+    acceptedAnswers: ['carpet'],
+  },
+  {
+    type: 'text',
+    q: '19. A room has four walls, a floor and this. c _ _ _ _ _ g',
+    correct: 'ceiling',
+    acceptedAnswers: ['ceiling'],
+  },
+  {
+    type: 'text',
+    sectionIntro: '3 Complete with the correct form of the adjective in brackets.',
+    readingContextEndQIndex: 28,
+    q: "20. Our house is ______ (old) than most of my friends' houses.",
+    correct: 'older',
+    acceptedAnswers: ['older'],
+  },
+  {
+    type: 'text',
+    q: '21. … but it is ______ (big) too.',
+    correct: 'bigger',
+    acceptedAnswers: ['bigger'],
+  },
+  {
+    type: 'text',
+    q: '22. The ______ (good) thing about it is my balcony.',
+    correct: 'best',
+    acceptedAnswers: ['best'],
+  },
+  {
+    type: 'text',
+    q: '23. My bedroom is the ______ (small) bedroom in the house.',
+    correct: 'smallest',
+    acceptedAnswers: ['smallest'],
+  },
+  {
+    type: 'text',
+    q: '24. The basement is ______ (good) than the loft.',
+    correct: 'better',
+    acceptedAnswers: ['better'],
+  },
+  {
+    type: 'text',
+    q: '25. … because it is ______ (clean).',
+    correct: 'cleaner',
+    acceptedAnswers: ['cleaner'],
+  },
+  {
+    type: 'text',
+    q: '26. … and it is ______ (easy) to get to.',
+    correct: 'easier',
+    acceptedAnswers: ['easier'],
+  },
+  {
+    type: 'text',
+    q: '27. The ______ (bad) thing about the house is that it is cold in the winter.',
+    correct: 'worst',
+    acceptedAnswers: ['worst'],
+  },
+  {
+    type: 'text',
+    q: '28. The ______ (cold) room is my bedroom.',
+    correct: 'coldest',
+    acceptedAnswers: ['coldest'],
+  },
+  {
+    type: 'text',
+    q: '29. I do my homework in the kitchen because it is ______ (warm) than my bedroom.',
+    correct: 'warmer',
+    acceptedAnswers: ['warmer'],
+  },
+  {
+    type: 'text',
+    sectionIntro: '4 Use the prompts to write sentences.',
+    readingContextEndQIndex: 36,
+    q: '30. My bedroom / big / bedroom in the house',
+    correct: 'My bedroom is the biggest bedroom in the house.',
+    acceptedAnswers: [
+      'My bedroom is the biggest bedroom in the house.',
+      'My bedroom is the biggest bedroom in the house',
+    ],
+  },
+  {
+    type: 'text',
+    q: "31. It / big / my parents' room",
+    correct: "It's bigger than my parents' room.",
+    acceptedAnswers: [
+      "It's bigger than my parents' room.",
+      "It's bigger than my parents' room",
+      "It is bigger than my parents' room.",
+      "It is bigger than my parents' room",
+      "It's bigger than my parents room.",
+      "It is bigger than my parents room.",
+    ],
+  },
+  {
+    type: 'text',
+    q: '32. The armchair / comfortable / chair in the living room',
+    correct: 'The armchair is the most comfortable chair in the living room.',
+    acceptedAnswers: [
+      'The armchair is the most comfortable chair in the living room.',
+      'The armchair is the most comfortable chair in the living room',
+    ],
+  },
+  {
+    type: 'text',
+    q: '33. It / comfortable / the sofa',
+    correct: "It's more comfortable than the sofa.",
+    acceptedAnswers: [
+      "It's more comfortable than the sofa.",
+      "It's more comfortable than the sofa",
+      'It is more comfortable than the sofa.',
+      'It is more comfortable than the sofa',
+    ],
+  },
+  {
+    type: 'text',
+    q: '34. The loft / dark / the basement',
+    correct: 'The loft is darker than the basement.',
+    acceptedAnswers: [
+      'The loft is darker than the basement.',
+      'The loft is darker than the basement',
+    ],
+  },
+  {
+    type: 'text',
+    q: '35. The basement / cold / the loft',
+    correct: 'The basement is colder than the loft.',
+    acceptedAnswers: [
+      'The basement is colder than the loft.',
+      'The basement is colder than the loft',
+    ],
+  },
+  {
+    type: 'text',
+    q: '36. The washing machine / useful / the dishwasher',
+    correct: 'The washing machine is more useful than the dishwasher.',
+    acceptedAnswers: [
+      'The washing machine is more useful than the dishwasher.',
+      'The washing machine is more useful than the dishwasher',
+    ],
+  },
+  {
+    type: 'text',
+    q: "37. The / useful thing I've got is my computer",
+    correct: "The most useful thing I've got is my computer.",
+    acceptedAnswers: [
+      "The most useful thing I've got is my computer.",
+      "The most useful thing I've got is my computer",
+      'The most useful thing I have got is my computer.',
+      'The most useful thing I have got is my computer',
+      'The most useful thing I have is my computer.',
+      'The most useful thing I have is my computer',
+    ],
+  },
+  {
+    type: 'text',
+    sectionIntro: `5 Write sentences. Living room 25 m², bedroom 20 m², kitchen 15 m². Fridge £250, cooker £420, dishwasher £370. DVD player – good, computer – great, CD player – not good.`,
+    readingContextEndQIndex: 45,
+    q: '38. The living room / room in the house',
+    correct: 'The living room is the biggest room in the house.',
+    acceptedAnswers: [
+      'The living room is the biggest room in the house.',
+      'The living room is the biggest room in the house',
+    ],
+  },
+  {
+    type: 'text',
+    q: '39. The bedroom / the kitchen',
+    correct: 'The bedroom is bigger than the kitchen.',
+    acceptedAnswers: [
+      'The bedroom is bigger than the kitchen.',
+      'The bedroom is bigger than the kitchen',
+    ],
+  },
+  {
+    type: 'text',
+    q: '40. The kitchen / the bedroom',
+    correct: 'The kitchen is smaller than the bedroom.',
+    acceptedAnswers: [
+      'The kitchen is smaller than the bedroom.',
+      'The kitchen is smaller than the bedroom',
+    ],
+  },
+  {
+    type: 'text',
+    q: '41. The cooker / the dishwasher',
+    correct: 'The cooker is more expensive than the dishwasher.',
+    acceptedAnswers: [
+      'The cooker is more expensive than the dishwasher.',
+      'The cooker is more expensive than the dishwasher',
+    ],
+  },
+  {
+    type: 'text',
+    q: '42. The cooker / fitting in the house',
+    correct: 'The cooker is the most expensive fitting in the house.',
+    acceptedAnswers: [
+      'The cooker is the most expensive fitting in the house.',
+      'The cooker is the most expensive fitting in the house',
+    ],
+  },
+  {
+    type: 'text',
+    q: '43. The fridge / the dishwasher',
+    correct: 'The fridge is cheaper than the dishwasher.',
+    acceptedAnswers: [
+      'The fridge is cheaper than the dishwasher.',
+      'The fridge is cheaper than the dishwasher',
+    ],
+  },
+  {
+    type: 'text',
+    q: '44. The computer / the DVD player',
+    correct: 'The computer is better than the DVD player.',
+    acceptedAnswers: [
+      'The computer is better than the DVD player.',
+      'The computer is better than the DVD player',
+    ],
+  },
+  {
+    type: 'text',
+    q: '45. The CD player / the DVD player',
+    correct: 'The CD player is worse than the DVD player.',
+    acceptedAnswers: [
+      'The CD player is worse than the DVD player.',
+      'The CD player is worse than the DVD player',
+    ],
+  },
+  {
+    type: 'text',
+    q: '46. The computer / thing in my bedroom',
+    correct: 'The computer is the best thing in my bedroom.',
+    acceptedAnswers: [
+      'The computer is the best thing in my bedroom.',
+      'The computer is the best thing in my bedroom',
+    ],
+  },
+];
