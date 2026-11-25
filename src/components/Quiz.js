@@ -222,8 +222,75 @@ function isTextAnswerCorrect(q, answer) {
   return candidates.some((c) => user === c || user.includes(c));
 }
 
+function splitOptionLabel(opt) {
+  const s = String(opt ?? "").trim();
+  const m = s.match(/^([А-Га-гA-Da-d])\)\s*(.*)$/);
+  if (!m) return { letter: null, body: s };
+  return { letter: m[1], body: m[2].trim() };
+}
+
+function optionBody(opt) {
+  return normalizeText(splitOptionLabel(opt).body);
+}
+
+function optionLettersFor(options) {
+  const letters = options.map((opt) => splitOptionLabel(opt).letter).filter(Boolean);
+  if (letters.length < 2) return null;
+  const cyrillic = letters.filter((letter) => /[А-Га-г]/.test(letter)).length;
+  const useCyrillic = cyrillic >= letters.length / 2;
+  const upper =
+    letters.filter((letter) => letter !== letter.toLowerCase()).length > letters.length / 2;
+  const base = useCyrillic
+    ? ["а", "б", "в", "г", "д", "е", "ж", "з"]
+    : ["a", "b", "c", "d", "e", "f", "g", "h"];
+  return base.map((letter) => (upper ? letter.toUpperCase() : letter));
+}
+
+/** При повторение верният текст получава друга буква, за да не се запомня мястото. */
+function optionsForRetry(options, correct, seed) {
+  if (!Array.isArray(options) || options.length < 2) return options;
+  const correctBody = optionBody(correct);
+  const oldLetter = splitOptionLabel(
+    options.find((opt) => optionBody(opt) === correctBody) ?? ""
+  ).letter;
+  let order = shuffleArray(
+    options.map((_, index) => index),
+    seed >>> 0
+  );
+  const letters = optionLettersFor(options);
+  const build = (idxOrder) => {
+    const reordered = idxOrder.map((index) => options[index]);
+    if (!letters) return reordered;
+    return reordered.map((opt, index) => `${letters[index]}) ${splitOptionLabel(opt).body}`);
+  };
+  let next = build(order);
+  const letterOfCorrect = (list) =>
+    splitOptionLabel(list.find((opt) => optionBody(opt) === correctBody) ?? "").letter;
+  if (
+    oldLetter &&
+    letterOfCorrect(next) &&
+    oldLetter.toLowerCase() === letterOfCorrect(next).toLowerCase()
+  ) {
+    const correctPos = next.findIndex((opt) => optionBody(opt) === correctBody);
+    const swapPos = (correctPos + 1 + ((seed >>> 0) % (next.length - 1))) % next.length;
+    const swapped = [...order];
+    [swapped[correctPos], swapped[swapPos]] = [swapped[swapPos], swapped[correctPos]];
+    next = build(swapped);
+  }
+  if (!letters) {
+    const oldIndex = options.findIndex((opt) => optionBody(opt) === correctBody);
+    if (oldIndex >= 0 && next.findIndex((opt) => optionBody(opt) === correctBody) === oldIndex) {
+      next = [...next.slice(1), next[0]];
+    }
+  }
+  return next;
+}
+
 function isMcAnswerCorrect(q, answer) {
   if (typeof q.correct !== "string") return false;
+  const answerBody = optionBody(answer);
+  const correctBody = optionBody(q.correct);
+  if (answerBody && correctBody) return answerBody === correctBody;
   return normalizeText(answer) === normalizeText(q.correct);
 }
 
@@ -1420,8 +1487,19 @@ export default function Quiz({
   }
 
   const selected = currentStep ? stepAnswers.get(currentStep.key) : undefined;
-  const mcOptions =
+  const baseMcOptions =
     shuffledOptionsByIndex.get(qIndex) ?? (current ? getMcOptionsRaw(current) : []);
+  const mcOptions =
+    currentStep?.isRetry && baseMcOptions.length >= 2
+      ? optionsForRetry(
+          baseMcOptions,
+          current?.correct,
+          hashStringToSeed(`${testId}|${quizSession}|${qIndex}|retry-options`)
+        )
+      : baseMcOptions;
+  const displayedCorrect =
+    mcOptions.find((opt) => isMcAnswerCorrect(current, normalizeOption(opt))) ??
+    (typeof current?.correct === "string" ? current.correct : "");
   const readingContext =
     current && typeof currentStep?.qIndex === "number"
       ? getReadingContextForQuestion(qs, currentStep.qIndex)
@@ -1709,7 +1787,7 @@ export default function Quiz({
                   typeof current?.correct === "string" &&
                   current.correct.trim() && (
                     <div className={styles.feedbackHint}>
-                      Верен отговор: <span style={{ fontWeight: 1000 }}>{current.correct}</span>
+                      Верен отговор: <span style={{ fontWeight: 1000 }}>{displayedCorrect || current.correct}</span>
                     </div>
                   )}
                 {getQuestionSolution(current) ? (
