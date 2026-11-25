@@ -214,6 +214,7 @@ import {
   LITERATURA_6_TEST_CHOVEKAT_I_PRIRODATA_QUESTIONS,
   LITERATURA_6_HUBAVA_SI_MOYA_GORO_QUESTIONS,
   LITERATURA_6_OTECHESTVO_LYUBEZNO_QUESTIONS,
+  LITERATURA_6_BACHVA_SAS_ZNANIA_QUESTIONS,
   LITERATURA_8_ANTICHNOST_QUESTIONS,
   LITERATURA_8_ANTIGONA_QUESTIONS,
   LITERATURA_8_ANTICHNOST_OBOBSHTITELEN_QUESTIONS,
@@ -1561,6 +1562,21 @@ const TESTS = {
     questions: LITERATURA_6_OTECHESTVO_LYUBEZNO_QUESTIONS,
     preserveQuestionOrder: true,
     preserveOptionOrder: true,
+  },
+  '6|literatura|bachva-sas-znania': {
+    title: 'Тест по литература – „Бъчва със знания“',
+    slug: 'bachva-sas-znania',
+    addedAt: '2026-11-25',
+    questions: LITERATURA_6_BACHVA_SAS_ZNANIA_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
+    gradeScale: [
+      { min: 21, grade: 6, label: 'Отличен 6' },
+      { min: 15, grade: 5, label: 'Много добър 5' },
+      { min: 9, grade: 4, label: 'Добър 4' },
+      { min: 3, grade: 3, label: 'Среден 3' },
+      { min: 0, grade: 2, label: 'Слаб 2' },
+    ],
   },
 };
 
