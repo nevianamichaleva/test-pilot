@@ -212,6 +212,7 @@ import { KM_6_OPERACIONNA_SISTEMA_QUESTIONS } from './km-tests';
 import {
   LITERATURA_6_CHOVEKAT_I_PRIRODATA_QUESTIONS,
   LITERATURA_6_TEST_CHOVEKAT_I_PRIRODATA_QUESTIONS,
+  LITERATURA_6_HUBAVA_SI_MOYA_GORO_QUESTIONS,
   LITERATURA_8_ANTICHNOST_QUESTIONS,
   LITERATURA_8_ANTIGONA_QUESTIONS,
   LITERATURA_8_ANTICHNOST_OBOBSHTITELEN_QUESTIONS,
@@ -1543,6 +1544,14 @@ const TESTS = {
       { min: 8, grade: 3, label: 'Среден 3' },
       { min: 0, grade: 2, label: 'Слаб 2' },
     ],
+  },
+  '6|literatura|hubava-si-moya-goro': {
+    title: 'Тест по стихотворението „Хубава си, моя горо“',
+    slug: 'hubava-si-moya-goro',
+    addedAt: '2026-11-25',
+    questions: LITERATURA_6_HUBAVA_SI_MOYA_GORO_QUESTIONS,
+    preserveQuestionOrder: true,
+    preserveOptionOrder: true,
   },
 };
 
